@@ -6,4 +6,5 @@
     <version>1.0</version>
   </parent>
   <artifactId>viagging-core-common</artifactId>
+  <packaging>jar</packaging>
 </project>

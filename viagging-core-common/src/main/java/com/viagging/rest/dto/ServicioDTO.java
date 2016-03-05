@@ -1,7 +1,9 @@
 package com.viagging.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ServicioDTO {
 
 	private Integer id;

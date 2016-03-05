@@ -1,13 +1,20 @@
 package com.viagging.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UsuarioDTO {
 	
 	private Integer id;
-
+    
 	private String correo;
-
+	
+	@JsonInclude(Include.NON_NULL)
 	private Integer numeroCelular;
-
+	
+	@JsonInclude(Include.NON_NULL)
 	private Integer numeroDocumento;
 
 	private String primerApellido;

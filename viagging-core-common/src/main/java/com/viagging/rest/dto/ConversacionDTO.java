@@ -2,7 +2,9 @@ package com.viagging.rest.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ConversacionDTO {
 	
 	private Integer id;
