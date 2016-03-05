@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.dao.ModuloDAO;
 import com.viagging.core.model.Modulo;
@@ -13,6 +14,7 @@ import com.viagging.core.model.Modulo;
 /**
  * The Class ModuloDAOImpl.
  */
+@Transactional
 @Repository
 public class ModuloDAOImpl implements ModuloDAO {
 
