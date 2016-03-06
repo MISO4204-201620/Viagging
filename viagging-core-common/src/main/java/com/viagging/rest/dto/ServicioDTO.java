@@ -2,7 +2,6 @@ package com.viagging.rest.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ServicioDTO {
 
@@ -10,9 +9,13 @@ public class ServicioDTO {
 	
 	private Boolean activo;
 
-	private Boolean datosServicio;
-
 	private String nombre;
+	
+	private String descripcion;
+	
+	private String categoria;
+	
+	private String ciudad;
 
 	public Integer getId() {
 		return id;
@@ -30,20 +33,36 @@ public class ServicioDTO {
 		this.activo = activo;
 	}
 
-	public Boolean getDatosServicio() {
-		return datosServicio;
-	}
-
-	public void setDatosServicio(Boolean datosServicio) {
-		this.datosServicio = datosServicio;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 
 }

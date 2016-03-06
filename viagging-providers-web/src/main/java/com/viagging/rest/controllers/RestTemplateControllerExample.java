@@ -27,7 +27,7 @@ public class RestTemplateControllerExample {
 	private ModuloService moduloService;
 	
 	  //JSON SAVES a post
-	  @RequestMapping(value = "/savePost", method = RequestMethod.POST)
+	  @RequestMapping(value = "/savePost1", method = RequestMethod.POST)
 	  @ResponseStatus(value = HttpStatus.OK)
 	  public UsuarioDTO savePost(@RequestBody PostJSON postJSON) {
           
