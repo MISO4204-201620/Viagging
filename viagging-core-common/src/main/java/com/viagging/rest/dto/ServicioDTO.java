@@ -1,6 +1,10 @@
 package com.viagging.rest.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.viagging.core.model.Servicio;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -45,5 +49,16 @@ public class ServicioDTO {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	public List<ServicioDTO> buildListObject( List<Servicio> listServicio){
+		 List<ServicioDTO> listServicioDTO = new ArrayList<>();
+		
+		return listServicioDTO;
+	}
 
+	public ServicioDTO buildObject( Servicio servicio){
+		 ServicioDTO servicioDTO = new ServicioDTO();
+		
+		return servicioDTO;
+	}
 }
