@@ -1,5 +1,7 @@
 package com.viagging.rest.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -10,6 +12,8 @@ public class PaqueteDTO {
 	private Boolean activo;
 	
 	private String nombrePaquete;
+	
+	private List<String>listaIdServicios;
 	
 	public Integer getId() {
 		return id;
@@ -35,5 +39,12 @@ public class PaqueteDTO {
 		this.nombrePaquete = nombrePaquete;
 	}
 
+	public List<String> getListaIdServicios() {
+		return listaIdServicios;
+	}
+
+	public void setListaIdServicios(List<String> listaIdServicios) {
+		this.listaIdServicios = listaIdServicios;
+	}
 
 }

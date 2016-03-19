@@ -1,7 +1,9 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -11,19 +13,26 @@ import java.util.List;
  */
 @Entity
 @Table(name="tp_servicio")
-@NamedQuery(name="Servicio.findAll", query="SELECT t FROM Servicio t")
+@NamedQueries({ @NamedQuery (name="Servicio.findAllTransporte", query="SELECT t FROM Servicio t where t.transporte != null"),
+	            @NamedQuery (name="Servicio.findAllAlojamiento", query="SELECT t FROM Servicio t where t.alojamiento != null"),
+	            @NamedQuery (name="Servicio.findAllAlimentacion", query="SELECT t FROM Servicio t where t.alimentacion != null"),
+	            @NamedQuery (name="Servicio.findAllPaseoEcologico", query="SELECT t FROM Servicio t where t.paseoEcologico != null"),
+	            @NamedQuery (name="Servicio.findAll", query="SELECT t FROM Servicio t")
+})
 public class Servicio implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
 	private Boolean activo;
 
-	private Boolean datosServicio;
-
 	private String nombre;
+	
+	private String descripcion;
+
+	private Integer precio;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -89,20 +98,28 @@ public class Servicio implements Serializable {
 		this.activo = activo;
 	}
 
-	public Boolean getDatosServicio() {
-		return this.datosServicio;
-	}
-
-	public void setDatosServicio(Boolean datosServicio) {
-		this.datosServicio = datosServicio;
-	}
-
 	public String getNombre() {
 		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public Integer getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Integer precio) {
+		this.precio = precio;
 	}
 
 	public Usuario getUsuario() {

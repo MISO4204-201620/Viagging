@@ -1,7 +1,9 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -19,13 +21,19 @@ public class Alimentacion implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
-	private String almuerzo;
+	private String caracteristicas;
 
-	private String cena;
+	private String ciudad;
 
-	private String desayuno;
+	private String horarioapertura;
 
-	private Integer precio;
+	private byte[] imagenprincipal;
+
+	private Integer preciomayor;
+
+	private Integer preciomenor;
+
+	private String restricciones;
 
 	//bi-directional many-to-one association to Servicio
 	@OneToMany(mappedBy="alimentacion")
@@ -42,38 +50,62 @@ public class Alimentacion implements Serializable {
 		this.id = id;
 	}
 
-	public String getAlmuerzo() {
-		return this.almuerzo;
+	public String getCaracteristicas() {
+		return caracteristicas;
 	}
 
-	public void setAlmuerzo(String almuerzo) {
-		this.almuerzo = almuerzo;
+	public void setCaracteristicas(String caracteristicas) {
+		this.caracteristicas = caracteristicas;
 	}
 
-	public String getCena() {
-		return this.cena;
+	public String getCiudad() {
+		return ciudad;
 	}
 
-	public void setCena(String cena) {
-		this.cena = cena;
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 
-	public String getDesayuno() {
-		return this.desayuno;
+	public String getHorarioapertura() {
+		return horarioapertura;
 	}
 
-	public void setDesayuno(String desayuno) {
-		this.desayuno = desayuno;
+	public void setHorarioapertura(String horarioapertura) {
+		this.horarioapertura = horarioapertura;
 	}
 
-	public Integer getPrecio() {
-		return this.precio;
+	public byte[] getImagenprincipal() {
+		return imagenprincipal;
 	}
 
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
+	public void setImagenprincipal(byte[] imagenprincipal) {
+		this.imagenprincipal = imagenprincipal;
 	}
 
+	public Integer getPreciomayor() {
+		return preciomayor;
+	}
+
+	public void setPreciomayor(Integer preciomayor) {
+		this.preciomayor = preciomayor;
+	}
+
+	public Integer getPreciomenor() {
+		return preciomenor;
+	}
+
+	public void setPreciomenor(Integer preciomenor) {
+		this.preciomenor = preciomenor;
+	}
+
+	public String getRestricciones() {
+		return restricciones;
+	}
+
+	public void setRestricciones(String restricciones) {
+		this.restricciones = restricciones;
+	}
+	
 	public List<Servicio> getServicios() {
 		return this.servicios;
 	}

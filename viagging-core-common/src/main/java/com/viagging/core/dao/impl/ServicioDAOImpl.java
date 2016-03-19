@@ -8,7 +8,7 @@ import com.viagging.core.dao.ServicioDAO;
 import com.viagging.core.model.Servicio;
 
 /**
- * The Class ModuloDAOImpl.
+ * The Class ServicioDAOImpl.
  */
 @Repository
 public class ServicioDAOImpl implements ServicioDAO {
@@ -29,8 +29,31 @@ public class ServicioDAOImpl implements ServicioDAO {
 	public List<Servicio> getAllServicios() {
 		return (List<Servicio>) entityManager.createNamedQuery("Servicio.findAll").getResultList();
 	}
-
-
+    
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Servicio> getAllServiciosTransporte(){
+		return (List<Servicio>) entityManager.createNamedQuery("Servicio.findAllTransporte").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Servicio> getAllServiciosAlojamiento(){
+		return (List<Servicio>) entityManager.createNamedQuery("Servicio.findAllAlojamiento").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Servicio> getAllServiciosAlimentacion(){
+		return (List<Servicio>) entityManager.createNamedQuery("Servicio.findAllAlimentacion").getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Servicio> getAllServiciosPaseoEcologico(){
+		return (List<Servicio>) entityManager.createNamedQuery("Servicio.findAllPaseoEcologico").getResultList();
+	}
+	
 	@Override
 	public Servicio createServicio(Servicio servicio){
 		entityManager.persist(servicio);

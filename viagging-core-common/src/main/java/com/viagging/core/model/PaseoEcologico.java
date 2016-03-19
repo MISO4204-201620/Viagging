@@ -20,16 +20,20 @@ public class PaseoEcologico implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
-	private String descripcion;
+	private String caracteristicas;
+
+	private String ciudad;
 
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
-	private String lugar;
+	private String horario;
 
-	private String nombre;
+	private byte[] imagenprincipal;
 
-	private Integer precio;
+	private String restricciones;
+
+	private String tiempoderecorrido;
 
 	//bi-directional many-to-one association to Servicio
 	@OneToMany(mappedBy="paseoEcologico")
@@ -46,14 +50,6 @@ public class PaseoEcologico implements Serializable {
 		this.id = id;
 	}
 
-	public String getDescripcion() {
-		return this.descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
 	public Date getFecha() {
 		return this.fecha;
 	}
@@ -61,29 +57,53 @@ public class PaseoEcologico implements Serializable {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-
-	public String getLugar() {
-		return this.lugar;
+	
+	public String getCaracteristicas() {
+		return caracteristicas;
 	}
 
-	public void setLugar(String lugar) {
-		this.lugar = lugar;
+	public void setCaracteristicas(String caracteristicas) {
+		this.caracteristicas = caracteristicas;
 	}
 
-	public String getNombre() {
-		return this.nombre;
+	public String getCiudad() {
+		return ciudad;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 
-	public Integer getPrecio() {
-		return this.precio;
+	public String getHorario() {
+		return horario;
 	}
 
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
+	public void setHorario(String horario) {
+		this.horario = horario;
+	}
+
+	public byte[] getImagenprincipal() {
+		return imagenprincipal;
+	}
+
+	public void setImagenprincipal(byte[] imagenprincipal) {
+		this.imagenprincipal = imagenprincipal;
+	}
+
+	public String getRestricciones() {
+		return restricciones;
+	}
+
+	public void setRestricciones(String restricciones) {
+		this.restricciones = restricciones;
+	}
+
+	public String getTiempoderecorrido() {
+		return tiempoderecorrido;
+	}
+
+	public void setTiempoderecorrido(String tiempoderecorrido) {
+		this.tiempoderecorrido = tiempoderecorrido;
 	}
 
 	public List<Servicio> getServicios() {

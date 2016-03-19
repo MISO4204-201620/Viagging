@@ -1,7 +1,9 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -19,13 +21,15 @@ public class Alojamiento implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
-	private String numeroHabitaciones;
+	private String caracteristicas;
 
-	private String numeroMayores;
+	private String ciudad;
 
-	private String numeroMenores;
+	private byte[] imagenprincipal;
 
-	private Integer precio;
+	private String restricciones;
+
+	private Integer valorpornoche;
 
 	//bi-directional many-to-one association to Servicio
 	@OneToMany(mappedBy="alojamiento")
@@ -41,39 +45,47 @@ public class Alojamiento implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getNumeroHabitaciones() {
-		return this.numeroHabitaciones;
+    
+	public String getCaracteristicas() {
+		return caracteristicas;
 	}
 
-	public void setNumeroHabitaciones(String numeroHabitaciones) {
-		this.numeroHabitaciones = numeroHabitaciones;
+	public void setCaracteristicas(String caracteristicas) {
+		this.caracteristicas = caracteristicas;
 	}
 
-	public String getNumeroMayores() {
-		return this.numeroMayores;
+	public String getCiudad() {
+		return ciudad;
 	}
 
-	public void setNumeromayores(String numeroMayores) {
-		this.numeroMayores = numeroMayores;
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 
-	public String getNumeromenores() {
-		return this.numeroMenores;
+	public byte[] getImagenprincipal() {
+		return imagenprincipal;
 	}
 
-	public void setNumeromenores(String numeroMenores) {
-		this.numeroMenores = numeroMenores;
+	public void setImagenprincipal(byte[] imagenprincipal) {
+		this.imagenprincipal = imagenprincipal;
 	}
 
-	public Integer getPrecio() {
-		return this.precio;
+	public String getRestricciones() {
+		return restricciones;
 	}
 
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
+	public void setRestricciones(String restricciones) {
+		this.restricciones = restricciones;
 	}
 
+	public Integer getValorpornoche() {
+		return valorpornoche;
+	}
+
+	public void setValorpornoche(Integer valorpornoche) {
+		this.valorpornoche = valorpornoche;
+	}
+	
 	public List<Servicio> getServicios() {
 		return this.servicios;
 	}
