@@ -2,9 +2,13 @@ package com.viagging.core.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+
 import com.viagging.core.dao.PaseoEcologicoDAO;
 import com.viagging.core.model.PaseoEcologico;
 
+@Repository
 public class PaseoEcologicoDAOImpl implements PaseoEcologicoDAO{
 	
 	/** The entity manager. */

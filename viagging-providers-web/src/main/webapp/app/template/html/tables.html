@@ -758,10 +758,10 @@
 					
 					<form name="myForm">
 						    <label for="repeatSelect"> Categoria</label>
-						    <select name="repeatSelect" id="repeatSelect">
+						    <select name="repeatSelect" id="repeatSelect" ng-model="valor">
 						      <option ng-repeat="option in category" value="{{option.key}}">{{option.value}}</option>
 						    </select>
-						    <button ng-click="getServices()">Consultar</button>
+						    <button ng-click="getServices(valor);">Consultar</button>
 				   </form>
 				   <hr>					
 						
@@ -796,7 +796,7 @@
 
 													<td class="center">
 														<div class="action-buttons">
-															<a href="#" ng-click="especifico(listservices.id);" class="green bigger-140 show-details-btn"
+															<a href="#" ng-click="especifico(listservices.id,listservices.idCategoria);" class="green bigger-140 show-details-btn"
 																title="Show Details"> <i 
 																class="ace-icon fa fa-angle-double-down"></i> <span
 																class="sr-only">{{ listservices.id }}</span>

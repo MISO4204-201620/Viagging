@@ -1,6 +1,7 @@
 package com.viagging.core.services;
 
 import java.util.List;
+
 import com.viagging.core.model.Servicio;
 
 public interface ServicioService {
@@ -12,5 +13,6 @@ public interface ServicioService {
 	Servicio createServicio(Servicio servicio);
 
 	Servicio updateServicio(Servicio servicio);
-
+    
+	List<Servicio> getAllServiciosByCategoria(Integer idCategoria);
 }

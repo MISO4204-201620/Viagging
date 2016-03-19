@@ -42,7 +42,7 @@ public class RestControllerPaquete {
 	  public List<ServicioDTO> deletePackage(@RequestBody String idPackage) {
           System.out.println("deletePackage");	
           ServicioDTO servicioDTO = new ServicioDTO();
-		  List<ServicioDTO> listServicioDTO  = servicioDTO.buildListObject(servicioService.getAllServicio());
+		  List<ServicioDTO> listServicioDTO  = servicioDTO.buildListObject(servicioService.getAllServicio(),"01");
           if(listServicioDTO.isEmpty()){
         	  throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);
           }
@@ -54,7 +54,7 @@ public class RestControllerPaquete {
 	  public List<ServicioDTO> editPackage(@RequestBody PaqueteDTO packateEdit) {
           System.out.println("deletePackage");
           ServicioDTO servicioDTO = new ServicioDTO();
-		  List<ServicioDTO> listServicioDTO  = servicioDTO.buildListObject(servicioService.getAllServicio());
+		  List<ServicioDTO> listServicioDTO  = servicioDTO.buildListObject(servicioService.getAllServicio(),"01");
           if(listServicioDTO.isEmpty()){
         	  throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);
           }

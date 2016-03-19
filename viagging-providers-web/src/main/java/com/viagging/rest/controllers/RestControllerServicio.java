@@ -14,7 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.viagging.core.model.Servicio;
+import com.viagging.core.model.Transporte;
+import com.viagging.core.services.AlojamientoService;
 import com.viagging.core.services.ServicioService;
+import com.viagging.core.services.TransporteService;
+import com.viagging.rest.dto.AlimentacionDTO;
+import com.viagging.rest.dto.AlojamientoDTO;
+import com.viagging.rest.dto.PaseoEcologicoDTO;
 import com.viagging.rest.dto.ServicioDTO;
 import com.viagging.rest.dto.TransporteDTO;
 
@@ -33,50 +40,63 @@ public class RestControllerServicio {
 	  public TransporteDTO getServiceTransporte(@QueryParam("idService") String idService) {
 		  System.out.println("getServiceTransporte"+idService);
 		  
-		  TransporteDTO transporte = new TransporteDTO();	  
-		  ServicioDTO servicio = new ServicioDTO();
-		  servicio.setDescripcionCorta("ddfdfdf");
-		  servicio.setNombre("UBER");
-		  servicio.setPrecio("150000");
-		  transporte.setLugarDestino("lugarDestino");
-		  transporte.setLugarOrigen("lugarOrigen");
-		  transporte.setLugarDestino("lugarDestino");
-		  transporte.setFrecuenciaSalida("frecuenciaSalida");
-		  transporte.setHorarioFin("horarioFin");
-		  transporte.setHorarioInicio("horarioInicio");
-		  transporte.setNumeroPasajeros("numeroPasajeros");
-		  transporte.setRestricciones("restricciones");
-		  transporte.setTiempoEstimado("tiempoEstimado");
-		  transporte.setTipoTransporte("tipoTransporte");
-		  transporte.setServicio(servicio);
-		  
-		  /*ServicioDTO serviciDTO  = servicio.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
-		  if(serviciDTO == null){
-      	      throw new NotFoundException(SERVICE_ERROR_MESSAGE_NOT_FOUND);
-          }*/
-		  
-		  return transporte;
-	  }
-	  
-	  
-	  @RequestMapping(value = "/getServiceAlojamiento", method = RequestMethod.GET)
-	  @ResponseStatus(value = HttpStatus.OK)
-	  public ServicioDTO getServiceAlojamiento(@QueryParam("idService") String idService) {
-		  ServicioDTO servicio = new ServicioDTO();	  
-		  ServicioDTO serviciDTO  = servicio.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
-		  if(serviciDTO == null){
+		  TransporteDTO transporte = new TransporteDTO();	  		 		  
+		  TransporteDTO transporteDTO  = transporte.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
+		  if(transporteDTO == null){
       	      throw new NotFoundException(SERVICE_ERROR_MESSAGE_NOT_FOUND);
           }
 		  
-		  return serviciDTO;
+		  return transporteDTO;
 	  }
+	  
+	  @RequestMapping(value = "/getServiceAlimentacion", method = RequestMethod.GET)
+	  @ResponseStatus(value = HttpStatus.OK)
+	  public AlimentacionDTO getServiceAlimentacion(@QueryParam("idService") String idService) {
+		  System.out.println("getServiceTransporte"+idService);
+		  AlimentacionDTO alimentacion = new AlimentacionDTO();		  
+		  AlimentacionDTO alimentacionDTO  = alimentacion.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
+		  if(alimentacionDTO == null){
+      	      throw new NotFoundException(SERVICE_ERROR_MESSAGE_NOT_FOUND);
+          }
+		  
+		  return alimentacionDTO;
+	  }
+	  
+	  @RequestMapping(value = "/getServiceAlojamiento", method = RequestMethod.GET)
+	  @ResponseStatus(value = HttpStatus.OK)
+	  public AlojamientoDTO getServiceAlojamiento(@QueryParam("idService") String idService) {
+		  System.out.println("getServiceAlojamiento"+idService);
+		  		  
+		  AlojamientoDTO alojamiento = new AlojamientoDTO();		  
+		  AlojamientoDTO alojamientoDTO  = alojamiento.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
+		  if(alojamientoDTO == null){
+      	      throw new NotFoundException(SERVICE_ERROR_MESSAGE_NOT_FOUND);
+          }
+		  return alojamientoDTO;
+	  }
+	  
+	  
+	  @RequestMapping(value = "/getServicePaseoEcologico", method = RequestMethod.GET)
+	  @ResponseStatus(value = HttpStatus.OK)
+	  public PaseoEcologicoDTO getServicePaseoEcologico(@QueryParam("idService") String idService) {
+		  System.out.println("getServiceAlojamiento"+idService);
+  		  
+		  PaseoEcologicoDTO paseoEcologico = new PaseoEcologicoDTO();	  
+		  PaseoEcologicoDTO paseoEcologicoDTO  = paseoEcologico.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
+		  if(paseoEcologicoDTO == null){
+      	      throw new NotFoundException(SERVICE_ERROR_MESSAGE_NOT_FOUND);
+          }
+		  return paseoEcologicoDTO;
+	  }
+	  
+	  
 	  
 	  @RequestMapping(value = "/getServices", method = RequestMethod.GET)
 	  @ResponseStatus(value = HttpStatus.OK)
 	  public List<ServicioDTO> getServices(@QueryParam("idCategory") String idCategory) {
           System.out.println("ingreso a getServices");	  
           ServicioDTO servicio = new ServicioDTO();	
-		  List<ServicioDTO> listServicioDTO  = servicio.buildListObject(servicioService.getAllServicio());
+		  List<ServicioDTO> listServicioDTO  = servicio.buildListObject(servicioService.getAllServicio(),idCategory);
           if(listServicioDTO.isEmpty()){
         	  throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);
           }

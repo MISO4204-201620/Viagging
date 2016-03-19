@@ -1,12 +1,15 @@
 package com.viagging.rest.dto;
 
+import com.viagging.core.model.Alimentacion;
+import com.viagging.core.model.Alojamiento;
+import com.viagging.core.model.Servicio;
+import com.viagging.util.CategoryEnum;
+
 public class AlimentacionDTO {
 
 	private String ciudad;
 
 	private String horarioApertura;
-
-	private String horarioCierre;
 	
 	private String restricciones;
 	
@@ -15,6 +18,45 @@ public class AlimentacionDTO {
 	private String precioMenor;
 	
 	private String precioMayor;
+	
+	private byte[] imagenPrincipal;
+	
+	private ServicioDTO servicio;
+
+
+
+	public AlimentacionDTO(){}
+
+	public AlimentacionDTO(String ciudad, String horarioApertura, String restricciones,
+			String precioMenor, String precioMayor, byte[] imagenPrincipal,
+			ServicioDTO servicio) {
+		super();
+		this.ciudad = ciudad;
+		this.horarioApertura = horarioApertura;
+		this.restricciones = restricciones;
+		this.precioMenor = precioMenor;
+		this.precioMayor = precioMayor;
+		this.imagenPrincipal = imagenPrincipal;
+		this.servicio = servicio;
+	}
+
+	public byte[] getImagenPrincipal() {
+		return imagenPrincipal;
+	}
+
+	public void setImagenPrincipal(byte[] imagenPrincipal) {
+		this.imagenPrincipal = imagenPrincipal;
+	}
+
+
+
+	public ServicioDTO getServicio() {
+		return servicio;
+	}
+
+	public void setServicio(ServicioDTO servicio) {
+		this.servicio = servicio;
+	}
 
 	public String getCiudad() {
 		return ciudad;
@@ -32,13 +74,6 @@ public class AlimentacionDTO {
 		this.horarioApertura = horarioApertura;
 	}
 
-	public String getHorarioCierre() {
-		return horarioCierre;
-	}
-
-	public void setHorarioCierre(String horarioCierre) {
-		this.horarioCierre = horarioCierre;
-	}
 
 	public String getRestricciones() {
 		return restricciones;
@@ -70,5 +105,15 @@ public class AlimentacionDTO {
 
 	public void setPrecioMayor(String precioMayor) {
 		this.precioMayor = precioMayor;
+	}
+	
+	public AlimentacionDTO buildObject( Servicio servicio){
+		ServicioDTO parserServicio = new ServicioDTO();
+		parserServicio = parserServicio.buildObject(servicio);
+		parserServicio.setIdCategoria(CategoryEnum.ALIMENTACION.getId());
+		Alimentacion alimentacion = servicio.getAlimentacion();
+		AlimentacionDTO alimentacionDTO = new AlimentacionDTO(alimentacion.getCiudad(), alimentacion.getHorarioapertura(),  alimentacion.getRestricciones(), String.valueOf(alimentacion.getPreciomenor()), String.valueOf(alimentacion.getPreciomayor()), alimentacion.getImagenprincipal(),parserServicio);
+
+		return alimentacionDTO;
 	}
 }

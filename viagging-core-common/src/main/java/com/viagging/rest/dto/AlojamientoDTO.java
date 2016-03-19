@@ -1,5 +1,8 @@
 package com.viagging.rest.dto;
 
+import com.viagging.core.model.Alojamiento;
+import com.viagging.core.model.Servicio;
+import com.viagging.util.CategoryEnum;
 public class AlojamientoDTO {
   
     private String ciudad;
@@ -9,6 +12,41 @@ public class AlojamientoDTO {
 	private String restricciones;
 	
 	private String caracteristicas;
+    
+	private ServicioDTO servicio;
+	
+	private byte[] imagenPrincipal;
+	
+
+
+	public AlojamientoDTO(String ciudad, String valorPorNoche,
+			String restricciones,  ServicioDTO servicio,
+			 byte[] imagenPrincipal) {
+		super();
+		this.ciudad = ciudad;
+		this.valorPorNoche = valorPorNoche;
+		this.restricciones = restricciones;
+		this.servicio = servicio;
+		this.imagenPrincipal = imagenPrincipal;
+	}
+	
+	public AlojamientoDTO(){}
+
+
+	public byte[] getImagenPrincipal() {
+		return imagenPrincipal;
+	}
+
+	public void setImagenPrincipal(byte[] imagenPrincipal) {
+		this.imagenPrincipal = imagenPrincipal;
+	}
+	public ServicioDTO getServicio() {
+		return servicio;
+	}
+
+	public void setServicio(ServicioDTO servicio) {
+		this.servicio = servicio;
+	}
 
 	public String getCiudad() {
 		return ciudad;
@@ -40,5 +78,14 @@ public class AlojamientoDTO {
 
 	public void setCaracteristicas(String caracteristicas) {
 		this.caracteristicas = caracteristicas;
+	}
+	
+	public AlojamientoDTO buildObject( Servicio servicio){
+		ServicioDTO parserServicio = new ServicioDTO();
+		parserServicio = parserServicio.buildObject(servicio);
+		parserServicio.setIdCategoria(CategoryEnum.ALOJAMIENTO.getId());
+		Alojamiento alojamiento = servicio.getAlojamiento();
+		AlojamientoDTO alojamientoDTO = new AlojamientoDTO(alojamiento.getCiudad(), String.valueOf(alojamiento.getValorpornoche()), alojamiento.getRestricciones(), parserServicio, alojamiento.getImagenprincipal());
+		return alojamientoDTO;
 	}
 }

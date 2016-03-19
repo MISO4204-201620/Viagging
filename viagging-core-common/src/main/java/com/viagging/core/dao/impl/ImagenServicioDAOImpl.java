@@ -3,10 +3,12 @@ package com.viagging.core.dao.impl;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Repository;
+
 import com.viagging.core.dao.ImagenServicioDAO;
 import com.viagging.core.model.ImagenServicio;
-import com.viagging.core.model.Transporte;
 
+@Repository
 public class ImagenServicioDAOImpl implements ImagenServicioDAO {
 
 	

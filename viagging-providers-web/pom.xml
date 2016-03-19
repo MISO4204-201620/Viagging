@@ -15,5 +15,20 @@
 			<artifactId>viagging-core-common</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.2</version>
+      </dependency>
+      <dependency>
+	<groupId>commons-beanutils</groupId>
+	<artifactId>commons-beanutils-core</artifactId>
+	<version>1.8.3</version>
+</dependency>
+<dependency>
+	<groupId>commons-beanutils</groupId>
+	<artifactId>commons-beanutils-bean-collections</artifactId>
+	<version>1.8.3</version>
+</dependency>
 	</dependencies>
 </project>
