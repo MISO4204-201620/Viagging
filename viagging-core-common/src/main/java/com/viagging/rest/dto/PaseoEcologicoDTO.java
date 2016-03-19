@@ -1,5 +1,9 @@
 package com.viagging.rest.dto;
 
+import com.viagging.core.model.PaseoEcologico;
+import com.viagging.core.model.Servicio;
+import com.viagging.util.CategoryEnum;
+
 
 
 public class PaseoEcologicoDTO {
@@ -16,7 +20,41 @@ public class PaseoEcologicoDTO {
 	
 	private String restricciones;
 	
-	private String imagenPrincipal;
+	private byte[] imagenPrincipal;
+    
+	private ServicioDTO servicio;
+	
+	public PaseoEcologicoDTO(){}
+	
+	
+	public PaseoEcologicoDTO(String fecha, String ciudad,
+			String tiempoDeRecorrido, String horario,
+			String restricciones, byte[] imagenPrincipal, ServicioDTO servicio) {
+		super();
+		this.fecha = fecha;
+		this.ciudad = ciudad;
+		this.tiempoDeRecorrido = tiempoDeRecorrido;
+		this.horario = horario;
+		this.restricciones = restricciones;
+		this.imagenPrincipal = imagenPrincipal;
+		this.servicio = servicio;
+	}
+
+	public byte[] getImagenPrincipal() {
+		return imagenPrincipal;
+	}
+
+	public void setImagenPrincipal(byte[] imagenPrincipal) {
+		this.imagenPrincipal = imagenPrincipal;
+	}
+
+	public ServicioDTO getServicio() {
+		return servicio;
+	}
+
+	public void setServicio(ServicioDTO servicio) {
+		this.servicio = servicio;
+	}
 
 	public String getFecha() {
 		return fecha;
@@ -66,11 +104,15 @@ public class PaseoEcologicoDTO {
 		this.restricciones = restricciones;
 	}
 
-	public String getImagenPrincipal() {
-		return imagenPrincipal;
-	}
-
-	public void setImagenPrincipal(String imagenPrincipal) {
-		this.imagenPrincipal = imagenPrincipal;
+	
+	public PaseoEcologicoDTO buildObject( Servicio servicio){
+		ServicioDTO parserServicio = new ServicioDTO();
+		parserServicio = parserServicio.buildObject(servicio);
+		parserServicio.setIdCategoria(CategoryEnum.PASEO_ECOLOGICO.getId());
+		PaseoEcologico paseoEcologico = servicio.getPaseoEcologico();	
+		PaseoEcologicoDTO paseoEcologicoDTO = new PaseoEcologicoDTO(paseoEcologico.getFecha().toString(),paseoEcologico.getCiudad(),
+				paseoEcologico.getTiempoderecorrido(), paseoEcologico.getHorario(),  paseoEcologico.getRestricciones(), paseoEcologico.getImagenprincipal(), parserServicio);
+		return paseoEcologicoDTO;
+		
 	}
 }

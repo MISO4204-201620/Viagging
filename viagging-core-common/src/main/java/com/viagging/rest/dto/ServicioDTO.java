@@ -14,8 +14,6 @@ public class ServicioDTO {
 	
 	private Boolean activo;
 
-	private Boolean datosServicio;
-
 	private String nombre;
 	
 	private String descripcionCorta;
@@ -27,16 +25,14 @@ public class ServicioDTO {
 	public ServicioDTO() {
 	}
 	
-	public ServicioDTO(Integer id, Boolean activo, Boolean datosServicio,
-			String nombre, String descripcionCorta,String precio, String idCategoria) {
+	public ServicioDTO(Integer id, Boolean activo,
+			String nombre, String descripcionCorta,String precio) {
 		super();
 		this.id = id;
 		this.activo = activo;
-		this.datosServicio = datosServicio;
 		this.nombre = nombre;
 		this.descripcionCorta = descripcionCorta;
 		this.precio = precio;
-		this.idCategoria = idCategoria;
 	}
 
 	public Integer getId() {
@@ -53,14 +49,6 @@ public class ServicioDTO {
 
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
-	}
-
-	public Boolean getDatosServicio() {
-		return datosServicio;
-	}
-
-	public void setDatosServicio(Boolean datosServicio) {
-		this.datosServicio = datosServicio;
 	}
 
 	public String getNombre() {
@@ -95,20 +83,18 @@ public class ServicioDTO {
 		this.idCategoria = idCategoria;
 	}
 	
-	public List<ServicioDTO> buildListObject( List<Servicio> listServicio){
+	public List<ServicioDTO> buildListObject( List<Servicio> listServicio,String idCategory){
 		 List<ServicioDTO> listServicioDTO = new ArrayList<>();
-		 /*for (Servicio servicio : listServicio) {
-		 ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), 
-			
-					servicio.getActivo(), servicio.getDatosServicio(), servicio.getNombre(), "descripcion corta","555","01");
-			 
-			 listServicioDTO.add(servicioDTO);
-		}	 */
+		 for (Servicio servicio : listServicio) {
+		     ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(), servicio.getNombre(), servicio.getDescripcion(),String.valueOf(servicio.getPrecio()));		 
+			 servicioDTO.setIdCategoria(idCategory);
+		     listServicioDTO.add(servicioDTO);
+		}
 		return listServicioDTO;
 	}
 
 	public ServicioDTO buildObject( Servicio servicio){
-		 ServicioDTO servicioDTO = new ServicioDTO();
+		 ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(),  servicio.getNombre(), servicio.getDescripcion(),String.valueOf(servicio.getPrecio()));
 		
 		return servicioDTO;
 	}

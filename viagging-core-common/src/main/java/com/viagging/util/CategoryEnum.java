@@ -10,9 +10,9 @@ import com.viagging.rest.dto.NombreValorDTO;
 	public enum CategoryEnum {
 
 	    TRANSPORTE("01"),
-	    ALOJAMIEENTO("02"),
-	    PASEO_TURISTICO("03"),
-	    COMIDA("04");
+	    ALOJAMIENTO("02"),
+	    PASEO_ECOLOGICO("03"),
+	    ALIMENTACION("04");
 
 	    private String id;
 

@@ -2,10 +2,13 @@ package com.viagging.core.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+
 import com.viagging.core.dao.AlimentacionDAO;
 import com.viagging.core.model.Alimentacion;
 
-
+@Repository
 public class AlimentacionDAOImpl implements AlimentacionDAO {
 
 	/** The entity manager. */

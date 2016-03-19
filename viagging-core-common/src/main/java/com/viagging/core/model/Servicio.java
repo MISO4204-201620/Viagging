@@ -13,10 +13,15 @@ import java.util.List;
  */
 @Entity
 @Table(name="tp_servicio")
-@NamedQuery(name="Servicio.findAll", query="SELECT t FROM Servicio t")
+@NamedQueries({ @NamedQuery (name="Servicio.findAllTransporte", query="SELECT t FROM Servicio t where t.transporte != null"),
+	            @NamedQuery (name="Servicio.findAllAlojamiento", query="SELECT t FROM Servicio t where t.alojamiento != null"),
+	            @NamedQuery (name="Servicio.findAllAlimentacion", query="SELECT t FROM Servicio t where t.alimentacion != null"),
+	            @NamedQuery (name="Servicio.findAllPaseoEcologico", query="SELECT t FROM Servicio t where t.paseoEcologico != null"),
+	            @NamedQuery (name="Servicio.findAll", query="SELECT t FROM Servicio t")
+})
 public class Servicio implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
@@ -26,8 +31,6 @@ public class Servicio implements Serializable {
 	private String nombre;
 	
 	private String descripcion;
-
-	private Integer idusuario;
 
 	private Integer precio;
 
@@ -109,14 +112,6 @@ public class Servicio implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public Integer getIdusuario() {
-		return idusuario;
-	}
-
-	public void setIdusuario(Integer idusuario) {
-		this.idusuario = idusuario;
 	}
 
 	public Integer getPrecio() {

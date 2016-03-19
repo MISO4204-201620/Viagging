@@ -15,14 +15,15 @@ var servicesSelect = {
 //$scope.getCategory();
    $scope.getCategory = function() { 
 		console.log('esta entrando category'); 
-		   $scope.category = 
+		 /*  $scope.category = 
 			        [
-				      {key: '1', value: 'TRANSPORTE'},
-				      {key: '2', value: 'TURISMO'},
-				      {key: '3', value: 'ALOJAMIENTO'}
+				      {key: '01', value: 'TRANSPORTE'},
+				      {key: '02', value: 'ALOJAMIENTO'},
+				      {key: '03', value: 'PASEO_ECOLOGICO'},
+				      {key: '04', value: 'ALIMENTACION'}
 				    ];
-				   
-		/*console.log($scope.category);
+				   */
+		console.log($scope.category);
 		 $http.get('/viagging-providers-web/getCategory').
 		    success(function(data, status, headers, config) {
 		    	console.log(status);
@@ -31,24 +32,19 @@ var servicesSelect = {
 		    }).
 		    error(function(data, status, headers, config) {
 		      // log error
-		    }); */
+		    }); 
 		    console.log('despues de llamar');
      }
 
 
 
-	$scope.getServices = function() { 	
-	    console.log('esta entrando primera parteddd'); 
-	    var post = {
-	    		userId: $scope.name,
-				id : $scope.lastName,
-				title : 'test',
-				body: 'test'
-		};
+	$scope.getServices = function(idCategoria) { 	
+	    console.log('getServices'+idCategoria); 
 	    $http.get('/viagging-providers-web/getServices',{
-	        params: { idCategory: "1" }
+	        params: { idCategory: idCategoria }
 	    }).success(function(data, status, headers, config) {
 	    	console.log(status);
+	    	console.log(data);
 	        $scope.listservices = data;
 	        for (var i=0;i<$scope.chooseservices.length;i++){
 	    	     for (var j=0;j<$scope.listservices.length;j++){
@@ -93,12 +89,20 @@ var servicesSelect = {
 	}
 
 
-	$scope.especifico = function(id) { 	
+	$scope.especifico = function(id,idCategoria) { 	
 		$rootScope.idEspecifico = id;
-	    console.log('esta entrando primera parteddd'+id); 
-	    //ngDialog.open({ template: '../html/descripcionServicio.html', className: 'ngdialog-theme-default' });
+	    console.log('especifico'+id + "---"+idCategoria); 
 	    ngDialog.open({ template: '../html/transporte.html', className: 'ngdialog-theme-default' });
-	    console.log('despues de llamarbb');
+	    if(idCategoria == "01"){
+	         ngDialog.open({ template: '../html/transporte.html', className: 'ngdialog-theme-default' });
+	    }else if(idCategoria == "02"){
+	    	ngDialog.open({ template: '../html/alojamiento.html', className: 'ngdialog-theme-default' });
+	    }else if(idCategoria == "03"){
+	    	ngDialog.open({ template: '../html/paseoEcologico.html', className: 'ngdialog-theme-default' });
+	    }else if(idCategoria == "04"){
+	    	ngDialog.open({ template: '../html/alimentacion.html', className: 'ngdialog-theme-default' });
+	    }
+	    console.log('despues de llamarbb especifico');
 	}
 
 
@@ -122,24 +126,16 @@ var servicesSelect = {
 	      }		
 	}
 	
+	
 	$scope.getDatosTransporte = function() { 
 		console.log("transporte");
 		console.log($rootScope.idEspecifico);
-	    var post = {
-	    		userId: $scope.name,
-				id : $scope.lastName,
-				title : 'test1',
-				body: 'test12'
-		};
-	    
-
-	    $scope.post1 = post;
 	    $http.get('/viagging-providers-web/getServiceTransport',{
 	    	params: { idService: $rootScope.idEspecifico }
 	    }).success(function(data, status, headers, config) {
 	    	console.log(status);
-	      $scope.transporte = data;
-	      console.log(data);
+	        $scope.transporte = data;
+	        console.log(data);
 	    }).
 	    error(function(data, status, headers, config) {
 	    }); 
@@ -147,4 +143,50 @@ var servicesSelect = {
 	}
 	
 	
+	$scope.getDatosAlojamiento = function() { 
+		console.log("Alojamiento");
+		console.log($rootScope.idEspecifico);
+	    $http.get('/viagging-providers-web/getServiceAlojamiento',{
+	    	params: { idService: $rootScope.idEspecifico }
+	    }).success(function(data, status, headers, config) {
+	    	console.log(status);
+	        $scope.alojamiento = data;
+	        console.log(data);
+	    }).
+	    error(function(data, status, headers, config) {
+	    }); 
+	    console.log('despues de llamar');
+	}
+	
+	
+	$scope.getDatosAlimentacion = function() { 
+		console.log("Alimentacion");
+		console.log($rootScope.idEspecifico);
+	    $http.get('/viagging-providers-web/getServiceAlimentacion',{
+	    	params: { idService: $rootScope.idEspecifico }
+	    }).success(function(data, status, headers, config) {
+	    	console.log(status);
+	        $scope.alimentacion = data;
+	        console.log(data);
+	    }).
+	    error(function(data, status, headers, config) {
+	    }); 
+	    console.log('despues de llamar');
+	}
+	
+	
+	$scope.getDatosPaseoEcologico = function() { 
+		console.log("Alimentacion");
+		console.log($rootScope.idEspecifico);
+	    $http.get('/viagging-providers-web/getServicePaseoEcologico',{
+	    	params: { idService: $rootScope.idEspecifico }
+	    }).success(function(data, status, headers, config) {
+	    	console.log(status);
+	        $scope.paseoEcologico = data;
+	        console.log(data);
+	    }).
+	    error(function(data, status, headers, config) {
+	    }); 
+	    console.log('despues de llamar');
+	}
 }]);

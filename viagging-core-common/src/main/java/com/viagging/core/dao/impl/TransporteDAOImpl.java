@@ -3,10 +3,13 @@ package com.viagging.core.dao.impl;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Repository;
+
 import com.viagging.core.dao.TransporteDAO;
 import com.viagging.core.model.Alojamiento;
 import com.viagging.core.model.Transporte;
 
+@Repository
 public class TransporteDAOImpl implements TransporteDAO {
    
 	/** The entity manager. */

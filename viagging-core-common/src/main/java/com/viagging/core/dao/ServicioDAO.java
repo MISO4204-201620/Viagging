@@ -12,6 +12,14 @@ public interface ServicioDAO {
 	Servicio getServicioById(Integer idServicio);
 
 	List<Servicio> getAllServicios();
+	
+	List<Servicio> getAllServiciosTransporte();
+	
+	List<Servicio> getAllServiciosAlojamiento();
+	
+	List<Servicio> getAllServiciosAlimentacion();
+	
+	List<Servicio> getAllServiciosPaseoEcologico();
 
 	Servicio createServicio(Servicio servicio);
 
