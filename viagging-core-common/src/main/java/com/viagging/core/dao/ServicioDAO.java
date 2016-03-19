@@ -4,7 +4,7 @@ import java.util.List;
 import com.viagging.core.model.Servicio;
 
 /**
- * The Interface ModuloDAO.
+ * The Interface ServicioDAO.
  */
 public interface ServicioDAO {
 
