@@ -1,150 +1,192 @@
-angular.module('viaggingApp', ['flow'])
-.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
-	
-	$scope.servicio = {
-		nombre: "",
-		descripcion: "",
-		categoria: "",
-		ciudad: "",
-		activo: true,
-		id: 0,
-		images: []
+
+var app = angular.module('sampleapp', ['ngDialog']).controller('samplecontroller', ['$scope', '$http','ngDialog','$rootScope', function($scope, $http,ngDialog, $rootScope) {
+$scope.idEspecifico = '1';
+$scope.name;
+$scope.lastName;
+$scope.chooseservices=[];
+var servicesSelect = {
+		id: "f",
+		nombre : "f",
+		precio : "f",
+		descripcionCorta: "f",
+	    datosServicio : false
+};
+
+//$scope.getCategory();
+   $scope.getCategory = function() { 
+		console.log('esta entrando category'); 
+		 /*  $scope.category = 
+			        [
+				      {key: '01', value: 'TRANSPORTE'},
+				      {key: '02', value: 'ALOJAMIENTO'},
+				      {key: '03', value: 'PASEO_ECOLOGICO'},
+				      {key: '04', value: 'ALIMENTACION'}
+				    ];
+				   */
+		console.log($scope.category);
+		 $http.get('/viagging-providers-web/getCategory').
+		    success(function(data, status, headers, config) {
+		    	console.log(status);
+		      $scope.category = data;
+		      console.log(data);
+		    }).
+		    error(function(data, status, headers, config) {
+		      // log error
+		    }); 
+		    console.log('despues de llamar');
+     }
+
+
+
+	$scope.getServices = function(idCategoria) { 	
+	    console.log('getServices'+idCategoria); 
+	    $http.get('/viagging-providers-web/getServices',{
+	        params: { idCategory: idCategoria }
+	    }).success(function(data, status, headers, config) {
+	    	console.log(status);
+	    	console.log(data);
+	        $scope.listservices = data;
+	        for (var i=0;i<$scope.chooseservices.length;i++){
+	    	     for (var j=0;j<$scope.listservices.length;j++){
+		 	         if($scope.chooseservices[i].id == $scope.listservices[j].id){
+		 	        	 $scope.listservices[j].datosServicio = true;
+		 	         }
+	 		  }	    	  
+		    }
+	    }).
+	    error(function(data, status, headers, config) {
+	      // log error
+	    }); 
+
+
+	    
+	    
+	    console.log('despues de llamar');
+	}
+
+
+
+	$scope.test1 = function() { 
+		console.log("alojamiento");
+		console.log($rootScope.idEspecifico);
+	    var post = {
+	    		userId: $scope.name,
+				id : $scope.lastName,
+				title : 'test1',
+				body: 'test12'
+		};
+	    
+	    $scope.post1 = post;
+	    $http.post('/viagging-providers-web/savePost', post).
+	    success(function(data, status, headers, config) {
+	    	console.log(status);
+	      $scope.post1 = data;
+	      console.log(data);
+	    }).
+	    error(function(data, status, headers, config) {
+	    }); 
+	    console.log('despues de llamar');
+	}
+
+
+	$scope.especifico = function(id,idCategoria) { 	
+		$rootScope.idEspecifico = id;
+	    console.log('especifico'+id + "---"+idCategoria); 
+	    ngDialog.open({ template: '../html/transporte.html', className: 'ngdialog-theme-default' });
+	    if(idCategoria == "01"){
+	         ngDialog.open({ template: '../html/transporte.html', className: 'ngdialog-theme-default' });
+	    }else if(idCategoria == "02"){
+	    	ngDialog.open({ template: '../html/alojamiento.html', className: 'ngdialog-theme-default' });
+	    }else if(idCategoria == "03"){
+	    	ngDialog.open({ template: '../html/paseoEcologico.html', className: 'ngdialog-theme-default' });
+	    }else if(idCategoria == "04"){
+	    	ngDialog.open({ template: '../html/alimentacion.html', className: 'ngdialog-theme-default' });
+	    }
+	    console.log('despues de llamarbb especifico');
+	}
+
+
+
+	$scope.saveServicesTemp = function() { 	
+	      for (var i=0;i<$scope.listservices.length;i++){
+	    	  console.log("saveServicesTemp---"+i); 
+	    	  var flagExist = false;
+	    	  if($scope.listservices[i].datosServicio){
+		    	  for (var j=0;j<$scope.chooseservices.length;j++){
+		    	       if($scope.listservices[i].id == $scope.chooseservices[j].id){
+		    	    	   flagExist = true;		    	    	   
+		              }
+		    	  }
+		    	  if(!flagExist){
+		    		  console.log("saveServicesTempdddd---"+i); 
+		    		  $scope.chooseservices.push($scope.listservices[i]);
+		    	  }
+	    	  }
+	    	  
+	      }		
 	}
 	
-	$scope.opCategories = [];
-	 
-	$scope.category = '';
 	
-	$scope.myimage;
-	 
-    $scope.$watch("ajaxURL", function (newValue, oldValue) {
-    	 $http.get('/viagging-providers-web/obtenerCategorias').
-         success(function(data, status, headers, config) {
-           $scope.post = data;
-           console.log(data);
-         }).
-         error(function(data, status, headers, config) {
-           // log error
-        });
-     });
-    
-    $scope.uploadFile = function(files) {
-    	console.log("va a carhar archivo");
-        var fd = new FormData();
-        //Take the first selected file
-        fd.append("file", files[0]);
-        $scope.servicio.images[0]=fd;
-
-//        $http.post('/viagging-providers-web/guardarServicio', fd, {
-//            withCredentials: true,
-//            headers: {'Content-Type': undefined },
-//            transformRequest: angular.identity
-//        }).success().error();
-
-    };
-     
-     $scope.opStatuses = [{
-         id: "ACTIVO",
-         name: "Activo"
-     }, {
-         id: "INACTIVO",
-         name: "Inactivo"
-     }]
-     
-	$scope.test = function() {
-    	console.log("aaa");
-    }
-     
-    $scope.saveService = function(fService) {
-    	console.log("va a guardar" + $scope.servicio.images[0]);
-    	$scope.servicio.images[0]=$scope.uploadme;
-    	$http.post('/viagging-providers-web/guardarServicio', angular.toJson($scope.servicio), {
-    		withCredentials: true,
-            transformRequest: angular.identity
-    	}).
-        success(function(data, status, headers, config) {
-        	console.log(status);
-//	        $scope.post = data;
+	$scope.getDatosTransporte = function() { 
+		console.log("transporte");
+		console.log($rootScope.idEspecifico);
+	    $http.get('/viagging-providers-web/getServiceTransport',{
+	    	params: { idService: $rootScope.idEspecifico }
+	    }).success(function(data, status, headers, config) {
+	    	console.log(status);
+	        $scope.transporte = data;
 	        console.log(data);
-        }).
-        error(function(data, status, headers, config) {
-          // log error
-        }); 
-    } 
-    
-    function reset() {
-        $scope.guardando = false;
-        $scope.servicio.nombre = "";
-        $scope.servicio.descripcion = "";
-        $scope.servicio.ciudad = "";
-        $scope.servicio.categoria = "";
-        $scope.servicio.images = [];
-    }
-    
-    $scope.cancel = function () {
-        reset();
-    }
+	    }).
+	    error(function(data, status, headers, config) {
+	    }); 
+	    console.log('despues de llamar');
+	}
 	
-    $scope.uploadme;
-
-    $scope.uploadImage = function() {
-      var fd = new FormData();
-      var imgBlob = dataURItoBlob($scope.uploadme);
-      fd.append('file', imgBlob);
-      $http.post('/viagging-providers-web/guardarImagen', $scope.uploadme, {
-            transformRequest: angular.identity,
-          }
-        )
-        .success(function(response) {
-          console.log('success', response);
-        })
-        .error(function(response) {
-          console.log('error', response);
-        });
-    }
-
-
-    //you need this function to convert the dataURI
-    function dataURItoBlob(dataURI) {
-      var binary = atob(dataURI.split(',')[1]);
-      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-      var array = [];
-      for (var i = 0; i < binary.length; i++) {
-        array.push(binary.charCodeAt(i));
-      }
-      return new Blob([new Uint8Array(array)], {
-        type: mimeString
-      });
-    }
-
-
-}]).directive("fileread", [
-                           function() {
-                        	    return {
-                        	      scope: {
-                        	        fileread: "="
-                        	      },
-                        	      link: function(scope, element, attributes) {
-                        	        element.bind("change", function(changeEvent) {
-                        	          var reader = new FileReader();
-                        	          reader.onload = function(loadEvent) {
-                        	            scope.$apply(function() {
-                        	              scope.fileread = loadEvent.target.result;
-                        	            });
-                        	          }
-                        	          reader.readAsDataURL(changeEvent.target.files[0]);
-                        	        });
-                        	      }
-                        	    }
-                        	  }
-                        	]).config(['flowFactoryProvider', function (flowFactoryProvider) {
-    flowFactoryProvider.defaults = {
-            target: '/upload',
-            permanentErrors:[404, 500, 501]
-        };
-        // You can also set default events:
-        flowFactoryProvider.on('catchAll', function (event) {
-        });
-        // Can be used with different implementations of Flow.js
-        // flowFactoryProvider.factory = fustyFlowFactory;
-    }]);
+	
+	$scope.getDatosAlojamiento = function() { 
+		console.log("Alojamiento");
+		console.log($rootScope.idEspecifico);
+	    $http.get('/viagging-providers-web/getServiceAlojamiento',{
+	    	params: { idService: $rootScope.idEspecifico }
+	    }).success(function(data, status, headers, config) {
+	    	console.log(status);
+	        $scope.alojamiento = data;
+	        console.log(data);
+	    }).
+	    error(function(data, status, headers, config) {
+	    }); 
+	    console.log('despues de llamar');
+	}
+	
+	
+	$scope.getDatosAlimentacion = function() { 
+		console.log("Alimentacion");
+		console.log($rootScope.idEspecifico);
+	    $http.get('/viagging-providers-web/getServiceAlimentacion',{
+	    	params: { idService: $rootScope.idEspecifico }
+	    }).success(function(data, status, headers, config) {
+	    	console.log(status);
+	        $scope.alimentacion = data;
+	        console.log(data);
+	    }).
+	    error(function(data, status, headers, config) {
+	    }); 
+	    console.log('despues de llamar');
+	}
+	
+	
+	$scope.getDatosPaseoEcologico = function() { 
+		console.log("Alimentacion");
+		console.log($rootScope.idEspecifico);
+	    $http.get('/viagging-providers-web/getServicePaseoEcologico',{
+	    	params: { idService: $rootScope.idEspecifico }
+	    }).success(function(data, status, headers, config) {
+	    	console.log(status);
+	        $scope.paseoEcologico = data;
+	        console.log(data);
+	    }).
+	    error(function(data, status, headers, config) {
+	    }); 
+	    console.log('despues de llamar');
+	}
+}]);
