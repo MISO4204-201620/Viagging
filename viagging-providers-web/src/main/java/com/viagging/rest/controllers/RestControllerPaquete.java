@@ -25,9 +25,7 @@ public class RestControllerPaquete {
 	@Autowired
 	private ServicioService servicioService;
 	
-	@Autowired
-	private ServicioDTO servicioDTO;
-	
+
 	  @RequestMapping(value = "/addPackage", method = RequestMethod.POST)
 	  @ResponseStatus(value = HttpStatus.OK)
 	  public void savePost(@RequestBody PaqueteDTO packateSave) {
@@ -42,7 +40,8 @@ public class RestControllerPaquete {
 	  @RequestMapping(value = "/deletePackage", method = RequestMethod.DELETE)
 	  @ResponseStatus(value = HttpStatus.OK)
 	  public List<ServicioDTO> deletePackage(@RequestBody String idPackage) {
-          System.out.println("deletePackage");	  
+          System.out.println("deletePackage");	
+          ServicioDTO servicioDTO = new ServicioDTO();
 		  List<ServicioDTO> listServicioDTO  = servicioDTO.buildListObject(servicioService.getAllServicio());
           if(listServicioDTO.isEmpty()){
         	  throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);
@@ -53,7 +52,8 @@ public class RestControllerPaquete {
 	  @RequestMapping(value = "/editPackage", method = RequestMethod.POST)
 	  @ResponseStatus(value = HttpStatus.OK)
 	  public List<ServicioDTO> editPackage(@RequestBody PaqueteDTO packateEdit) {
-          System.out.println("deletePackage");	  
+          System.out.println("deletePackage");
+          ServicioDTO servicioDTO = new ServicioDTO();
 		  List<ServicioDTO> listServicioDTO  = servicioDTO.buildListObject(servicioService.getAllServicio());
           if(listServicioDTO.isEmpty()){
         	  throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);

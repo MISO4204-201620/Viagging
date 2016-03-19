@@ -55,7 +55,7 @@ public class RestTemplateControllerExample {
 	  }
 	  
 	  //JSON SAVES a post
-	  @RequestMapping(value = "/getServices", method = RequestMethod.POST)
+	  @RequestMapping(value = "/getServices22", method = RequestMethod.POST)
 	  @ResponseStatus(value = HttpStatus.OK)
 	  public List<UsuarioDTO> getServices(@RequestBody PostJSON postJSON) {
           

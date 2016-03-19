@@ -745,33 +745,26 @@
 							</small>
 						</h1>
 					</div>
+					
+					
+					
+					
+					
+					
 					<!-- /.page-header -->
-					<div ng-app="sampleapp" ng-controller="samplecontroller">
-						<input ng-model="name"></input> <input ng-model="lastName"></input>
-						<button ng-click="test()">Click Me!</button>
-
-
-						<!--  table>
-							<tr>
-								<th colspan="5">Tabla de direcciones IP Angular</th>
-							</tr>
-							<tr>
-								<th>Numero</th>
-								<th>Nombre del servidor</th>
-								<th>Ip del servidor</th>
-								<th>Alcance</th>
-								<th>Observaciones</th>
-							</tr>
-							<tr ng-repeat="pos in post">
-								<td>{{ pos.numeroDocumento }}</td>
-								<td>{{ pos.numeroCelular }}</td>
-								<td>{{ pos.numeroDocumento }}</td>
-								<td>{{ pos.correo }}</td>
-								<td>{{ pos.primerNombre }}</td>
-							</tr>
-						</table-->
-
-
+					<div ng-app="sampleapp" ng-controller="samplecontroller" ng-init="getCategory()" >
+					
+					<div>
+					
+					<form name="myForm">
+						    <label for="repeatSelect"> Categoria</label>
+						    <select name="repeatSelect" id="repeatSelect">
+						      <option ng-repeat="option in category" value="{{option.key}}">{{option.value}}</option>
+						    </select>
+						    <button ng-click="getServices()">Consultar</button>
+				   </form>
+				   <hr>					
+						
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
@@ -784,10 +777,10 @@
 													<th class="center"><label class="pos-rel"> <input
 															type="checkbox" class="ace" /> <span class="lbl"></span>
 													</label></th>
-													<th class="detail-col">Details</th>
-													<th>Domain</th>
-													<th>Price</th>
-													<th class="hidden-480">Clicks</th>
+													<th class="detail-col">Detalles</th>
+													<th>Nombre</th>
+													<th>Precio</th>
+													<th class="hidden-480">Descripción Corta</th>
 
 													<th><i
 														class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
@@ -796,24 +789,24 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr ng-repeat="pos in post">
+												<tr ng-repeat="listservices in listservices track by listservices.id">
 													<td class="center"><label class="pos-rel"> <input
-															type="checkbox" class="ace" /> <span class="lbl"></span>
+															type="checkbox" ng-checked="listservices.datosServicio" ng-model="listservices.datosServicio" class="ace" /> <span class="lbl"></span>
 													</label></td>
 
 													<td class="center">
 														<div class="action-buttons">
-															<a href="#" ng-click="especifico(pos.numeroDocumento);" class="green bigger-140 show-details-btn"
+															<a href="#" ng-click="especifico(listservices.id);" class="green bigger-140 show-details-btn"
 																title="Show Details"> <i 
 																class="ace-icon fa fa-angle-double-down"></i> <span
-																class="sr-only">{{ pos.numeroDocumento }}</span>
+																class="sr-only">{{ listservices.id }}</span>
 															</a>
 														</div>
 													</td>
 
-													<td>{{ pos.numeroDocumento }}</td>
-													<td>{{ pos.correo }}</td>
-													<td class="hidden-480">3,330</td>
+													<td>{{ listservices.nombre }}</td>
+													<td>{{ listservices.precio }}</td>
+													<td>{{ listservices.descripcionCorta }}</td>
 													<td>Feb 12</td>
 
 													<td class="hidden-480"><span
@@ -825,6 +818,56 @@
 								</div>
 							</div>
 						</div>
+						<button ng-click="saveServicesTemp()">Guardar</button>
+						<div class="row">
+									<div class="col-xs-12">
+										<table id="simple-table"
+											class="table  table-bordered table-hover">
+											<thead>
+												<tr>
+													<th class="center"><label class="pos-rel"> <input
+															type="checkbox" class="ace" /> <span class="lbl"></span>
+													</label></th>
+													<th class="detail-col">Detalles</th>
+													<th>Nombre</th>
+													<th>Precio</th>
+													<th class="hidden-480">Descripción Corta</th>
+
+													<th><i
+														class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+														Update</th>
+													<th class="hidden-480">Status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="chooseservices in chooseservices track by chooseservices.id">
+													<td class="center"><label class="pos-rel"> 
+													<input
+															type="checkbox" class="ace"  ></input> <span class="lbl"></span>
+													</label></td>
+													<td class="center">
+														<div class="action-buttons">
+															<a href="#" ng-click="especifico(chooseservices.id);" class="green bigger-140 show-details-btn"
+																title="Show Details"> <i 
+																class="ace-icon fa fa-angle-double-down"></i> <span
+																class="sr-only">{{ chooseservices.id }}</span>
+															</a>
+														</div>
+													</td>
+
+													<td>{{ chooseservices.nombre }}</td>
+													<td>{{ chooseservices.precio }}</td>
+													<td>{{ chooseservices.descripcionCorta }}</td>
+													<td>Feb 1255</td>
+
+													<td class="hidden-480"><span
+														class="label label-sm label-warning">Expiring</span></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<button ng-click="saveServicesTemp()">Crear paquete</button>
 					</div>
 				</div>
 			</div>

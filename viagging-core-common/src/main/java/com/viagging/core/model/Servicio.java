@@ -1,7 +1,9 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -21,9 +23,13 @@ public class Servicio implements Serializable {
 
 	private Boolean activo;
 
-	private Boolean datosServicio;
-
 	private String nombre;
+	
+	private String descripcion;
+
+	private Integer idusuario;
+
+	private Integer precio;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -89,20 +95,36 @@ public class Servicio implements Serializable {
 		this.activo = activo;
 	}
 
-	public Boolean getDatosServicio() {
-		return this.datosServicio;
-	}
-
-	public void setDatosServicio(Boolean datosServicio) {
-		this.datosServicio = datosServicio;
-	}
-
 	public String getNombre() {
 		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public Integer getIdusuario() {
+		return idusuario;
+	}
+
+	public void setIdusuario(Integer idusuario) {
+		this.idusuario = idusuario;
+	}
+
+	public Integer getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Integer precio) {
+		this.precio = precio;
 	}
 
 	public Usuario getUsuario() {
