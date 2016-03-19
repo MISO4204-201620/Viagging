@@ -16,6 +16,8 @@ public class ServicioDTO {
 	private String categoria;
 	
 	private String ciudad;
+	
+	private String images[];
 
 	public Integer getId() {
 		return id;
@@ -63,6 +65,14 @@ public class ServicioDTO {
 
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
+	}
+
+	public String[] getImages() {
+		return images;
+	}
+
+	public void setImages(String images[]) {
+		this.images = images;
 	}
 
 }
