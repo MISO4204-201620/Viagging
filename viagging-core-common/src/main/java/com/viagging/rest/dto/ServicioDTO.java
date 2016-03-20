@@ -1,9 +1,11 @@
 package com.viagging.rest.dto;
 
+import java.nio.channels.SeekableByteChannel;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Servicio;
 
 
@@ -22,6 +24,10 @@ public class ServicioDTO {
     
     private String idCategoria;
 
+    private String ciudad;
+
+
+
 	public ServicioDTO() {
 	}
 	
@@ -34,7 +40,16 @@ public class ServicioDTO {
 		this.descripcionCorta = descripcionCorta;
 		this.precio = precio;
 	}
+    
+	
+	public String getCiudad() {
+		return ciudad;
+	}
 
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -88,6 +103,7 @@ public class ServicioDTO {
 		 for (Servicio servicio : listServicio) {
 		     ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(), servicio.getNombre(), servicio.getDescripcion(),String.valueOf(servicio.getPrecio()));		 
 			 servicioDTO.setIdCategoria(idCategory);
+			 servicioDTO.getCiudadCategoria(servicio);
 		     listServicioDTO.add(servicioDTO);
 		}
 		return listServicioDTO;
@@ -98,4 +114,30 @@ public class ServicioDTO {
 		
 		return servicioDTO;
 	}
+	
+	@Override
+	public String toString() {
+		return "ServicioDTO [id=" + id + ", activo=" + activo + ", nombre="
+				+ nombre + ", descripcionCorta=" + descripcionCorta
+				+ ", precio=" + precio + ", idCategoria=" + idCategoria + "]";
+	}
+	
+	private void getCiudadCategoria(Servicio servicio){
+		String ciudad = "";
+		if(servicio.getAlimentacion() != null){
+			ciudad = servicio.getAlimentacion().getCiudad();
+		}else if (servicio.getTransporte() != null){
+			ciudad = servicio.getTransporte().getLugardestino();
+		}else if(servicio.getAlojamiento() != null){
+			ciudad = servicio.getAlojamiento().getCiudad();			
+		}else if(servicio.getPaseoEcologico() != null){
+			ciudad = servicio.getPaseoEcologico().getCiudad();
+		}
+		this.ciudad = ciudad;
+	}
+	
+	/*public List<ServicioDTO> buildListServicioDTO(Paquete paquete){
+		
+		
+	}*/
 }

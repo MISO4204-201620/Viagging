@@ -739,9 +739,8 @@
 					<!-- /section:settings.box -->
 					<div class="page-header">
 						<h1>
-							Tables <small> <i
-								class="ace-icon fa fa-angle-double-right"></i> Static &amp;
-								Dynamic Tables
+							Paquetes <small> <i
+								class="ace-icon fa fa-angle-double-right"></i>Crear Paquetes
 							</small>
 						</h1>
 					</div>
@@ -761,7 +760,12 @@
 						    <select name="repeatSelect" id="repeatSelect" ng-model="valor">
 						      <option ng-repeat="option in category" value="{{option.key}}">{{option.value}}</option>
 						    </select>
-						    <button ng-click="getServices(valor);">Consultar</button>
+						    <div class="col-md-offset-3 col-md-9">
+											<button ng-click="getServices(valor)" class="btn btn-sm btn-primary" type="button">
+												<i class="ace-icon fa fa-check bigger-110"></i>
+												Consultar
+											</button>
+							</div>
 				   </form>
 				   <hr>					
 						
@@ -777,15 +781,11 @@
 													<th class="center"><label class="pos-rel"> <input
 															type="checkbox" class="ace" /> <span class="lbl"></span>
 													</label></th>
-													<th class="detail-col">Detalles</th>
-													<th>Nombre</th>
-													<th>Precio</th>
-													<th class="hidden-480">Descripción Corta</th>
-
-													<th><i
-														class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-														Update</th>
-													<th class="hidden-480">Status</th>
+													<th class="center">Nombre</th>
+													<th class="center">Detalles</th>
+													<th class="center">Precio</th>
+													<th class="hidden-480 center">Descripción Corta</th>
+                                                    <th class="center">Ciudad</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -793,7 +793,7 @@
 													<td class="center"><label class="pos-rel"> <input
 															type="checkbox" ng-checked="listservices.datosServicio" ng-model="listservices.datosServicio" class="ace" /> <span class="lbl"></span>
 													</label></td>
-
+                                                     <td>{{ listservices.nombre }}</td>
 													<td class="center">
 														<div class="action-buttons">
 															<a href="#" ng-click="especifico(listservices.id,listservices.idCategoria);" class="green bigger-140 show-details-btn"
@@ -804,13 +804,10 @@
 														</div>
 													</td>
 
-													<td>{{ listservices.nombre }}</td>
+													
 													<td>{{ listservices.precio }}</td>
 													<td>{{ listservices.descripcionCorta }}</td>
-													<td>Feb 12</td>
-
-													<td class="hidden-480"><span
-														class="label label-sm label-warning">Expiring</span></td>
+													<td>{{ listservices.ciudad }}</td>
 												</tr>
 											</tbody>
 										</table>
@@ -818,56 +815,82 @@
 								</div>
 							</div>
 						</div>
-						<button ng-click="saveServicesTemp()">Guardar</button>
-						<div class="row">
+							
+						<div class="col-md-offset-3 col-md-9">
+											<button ng-click="saveServicesTemp()" class="btn btn-sm btn-primary" type="button">
+												<i class="ace-icon fa fa-check bigger-110"></i>
+												Adicionar
+											</button>
+										</div>
+						<div ng-hide="ocultarSeccionAdicionarPaquete" class="row ng-hide">
 									<div class="col-xs-12">
 										<table id="simple-table"
 											class="table  table-bordered table-hover">
 											<thead>
 												<tr>
-													<th class="center"><label class="pos-rel"> <input
-															type="checkbox" class="ace" /> <span class="lbl"></span>
-													</label></th>
-													<th class="detail-col">Detalles</th>
-													<th>Nombre</th>
-													<th>Precio</th>
+													<th class="center">Nombre</th>
+													<th class="center">Detalles</th>
+													<th class="center">Precio</th>
 													<th class="hidden-480">Descripción Corta</th>
-
-													<th><i
-														class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-														Update</th>
-													<th class="hidden-480">Status</th>
+                                                    <th class="center">Ciudad</th>
+                                                    <th class="center">Eliminar</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr ng-repeat="chooseservices in chooseservices track by chooseservices.id">
-													<td class="center"><label class="pos-rel"> 
-													<input
-															type="checkbox" class="ace"  ></input> <span class="lbl"></span>
-													</label></td>
+											
+		                                             <td>{{ chooseservices.nombre }}</td>
 													<td class="center">
 														<div class="action-buttons">
-															<a href="#" ng-click="especifico(chooseservices.id);" class="green bigger-140 show-details-btn"
+															<a href="#" ng-click="especifico(chooseservices.id,chooseservices.idCategoria);" class="green bigger-140 show-details-btn"
 																title="Show Details"> <i 
 																class="ace-icon fa fa-angle-double-down"></i> <span
 																class="sr-only">{{ chooseservices.id }}</span>
 															</a>
 														</div>
 													</td>
-
-													<td>{{ chooseservices.nombre }}</td>
 													<td>{{ chooseservices.precio }}</td>
 													<td>{{ chooseservices.descripcionCorta }}</td>
-													<td>Feb 1255</td>
-
-													<td class="hidden-480"><span
-														class="label label-sm label-warning">Expiring</span></td>
+													<td>{{ chooseservices.ciudad }}</td>
+													<td class="center">
+														<div class="">
+															<a href="#" ng-click="desasociarServicio(chooseservices.id);"
+																title="Show Details"> <i 
+																class="ace-icon fa fa-trash-o bigger-50"></i> <span
+																class="sr-only">{{ chooseservices.id }}</span>
+															</a>
+														</div>
+													</td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 								</div>
-								<button ng-click="saveServicesTemp()">Crear paquete</button>
+								<div ng-hide="ocultarSeccionAdicionarPaquete" class="ng-hide">
+									<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nombre </label>
+	
+											<div class="col-sm-9">
+												<input ng-model="paquete.nombre" type="text" id="form-field-1" placeholder="Nombre" class="col-xs-10 col-sm-5" />
+											</div>
+									</div>
+									<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Precio </label>
+	
+											<div class="col-sm-9">
+												<input type="text" id="form-field-1" placeholder="Precio" class="col-xs-10 col-sm-5" />
+											</div>
+									</div>
+			
+	                              
+											<div class="col-md-offset-3 col-md-9">
+												<button ng-click="createPackage()" class="btn btn-sm btn-primary" type="button">
+													<i class="ace-icon fa fa-check bigger-110"></i>
+													Crear paquete
+												</button>
+											</div>
+								</div>
+							  
 					</div>
 				</div>
 			</div>

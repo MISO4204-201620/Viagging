@@ -4,26 +4,10 @@ $scope.idEspecifico = '1';
 $scope.name;
 $scope.lastName;
 $scope.chooseservices=[];
-var servicesSelect = {
-		id: "f",
-		nombre : "f",
-		precio : "f",
-		descripcionCorta: "f",
-	    datosServicio : false
-};
+$scope.ocultarSeccionAdicionarPaquete = true;
+$scope.onlyNumbers = /^\d+$/;
 
-//$scope.getCategory();
    $scope.getCategory = function() { 
-		console.log('esta entrando category'); 
-		 /*  $scope.category = 
-			        [
-				      {key: '01', value: 'TRANSPORTE'},
-				      {key: '02', value: 'ALOJAMIENTO'},
-				      {key: '03', value: 'PASEO_ECOLOGICO'},
-				      {key: '04', value: 'ALIMENTACION'}
-				    ];
-				   */
-		console.log($scope.category);
 		 $http.get('/viagging-providers-web/getCategory').
 		    success(function(data, status, headers, config) {
 		    	console.log(status);
@@ -58,41 +42,12 @@ var servicesSelect = {
 	      // log error
 	    }); 
 
-
-	    
-	    
-	    console.log('despues de llamar');
 	}
-
-
-
-	$scope.test1 = function() { 
-		console.log("alojamiento");
-		console.log($rootScope.idEspecifico);
-	    var post = {
-	    		userId: $scope.name,
-				id : $scope.lastName,
-				title : 'test1',
-				body: 'test12'
-		};
-	    
-	    $scope.post1 = post;
-	    $http.post('/viagging-providers-web/savePost', post).
-	    success(function(data, status, headers, config) {
-	    	console.log(status);
-	      $scope.post1 = data;
-	      console.log(data);
-	    }).
-	    error(function(data, status, headers, config) {
-	    }); 
-	    console.log('despues de llamar');
-	}
-
 
 	$scope.especifico = function(id,idCategoria) { 	
 		$rootScope.idEspecifico = id;
 	    console.log('especifico'+id + "---"+idCategoria); 
-	    ngDialog.open({ template: '../html/transporte.html', className: 'ngdialog-theme-default' });
+
 	    if(idCategoria == "01"){
 	         ngDialog.open({ template: '../html/transporte.html', className: 'ngdialog-theme-default' });
 	    }else if(idCategoria == "02"){
@@ -102,7 +57,6 @@ var servicesSelect = {
 	    }else if(idCategoria == "04"){
 	    	ngDialog.open({ template: '../html/alimentacion.html', className: 'ngdialog-theme-default' });
 	    }
-	    console.log('despues de llamarbb especifico');
 	}
 
 
@@ -123,7 +77,8 @@ var servicesSelect = {
 		    	  }
 	    	  }
 	    	  
-	      }		
+	      }	
+	      $scope.ocultarSeccionAdicionarPaquete = false;
 	}
 	
 	
@@ -155,7 +110,6 @@ var servicesSelect = {
 	    }).
 	    error(function(data, status, headers, config) {
 	    }); 
-	    console.log('despues de llamar');
 	}
 	
 	
@@ -176,7 +130,6 @@ var servicesSelect = {
 	
 	
 	$scope.getDatosPaseoEcologico = function() { 
-		console.log("Alimentacion");
 		console.log($rootScope.idEspecifico);
 	    $http.get('/viagging-providers-web/getServicePaseoEcologico',{
 	    	params: { idService: $rootScope.idEspecifico }
@@ -187,6 +140,44 @@ var servicesSelect = {
 	    }).
 	    error(function(data, status, headers, config) {
 	    }); 
-	    console.log('despues de llamar');
 	}
+	
+	
+	$scope.createPackage = function() { 
+		console.log("crear paquete");
+		console.log($scope.paquete);
+		$scope.paquete.servicios = $scope.chooseservices;
+		 $http.post('/viagging-providers-web/addPackage',$scope.paquete).
+			 success(function(data, status, headers, config) {
+	    	console.log(status);
+        }).
+          error(function(data, status, headers, config) {
+        }); 
+	}
+	
+	$scope.desasociarServicio = function(id) { 
+		console.log("desasociarServicio"+id);
+  	  for (var j=0;j<$scope.chooseservices.length;j++){
+	       if($scope.chooseservices[j].id == id){
+	    	   $scope.chooseservices.splice(j, 1);	
+	    	   break;
+         }
+	  }
+  	    if($scope.chooseservices.length == 0){
+  	       $scope.ocultarSeccionAdicionarPaquete = true;
+  	    }
+  	 }
+     
+	   $scope.getPackages = function() { 
+			 $http.get('/viagging-providers-web/getPackages').
+			    success(function(data, status, headers, config) {
+			    	console.log(status);
+			      $scope.listPackages = data;
+			      console.log(data);
+			    }).
+			    error(function(data, status, headers, config) {
+			      // log error
+			    }); 
+			    console.log('despues de llamar Packages');
+	     }
 }]);

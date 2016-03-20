@@ -1,15 +1,20 @@
 package com.viagging.core.dao.impl;
 
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.viagging.core.dao.PaqueteDAO;
 import com.viagging.core.model.Paquete;
 
 /**
  * The Class ModuloDAOImpl.
  */
+@Transactional
 @Repository
 public class PaqueteDAOImpl implements PaqueteDAO {
 

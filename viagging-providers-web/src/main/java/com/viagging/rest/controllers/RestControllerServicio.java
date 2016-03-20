@@ -96,7 +96,7 @@ public class RestControllerServicio {
 	  public List<ServicioDTO> getServices(@QueryParam("idCategory") String idCategory) {
           System.out.println("ingreso a getServices");	  
           ServicioDTO servicio = new ServicioDTO();	
-		  List<ServicioDTO> listServicioDTO  = servicio.buildListObject(servicioService.getAllServicio(),idCategory);
+		  List<ServicioDTO> listServicioDTO  = servicio.buildListObject(servicioService.getAllServiciosByCategoria(idCategory),idCategory);
           if(listServicioDTO.isEmpty()){
         	  throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);
           }

@@ -2,11 +2,13 @@ package com.viagging.core.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.viagging.core.dao.AlojamientoDAO;
 import com.viagging.core.model.Alojamiento;
+import com.viagging.core.services.AlojamientoService;
 
 @Service
-public class AlojamientoServiceImpl implements AlojamientoDAO {
+public class AlojamientoServiceImpl implements AlojamientoService {
 
 	@Autowired
 	private AlojamientoDAO alojamientoDAO;

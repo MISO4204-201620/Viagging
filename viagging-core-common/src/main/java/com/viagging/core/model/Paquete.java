@@ -1,7 +1,9 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -22,6 +24,9 @@ public class Paquete implements Serializable {
 	private Boolean activo;
 
 	private String nombrePaquete;
+	
+	private Integer precio;
+
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -50,13 +55,32 @@ public class Paquete implements Serializable {
 
 	public Paquete() {
 	}
+   
+	
+	
+	public Paquete( Boolean activo, String nombrePaquete,
+			Integer precio) {
+		super();
+		this.activo = activo;
+		this.nombrePaquete = nombrePaquete;
+		this.precio = precio;
+	}
 
+	
 	public Integer getId() {
 		return this.id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public Integer getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Integer precio) {
+		this.precio = precio;
 	}
 
 	public Boolean getActivo() {
