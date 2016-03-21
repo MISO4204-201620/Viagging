@@ -2,10 +2,8 @@ package com.viagging.rest.controllers;
 
 
 import java.util.List;
-
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.QueryParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,12 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.viagging.core.model.Servicio;
-import com.viagging.core.model.Transporte;
-import com.viagging.core.services.AlojamientoService;
+import org.springframework.web.servlet.ModelAndView;
 import com.viagging.core.services.ServicioService;
-import com.viagging.core.services.TransporteService;
 import com.viagging.rest.dto.AlimentacionDTO;
 import com.viagging.rest.dto.AlojamientoDTO;
 import com.viagging.rest.dto.PaseoEcologicoDTO;
@@ -96,7 +90,7 @@ public class RestControllerServicio {
 	  public List<ServicioDTO> getServices(@QueryParam("idCategory") String idCategory) {
           System.out.println("ingreso a getServices");	  
           ServicioDTO servicio = new ServicioDTO();	
-		  List<ServicioDTO> listServicioDTO  = servicio.buildListObject(servicioService.getAllServicio(),idCategory);
+		  List<ServicioDTO> listServicioDTO  = servicio.buildListObject(servicioService.getAllServiciosByCategoria(idCategory),idCategory);
           if(listServicioDTO.isEmpty()){
         	  throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);
           }
@@ -116,4 +110,12 @@ public class RestControllerServicio {
           System.out.println("deleteService a getServices");	  
           //servicioService.createServicio(servicio);
 	  }
+	  
+		@RequestMapping(value = "/register", method=RequestMethod.GET)
+	    public ModelAndView readAllCookies() {		
+			System.out.println("CookieControllerExample readAllCookies is called");
+						
+			return new ModelAndView("/tables");
+	 
+	    }
 }

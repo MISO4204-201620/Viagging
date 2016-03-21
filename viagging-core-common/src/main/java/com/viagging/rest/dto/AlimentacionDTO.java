@@ -1,7 +1,6 @@
 package com.viagging.rest.dto;
 
 import com.viagging.core.model.Alimentacion;
-import com.viagging.core.model.Alojamiento;
 import com.viagging.core.model.Servicio;
 import com.viagging.util.CategoryEnum;
 
@@ -19,8 +18,10 @@ public class AlimentacionDTO {
 	
 	private String precioMayor;
 	
-	private byte[] imagenPrincipal;
+	private String imagenPrincipal;
 	
+
+
 	private ServicioDTO servicio;
 
 
@@ -28,7 +29,7 @@ public class AlimentacionDTO {
 	public AlimentacionDTO(){}
 
 	public AlimentacionDTO(String ciudad, String horarioApertura, String restricciones,
-			String precioMenor, String precioMayor, byte[] imagenPrincipal,
+			String precioMenor, String precioMayor, String imagenPrincipal,
 			ServicioDTO servicio) {
 		super();
 		this.ciudad = ciudad;
@@ -40,15 +41,14 @@ public class AlimentacionDTO {
 		this.servicio = servicio;
 	}
 
-	public byte[] getImagenPrincipal() {
+
+	public String getImagenPrincipal() {
 		return imagenPrincipal;
 	}
 
-	public void setImagenPrincipal(byte[] imagenPrincipal) {
+	public void setImagenPrincipal(String imagenPrincipal) {
 		this.imagenPrincipal = imagenPrincipal;
 	}
-
-
 
 	public ServicioDTO getServicio() {
 		return servicio;
@@ -112,7 +112,8 @@ public class AlimentacionDTO {
 		parserServicio = parserServicio.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.ALIMENTACION.getId());
 		Alimentacion alimentacion = servicio.getAlimentacion();
-		AlimentacionDTO alimentacionDTO = new AlimentacionDTO(alimentacion.getCiudad(), alimentacion.getHorarioapertura(),  alimentacion.getRestricciones(), String.valueOf(alimentacion.getPreciomenor()), String.valueOf(alimentacion.getPreciomayor()), alimentacion.getImagenprincipal(),parserServicio);
+		String imagenPrincipal = new String(alimentacion.getImagenprincipal());
+		AlimentacionDTO alimentacionDTO = new AlimentacionDTO(alimentacion.getCiudad(), alimentacion.getHorarioapertura(),  alimentacion.getRestricciones(), String.valueOf(alimentacion.getPreciomenor()), String.valueOf(alimentacion.getPreciomayor()), imagenPrincipal,parserServicio);
 
 		return alimentacionDTO;
 	}

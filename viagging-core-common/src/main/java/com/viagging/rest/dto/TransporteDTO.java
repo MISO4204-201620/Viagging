@@ -26,8 +26,10 @@ public class TransporteDTO {
 	
 	private String numeroPasajeros;
 	
-	private byte[] imagenPrincipal;
+	private String imagenPrincipal;
 	
+
+
 
 
 	public TransporteDTO(){
@@ -38,7 +40,7 @@ public class TransporteDTO {
 			String lugarOrigen, String lugarDestino, String tiempoEstimado,
 			String horarioInicio, String horarioFin, String restricciones,
 			String frecuenciaSalida, String numeroPasajeros,
-			 byte[] imagenPrincipal) {
+			String imagenPrincipal) {
 		super();
 		this.servicio = servicio;
 		this.tipoTransporte = tipoTransporte;
@@ -53,12 +55,11 @@ public class TransporteDTO {
 		this.imagenPrincipal = imagenPrincipal;
 	}
 
-	 
-	public byte[] getImagenPrincipal() {
+	public String getImagenPrincipal() {
 		return imagenPrincipal;
 	}
 
-	public void setImagenPrincipal(byte[] imagenPrincipal) {
+	public void setImagenPrincipal(String imagenPrincipal) {
 		this.imagenPrincipal = imagenPrincipal;
 	}
 	
@@ -146,9 +147,10 @@ public class TransporteDTO {
 		ServicioDTO parserServicio = new ServicioDTO();
 		parserServicio = parserServicio.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.TRANSPORTE.getId());
-		TransporteDTO transporteDTO = new TransporteDTO(parserServicio, servicio.getTransporte().getTipotransporte(), servicio.getTransporte().getLugarorigen(), servicio.getTransporte().getLugardestino(),
-				servicio.getTransporte().getTiempoestimado(), servicio.getTransporte().getHorarioinicio(), servicio.getTransporte().getHorariofin(), servicio.getTransporte().getRestricciones(), servicio.getTransporte().getFrecuenciasalida(),String.valueOf(servicio.getTransporte().getNumeropasajeros()),servicio.getTransporte().getImagenprincipal());
-		//org.apache.commons.beanutils.PropertyUtilsBean.copyProperties(Object dest, Object orig)
+		Transporte transporte = servicio.getTransporte();
+		String imagenPrincipal = new String(transporte.getImagenprincipal());
+		TransporteDTO transporteDTO = new TransporteDTO(parserServicio, transporte.getTipotransporte(), transporte.getLugarorigen(), transporte.getLugardestino(),
+				transporte.getTiempoestimado(), transporte.getHorarioinicio(), transporte.getHorariofin(), transporte.getRestricciones(), transporte.getFrecuenciasalida(),String.valueOf(transporte.getNumeropasajeros()),imagenPrincipal);
 		return transporteDTO;
 	}
 }

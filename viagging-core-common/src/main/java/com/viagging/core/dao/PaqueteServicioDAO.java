@@ -1,6 +1,7 @@
 package com.viagging.core.dao;
 
 import java.util.List;
+
 import com.viagging.core.model.PaqueteServicio;
 
 public interface PaqueteServicioDAO  {
@@ -17,4 +18,6 @@ public interface PaqueteServicioDAO  {
 
 
 	PaqueteServicio deletePaqueteServicio(PaqueteServicio idPaqueteServicio);
+	
+	List<PaqueteServicio> getPaqueteServicioByIdPaquete(String idPaquete);
 }

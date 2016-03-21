@@ -1,12 +1,10 @@
-package com.viagging.core.dao;
+package com.viagging.core.services;
 
 import com.viagging.core.model.Usuario;
 
 
-public interface UsuarioDAO {
-	
-	Usuario findUsuarioByLoginAndPassword(String login, String password);
-
+public interface UsuarioService {
+     
 	Usuario getUsuarioById(Integer idUsuario);
 
 	Usuario createUsuario(Usuario usuario);
@@ -14,4 +12,3 @@ public interface UsuarioDAO {
 	Usuario updateUsuario(Usuario usuario);
 	
 }
-

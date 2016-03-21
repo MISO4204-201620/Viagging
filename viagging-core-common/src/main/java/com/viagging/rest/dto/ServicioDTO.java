@@ -2,9 +2,10 @@ package com.viagging.rest.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.viagging.core.model.PaqueteServicio;
 import com.viagging.core.model.Servicio;
+import com.viagging.util.CategoryEnum;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -22,6 +23,12 @@ public class ServicioDTO {
     
     private String idCategoria;
 
+    private String ciudad;
+
+    private PaqueteDTO paquete;
+
+
+
 	public ServicioDTO() {
 	}
 	
@@ -34,7 +41,24 @@ public class ServicioDTO {
 		this.descripcionCorta = descripcionCorta;
 		this.precio = precio;
 	}
+    
 
+	public PaqueteDTO getPaquete() {
+		return paquete;
+	}
+
+	public void setPaquete(PaqueteDTO paquete) {
+		this.paquete = paquete;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -88,6 +112,7 @@ public class ServicioDTO {
 		 for (Servicio servicio : listServicio) {
 		     ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(), servicio.getNombre(), servicio.getDescripcion(),String.valueOf(servicio.getPrecio()));		 
 			 servicioDTO.setIdCategoria(idCategory);
+			 servicioDTO.getCiudadCategoria(servicio);
 		     listServicioDTO.add(servicioDTO);
 		}
 		return listServicioDTO;
@@ -95,7 +120,64 @@ public class ServicioDTO {
 
 	public ServicioDTO buildObject( Servicio servicio){
 		 ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(),  servicio.getNombre(), servicio.getDescripcion(),String.valueOf(servicio.getPrecio()));
-		
+		 servicioDTO.getCiudadCategoria(servicio);
 		return servicioDTO;
 	}
+	
+	@Override
+	public String toString() {
+		return "ServicioDTO [id=" + id + ", activo=" + activo + ", nombre="
+				+ nombre + ", descripcionCorta=" + descripcionCorta
+				+ ", precio=" + precio + ", idCategoria=" + idCategoria + "]";
+	}
+	
+	private void getCiudadCategoria(Servicio servicio){
+		String ciudad = "";
+		if(servicio.getAlimentacion() != null){
+			ciudad = servicio.getAlimentacion().getCiudad();
+		}else if (servicio.getTransporte() != null){
+			ciudad = servicio.getTransporte().getLugardestino();
+		}else if(servicio.getAlojamiento() != null){
+			ciudad = servicio.getAlojamiento().getCiudad();			
+		}else if(servicio.getPaseoEcologico() != null){
+			ciudad = servicio.getPaseoEcologico().getCiudad();
+		}
+		this.ciudad = ciudad;
+	}
+	
+	public List<ServicioDTO> buildListServicioDTO( List<PaqueteServicio> listaPaqueteServicio){
+		List<ServicioDTO> listaServicioDTO = new ArrayList<>();
+		System.out.println("buildListServicioDTO");
+		for (PaqueteServicio paqueteServicio : listaPaqueteServicio) {
+			System.out.println(paqueteServicio.getServicio().getNombre());
+			ServicioDTO servicioDTO = new ServicioDTO();
+			servicioDTO = servicioDTO.buildObject(paqueteServicio.getServicio());
+			servicioDTO.setPaquete(servicioDTO.buildPaquete(paqueteServicio.getServicio()));
+			listaServicioDTO.add(servicioDTO);
+		}
+		return listaServicioDTO;
+		
+	}
+	
+	private PaqueteDTO buildPaquete(Servicio servicio){
+		PaqueteDTO paquete = new PaqueteDTO();
+		String idCategoria = "";
+		if(servicio.getAlimentacion() != null){
+			idCategoria = CategoryEnum.ALIMENTACION.getId();
+			paquete.setNombre(CategoryEnum.ALIMENTACION.name());
+		}else if (servicio.getTransporte() != null){
+			idCategoria = CategoryEnum.TRANSPORTE.getId();
+			paquete.setNombre(CategoryEnum.TRANSPORTE.name());
+		}else if(servicio.getAlojamiento() != null){
+			idCategoria = CategoryEnum.ALOJAMIENTO.getId();		
+			paquete.setNombre(CategoryEnum.ALOJAMIENTO.name());
+		}else if(servicio.getPaseoEcologico() != null){
+			idCategoria = CategoryEnum.PASEO_ECOLOGICO.getId();
+			paquete.setNombre(CategoryEnum.PASEO_ECOLOGICO.name());
+		}
+		   this.idCategoria = idCategoria;
+		return paquete;
+	}
+	
+	
 }

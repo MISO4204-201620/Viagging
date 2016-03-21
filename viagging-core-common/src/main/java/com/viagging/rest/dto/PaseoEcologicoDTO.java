@@ -20,7 +20,7 @@ public class PaseoEcologicoDTO {
 	
 	private String restricciones;
 	
-	private byte[] imagenPrincipal;
+	private String imagenPrincipal;
     
 	private ServicioDTO servicio;
 	
@@ -29,7 +29,7 @@ public class PaseoEcologicoDTO {
 	
 	public PaseoEcologicoDTO(String fecha, String ciudad,
 			String tiempoDeRecorrido, String horario,
-			String restricciones, byte[] imagenPrincipal, ServicioDTO servicio) {
+			String restricciones, String imagenPrincipal, ServicioDTO servicio) {
 		super();
 		this.fecha = fecha;
 		this.ciudad = ciudad;
@@ -39,12 +39,13 @@ public class PaseoEcologicoDTO {
 		this.imagenPrincipal = imagenPrincipal;
 		this.servicio = servicio;
 	}
-
-	public byte[] getImagenPrincipal() {
+    
+	public String getImagenPrincipal() {
 		return imagenPrincipal;
 	}
 
-	public void setImagenPrincipal(byte[] imagenPrincipal) {
+
+	public void setImagenPrincipal(String imagenPrincipal) {
 		this.imagenPrincipal = imagenPrincipal;
 	}
 
@@ -110,8 +111,9 @@ public class PaseoEcologicoDTO {
 		parserServicio = parserServicio.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.PASEO_ECOLOGICO.getId());
 		PaseoEcologico paseoEcologico = servicio.getPaseoEcologico();	
+		String imagenPrincipal = new String(paseoEcologico.getImagenprincipal());
 		PaseoEcologicoDTO paseoEcologicoDTO = new PaseoEcologicoDTO(paseoEcologico.getFecha().toString(),paseoEcologico.getCiudad(),
-				paseoEcologico.getTiempoderecorrido(), paseoEcologico.getHorario(),  paseoEcologico.getRestricciones(), paseoEcologico.getImagenprincipal(), parserServicio);
+				paseoEcologico.getTiempoderecorrido(), paseoEcologico.getHorario(),  paseoEcologico.getRestricciones(), imagenPrincipal, parserServicio);
 		return paseoEcologicoDTO;
 		
 	}

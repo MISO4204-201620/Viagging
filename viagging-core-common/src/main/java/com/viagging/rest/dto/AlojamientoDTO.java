@@ -15,13 +15,13 @@ public class AlojamientoDTO {
     
 	private ServicioDTO servicio;
 	
-	private byte[] imagenPrincipal;
+	private String imagenPrincipal;
 	
 
 
 	public AlojamientoDTO(String ciudad, String valorPorNoche,
 			String restricciones,  ServicioDTO servicio,
-			 byte[] imagenPrincipal) {
+			 String imagenPrincipal) {
 		super();
 		this.ciudad = ciudad;
 		this.valorPorNoche = valorPorNoche;
@@ -33,13 +33,15 @@ public class AlojamientoDTO {
 	public AlojamientoDTO(){}
 
 
-	public byte[] getImagenPrincipal() {
+
+	public String getImagenPrincipal() {
 		return imagenPrincipal;
 	}
 
-	public void setImagenPrincipal(byte[] imagenPrincipal) {
+	public void setImagenPrincipal(String imagenPrincipal) {
 		this.imagenPrincipal = imagenPrincipal;
 	}
+
 	public ServicioDTO getServicio() {
 		return servicio;
 	}
@@ -85,7 +87,8 @@ public class AlojamientoDTO {
 		parserServicio = parserServicio.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.ALOJAMIENTO.getId());
 		Alojamiento alojamiento = servicio.getAlojamiento();
-		AlojamientoDTO alojamientoDTO = new AlojamientoDTO(alojamiento.getCiudad(), String.valueOf(alojamiento.getValorpornoche()), alojamiento.getRestricciones(), parserServicio, alojamiento.getImagenprincipal());
+		String imagenPrincipal = new String(alojamiento.getImagenprincipal());
+		AlojamientoDTO alojamientoDTO = new AlojamientoDTO(alojamiento.getCiudad(), String.valueOf(alojamiento.getValorpornoche()), alojamiento.getRestricciones(), parserServicio, imagenPrincipal);
 		return alojamientoDTO;
 	}
 }

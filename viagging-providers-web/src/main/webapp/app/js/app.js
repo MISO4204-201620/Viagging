@@ -1,6 +1,6 @@
 'use strict';
 
-var marketPlaceApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap']);
+var marketPlaceApp = angular.module('sampleapp', ['ui.router', 'ui.bootstrap']);
 
 marketPlaceApp.config(['$stateProvider', function($stateProvider){
 

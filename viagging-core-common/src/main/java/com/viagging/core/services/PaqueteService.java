@@ -1,7 +1,10 @@
 package com.viagging.core.services;
 
 import java.util.List;
+
 import com.viagging.core.model.Paquete;
+import com.viagging.core.model.Servicio;
+import com.viagging.rest.dto.PaqueteDTO;
 
 public interface PaqueteService {
 
@@ -9,8 +12,12 @@ public interface PaqueteService {
 
 	List<Paquete> getAllPaquete();
 
-	Paquete createPaquete(Paquete paquete);
+	Paquete createPaquete(Paquete paquete,List<Servicio> listaServicio,String idUsuario);
 
 	Paquete updatePaquete(Paquete paquete);
+	
+	Paquete buildPaquete(PaqueteDTO paqueteDTO);
+	
+	List<Paquete> getAllPaquetesByFiltro(String filtro);
 
 }

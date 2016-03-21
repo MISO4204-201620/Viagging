@@ -24,9 +24,9 @@ public final class CookieUtil {
 	 */
 	public static Cookie createCookie(String name, String value){
 		Cookie cookie = new Cookie(name, value);
-		//cookie.setDomain(""); // el cookie es valido para todos los dominios
+		cookie.setDomain(""); // el cookie es valido para todos los dominios
 		cookie.setPath(COOKIE_PATH); 
-		cookie.setMaxAge(COOKIE_MAX_AGE); 
+		//cookie.setMaxAge(COOKIE_MAX_AGE); 
 //		cookie.setSecure(true);
 //		cookie.setHttpOnly(true);
 		return cookie;
