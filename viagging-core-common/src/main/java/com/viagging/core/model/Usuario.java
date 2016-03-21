@@ -1,7 +1,9 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -11,7 +13,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="tp_usuario")
-@NamedQuery(name="Usuario.findAll", query="SELECT t FROM Usuario t")
+@NamedQueries({
+	@NamedQuery(name="Usuario.findAll", query="SELECT t FROM Usuario t"),
+	@NamedQuery(name="Usuario.findByPasswordAndLogin", 
+		query="SELECT t FROM Usuario t WHERE t.login = :login AND t.password = :password")
+})
+
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,6 +26,10 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
+	private String login;
+
+	private String password;
+	
 	private String correo;
 
 	private Integer numeroCelular;
@@ -86,6 +97,22 @@ public class Usuario implements Serializable {
 		this.id = id;
 	}
 
+	public String getLogin() {
+		return this.login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	public String getCorreo() {
 		return this.correo;
 	}

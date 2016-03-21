@@ -3,6 +3,7 @@ package com.viagging.rest.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.viagging.core.model.Usuario;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UsuarioDTO {
@@ -97,5 +98,25 @@ public class UsuarioDTO {
 
 	public void setTipoDocumento(String tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
+	}
+	
+	/**
+	 * Builds and {@link UsuarioDTO} object from an {@link Usuario} object.
+	 *
+	 * @param usuario the usuario
+	 * @return the usuario dto
+	 */
+	public static UsuarioDTO buildObject(Usuario usuario){
+		UsuarioDTO usuarioDto = new UsuarioDTO();
+		usuarioDto.setId(usuario.getId());
+		usuarioDto.setCorreo(usuario.getCorreo());
+		usuarioDto.setNumeroCelular(usuario.getNumeroCelular());
+		usuarioDto.setPrimerNombre(usuario.getPrimerNombre());
+		usuarioDto.setSegundoNombre(usuario.getSegundoNombre());
+		usuarioDto.setPrimerApellido(usuario.getPrimerApellido());
+		usuarioDto.setSegundoApellido(usuario.getSegundoApellido());
+		usuarioDto.setTipoDocumento(usuario.getTipoDocumento());
+		usuarioDto.setNumeroDocumento(usuario.getNumeroDocumento());
+		return usuarioDto;
 	}
 }
