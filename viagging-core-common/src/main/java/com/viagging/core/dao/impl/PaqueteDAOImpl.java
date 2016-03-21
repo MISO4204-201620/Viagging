@@ -65,6 +65,9 @@ public class PaqueteDAOImpl implements PaqueteDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Paquete> getAllPaquetesByFiltro(String filtro){
+		if(filtro == null){
+			filtro = "";
+		}
 		 Query query = entityManager
 		            .createQuery("SELECT t from Paquete t where t.nombrePaquete LIKE :filtro");
 		        query.setParameter("filtro", "%"+filtro+"%");

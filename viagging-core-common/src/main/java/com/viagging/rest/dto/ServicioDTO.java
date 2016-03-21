@@ -1,12 +1,8 @@
 package com.viagging.rest.dto;
 
-import java.nio.channels.SeekableByteChannel;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.viagging.core.dao.PaqueteDAO;
-import com.viagging.core.model.Paquete;
 import com.viagging.core.model.PaqueteServicio;
 import com.viagging.core.model.Servicio;
 import com.viagging.util.CategoryEnum;

@@ -91,8 +91,8 @@ public class RestControllerPaquete {
 	  @RequestMapping(value = "/getPackages", method = RequestMethod.GET)
 	  @ResponseStatus(value = HttpStatus.OK)
 	  public List<PaqueteDTO> getPackages(@QueryParam("filtro") String filtro) {
-          System.out.println("deletePackage");
-          PaqueteDTO paqueteDTO = new PaqueteDTO();          
+          System.out.println("deletePackage"+filtro);
+          PaqueteDTO paqueteDTO = new PaqueteDTO(); 
           List<Paquete>  listPackages = paqueteService.getAllPaquetesByFiltro(filtro);
           List<PaqueteDTO> listPaquete = paqueteDTO.buildListObject(listPackages);
     		  if(listPaquete.isEmpty()){
