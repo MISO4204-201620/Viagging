@@ -3,7 +3,7 @@ var app = angular.module('sampleapp', ['ngDialog']).controller('samplecontroller
 $scope.idEspecifico = '1';
 $scope.name;
 $scope.lastName;
-$scope.filtrarnombre;
+$scope.filtrarnombre = "";
 $scope.chooseservices=[];
 $scope.ocultarSeccionAdicionarPaquete = true;
 $scope.onlyNumbers = /^\d+$/;
@@ -186,6 +186,22 @@ $scope.onlyNumbers = /^\d+$/;
 	   
 
 	   $scope.getPackage = function(idPaquete) { 
+			 $http.get('/viagging-providers-web/getPackage',{
+			    	params: { idPackage: idPaquete }
+			    }).
+			    success(function(data, status, headers, config) {
+			    	console.log(status);
+			      $scope.listaServicios = data;
+			      console.log(data);
+			    }).
+			    error(function(data, status, headers, config) {
+			      // log error
+			    }); 
+			    console.log('despues de llamar Packages');
+	     }
+	   
+	   $scope.login = function() { 
+		   console.log('login');
 			 $http.get('/viagging-providers-web/getPackage',{
 			    	params: { idPackage: idPaquete }
 			    }).

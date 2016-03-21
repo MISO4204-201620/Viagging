@@ -7,10 +7,14 @@ import com.viagging.core.dao.UsuarioDAO;
 import com.viagging.core.model.Usuario;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Repository
 public class UsuarioDAOImpl implements UsuarioDAO {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioDAOImpl.class);
+	
 	/** The entity manager. */
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -24,7 +28,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			query.setParameter("password", password);
 			return (Usuario) query.getSingleResult();
 		} catch(NoResultException e){
-			//LOGGER.error(e.getMessage());
+			LOGGER.error(e.getMessage());
 			return null;
 		}
 	}
