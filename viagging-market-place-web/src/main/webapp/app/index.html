@@ -10,7 +10,7 @@
 	    <link href="../app/css/font-awesome.min.css" rel="stylesheet">
 	    <link href="../app/css/style.css" rel="stylesheet">
 	</head>
-	<body ng-app="viaggingApp">
+	<body ng-app="viaggingApp" ng-controller="AppCtrl">
 
 		<header>
 		    <div class="container">
@@ -91,7 +91,6 @@
 	            <div class="collapse navbar-collapse navbar-ex1-collapse">
 	                <ul class="nav navbar-nav">
 	                    <li><a ui-sref="home">Home</a></li>
-	                    <li><a ui-sref="catalogue" class="active">Catalogue</a></li>
 	                    <li><a ui-sref="cart">Shopping Cart</a></li>
 	                    <li><a ui-sref="checkout">Checkout</a></li>
 	                    <li class="nav-dropdown">
@@ -131,12 +130,9 @@
 	        	</div>
 	        	<div class="col-lg-3 col-md-3 col-sm-6">
 	        		<div class="column">
-	        			<h4>Categories</h4>
+	        			<h4>Categorias</h4>
 	        			<ul>
-	        				<li><a ui-sref="catalogue">Cras justo odio</a></li>
-	        				<li><a ui-sref="catalogue">Dapibus ac facilisis in</a></li>
-	        				<li><a ui-sref="catalogue">Morbi leo risus</a></li>
-	        				<li><a ui-sref="catalogue">Porta ac consectetur ac</a></li>
+	        				<li ng-repeat="categoria in categorias"><a ui-sref="home">{{categoria.value}}</a></li>
 	        			</ul>
 	        		</div>
 	        	</div>
@@ -144,9 +140,9 @@
 	        		<div class="column">
 	        			<h4>Customer Service</h4>
 	        			<ul>
-	        				<li><a ui-sref="contact">Contact Us</a></li>
+	        				<li><a ui-sref="contact">Contactanos</a></li>
 	        				<li><a >YM: cs_</a></li>
-	        				<li><a >Phone: +6281234567891</a></li>
+	        				<li><a >Phone: +3219998909</a></li>
 	        				<li><a >Email: cs.domain@domain.tld</a></li>
 	        			</ul>
 	        		</div>
@@ -176,6 +172,8 @@
 		<script src="../app/third-party/jquery.js"></script>
     	<script src="../app/third-party/bootstrap.js"></script>
     	<script src="../app/third-party/jquery.blImageCenter.js"></script>
+    	<script src="../app/third-party/bootstrap.touchspin.js"></script>
+    	<script src="../app/third-party/jquery.zoom.min.js"></script>
     	<script src="../app/third-party/mimity.js"></script>
 
 		<!-- Scripts -->
@@ -187,9 +185,11 @@
 <!-- 		<script src="../app/third-party/bootstrap.min.js"></script> -->
 		<script src="../app/third-party/ui-utils.min.js"></script>
 		<script src="../app/js/app.js"></script>
-		<script src="../app/js/controllers/AppCtrl.js"></script>
-		<script src="../app/js/services/LoginService.js"></script>
+		<script src="../app/js/services/LoginService.js"></script>	
+		<script src="../app/js/services/ConfigService.js"></script>
 		<script src="../app/js/services/UserService.js"></script>
+		<script src="../app/js/controllers/AppCtrl.js"></script>
 		<script src="../app/js/controllers/LoginCtrl.js"></script>
+		<script src="../app/js/controllers/CatalogueCtrl.js"></script>
 	</body>
 </html>
