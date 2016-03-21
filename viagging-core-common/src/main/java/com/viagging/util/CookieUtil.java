@@ -1,7 +1,7 @@
 package com.viagging.util;
 
-//import javax.servlet.http.Cookie;
-//import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.util.WebUtils;
 
@@ -22,15 +22,15 @@ public final class CookieUtil {
 	 * @param value the value of the cookie to create
 	 * @return the cookie
 	 */
-	//public static Cookie createCookie(String name, String value){
-		//Cookie cookie = new Cookie(name, value);
-		//cookie.setDomain(""); // el cookie es valido para todos los dominios
-		//cookie.setPath(COOKIE_PATH); 
+	public static Cookie createCookie(String name, String value){
+		Cookie cookie = new Cookie(name, value);
+		cookie.setDomain(""); // el cookie es valido para todos los dominios
+		cookie.setPath(COOKIE_PATH); 
 		//cookie.setMaxAge(COOKIE_MAX_AGE); 
 //		cookie.setSecure(true);
 //		cookie.setHttpOnly(true);
-		//return cookie;
-	//}
+		return cookie;
+	}
 	
 	/**
 	 * Gets a cookie from the request with a given name
@@ -40,7 +40,7 @@ public final class CookieUtil {
 	 * @param name the name
 	 * @return the cookie
 	 */
-	/*public static Cookie getCookie(HttpServletRequest request, String name){
+	public static Cookie getCookie(HttpServletRequest request, String name){
 		return WebUtils.getCookie(request, name);
-	}*/
+	}
 }
