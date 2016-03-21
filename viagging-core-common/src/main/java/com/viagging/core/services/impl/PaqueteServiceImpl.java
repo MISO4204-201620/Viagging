@@ -67,5 +67,10 @@ public class PaqueteServiceImpl implements PaqueteService{
 		Paquete paquete = new Paquete( true, paqueteDTO.getNombre(), Integer.valueOf(paqueteDTO.getPrecio()));		
 		return paquete;
 	}
+	
+	@Override
+	public List<Paquete> getAllPaquetesByFiltro(String filtro){
+		return paqueteDAO.getAllPaquetesByFiltro(filtro);		
+	}
 
 }

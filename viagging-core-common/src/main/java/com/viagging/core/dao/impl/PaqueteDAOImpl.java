@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,6 +60,18 @@ public class PaqueteDAOImpl implements PaqueteDAO {
 			entityManager.remove(paquete);
 		}
 		return paquete;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Paquete> getAllPaquetesByFiltro(String filtro){
+		 Query query = entityManager
+		            .createQuery("SELECT t from Paquete t where t.nombrePaquete LIKE :filtro");
+		        query.setParameter("filtro", "%"+filtro+"%");
+		        
+				List<Paquete> listaPaquete =  query.getResultList(); 
+		return listaPaquete;
+				
 	}
 
 }

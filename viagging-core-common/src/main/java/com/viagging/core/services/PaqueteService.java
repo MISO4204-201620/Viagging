@@ -17,5 +17,7 @@ public interface PaqueteService {
 	Paquete updatePaquete(Paquete paquete);
 	
 	Paquete buildPaquete(PaqueteDTO paqueteDTO);
+	
+	List<Paquete> getAllPaquetesByFiltro(String filtro);
 
 }

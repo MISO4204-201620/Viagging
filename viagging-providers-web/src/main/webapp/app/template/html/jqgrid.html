@@ -756,14 +756,22 @@
 					<div>
 					
 					<form name="myForm">
+						 <div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Filtrar por Nombre </label>
+
+								<div class="col-sm-9">
+									<input ng-model="filtrarnombre" type="text" id="form-field-1" placeholder="Nombre" class="col-xs-10 col-sm-5" />
+								</div>
+							</div>
 						    <div class="col-md-offset-3 col-md-9">
-											<button ng-click="getPackages()" class="btn btn-sm btn-primary" type="button">
+											<button ng-click="getPackages(filtrarnombre)" class="btn btn-sm btn-primary" type="button">
 												<i class="ace-icon fa fa-check bigger-110"></i>
 												Consultar
 											</button>
 							</div>
 				   </form>
-				   <hr>					
+				   <hr>			
+				   <hr>				
 						
 						<div class="row">
 							<div class="col-xs-12">
@@ -784,7 +792,7 @@
                                                      <td>{{ listPackages.nombre }}</td>
 													<td class="center">
 														<div class="action-buttons">
-															<a href="#" ng-click="especifico(listservices.id,listservices.idCategoria);" class="green bigger-140 show-details-btn"
+															<a href="#" ng-click="getPackage(listPackages.id);" class="green bigger-140 show-details-btn"
 																title="Show Details"> <i 
 																class="ace-icon fa fa-angle-double-down"></i> <span
 																class="sr-only">{{ listPackages.id }}</span>
@@ -817,6 +825,7 @@
 											class="table  table-bordered table-hover">
 											<thead>
 												<tr>
+												    <th class="center">Categoria</th>
 													<th class="center">Nombre</th>
 													<th class="center">Detalles</th>
 													<th class="center">Precio</th>
@@ -825,22 +834,23 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr ng-repeat="listservices in listservices track by listservices.id">
-                                                     <td>{{ listservices.nombre }}</td>
+												<tr ng-repeat="listaServicios in listaServicios">
+                                                     <td>{{ listaServicios.paquete.nombre }}</td>
+                                                     <td>{{ listaServicios.nombre }}</td>
 													<td class="center">
 														<div class="action-buttons">
-															<a href="#" ng-click="especifico(listservices.id,listservices.idCategoria);" class="green bigger-140 show-details-btn"
+															<a href="#" ng-click="especifico(listaServicios.id,listaServicios.idCategoria);" class="green bigger-140 show-details-btn"
 																title="Show Details"> <i 
 																class="ace-icon fa fa-angle-double-down"></i> <span
-																class="sr-only">{{ listservices.id }}</span>
+																class="sr-only">{{ listaServicios.id }}</span>
 															</a>
 														</div>
 													</td>
 
 													
-													<td>{{ listservices.precio }}</td>
-													<td>{{ listservices.descripcionCorta }}</td>
-													<td>{{ listservices.ciudad }}</td>
+													<td>{{ listaServicios.precio }}</td>
+													<td>{{ listaServicios.descripcionCorta }}</td>
+													<td>{{ listaServicios.ciudad }}</td>
 												</tr>
 											</tbody>
 										</table>

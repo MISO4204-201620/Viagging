@@ -3,6 +3,7 @@ var app = angular.module('sampleapp', ['ngDialog']).controller('samplecontroller
 $scope.idEspecifico = '1';
 $scope.name;
 $scope.lastName;
+$scope.filtrarnombre;
 $scope.chooseservices=[];
 $scope.ocultarSeccionAdicionarPaquete = true;
 $scope.onlyNumbers = /^\d+$/;
@@ -168,11 +169,29 @@ $scope.onlyNumbers = /^\d+$/;
   	    }
   	 }
      
-	   $scope.getPackages = function() { 
-			 $http.get('/viagging-providers-web/getPackages').
-			    success(function(data, status, headers, config) {
+	   $scope.getPackages = function(filtro) { 
+		   console.log("filtro"+filtro);
+			 $http.get('/viagging-providers-web/getPackages',{
+			    	params: { filtro: filtro }
+			    }).success(function(data, status, headers, config) {
 			    	console.log(status);
 			      $scope.listPackages = data;
+			      console.log(data);
+			    }).
+			    error(function(data, status, headers, config) {
+			      // log error
+			    }); 
+			    console.log('despues de llamar Packages');
+	     }
+	   
+
+	   $scope.getPackage = function(idPaquete) { 
+			 $http.get('/viagging-providers-web/getPackage',{
+			    	params: { idPackage: idPaquete }
+			    }).
+			    success(function(data, status, headers, config) {
+			    	console.log(status);
+			      $scope.listaServicios = data;
 			      console.log(data);
 			    }).
 			    error(function(data, status, headers, config) {

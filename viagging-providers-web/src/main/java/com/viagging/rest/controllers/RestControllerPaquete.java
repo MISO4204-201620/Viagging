@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.viagging.core.dao.PaqueteDAO;
 import com.viagging.core.model.Paquete;
 import com.viagging.core.model.PaqueteServicio;
 import com.viagging.core.model.Servicio;
@@ -35,6 +36,9 @@ public class RestControllerPaquete {
 	
     @Autowired
 	private PaqueteService paqueteService;
+    
+    @Autowired
+	private PaqueteDAO paqueteDAO;
     
     @Autowired
   	private PaqueteServicioService paqueteServicioService;
@@ -75,19 +79,21 @@ public class RestControllerPaquete {
 	  @RequestMapping(value = "/getPackage", method = RequestMethod.GET)
 	  @ResponseStatus(value = HttpStatus.OK)
 	  public List<ServicioDTO> getPackage(@QueryParam("idPackage") String idPackage) {
-          System.out.println("deletePackage");	  
+          System.out.println("getPackage"+idPackage);	  
           List<ServicioDTO> listaServicios = new ArrayList<>();
+          ServicioDTO servicioDTO = new ServicioDTO();
           List<PaqueteServicio> listPaqueteServicio = paqueteServicioService.getPaqueteServicioByIdPaquete(idPackage);
+          listaServicios   = servicioDTO.buildListServicioDTO(listPaqueteServicio);
 
-		  return null;
+		  return listaServicios;
 	  }
 	  
 	  @RequestMapping(value = "/getPackages", method = RequestMethod.GET)
 	  @ResponseStatus(value = HttpStatus.OK)
-	  public List<PaqueteDTO> getPackages() {
+	  public List<PaqueteDTO> getPackages(@QueryParam("filtro") String filtro) {
           System.out.println("deletePackage");
-          PaqueteDTO paqueteDTO = new PaqueteDTO();
-          List<Paquete> listPackages =  paqueteService.getAllPaquete();
+          PaqueteDTO paqueteDTO = new PaqueteDTO();          
+          List<Paquete>  listPackages = paqueteService.getAllPaquetesByFiltro(filtro);
           List<PaqueteDTO> listPaquete = paqueteDTO.buildListObject(listPackages);
     		  if(listPaquete.isEmpty()){
             	  throw new NotFoundException(PACKAGE_ERROR_MESSAGE_NOT_FOUND);
