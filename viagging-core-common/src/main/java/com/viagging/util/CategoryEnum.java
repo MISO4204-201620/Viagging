@@ -1,43 +1,43 @@
 package com.viagging.util;
 
-
-	import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.viagging.rest.dto.NombreValorDTO;
 
+public enum CategoryEnum {
 
-	public enum CategoryEnum {
+	TRANSPORTE("01", "Transporte"), 
+	ALOJAMIENTO("02", "Alojamiento"), 
+	PASEO_ECOLOGICO("03", "Paseo Ecológico"), 
+	ALIMENTACION("04", "Alimentación");
 
-	    TRANSPORTE("01"),
-	    ALOJAMIENTO("02"),
-	    PASEO_ECOLOGICO("03"),
-	    ALIMENTACION("04");
+	private String id;
+	
+	private String name;
 
-	    private String id;
-
-	    private CategoryEnum(String id) {
-	        this.id = id;
-	    }
-
-	    public String getId() {
-	        return id;
-	    }
-
-
-	    public static List<NombreValorDTO> getKeysValue() {
-
-	        List<NombreValorDTO> nombreValorDTO = new ArrayList<>();
-
-	        for (CategoryEnum topicEnum : CategoryEnum.values()) {
-	        	NombreValorDTO nombre = new NombreValorDTO();
-	        	nombre.setValue(topicEnum.name());
-	        	nombre.setKey(topicEnum.getId());
-	            nombreValorDTO.add(nombre);
-	        }
-
-	        return nombreValorDTO;
-	    }
-
+	private CategoryEnum(String id, String name) {
+		this.id = id;
+		this.name = name;
 	}
 
+	public String getId() {
+		return id;
+	}
+	
+	public String getName(){
+		return name;
+	}
+
+	public static List<NombreValorDTO> getKeyValues() {
+		List<NombreValorDTO> nombreValorDTO = new ArrayList<>();
+		for (CategoryEnum topicEnum : CategoryEnum.values()) {
+			NombreValorDTO nombre = new NombreValorDTO();
+			nombre.setKey(topicEnum.getId());
+			nombre.setValue(topicEnum.getName());
+			nombreValorDTO.add(nombre);
+		}
+		return nombreValorDTO;
+	}
+
+}

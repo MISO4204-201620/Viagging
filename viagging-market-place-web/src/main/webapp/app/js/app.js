@@ -7,11 +7,13 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 	$stateProvider
 		.state("home", {
 			url: "/home",
-			templateUrl: '../app/views/main.html'
-		})
-		.state("catalogue", {
-			url: "/catalogue",
-			templateUrl: '../app/views/catalogue.html'
+			templateUrl: '../app/views/catalogue.html',
+			controller: 'AppCtrl',
+			resolve: {
+				init : ['configService', function(configService){
+					return configService.initMarketPlaceConfig();
+				}]
+			}
 		})
 		.state("detail", {
 			url: "/detail",
