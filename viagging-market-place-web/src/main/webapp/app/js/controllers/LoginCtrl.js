@@ -8,21 +8,19 @@ marketPlaceApp.controller('LoginCtrl', ['$scope', '$state', 'loginService',
 		password: "",
 	};
 	
-	var successHandler = function(result){
+	var successCallback = function(result){
 		alert("Bienvenido!");
 		$state.go("home");
 	};
 	
-	var errorHandler = function(){
-		alert("Las credenciales que ha ingresado no son validas!");
+	var errorCallback = function(){
+		alert("Las credenciales que ha ingresado no son válidas!");
 		$scope.user.password = "";
 	};
 	
 	$scope.loginUser = function(){
 		if($scope.user.login != "" && $scope.user.password != ""){
-			loginService.loginUser($scope.user)
-				.success(successHandler)
-				.error(errorHandler);
+			loginService.loginUser($scope.user, successCallback, errorCallback);
 		}
 	};
 }]);
