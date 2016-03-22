@@ -1,10 +1,7 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
-import java.util.List;
 
 
 /**
@@ -21,23 +18,15 @@ public class Alimentacion implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
-	private String caracteristicas;
-
 	private String ciudad;
 
 	private String horarioapertura;
-
-	private byte[] imagenprincipal;
+	
+	private String horariocierre;
 
 	private Integer preciomayor;
 
 	private Integer preciomenor;
-
-	private String restricciones;
-
-	//bi-directional many-to-one association to Servicio
-	@OneToMany(mappedBy="alimentacion")
-	private List<Servicio> servicios;
 
 	public Alimentacion() {
 	}
@@ -48,14 +37,6 @@ public class Alimentacion implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getCaracteristicas() {
-		return caracteristicas;
-	}
-
-	public void setCaracteristicas(String caracteristicas) {
-		this.caracteristicas = caracteristicas;
 	}
 
 	public String getCiudad() {
@@ -73,13 +54,13 @@ public class Alimentacion implements Serializable {
 	public void setHorarioapertura(String horarioapertura) {
 		this.horarioapertura = horarioapertura;
 	}
-
-	public byte[] getImagenprincipal() {
-		return imagenprincipal;
+	
+	public String getHorariocierre() {
+		return horariocierre;
 	}
 
-	public void setImagenprincipal(byte[] imagenprincipal) {
-		this.imagenprincipal = imagenprincipal;
+	public void setHorariocierre(String horariocierre) {
+		this.horariocierre = horariocierre;
 	}
 
 	public Integer getPreciomayor() {
@@ -98,34 +79,5 @@ public class Alimentacion implements Serializable {
 		this.preciomenor = preciomenor;
 	}
 
-	public String getRestricciones() {
-		return restricciones;
-	}
-
-	public void setRestricciones(String restricciones) {
-		this.restricciones = restricciones;
-	}
 	
-	public List<Servicio> getServicios() {
-		return this.servicios;
-	}
-
-	public void setServicios(List<Servicio> servicios) {
-		this.servicios = servicios;
-	}
-
-	public Servicio addServicio(Servicio servicio) {
-		getServicios().add(servicio);
-		servicio.setAlimentacion(this);
-
-		return servicio;
-	}
-
-	public Servicio removeServicio(Servicio servicio) {
-		getServicios().remove(servicio);
-		servicio.setAlimentacion(null);
-
-		return servicio;
-	}
-
 }

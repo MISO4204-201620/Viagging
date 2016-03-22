@@ -18,13 +18,15 @@
 		<script src="app/vendor/angular/angular-route.min.js"></script>
 		<script src="app/vendor/angular/angular-resource.min.js"></script>
 		<script src="app/vendor/angular/angular-route.min.js"></script>
+		<script src="app/vendor/angular/angular-ui-router.min.js"></script>
+		<script src="app/vendor/angular/ui-bootstrap.min.js"></script>
 		<script src="app/vendor/angular/angular-resource.min.js"></script>
 		<script src="app/vendor/angular/ngDialog.js"></script>
-		<!-- script src="app/js/app.js"></script-->
-<!-- 		<script src="app/js/services/LoginService.js"></script> -->
+		
+        <!--script src="app/js/services/LoginService.js"></script-->
+		<script src="app/js/providersApp.js"></script>
 		<script src="app/js/controllers/LoginCtrl.js"></script>
-			
-			
+		<script src="app/js/controllers/AppCtrl.js"></script>	
 				<!--  link rel="stylesheet" href="../assets/css/bootstrap.css" />
 		<link rel="stylesheet" href="../assets/css/font-awesome.css" />
 		<link rel="stylesheet" href="../assets/css/ace-fonts.css" />
@@ -65,7 +67,7 @@
 											</h4>
 
 											<div class="space-6"></div>
-                                         <div ng-app="applogin" ng-controller="loginCtrl">
+                                         <div ng-app="providersapp" ng-controller="LoginCtrl">
 											<form>
 												<fieldset>
 													<label class="block clearfix">
@@ -94,6 +96,7 @@
 															<i class="ace-icon fa fa-key"></i>
 															<span class="bigger-110">Login</span>
 														</button>
+														<a href="contenido.html" class="btn btn-success btn-sm pull-right">Registro</a>
 													</div>
 
 													<div class="space-4"></div>

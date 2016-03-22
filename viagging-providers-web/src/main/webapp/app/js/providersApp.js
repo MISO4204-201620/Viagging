@@ -1,22 +1,25 @@
 'use strict';
 
-var providersApp = angular.module('providersapp', ['ui.router', 'ui.bootstrap']);
+var providersApp = angular.module('providersapp', ['ui.router', 'ui.bootstrap','ngDialog']);
 
-providersApp.config(['$routeProvider',function($routeProvider) {
-     $routeProvider.
-      when('/login', {
-        templateUrl: 'template/html/login.html',
-        controller: 'AddOrderController'
-      }).
-      when('/showOrders', {
-        templateUrl: 'templates/show-orders.html',
-        controller: 'ShowOrdersController'
-      }).
-      otherwise({
-        redirectTo: '/addOrder'
-      });
+providersApp.config(['$stateProvider', function($stateProvider){
+    		$stateProvider
+    			.state("login", {
+    				url: "/login",
+    				templateUrl: 'app/template/html/login.html',
+    				controller: 'LoginCtrl',
+    			})
+    			.state("content", {
+    				url: "/content",
+    				templateUrl: 'app/templates/html/contenido.html'
+    			})
+    			.state("query", {
+    				url: "/query",
+    				templateUrl: 'app/templates/html/consulta.html'
+    			});
+    			
 }]);
 
 providersApp.run(['$state', function run($state) {
-	$state.go("home");
+	$state.go("login");
 }]);

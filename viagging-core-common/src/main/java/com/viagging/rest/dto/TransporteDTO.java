@@ -19,18 +19,11 @@ public class TransporteDTO {
 	private String horarioInicio;
 	
 	private String horarioFin;
-	
-	private String restricciones;
-	
+		
 	private String frecuenciaSalida;
 	
 	private String numeroPasajeros;
 	
-	private String imagenPrincipal;
-	
-
-
-
 
 	public TransporteDTO(){
 		
@@ -38,9 +31,8 @@ public class TransporteDTO {
 	
 	public TransporteDTO(ServicioDTO servicio, String tipoTransporte,
 			String lugarOrigen, String lugarDestino, String tiempoEstimado,
-			String horarioInicio, String horarioFin, String restricciones,
-			String frecuenciaSalida, String numeroPasajeros,
-			String imagenPrincipal) {
+			String horarioInicio, String horarioFin,
+			String frecuenciaSalida, String numeroPasajeros) {
 		super();
 		this.servicio = servicio;
 		this.tipoTransporte = tipoTransporte;
@@ -49,18 +41,8 @@ public class TransporteDTO {
 		this.tiempoEstimado = tiempoEstimado;
 		this.horarioInicio = horarioInicio;
 		this.horarioFin = horarioFin;
-		this.restricciones = restricciones;
 		this.frecuenciaSalida = frecuenciaSalida;
 		this.numeroPasajeros = numeroPasajeros;
-		this.imagenPrincipal = imagenPrincipal;
-	}
-
-	public String getImagenPrincipal() {
-		return imagenPrincipal;
-	}
-
-	public void setImagenPrincipal(String imagenPrincipal) {
-		this.imagenPrincipal = imagenPrincipal;
 	}
 	
 	public String getNumeroPasajeros() {
@@ -85,14 +67,6 @@ public class TransporteDTO {
 
 	public void setHorarioFin(String horarioFin) {
 		this.horarioFin = horarioFin;
-	}
-
-	public String getRestricciones() {
-		return restricciones;
-	}
-
-	public void setRestricciones(String restricciones) {
-		this.restricciones = restricciones;
 	}
 
 	public String getFrecuenciaSalida() {
@@ -148,9 +122,8 @@ public class TransporteDTO {
 		parserServicio = parserServicio.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.TRANSPORTE.getId());
 		Transporte transporte = servicio.getTransporte();
-		String imagenPrincipal = new String(transporte.getImagenprincipal());
 		TransporteDTO transporteDTO = new TransporteDTO(parserServicio, transporte.getTipotransporte(), transporte.getLugarorigen(), transporte.getLugardestino(),
-				transporte.getTiempoestimado(), transporte.getHorarioinicio(), transporte.getHorariofin(), transporte.getRestricciones(), transporte.getFrecuenciasalida(),String.valueOf(transporte.getNumeropasajeros()),imagenPrincipal);
+				transporte.getTiempoestimado(), transporte.getHorarioinicio(), transporte.getHorariofin(),  transporte.getFrecuenciasalida(),String.valueOf(transporte.getNumeropasajeros()));
 		return transporteDTO;
 	}
 }

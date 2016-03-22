@@ -1,5 +1,5 @@
 
-var app = angular.module('sampleapp', ['ngDialog']).controller('samplecontroller', ['$scope', '$http','ngDialog','$rootScope', function($scope, $http,ngDialog, $rootScope) {
+providersApp.controller('samplecontroller', ['$scope', '$http','ngDialog','$rootScope', function($scope, $http,ngDialog, $rootScope) {
 $scope.idEspecifico = '1';
 $scope.name;
 $scope.lastName;
@@ -9,6 +9,8 @@ $scope.ocultarSeccionAdicionarPaquete = true;
 $scope.onlyNumbers = /^\d+$/;
 
    $scope.getCategory = function() { 
+	   console.log("ingreso a categoria");
+	   
 		 $http.get('/viagging-providers-web/getCategory').
 		    success(function(data, status, headers, config) {
 		    	console.log(status);
@@ -50,13 +52,13 @@ $scope.onlyNumbers = /^\d+$/;
 	    console.log('especifico'+id + "---"+idCategoria); 
 
 	    if(idCategoria == "01"){
-	         ngDialog.open({ template: '../html/transporte.html', className: 'ngdialog-theme-default' });
+	         ngDialog.open({ template: 'transporte.html', className: 'ngdialog-theme-default' });
 	    }else if(idCategoria == "02"){
-	    	ngDialog.open({ template: '../html/alojamiento.html', className: 'ngdialog-theme-default' });
+	    	ngDialog.open({ template: 'alojamiento.html', className: 'ngdialog-theme-default' });
 	    }else if(idCategoria == "03"){
-	    	ngDialog.open({ template: '../html/paseoEcologico.html', className: 'ngdialog-theme-default' });
+	    	ngDialog.open({ template: 'paseoecologico.html', className: 'ngdialog-theme-default' });
 	    }else if(idCategoria == "04"){
-	    	ngDialog.open({ template: '../html/alimentacion.html', className: 'ngdialog-theme-default' });
+	    	ngDialog.open({ template: 'alimentacion.html', className: 'ngdialog-theme-default' });
 	    }
 	}
 
@@ -64,7 +66,6 @@ $scope.onlyNumbers = /^\d+$/;
 
 	$scope.saveServicesTemp = function() { 	
 	      for (var i=0;i<$scope.listservices.length;i++){
-	    	  console.log("saveServicesTemp---"+i); 
 	    	  var flagExist = false;
 	    	  if($scope.listservices[i].datosServicio){
 		    	  for (var j=0;j<$scope.chooseservices.length;j++){
@@ -73,7 +74,6 @@ $scope.onlyNumbers = /^\d+$/;
 		              }
 		    	  }
 		    	  if(!flagExist){
-		    		  console.log("saveServicesTempdddd---"+i); 
 		    		  $scope.chooseservices.push($scope.listservices[i]);
 		    	  }
 	    	  }
