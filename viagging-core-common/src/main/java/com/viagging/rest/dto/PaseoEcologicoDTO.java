@@ -4,8 +4,6 @@ import com.viagging.core.model.PaseoEcologico;
 import com.viagging.core.model.Servicio;
 import com.viagging.util.CategoryEnum;
 
-
-
 public class PaseoEcologicoDTO {
  	
 	private String fecha;
@@ -26,7 +24,6 @@ public class PaseoEcologicoDTO {
 	
 	public PaseoEcologicoDTO(){}
 	
-	
 	public PaseoEcologicoDTO(String fecha, String ciudad,
 			String tiempoDeRecorrido, String horario,
 			String restricciones, String imagenPrincipal, ServicioDTO servicio) {
@@ -43,7 +40,6 @@ public class PaseoEcologicoDTO {
 	public String getImagenPrincipal() {
 		return imagenPrincipal;
 	}
-
 
 	public void setImagenPrincipal(String imagenPrincipal) {
 		this.imagenPrincipal = imagenPrincipal;
@@ -107,14 +103,12 @@ public class PaseoEcologicoDTO {
 
 	
 	public PaseoEcologicoDTO buildObject( Servicio servicio){
-		ServicioDTO parserServicio = new ServicioDTO();
-		parserServicio = parserServicio.buildObject(servicio);
+		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.PASEO_ECOLOGICO.getId());
 		PaseoEcologico paseoEcologico = servicio.getPaseoEcologico();	
 		String imagenPrincipal = new String(paseoEcologico.getImagenprincipal());
 		PaseoEcologicoDTO paseoEcologicoDTO = new PaseoEcologicoDTO(paseoEcologico.getFecha().toString(),paseoEcologico.getCiudad(),
 				paseoEcologico.getTiempoderecorrido(), paseoEcologico.getHorario(),  paseoEcologico.getRestricciones(), imagenPrincipal, parserServicio);
 		return paseoEcologicoDTO;
-		
 	}
 }

@@ -20,7 +20,7 @@ public class RestControllerCategory {
 	  @ResponseStatus(value = HttpStatus.OK)
 	  public List<NombreValorDTO> getCategory() {
 		  System.out.println("ingreso getCategory ");
-		  List<NombreValorDTO> listCategory = CategoryEnum.getKeysValue();
+		  List<NombreValorDTO> listCategory = CategoryEnum.getKeyValues();
 		  
 		  return listCategory;
 	  }
