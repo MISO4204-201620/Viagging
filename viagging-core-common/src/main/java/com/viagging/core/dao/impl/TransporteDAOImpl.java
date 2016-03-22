@@ -6,7 +6,6 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import com.viagging.core.dao.TransporteDAO;
-import com.viagging.core.model.Alojamiento;
 import com.viagging.core.model.Transporte;
 
 @Repository

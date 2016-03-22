@@ -1,9 +1,7 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
 import java.util.List;
 
 
@@ -32,9 +30,9 @@ public class Usuario implements Serializable {
 	
 	private String correo;
 
-	private Integer numeroCelular;
+	private String numeroCelular;
 
-	private Integer numeroDocumento;
+	private String numeroDocumento;
 
 	private String primerApellido;
 
@@ -96,7 +94,15 @@ public class Usuario implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+    
+	public String getNumeroCelular() {
+		return numeroCelular;
+	}
 
+	public void setNumeroCelular(String numeroCelular) {
+		this.numeroCelular = numeroCelular;
+	}
+	
 	public String getLogin() {
 		return this.login;
 	}
@@ -121,19 +127,11 @@ public class Usuario implements Serializable {
 		this.correo = correo;
 	}
 
-	public Integer getNumeroCelular() {
-		return this.numeroCelular;
+	public String getNumeroDocumento() {
+		return numeroDocumento;
 	}
 
-	public void setNumeroCelular(Integer numeroCelular) {
-		this.numeroCelular = numeroCelular;
-	}
-
-	public Integer getNumeroDocumento() {
-		return this.numeroDocumento;
-	}
-
-	public void setNumeroDocumento(Integer numeroDocumento) {
+	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = numeroDocumento;
 	}
 

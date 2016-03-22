@@ -2,6 +2,8 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 	
 	var products = [];
 	
+	var currentProduct = {};
+	
 	var productsService = {
 			
 		getAllProducts : function(){
@@ -21,14 +23,26 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 	        });
 		},
 		
-		getProductById : function(){
+		getProductById : function(categoryId, serviceId){
+			var url = "";
+			if(categoryId == "01"){
+				url= "/viagging-providers-web/getServiceTransport";
+			} else if(categoryId == "02"){
+				url= "/viagging-providers-web/getServiceAlojamiento";
+			} else if(categoryId == "03"){
+				url= "/viagging-providers-web/getServicePaseoEcologico";
+			} else if(categoryId == "04"){
+				url= "/viagging-providers-web/getServiceAlimentacion";
+			}
+			
 			return $http({
-				url: "",
+				url: url,
 				method: "GET",
+				params: {idService : serviceId},
 	            cache: false
 	        }).then(function successCallback(response) {
-	        	if(angular.isArray(response.data)){
-	        		products = response.data;
+	        	if(angular.isObject(response.data)){
+	        		currentProduct = response.data;
 	        		return $q.resolve(response.data);
 	        	} else {
 	        		return $q.reject(response.data);
@@ -40,6 +54,10 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 		
 		getProducts : function(){
 			return products;
+		},
+		
+		getCurrentProduct: function(){
+			return currentProduct;
 		}
 	};
 	

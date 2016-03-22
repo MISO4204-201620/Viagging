@@ -33,7 +33,11 @@ public class Servicio implements Serializable {
 	private String descripcion;
 
 	private Integer precio;
-
+    
+	private byte[] imagenprincipal;
+	
+	private String restricciones;
+	
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="idusuario")
@@ -81,7 +85,15 @@ public class Servicio implements Serializable {
 
 	public Servicio() {
 	}
+    
+	public String getRestricciones() {
+		return restricciones;
+	}
 
+	public void setRestricciones(String restricciones) {
+		this.restricciones = restricciones;
+	}
+	
 	public Integer getId() {
 		return this.id;
 	}
@@ -132,6 +144,14 @@ public class Servicio implements Serializable {
 
 	public Alimentacion getAlimentacion() {
 		return this.alimentacion;
+	}
+	
+	public byte[] getImagenprincipal() {
+		return imagenprincipal;
+	}
+
+	public void setImagenprincipal(byte[] imagenprincipal) {
+		this.imagenprincipal = imagenprincipal;
 	}
 
 	public void setAlimentacion(Alimentacion alimentacion) {

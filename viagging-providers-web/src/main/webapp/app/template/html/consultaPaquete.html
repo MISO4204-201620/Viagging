@@ -9,41 +9,28 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-<!-- bootstrap & fontawesome -->
-<link rel="stylesheet" href="../assets/css/bootstrap.css" />
-<link rel="stylesheet" href="../assets/css/font-awesome.css" />
 
-<!-- page specific plugin styles -->
+<link rel="stylesheet" href="app/template/assets/css/bootstrap.css" />
+<link rel="stylesheet" href="app/template/assets/css/font-awesome.css" />
+<link rel="stylesheet" href="app/template/assets/css/ace-fonts.css" />
+<link rel="stylesheet" href="app/vendor/angular/ngDialog-theme-default.css" />
+<link rel="stylesheet" href="app/vendor/angular/ngDialog.css" />
+<link rel="stylesheet" href="app/template/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+<script src="app/template/assets/js/ace-extra.js"></script>
+<script src="app/vendor/angular/angular.js"></script>
+<script src="app/vendor/angular/angular-route.min.js"></script>
+<script src="app/vendor/angular/angular-resource.min.js"></script>
+<script src="app/vendor/angular/angular-route.min.js"></script>
+<script src="app/vendor/angular/angular-ui-router.min.js"></script>
+<script src="app/vendor/angular/ui-bootstrap.min.js"></script>
+<script src="app/vendor/angular/angular-resource.min.js"></script>
+<script src="app/vendor/angular/ngDialog.js"></script>
+<script src="app/js/providersApp.js"></script>
+<script src="app/js/controllers/AppCtrl.js"></script>
 
-<!-- text fonts -->
-<link rel="stylesheet" href="../assets/css/ace-fonts.css" />
-<link rel="stylesheet"
-	href="../../vendor/angular/ngDialog-theme-default.css" />
-<link rel="stylesheet" href="../../vendor/angular/ngDialog.css" />
-<!-- ace styles -->
-<link rel="stylesheet" href="../assets/css/ace.css"
-	class="ace-main-stylesheet" id="main-ace-style" />
 
-<!--[if lte IE 9]>
-			<link rel="stylesheet" href="../assets/css/ace-part2.css" class="ace-main-stylesheet" />
-		<![endif]-->
 
-<!--[if lte IE 9]>
-		  <link rel="stylesheet" href="../assets/css/ace-ie.css" />
-		<![endif]-->
 
-<!-- inline styles related to this page -->
-
-<!-- ace settings handler -->
-<script src="../assets/js/ace-extra.js"></script>
-
-<script src="../../vendor/angular/angular.js"></script>
-<script src="../../vendor/angular/angular-route.min.js"></script>
-<script src="../../vendor/angular/angular-resource.min.js"></script>
-<script src="../../vendor/angular/angular-route.min.js"></script>
-<script src="../../vendor/angular/angular-resource.min.js"></script>
-<script src="../../vendor/angular/ngDialog.js"></script>
-<script src="../../js/controllers/AppCtrl.js"></script>
 </head>
 
 <body class="no-skin">
@@ -460,12 +447,12 @@
 				</a> <b class="arrow"></b>
 
 					<ul class="submenu">
-						<li class="active"><a href="tables.html"> <i
-								class="menu-icon fa fa-caret-right"></i> Simple &amp; Dynamic
+						<li class="active"><a href="contenido.html"> <i
+								class="menu-icon fa fa-caret-right"></i> Creación de Paquetes
 						</a> <b class="arrow"></b></li>
 
-						<li class=""><a href="jqgrid.html"> <i
-								class="menu-icon fa fa-caret-right"></i> jqGrid plugin
+						<li class=""><a href=""> <i
+								class="menu-icon fa fa-caret-right"></i> Consulta de Paquetes
 						</a> <b class="arrow"></b></li>
 					</ul></li>
 
@@ -740,7 +727,7 @@
 					<div class="page-header">
 						<h1>
 							Paquetes <small> <i
-								class="ace-icon fa fa-angle-double-right"></i>Crear Paquetes
+								class="ace-icon fa fa-angle-double-right"></i>Consultar Paquetes
 							</small>
 						</h1>
 					</div>
@@ -751,23 +738,27 @@
 					
 					
 					<!-- /.page-header -->
-					<div ng-app="sampleapp" ng-controller="samplecontroller" ng-init="getCategory()" >
+					<div ng-app="providersapp" ng-controller="samplecontroller">
 					
 					<div>
 					
 					<form name="myForm">
-						    <label for="repeatSelect"> Categoria</label>
-						    <select name="repeatSelect" id="repeatSelect" ng-model="valor">
-						      <option ng-repeat="option in category" value="{{option.key}}">{{option.value}}</option>
-						    </select>
+						 <div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Filtrar por Nombre </label>
+
+								<div class="col-sm-9">
+									<input ng-model="filtrarnombre" type="text" id="form-field-1" placeholder="Nombre" class="col-xs-10 col-sm-5" />
+								</div>
+							</div>
 						    <div class="col-md-offset-3 col-md-9">
-											<button ng-click="getServices(valor)" class="btn btn-sm btn-primary" type="button">
+											<button ng-click="getPackages(filtrarnombre)" class="btn btn-sm btn-primary" type="button">
 												<i class="ace-icon fa fa-check bigger-110"></i>
 												Consultar
 											</button>
 							</div>
 				   </form>
-				   <hr>					
+				   <hr>			
+				   <hr>				
 						
 						<div class="row">
 							<div class="col-xs-12">
@@ -778,9 +769,50 @@
 											class="table  table-bordered table-hover">
 											<thead>
 												<tr>
-													<th class="center"><label class="pos-rel"> <input
-															type="checkbox" class="ace" /> <span class="lbl"></span>
-													</label></th>
+													<th class="center">Nombre</th>
+													<th class="center">Detalles</th>
+													<th class="center">Precio</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="listPackages in listPackages track by listPackages.id">
+                                                     <td>{{ listPackages.nombre }}</td>
+													<td class="center">
+														<div class="action-buttons">
+															<a href="#" ng-click="getPackage(listPackages.id);" class="green bigger-140 show-details-btn"
+																title="Show Details"> <i 
+																class="ace-icon fa fa-angle-double-down"></i> <span
+																class="sr-only">{{ listPackages.id }}</span>
+															</a>
+														</div>
+													</td>
+
+													
+													<td>{{ listPackages.precio }}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="page-header">
+						<h1>
+							<small> <i
+								class="ace-icon fa fa-angle-double-right"></i>Detalles
+							</small>
+						</h1>
+					</div>
+					   <div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<div class="row">
+									<div class="col-xs-12">
+										<table id="simple-table"
+											class="table  table-bordered table-hover">
+											<thead>
+												<tr>
+												    <th class="center">Categoria</th>
 													<th class="center">Nombre</th>
 													<th class="center">Detalles</th>
 													<th class="center">Precio</th>
@@ -789,25 +821,23 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr ng-repeat="listservices in listservices track by listservices.id">
-													<td class="center"><label class="pos-rel"> <input
-															type="checkbox" ng-checked="listservices.datosServicio" ng-model="listservices.datosServicio" class="ace" /> <span class="lbl"></span>
-													</label></td>
-                                                     <td>{{ listservices.nombre }}</td>
+												<tr ng-repeat="listaServicios in listaServicios">
+                                                     <td>{{ listaServicios.paquete.nombre }}</td>
+                                                     <td>{{ listaServicios.nombre }}</td>
 													<td class="center">
 														<div class="action-buttons">
-															<a href="#" ng-click="especifico(listservices.id,listservices.idCategoria);" class="green bigger-140 show-details-btn"
+															<a href="#" ng-click="especifico(listaServicios.id,listaServicios.idCategoria);" class="green bigger-140 show-details-btn"
 																title="Show Details"> <i 
 																class="ace-icon fa fa-angle-double-down"></i> <span
-																class="sr-only">{{ listservices.id }}</span>
+																class="sr-only">{{ listaServicios.id }}</span>
 															</a>
 														</div>
 													</td>
 
 													
-													<td>{{ listservices.precio }}</td>
-													<td>{{ listservices.descripcionCorta }}</td>
-													<td>{{ listservices.ciudad }}</td>
+													<td>{{ listaServicios.precio }}</td>
+													<td>{{ listaServicios.descripcionCorta }}</td>
+													<td>{{ listaServicios.ciudad }}</td>
 												</tr>
 											</tbody>
 										</table>
@@ -815,82 +845,9 @@
 								</div>
 							</div>
 						</div>
-							
-						<div class="col-md-offset-3 col-md-9">
-											<button ng-click="saveServicesTemp()" class="btn btn-sm btn-primary" type="button">
-												<i class="ace-icon fa fa-check bigger-110"></i>
-												Adicionar
-											</button>
-										</div>
-						<div ng-hide="ocultarSeccionAdicionarPaquete" class="row ng-hide">
-									<div class="col-xs-12">
-										<table id="simple-table"
-											class="table  table-bordered table-hover">
-											<thead>
-												<tr>
-													<th class="center">Nombre</th>
-													<th class="center">Detalles</th>
-													<th class="center">Precio</th>
-													<th class="hidden-480">Descripción Corta</th>
-                                                    <th class="center">Ciudad</th>
-                                                    <th class="center">Eliminar</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr ng-repeat="chooseservices in chooseservices track by chooseservices.id">
-											
-		                                             <td>{{ chooseservices.nombre }}</td>
-													<td class="center">
-														<div class="action-buttons">
-															<a href="#" ng-click="especifico(chooseservices.id,chooseservices.idCategoria);" class="green bigger-140 show-details-btn"
-																title="Show Details"> <i 
-																class="ace-icon fa fa-angle-double-down"></i> <span
-																class="sr-only">{{ chooseservices.id }}</span>
-															</a>
-														</div>
-													</td>
-													<td>{{ chooseservices.precio }}</td>
-													<td>{{ chooseservices.descripcionCorta }}</td>
-													<td>{{ chooseservices.ciudad }}</td>
-													<td class="center">
-														<div class="">
-															<a href="#" ng-click="desasociarServicio(chooseservices.id);"
-																title="Show Details"> <i 
-																class="ace-icon fa fa-trash-o bigger-50"></i> <span
-																class="sr-only">{{ chooseservices.id }}</span>
-															</a>
-														</div>
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-								<div ng-hide="ocultarSeccionAdicionarPaquete" class="ng-hide">
-									<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nombre </label>
-	
-											<div class="col-sm-9">
-												<input ng-model="paquete.nombre" type="text" id="form-field-1" placeholder="Nombre" class="col-xs-10 col-sm-5" />
-											</div>
-									</div>
-									<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Precio </label>
-	
-											<div class="col-sm-9">
-												<input type="text" id="form-field-1" placeholder="Precio" class="col-xs-10 col-sm-5" />
-											</div>
-									</div>
-			
-	                              
-											<div class="col-md-offset-3 col-md-9">
-												<button ng-click="createPackage()" class="btn btn-sm btn-primary" type="button">
-													<i class="ace-icon fa fa-check bigger-110"></i>
-													Crear paquete
-												</button>
-											</div>
-								</div>
-							  
+						
+						
+						
 					</div>
 				</div>
 			</div>
