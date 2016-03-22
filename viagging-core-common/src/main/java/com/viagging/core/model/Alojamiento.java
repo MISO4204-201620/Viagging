@@ -1,10 +1,7 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
-import java.util.List;
 
 
 /**
@@ -21,19 +18,9 @@ public class Alojamiento implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
-	private String caracteristicas;
-
 	private String ciudad;
 
-	private byte[] imagenprincipal;
-
-	private String restricciones;
-
 	private Integer valorpornoche;
-
-	//bi-directional many-to-one association to Servicio
-	@OneToMany(mappedBy="alojamiento")
-	private List<Servicio> servicios;
 
 	public Alojamiento() {
 	}
@@ -46,36 +33,12 @@ public class Alojamiento implements Serializable {
 		this.id = id;
 	}
     
-	public String getCaracteristicas() {
-		return caracteristicas;
-	}
-
-	public void setCaracteristicas(String caracteristicas) {
-		this.caracteristicas = caracteristicas;
-	}
-
 	public String getCiudad() {
 		return ciudad;
 	}
 
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
-	}
-
-	public byte[] getImagenprincipal() {
-		return imagenprincipal;
-	}
-
-	public void setImagenprincipal(byte[] imagenprincipal) {
-		this.imagenprincipal = imagenprincipal;
-	}
-
-	public String getRestricciones() {
-		return restricciones;
-	}
-
-	public void setRestricciones(String restricciones) {
-		this.restricciones = restricciones;
 	}
 
 	public Integer getValorpornoche() {
@@ -86,26 +49,4 @@ public class Alojamiento implements Serializable {
 		this.valorpornoche = valorpornoche;
 	}
 	
-	public List<Servicio> getServicios() {
-		return this.servicios;
-	}
-
-	public void setServicios(List<Servicio> servicios) {
-		this.servicios = servicios;
-	}
-
-	public Servicio addServicio(Servicio servicio) {
-		getServicios().add(servicio);
-		servicio.setAlojamiento(this);
-
-		return servicio;
-	}
-
-	public Servicio removeServicio(Servicio servicio) {
-		getServicios().remove(servicio);
-		servicio.setAlojamiento(null);
-
-		return servicio;
-	}
-
 }

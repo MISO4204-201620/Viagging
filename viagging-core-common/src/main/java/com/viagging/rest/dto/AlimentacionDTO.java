@@ -10,46 +10,37 @@ public class AlimentacionDTO {
 
 	private String horarioApertura;
 	
-	private String restricciones;
-	
-	private String caracteristicas;
-	
+	private String horarioCierre;
+		
 	private String precioMenor;
 	
 	private String precioMayor;
-	
-	private String imagenPrincipal;
-	
-
-
+		
 	private ServicioDTO servicio;
-
 
 
 	public AlimentacionDTO(){}
 
-	public AlimentacionDTO(String ciudad, String horarioApertura, String restricciones,
-			String precioMenor, String precioMayor, String imagenPrincipal,
-			ServicioDTO servicio) {
+	public AlimentacionDTO(String ciudad, String horarioApertura,
+			String precioMenor, String precioMayor,
+			ServicioDTO servicio,String horarioCierre) {
 		super();
 		this.ciudad = ciudad;
 		this.horarioApertura = horarioApertura;
-		this.restricciones = restricciones;
 		this.precioMenor = precioMenor;
 		this.precioMayor = precioMayor;
-		this.imagenPrincipal = imagenPrincipal;
 		this.servicio = servicio;
+		this.horarioCierre = horarioCierre;
+	}
+   
+	public String getHorariocierre() {
+		return horarioCierre;
 	}
 
-
-	public String getImagenPrincipal() {
-		return imagenPrincipal;
+	public void setHorariocierre(String horariocierre) {
+		this.horarioCierre = horariocierre;
 	}
-
-	public void setImagenPrincipal(String imagenPrincipal) {
-		this.imagenPrincipal = imagenPrincipal;
-	}
-
+	
 	public ServicioDTO getServicio() {
 		return servicio;
 	}
@@ -74,23 +65,6 @@ public class AlimentacionDTO {
 		this.horarioApertura = horarioApertura;
 	}
 
-
-	public String getRestricciones() {
-		return restricciones;
-	}
-
-	public void setRestricciones(String restricciones) {
-		this.restricciones = restricciones;
-	}
-
-	public String getCaracteristicas() {
-		return caracteristicas;
-	}
-
-	public void setCaracteristicas(String caracteristicas) {
-		this.caracteristicas = caracteristicas;
-	}
-
 	public String getPrecioMenor() {
 		return precioMenor;
 	}
@@ -112,8 +86,7 @@ public class AlimentacionDTO {
 		parserServicio = parserServicio.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.ALIMENTACION.getId());
 		Alimentacion alimentacion = servicio.getAlimentacion();
-		String imagenPrincipal = new String(alimentacion.getImagenprincipal());
-		AlimentacionDTO alimentacionDTO = new AlimentacionDTO(alimentacion.getCiudad(), alimentacion.getHorarioapertura(),  alimentacion.getRestricciones(), String.valueOf(alimentacion.getPreciomenor()), String.valueOf(alimentacion.getPreciomayor()), imagenPrincipal,parserServicio);
+		AlimentacionDTO alimentacionDTO = new AlimentacionDTO(alimentacion.getCiudad(), alimentacion.getHorarioapertura(),  String.valueOf(alimentacion.getPreciomenor()), String.valueOf(alimentacion.getPreciomayor()),parserServicio,alimentacion.getHorariocierre());
 
 		return alimentacionDTO;
 	}

@@ -1,9 +1,9 @@
-providersApp.controller('loginCtrl', ['$scope', '$http','ngDialog','$rootScope','$location', function($scope, $http,ngDialog, $rootScope,$location) {
+providersApp.controller('LoginCtrl', ['$scope', '$http','ngDialog','$rootScope','$location', function($scope, $http,ngDialog, $rootScope,$location) {
 	
 	   $scope.login = function() { 
 		   console.log('login');
 		   //$stateProvider.run("homwe");
-		  $location.path('/contenido.html');
+		  $location.path('/contenido');
 			/* $http.get('/viagging-providers-web/register').
 			    success(function(data, status, headers, config) {
 			    	console.log(status);

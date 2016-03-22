@@ -9,17 +9,20 @@ DROP TABLE IF EXISTS TR_Movimiento;
 DROP TABLE IF EXISTS TR_PaqueteServicio;
 DROP TABLE IF EXISTS TR_Comentario_calificacion;
 DROP TABLE IF EXISTS TR_Compra;
-DROP TABLE IF EXISTS TP_IMAGEN_SERVICIO;
+DROP TABLE IF EXISTS TP_Imagen_servicio;
+DROP TABLE IF EXISTS TR_Caracteristica_servicio;
+DROP TABLE IF EXISTS TR_Caracteristica;
 DROP TABLE IF EXISTS TP_Servicio;
 DROP TABLE IF EXISTS TP_Paquete;
 DROP TABLE IF EXISTS TP_Usuario;
+DROP TABLE IF EXISTS TR_PaseoEcologico;
 DROP TABLE IF EXISTS TR_PaseosEcologicos;
 DROP TABLE IF EXISTS TR_Transporte;
 DROP TABLE IF EXISTS TR_Alimentacion;
 DROP TABLE IF EXISTS TR_Alojamiento;
 
 CREATE TABLE TP_Modulo (
-  id     SERIAL,	
+  id     SERIAL,
   nombre VARCHAR(20) NULL,
   PRIMARY KEY(id)
 );
@@ -48,9 +51,9 @@ CREATE TABLE TP_Usuario (
   primerApellido VARCHAR(20) NULL,
   segundoApellido VARCHAR(20) NULL,
   tipoDocumento VARCHAR(20) NOT NULL,
-  numeroDocumento INTEGER NOT NULL,
+  numeroDocumento VARCHAR(20) NOT NULL,
   correo VARCHAR(20) NULL,
-  numeroCelular INTEGER NULL,
+  numeroCelular VARCHAR(20) NULL,
   PRIMARY KEY(id)
 );
 
@@ -84,15 +87,12 @@ CREATE TABLE TP_Mensaje (
   FOREIGN KEY (idMensajePadre) REFERENCES TP_Mensaje(id)
 );
 
-CREATE TABLE TR_PaseosEcologicos (
+CREATE TABLE TR_PaseoEcologico (
   id SERIAL,
   ciudad TEXT  NULL,
   tiempoDeRecorrido TEXT NULL,
   horario TEXT NULL,
-  caracteristicas TEXT NULL,
   fecha DATE NULL,
-  restricciones TEXT NULL,
-  imagenPrincipal BYTEA NULL, 
   PRIMARY KEY(id)
 );
 
@@ -104,10 +104,8 @@ CREATE TABLE TR_Transporte (
   tiempoEstimado TEXT  NULL,
   horarioInicio TEXT NULL,
   horarioFin TEXT NULL,
-  restricciones TEXT  NULL,
   frecuenciaSalida TEXT NULL,
   numeroPasajeros INTEGER NULL,
-  imagenPrincipal BYTEA NULL,
   PRIMARY KEY(id)
 );
 
@@ -115,11 +113,9 @@ CREATE TABLE TR_Alimentacion (
   id SERIAL,
   ciudad TEXT NULL,
   horarioApertura TEXT NULL,
-  restricciones TEXT NULL,
-  caracteristicas TEXT NULL,
+  horarioCierre TEXT NULL,
   precioMenor INTEGER NULL,
   precioMayor INTEGER NULL,
-  imagenPrincipal BYTEA NULL, 
   PRIMARY KEY(id)
 );
 
@@ -127,9 +123,6 @@ CREATE TABLE TR_Alojamiento (
   id SERIAL,
   ciudad TEXT  NULL,
   valorPorNoche INTEGER NULL,
-  restricciones TEXT NULL,
-  caracteristicas TEXT NULL,
-  imagenPrincipal BYTEA NULL, 
   PRIMARY KEY(id)
 );
 
@@ -141,21 +134,23 @@ CREATE TABLE TP_Servicio (
   idTransporte INTEGER NULL,
   idPaseosEcologicos INTEGER NULL,
   precio INTEGER NULL,
-  nombre VARCHAR(20) NULL,
+  nombre VARCHAR(100) NULL,
   descripcion VARCHAR(200) NULL,
   activo BOOL NULL,
+  imagenPrincipal BYTEA NULL,
+  restricciones TEXT NULL,
   PRIMARY KEY(id),
   FOREIGN KEY (idUsuario) REFERENCES TP_Usuario(id),
   FOREIGN KEY (idAlojamiento) REFERENCES TR_Alojamiento(id),
   FOREIGN KEY (idAlimentacion) REFERENCES TR_Alimentacion(id),
   FOREIGN KEY (idTransporte) REFERENCES TR_Transporte(id),
-  FOREIGN KEY (idPaseosEcologicos) REFERENCES TR_PaseosEcologicos(id)
+  FOREIGN KEY (idPaseosEcologicos) REFERENCES TR_PaseoEcologico(id)
 );
 
 CREATE TABLE TP_IMAGEN_SERVICIO (
   id SERIAL,
   idServicio INTEGER  NULL,
-  imagen BYTEA NULL,  
+  imagen BYTEA NULL,
   PRIMARY KEY(id),
   FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id)
 );
@@ -163,8 +158,9 @@ CREATE TABLE TP_IMAGEN_SERVICIO (
 CREATE TABLE TP_Paquete (
   id SERIAL,
   idUsuario INTEGER NOT NULL,
-  nombrePaquete VARCHAR(20) NULL,
+  nombrePaquete VARCHAR(100) NULL,
   activo boolean NULL,
+  precio INTEGER  NULL,
   PRIMARY KEY(id),
   FOREIGN KEY (idUsuario) REFERENCES TP_Usuario(id)
 );
@@ -229,5 +225,21 @@ CREATE TABLE TR_PaqueteServicio (
   idServicio INTEGER NOT NULL,
   PRIMARY KEY(id),
   FOREIGN KEY (idPaquete) REFERENCES TP_Paquete(id),
+  FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id)
+);
+
+CREATE TABLE TR_Caracteristica (
+  id SERIAL,
+  categoria text NULL,
+  valor  text NOT NULL,
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE TR_Caracteristica_servicio (
+  id SERIAL,
+  idCaracteristica INTEGER NOT NULL,
+  idServicio  INTEGER NOT NULL,
+  PRIMARY KEY(id),
+  FOREIGN KEY (idCaracteristica) REFERENCES TR_Caracteristica(id),
   FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id)
 );

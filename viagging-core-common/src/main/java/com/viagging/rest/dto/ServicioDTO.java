@@ -2,6 +2,7 @@ package com.viagging.rest.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.viagging.core.model.PaqueteServicio;
 import com.viagging.core.model.Servicio;
@@ -26,22 +27,60 @@ public class ServicioDTO {
     private String ciudad;
 
     private PaqueteDTO paquete;
-
-
+    
+    private String imagenPrincipal;
+    
+    private List<String> imagenes;
+    
+    private String restricciones;
+    
+    private List<CaracteristicasDTO> caracteristicas;
 
 	public ServicioDTO() {
 	}
 	
 	public ServicioDTO(Integer id, Boolean activo,
-			String nombre, String descripcionCorta,String precio) {
+			String nombre, String descripcionCorta,String precio,String restricciones) {
 		super();
 		this.id = id;
 		this.activo = activo;
 		this.nombre = nombre;
 		this.descripcionCorta = descripcionCorta;
 		this.precio = precio;
+		this.restricciones = restricciones;
+	}
+	
+	public String getRestricciones() {
+		return restricciones;
+	}
+
+	public void setRestricciones(String restricciones) {
+		this.restricciones = restricciones;
+	}
+
+	public List<CaracteristicasDTO> getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public void setCaracteristicas(List<CaracteristicasDTO> caracteristicas) {
+		this.caracteristicas = caracteristicas;
+	}
+
+	public List<String> getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(List<String> imagenes) {
+		this.imagenes = imagenes;
 	}
     
+	public String getImagenPrincipal() {
+		return imagenPrincipal;
+	}
+
+	public void setImagenPrincipal(String imagenPrincipal) {
+		this.imagenPrincipal = imagenPrincipal;
+	}
 
 	public PaqueteDTO getPaquete() {
 		return paquete;
@@ -110,25 +149,21 @@ public class ServicioDTO {
 	public List<ServicioDTO> buildListObject( List<Servicio> listServicio,String idCategory){
 		 List<ServicioDTO> listServicioDTO = new ArrayList<>();
 		 for (Servicio servicio : listServicio) {
-		     ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(), servicio.getNombre(), servicio.getDescripcion(),String.valueOf(servicio.getPrecio()));		 
+		     ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(), servicio.getNombre(), servicio.getDescripcion(),String.valueOf(servicio.getPrecio()),servicio.getRestricciones());		 
 			 servicioDTO.setIdCategoria(idCategory);
 			 servicioDTO.getCiudadCategoria(servicio);
+			 servicioDTO.setImagenPrincipal(new String(servicio.getImagenprincipal()));
+			 
 		     listServicioDTO.add(servicioDTO);
 		}
 		return listServicioDTO;
 	}
 
 	public ServicioDTO buildObject( Servicio servicio){
-		 ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(),  servicio.getNombre(), servicio.getDescripcion(),String.valueOf(servicio.getPrecio()));
+		 ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(),  servicio.getNombre(), servicio.getDescripcion(),String.valueOf(servicio.getPrecio()),servicio.getRestricciones());
 		 servicioDTO.getCiudadCategoria(servicio);
+		 servicioDTO.setImagenPrincipal(new String(servicio.getImagenprincipal()));
 		return servicioDTO;
-	}
-	
-	@Override
-	public String toString() {
-		return "ServicioDTO [id=" + id + ", activo=" + activo + ", nombre="
-				+ nombre + ", descripcionCorta=" + descripcionCorta
-				+ ", precio=" + precio + ", idCategoria=" + idCategoria + "]";
 	}
 	
 	private void getCiudadCategoria(Servicio servicio){

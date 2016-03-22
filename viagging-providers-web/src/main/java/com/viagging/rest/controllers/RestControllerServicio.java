@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 import com.viagging.core.services.ServicioService;
 import com.viagging.rest.dto.AlimentacionDTO;
 import com.viagging.rest.dto.AlojamientoDTO;
@@ -111,11 +110,4 @@ public class RestControllerServicio {
           //servicioService.createServicio(servicio);
 	  }
 	  
-		@RequestMapping(value = "/register", method=RequestMethod.GET)
-	    public ModelAndView readAllCookies() {		
-			System.out.println("CookieControllerExample readAllCookies is called");
-						
-			return new ModelAndView("/tables");
-	 
-	    }
 }

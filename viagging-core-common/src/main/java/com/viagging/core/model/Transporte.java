@@ -1,10 +1,8 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
 
-import java.util.List;
 
 
 /**
@@ -27,23 +25,15 @@ public class Transporte implements Serializable {
 
 	private String horarioinicio;
 
-	private byte[] imagenprincipal;
-
 	private String lugardestino;
 
 	private String lugarorigen;
 
 	private Integer numeropasajeros;
 
-	private String restricciones;
-
 	private String tiempoestimado;
 
 	private String tipotransporte;
-
-	//bi-directional many-to-one association to Servicio
-	@OneToMany(mappedBy="transporte")
-	private List<Servicio> servicios;
 
 	public Transporte() {
 	}
@@ -80,14 +70,6 @@ public class Transporte implements Serializable {
 		this.horarioinicio = horarioinicio;
 	}
 
-	public byte[] getImagenprincipal() {
-		return imagenprincipal;
-	}
-
-	public void setImagenprincipal(byte[] imagenprincipal) {
-		this.imagenprincipal = imagenprincipal;
-	}
-
 	public String getLugardestino() {
 		return lugardestino;
 	}
@@ -112,14 +94,6 @@ public class Transporte implements Serializable {
 		this.numeropasajeros = numeropasajeros;
 	}
 
-	public String getRestricciones() {
-		return restricciones;
-	}
-
-	public void setRestricciones(String restricciones) {
-		this.restricciones = restricciones;
-	}
-
 	public String getTiempoestimado() {
 		return tiempoestimado;
 	}
@@ -135,26 +109,5 @@ public class Transporte implements Serializable {
 	public void setTipotransporte(String tipotransporte) {
 		this.tipotransporte = tipotransporte;
 	}
-	public List<Servicio> getServicios() {
-		return this.servicios;
-	}
-
-	public void setServicios(List<Servicio> servicios) {
-		this.servicios = servicios;
-	}
-
-	public Servicio addServicio(Servicio servicio) {
-		getServicios().add(servicio);
-		servicio.setTransporte(this);
-
-		return servicio;
-	}
-
-	public Servicio removeServicio(Servicio servicio) {
-		getServicios().remove(servicio);
-		servicio.setTransporte(null);
-
-		return servicio;
-	}
-
+	
 }
