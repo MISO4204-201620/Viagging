@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.viagging.core.model.Paquete;
-import com.viagging.core.model.Servicio;
-import com.viagging.util.CategoryEnum;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PaqueteDTO {
@@ -78,14 +76,13 @@ public class PaqueteDTO {
 		this.activo = activo;
 	}
     
-	public List<PaqueteDTO> buildListObject(List<Paquete> listaPaquete){
+	public static List<PaqueteDTO> buildListObject(List<Paquete> listaPaquete){
 		List<PaqueteDTO> listaPaqueteDTO = new ArrayList<>();
 		for (Paquete paquete : listaPaquete) {
 			PaqueteDTO paqueteDTO = new PaqueteDTO(paquete.getId(), paquete.getActivo(), paquete.getNombrePaquete(), String.valueOf(paquete.getPrecio()));
 		    listaPaqueteDTO.add(paqueteDTO);
 		}
 		return listaPaqueteDTO;
-		
 	}
 
 }

@@ -4,8 +4,6 @@ import com.viagging.core.model.PaseoEcologico;
 import com.viagging.core.model.Servicio;
 import com.viagging.util.CategoryEnum;
 
-
-
 public class PaseoEcologicoDTO {
  	
 	private String fecha;
@@ -71,13 +69,15 @@ public class PaseoEcologicoDTO {
 		this.horario = horario;
 	}
 	
-	public PaseoEcologicoDTO buildObject( Servicio servicio){
-		ServicioDTO parserServicio = new ServicioDTO();
-		parserServicio = parserServicio.buildObject(servicio);
+	public static PaseoEcologicoDTO buildObject(Servicio servicio){
+		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.PASEO_ECOLOGICO.getId());
 		PaseoEcologico paseoEcologico = servicio.getPaseoEcologico();	
-		PaseoEcologicoDTO paseoEcologicoDTO = new PaseoEcologicoDTO(paseoEcologico.getFecha().toString(),paseoEcologico.getCiudad(),
-				paseoEcologico.getTiempoderecorrido(), paseoEcologico.getHorario(),  parserServicio);
+		PaseoEcologicoDTO paseoEcologicoDTO = new PaseoEcologicoDTO(
+				paseoEcologico.getFecha().toString(),
+				paseoEcologico.getCiudad(),
+				paseoEcologico.getTiempoderecorrido(),
+				paseoEcologico.getHorario(), parserServicio);
 		return paseoEcologicoDTO;
 		
 	}

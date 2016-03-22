@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.viagging.core.dao.ServicioDAO;
 import com.viagging.core.model.Servicio;
@@ -44,12 +45,14 @@ public class ServicioServiceImpl implements ServicioService {
 		
 		if(CategoryEnum.ALIMENTACION.getId().equals(idCategoria)){
 			return servicioDAO.getAllServiciosAlimentacion();			
-		}else if(CategoryEnum.ALOJAMIENTO.getId().equals(idCategoria)){
+		} else if(CategoryEnum.ALOJAMIENTO.getId().equals(idCategoria)){
 			return servicioDAO.getAllServiciosAlojamiento();
-		}else if(CategoryEnum.PASEO_ECOLOGICO.getId().equals(idCategoria)){
+		} else if(CategoryEnum.PASEO_ECOLOGICO.getId().equals(idCategoria)){
 			return servicioDAO.getAllServiciosPaseoEcologico();
-		} else{
+		} else if(CategoryEnum.TRANSPORTE.getId().equals(idCategoria)){
 			return servicioDAO.getAllServiciosTransporte();
+		} else {
+			return servicioDAO.getAllServicios();
 		}
 	}
 	

@@ -90,8 +90,8 @@
 	            </div>
 	            <div class="collapse navbar-collapse navbar-ex1-collapse">
 	                <ul class="nav navbar-nav">
-	                    <li><a ui-sref="home">Home</a></li>
-	                    <li><a ui-sref="cart">Shopping Cart</a></li>
+	                    <li><a ui-sref="home">CATÁLOGO</a></li>
+	                    <li><a ui-sref="cart">CARRO COMPRAS</a></li>
 	                    <li><a ui-sref="checkout">Checkout</a></li>
 	                    <li class="nav-dropdown">
 	                    	<a class="dropdown-toggle" data-toggle="dropdown">
@@ -117,50 +117,46 @@
 
 		<footer>
 	    	<div class="container">
-	        	<div class="col-lg-3 col-md-3 col-sm-6">
+	        	<div class="col-lg-4 col-md-4 col-sm-6">
 	        		<div class="column">
-	        			<h4>Information</h4>
+	        			<h4>Información</h4>
 	        			<ul>
-	        				<li><a ui-sref="about">About Us</a></li>
-	        				<li><a ui-sref="typography">Policy Privacy</a></li>
-	        				<li><a ui-sref="typography">Terms and Conditions</a></li>
-	        				<li><a ui-sref="typography">Shipping Methods</a></li>
+	        				<li><a ui-sref="about">Acerca de nosotros</a></li>
+	        				<li><a ui-sref="typography">Políticas de Privacidad</a></li>
+	        				<li><a ui-sref="typography">Términos y Condiciones</a></li>
 	        			</ul>
 	        		</div>
 	        	</div>
-	        	<div class="col-lg-3 col-md-3 col-sm-6">
-	        		<div class="column">
-	        			<h4>Categorias</h4>
-	        			<ul>
-	        				<li ng-repeat="categoria in categorias"><a ui-sref="home">{{categoria.value}}</a></li>
-	        			</ul>
-	        		</div>
-	        	</div>
-	        	<div class="col-lg-3 col-md-3 col-sm-6">
+<!-- 	        	<div class="col-lg-3 col-md-3 col-sm-6"> -->
+<!-- 	        		<div class="column"> -->
+<!-- 	        			<h4>Categorias</h4> -->
+<!-- 	        			<ul> -->
+<!-- 	        				<li ng-repeat="categoria in categorias"><a ui-sref="home">{{categoria.value}}</a></li> -->
+<!-- 	        			</ul> -->
+<!-- 	        		</div> -->
+<!-- 	        	</div> -->
+	        	<div class="col-lg-4 col-md-4 col-sm-6">
 	        		<div class="column">
 	        			<h4>Customer Service</h4>
 	        			<ul>
-	        				<li><a ui-sref="contact">Contactanos</a></li>
-	        				<li><a >YM: cs_</a></li>
+	        				<li><a ui-sref="contact">Contáctanos</a></li>
 	        				<li><a >Phone: +3219998909</a></li>
-	        				<li><a >Email: cs.domain@domain.tld</a></li>
+	        				<li><a >Email: viagging@orange.con.co</a></li>
 	        			</ul>
 	        		</div>
 	        	</div>
-	        	<div class="col-lg-3 col-md-3 col-sm-6">
+	        	<div class="col-lg-4 col-md-4 col-sm-6">
 	        		<div class="column">
-	        			<h4>Follow Us</h4>
+	        			<h4>Síguenos</h4>
 	        			<ul class="social">
-	        				<li><a ui-sref="#">Google Plus</a></li>
 	        				<li><a ui-sref="#">Facebook</a></li>
 	        				<li><a ui-sref="#">Twitter</a></li>
-	        				<li><a ui-sref="#">RSS Feed</a></li>
 	        			</ul>
 	        		</div>
 	        	</div>
 	        </div>
 	        <div class="navbar-inverse text-center copyright">
-	        	Copyright &copy; 2015 Mimity All right reserved
+	        	Copyright &copy; 2016 Orange All right reserved
 	        </div>
 	    </footer>
 
@@ -188,8 +184,10 @@
 		<script src="../app/js/services/LoginService.js"></script>	
 		<script src="../app/js/services/ConfigService.js"></script>
 		<script src="../app/js/services/UserService.js"></script>
+		<script src="../app/js/services/ProductsService.js"></script>
 		<script src="../app/js/controllers/AppCtrl.js"></script>
 		<script src="../app/js/controllers/LoginCtrl.js"></script>
 		<script src="../app/js/controllers/CatalogueCtrl.js"></script>
+		<script src="../app/js/controllers/DetailCtrl.js"></script>
 	</body>
 </html>
