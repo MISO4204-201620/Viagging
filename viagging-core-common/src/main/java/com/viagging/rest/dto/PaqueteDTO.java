@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.viagging.core.model.Paquete;
-import com.viagging.core.model.Servicio;
-import com.viagging.util.CategoryEnum;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PaqueteDTO {

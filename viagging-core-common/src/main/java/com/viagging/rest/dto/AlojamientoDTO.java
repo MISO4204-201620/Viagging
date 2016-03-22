@@ -1,8 +1,11 @@
 package com.viagging.rest.dto;
 
+import org.springframework.util.StringUtils;
+
 import com.viagging.core.model.Alojamiento;
 import com.viagging.core.model.Servicio;
 import com.viagging.util.CategoryEnum;
+
 public class AlojamientoDTO {
   
     private String ciudad;
@@ -16,8 +19,6 @@ public class AlojamientoDTO {
 	private ServicioDTO servicio;
 	
 	private String imagenPrincipal;
-	
-
 
 	public AlojamientoDTO(String ciudad, String valorPorNoche,
 			String restricciones,  ServicioDTO servicio,
@@ -31,8 +32,6 @@ public class AlojamientoDTO {
 	}
 	
 	public AlojamientoDTO(){}
-
-
 
 	public String getImagenPrincipal() {
 		return imagenPrincipal;
@@ -83,11 +82,15 @@ public class AlojamientoDTO {
 	}
 	
 	public AlojamientoDTO buildObject( Servicio servicio){
-		ServicioDTO parserServicio = new ServicioDTO();
-		parserServicio = parserServicio.buildObject(servicio);
+		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.ALOJAMIENTO.getId());
 		Alojamiento alojamiento = servicio.getAlojamiento();
-		String imagenPrincipal = new String(alojamiento.getImagenprincipal());
+		
+		String imagenPrincipal = "";
+		if(alojamiento.getImagenprincipal() != null){
+			imagenPrincipal = new String(alojamiento.getImagenprincipal());
+		}
+				
 		AlojamientoDTO alojamientoDTO = new AlojamientoDTO(alojamiento.getCiudad(), String.valueOf(alojamiento.getValorpornoche()), alojamiento.getRestricciones(), parserServicio, imagenPrincipal);
 		return alojamientoDTO;
 	}

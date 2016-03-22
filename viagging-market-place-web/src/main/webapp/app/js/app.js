@@ -8,15 +8,18 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 		.state("home", {
 			url: "/home",
 			templateUrl: '../app/views/catalogue.html',
-			controller: 'AppCtrl',
 			resolve: {
-				init : ['configService', function(configService){
+				config : ['configService', function(configService){
 					return configService.initMarketPlaceConfig();
+				}],
+				products : ['productsService', function(productsService){
+					return productsService.getAllProducts();
 				}]
-			}
+			},
+			controller: 'AppCtrl'
 		})
 		.state("detail", {
-			url: "/detail",
+			url: "/detail/:serviceId",
 			templateUrl: '../app/views/detail.html'
 		})
 		.state("login", {

@@ -107,9 +107,8 @@ public class AlimentacionDTO {
 		this.precioMayor = precioMayor;
 	}
 	
-	public AlimentacionDTO buildObject( Servicio servicio){
-		ServicioDTO parserServicio = new ServicioDTO();
-		parserServicio = parserServicio.buildObject(servicio);
+	public static AlimentacionDTO buildObject( Servicio servicio){
+		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.ALIMENTACION.getId());
 		Alimentacion alimentacion = servicio.getAlimentacion();
 		String imagenPrincipal = new String(alimentacion.getImagenprincipal());

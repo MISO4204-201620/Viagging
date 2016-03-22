@@ -47,8 +47,7 @@ public class RestControllerServicio {
 	  @ResponseStatus(value = HttpStatus.OK)
 	  public AlimentacionDTO getServiceAlimentacion(@QueryParam("idService") String idService) {
 		  System.out.println("getServiceTransporte"+idService);
-		  AlimentacionDTO alimentacion = new AlimentacionDTO();		  
-		  AlimentacionDTO alimentacionDTO  = alimentacion.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
+		  AlimentacionDTO alimentacionDTO  = AlimentacionDTO.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
 		  if(alimentacionDTO == null){
       	      throw new NotFoundException(SERVICE_ERROR_MESSAGE_NOT_FOUND);
           }
@@ -90,7 +89,7 @@ public class RestControllerServicio {
 	  public List<ServicioDTO> getServices(@QueryParam("idCategory") String idCategory) {
           System.out.println("ingreso a getServices");	  
           ServicioDTO servicio = new ServicioDTO();	
-		  List<ServicioDTO> listServicioDTO  = servicio.buildListObject(servicioService.getAllServiciosByCategoria(idCategory),idCategory);
+		  List<ServicioDTO> listServicioDTO  = servicio.buildListObject(servicioService.getAllServiciosByCategoria(idCategory));
           if(listServicioDTO.isEmpty()){
         	  throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);
           }

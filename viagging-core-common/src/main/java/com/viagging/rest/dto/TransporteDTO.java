@@ -28,10 +28,6 @@ public class TransporteDTO {
 	
 	private String imagenPrincipal;
 	
-
-
-
-
 	public TransporteDTO(){
 		
 	}
@@ -144,8 +140,7 @@ public class TransporteDTO {
 	}
 	
 	public TransporteDTO buildObject( Servicio servicio){
-		ServicioDTO parserServicio = new ServicioDTO();
-		parserServicio = parserServicio.buildObject(servicio);
+		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.TRANSPORTE.getId());
 		Transporte transporte = servicio.getTransporte();
 		String imagenPrincipal = new String(transporte.getImagenprincipal());
