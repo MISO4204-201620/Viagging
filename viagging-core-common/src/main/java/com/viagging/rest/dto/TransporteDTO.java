@@ -1,7 +1,6 @@
 package com.viagging.rest.dto;
 
 import com.viagging.core.model.Servicio;
-import com.viagging.core.model.Transporte;
 import com.viagging.util.CategoryEnum;
 
 public class TransporteDTO {
@@ -28,8 +27,8 @@ public class TransporteDTO {
 	
 	private byte[] imagenPrincipal;
 	
-
-
+	private String caracteristicas;
+	
 	public TransporteDTO(){
 		
 	}
@@ -150,5 +149,13 @@ public class TransporteDTO {
 				servicio.getTransporte().getTiempoestimado(), servicio.getTransporte().getHorarioinicio(), servicio.getTransporte().getHorariofin(), servicio.getTransporte().getRestricciones(), servicio.getTransporte().getFrecuenciasalida(),String.valueOf(servicio.getTransporte().getNumeropasajeros()),servicio.getTransporte().getImagenprincipal());
 		//org.apache.commons.beanutils.PropertyUtilsBean.copyProperties(Object dest, Object orig)
 		return transporteDTO;
+	}
+
+	public String getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public void setCaracteristicas(String caracteristicas) {
+		this.caracteristicas = caracteristicas;
 	}
 }

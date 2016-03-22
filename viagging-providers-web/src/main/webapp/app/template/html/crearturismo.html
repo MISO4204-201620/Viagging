@@ -28,32 +28,37 @@
 		<link rel="stylesheet" href="../assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
 		
 		<script src="../../vendor/angular/angular.js"></script>
-		<script src="../../js/controllers/AppCtrl.js"></script>
-		
+		<script src="../../js/controllers/TurismoCtrl.js"></script>
 		<!-- concatenated flow.js + ng-flow libraries -->
 		<script src="../../js/ng-flow-standalone.js"></script>
 		<!-- or include the files separately -->
 		<script src="../../js/ng-flow.js"></script>
+		<script src="../../js/angular-file-upload.min.js"></script>
 
-		<!--[if lte IE 9]>
-			<link rel="stylesheet" href="../assets/css/ace-part2.css" class="ace-main-stylesheet" />
-		<![endif]-->
-
-		<!--[if lte IE 9]>
-		  <link rel="stylesheet" href="../assets/css/ace-ie.css" />
-		<![endif]-->
-
-		<!-- inline styles related to this page -->
 
 		<!-- ace settings handler -->
 		<script src="../assets/js/ace-extra.js"></script>
 
-		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+<!-- 		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" /> -->
 
-		<!--[if lte IE 8]>
-		<script src="../assets/js/html5shiv.js"></script>
-		<script src="../assets/js/respond.js"></script>
-		<![endif]-->
+        <!-- Fix for old browsers -->
+        <script src="http://nervgh.github.io/js/es5-shim.min.js"></script>
+        <script src="http://nervgh.github.io/js/es5-sham.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+        <!--<script src="../bower_components/angular/angular.js"></script>-->
+<!--         <script src="http://code.angularjs.org/1.1.5/angular.min.js"></script> -->
+        <script src="../../js/angular-file-upload.min.js"></script>
+
+        <style>
+            .my-drop-zone { border: dotted 3px lightgray; }
+            .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+            .another-file-over-class { border: dotted 3px green; }
+
+            html, body { height: 100%; }
+        </style>
 	</head>
 
 	<body class="no-skin">
@@ -69,45 +74,17 @@
 				<div class="main-content-inner">
 
 					<!-- /section:basics/content.breadcrumbs -->
-					<div ng-app="viaggingApp" ng-controller="AppCtrl" class="page-content">
+					<div ng-app="viaggingApp" ng-controller="TurismoCtrl" class="page-content">
 						<div class="row">
 								<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
-								<form class="form-horizontal" role="form" name="fService" novalidate ng-submit="saveService(fService)" ng-hide="saving">
+								<form class="form-horizontal" role="form" name="fService" novalidate ng-submit="guardarTurismo(fService)" ng-hide="saving">
 									<!-- #section:elements.form -->
 									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nombre </label>
 
 										<div class="col-sm-9">
-											<input type="text" id="form-field-1" placeholder="Nombre del servicio" class="col-xs-10 col-sm-5" ng-model="servicio.nombre" />
-										</div>
-									</div>
-									<div class="form-group">
-	                        			<label class="col-sm-3 control-label no-padding-right" for="form-field-3">Ciudad</label>
-	                        			<div class="col-sm-9">
-	                        				<select id="form-field-3" class="col-xs-10 col-sm-5" ng-model="servicio.ciudad" ng-options="opStatus.id as opStatus.name for opStatus in opStatuses"></select>
-	                    				</div>
-	                    			</div>
-	                    			<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-3">Valor</label>
-										<div class="col-sm-4" id="slider-eq">
-											<span class="ui-slider-green ui-slider-small">77</span>
-										</div>
-									</div>
-									
-									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tiempo de recorrido </label>
-
-										<div class="col-sm-9">
-											<input type="text" id="form-field-1" placeholder="Tiempo de recorrido" class="col-xs-10 col-sm-5" ng-model="servicio.nombre" />
-											
-										</div>
-									</div>
-									
-									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="timepicker1">Horario</label>
-										<div class="col-sm-9 bootstrap-timepicker">
-											<input id="timepicker1" type="text" class="col-xs-10 col-sm-5" />
+											<input type="text" id="form-field-1" placeholder="Nombre del servicio" class="col-xs-10 col-sm-5" ng-model="turismo.servicio.nombre" />
 										</div>
 									</div>
 									
@@ -115,18 +92,59 @@
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-2">Descripcion</label>
 										
 										<div class="col-sm-9">
-											<textarea id="form-field-2" class="autosize-transition form-control" ng-model="servicio.descripcion"></textarea>
+											<textarea id="form-field-2" class="autosize-transition form-control" ng-model="turismo.servicio.descripcionCorta"></textarea>
 										</div>
 									</div>
-								
+									
+<!-- 									<div class="form-group"> -->
+<!-- 	                        			<label class="col-sm-3 control-label no-padding-right" for="form-field-3">Ciudad</label> -->
+<!-- 	                        			<div class="col-sm-9"> -->
+<!-- 	                        				<select id="form-field-3" class="col-xs-10 col-sm-5" ng-model="turismo.ciudad" ng-options="ciudad for ciudad in ciudades"></select> -->
+<!-- 	                    				</div> -->
+<!-- 	                    			</div> -->
+	                    			
+	                    			<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Ciudad </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="form-field-1" placeholder="Bogota" class="col-xs-10 col-sm-5" ng-model="turismo.ciudad" />
+										</div>
+									</div>
+	                    			
+	                    			<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-3">Precio</label>
+										<div class="col-sm-9">
+											<input type="text" id="form-field-1" placeholder="Precio" class="col-xs-10 col-sm-5" ng-model="alojamiento.valorPorNoche" />
+										</div>
+<!-- 										<div class="col-sm-4" id="slider-eq"> -->
+<!-- 											<span class="ui-slider-green ui-slider-small">77</span> -->
+<!-- 										</div> -->
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tiempo de recorrido </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="form-field-1" placeholder="Tiempo de recorrido" class="col-xs-10 col-sm-5" ng-model="turismo.tiempoDeRecorrido" />
+											
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="timepicker1">Horario</label>
+										<div class="col-sm-9 bootstrap-timepicker">
+											<input id="timepicker1" type="text" class="col-xs-10 col-sm-5" ng-model="turismo.horario" />
+										</div>
+									</div>
+									
 									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-3">Caracteristicas</label>
 										<div class="col-sm-4">
 												<!-- #section:custom/checkbox -->
-												<div class="checkbox">
-													<label>
-														<input name="form-field-checkbox" type="checkbox" class="ace" />
-														<span class="lbl"> choice 1</span>
+												<div class="checkbox" ng-repeat="caracteristica in caracteristicas">
+													<label for="{{caracteristica}}">
+														<input name="form-field-checkbox" type="checkbox" class="ace" ng-model="selection[caracteristica]" id="{{caracteristica}}"/>
+														<span class="lbl">{{caracteristica}}</span>
 													</label>
 												</div>
 										</div>
@@ -136,71 +154,80 @@
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-2">Restricciones</label>
 										
 										<div class="col-sm-9">
-											<textarea id="form-field-2" class="autosize-transition form-control" ng-model="servicio.descripcion"></textarea>
+											<textarea id="form-field-2" class="autosize-transition form-control" ng-model="turismo.restricciones"></textarea>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-2"></label>
+										<div class="col-sm-9">
+											<h3>Select files</h3>
+							                    <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+							                <input type="file" nv-file-select="" uploader="uploader" multiple  /><br/>
+							                <table class="table">
+							                        <thead>
+							                            <tr>
+							                                <th width="50%">Name</th>
+							                                <th ng-show="uploader.isHTML5">Size</th>
+							                                <th ng-show="uploader.isHTML5">Progress</th>
+							                                <th>Status</th>
+							                                <th>Actions</th>
+							                            </tr>
+							                        </thead>
+							                        <tbody>
+							                            <tr ng-repeat="item in uploader.queue">
+							                                <td>
+							                                    <strong>{{ item.file.name }}</strong>
+							                                    <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+							                                </td>
+							                                <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+							                                <td ng-show="uploader.isHTML5">
+							                                    <div class="progress" style="margin-bottom: 0;">
+							                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+							                                    </div>
+							                                </td>
+							                                <td class="text-center">
+							                                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+							                                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+							                                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+							                                </td>
+							                                <td nowrap>
+							                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+							                                        <span class="glyphicon glyphicon-upload"></span> Upload
+							                                    </button>
+							                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+							                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+							                                    </button>
+							                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+							                                        <span class="glyphicon glyphicon-trash"></span> Remove
+							                                    </button>
+							                                </td>
+							                            </tr>
+							                        </tbody>
+							                    </table>
+							                    <div>
+							                        <div>
+							                            Queue progress:
+							                            <div class="progress" style="">
+							                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+							                            </div>
+							                        </div>
+							                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+							                            <span class="glyphicon glyphicon-upload"></span> Upload all
+							                        </button>
+							                        <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+							                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+							                        </button>
+							                        <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+							                            <span class="glyphicon glyphicon-trash"></span> Remove all
+							                        </button>
+							                        <button type="button" class="btn btn-success btn-s" ng-click="uploadImage()" ng-disabled="!uploader.getNotUploadedItems().length">
+							                            <span class="glyphicon glyphicon-upload"></span> Upload Temp
+							                        </button>
+							                    </div>
 										</div>
 									</div>
 
-									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"></label>
-										<div class="col-sm-4">
-											<div class="widget-box">
-												<div class="widget-header">
-													<h4 class="widget-title">Cargar imagenes</h4>
-		
-													<div class="widget-toolbar">
-														<a href="#" data-action="collapse"> <i class="ace-icon fa fa-chevron-up"></i></a> 
-														<a href="#" data-action="close"> <i class="ace-icon fa fa-times"></i></a>
-													</div>
-												</div>
-												<div class="widget-body">
-													<div class="widget-main">
-														<div class="form-group">
-															<div class="col-xs-12">
-																<input type="file" id="id-input-file-3" onchange="angular.element(this).scope().uploadFile(this.files)" />
-															</div>
-														</div>
-														<label> 
-															<input type="checkbox" name="file-format" id="id-file-format" class="ace" /> <span class="lbl">Allow only images</span>
-														</label>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									
-									
-									
-									<div flow-init="{target: '/upload'}"
-									     flow-files-submitted="$flow.upload()"
-									     flow-file-success="$file.msg = $message">
-									
-									  <input type="file" flow-btn/>
-									  Input OR Other element as upload button
-									  <span class="btn" flow-btn>Upload File</span>
-									
-									  <table>
-									    <tr ng-repeat="file in $flow.files">
-									        <td>{{$index+1}}</td>
-									        <td>{{file.name}}</td>
-									        <td>{{file.msg}}</td>
-									    </tr>
-									  </table>
-									</div>
-									
-									<div>
-									<input type="file" fileread="uploadme" />
-									    <img src="{{uploadme}}" width="300" height="300" alt="Image preview...">
-									    <br/>
-									    <p>
-									      Image dataURI:
-									      <pre>{{uploadme}}</pre>
-									    </p>
-									    <br/>
-									    <button ng-click="uploadImage()">upload image</button>
-									</div>
-									
-									<img data-ng-src="{{uploadme}}"/>
 									
 									<div class="clearfix form-actions">
 										<div class="col-md-offset-3 col-md-9">
@@ -221,43 +248,12 @@
 
 								</form>
 
-								<div class="hr hr-18 dotted hr-double"></div>
-
-								<div class="hr hr-18 dotted hr-double"></div>
 										</div>
 									</div>
 								</div><!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
 
-			<div class="footer">
-				<div class="footer-inner">
-					<!-- #section:basics/footer -->
-					<div class="footer-content">
-						<span class="bigger-120">
-							<span class="blue bolder">Ace</span>
-							Application &copy; 2013-2014
-						</span>
-
-						&nbsp; &nbsp;
-						<span class="action-buttons">
-							<a href="#">
-								<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-							</a>
-
-							<a href="#">
-								<i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
-							</a>
-
-							<a href="#">
-								<i class="ace-icon fa fa-rss-square orange bigger-150"></i>
-							</a>
-						</span>
-					</div>
-
-					<!-- /section:basics/footer -->
-				</div>
-			</div>
 
 		<!--[if !IE]> -->
 		<script src="../assets/js/jquery.js"></script>

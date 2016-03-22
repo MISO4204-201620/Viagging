@@ -40,6 +40,8 @@ public class Transporte implements Serializable {
 	private String tiempoestimado;
 
 	private String tipotransporte;
+	
+	private String caracteristicas;
 
 	//bi-directional many-to-one association to Servicio
 	@OneToMany(mappedBy="transporte")
@@ -155,6 +157,14 @@ public class Transporte implements Serializable {
 		servicio.setTransporte(null);
 
 		return servicio;
+	}
+
+	public String getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public void setCaracteristicas(String caracteristicas) {
+		this.caracteristicas = caracteristicas;
 	}
 
 }

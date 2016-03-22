@@ -1,11 +1,14 @@
 package com.viagging.rest.dto;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.viagging.core.model.Alojamiento;
 import com.viagging.core.model.Servicio;
 import com.viagging.util.CategoryEnum;
 public class AlojamientoDTO {
   
-    private String ciudad;
+	private String ciudad;
 	
 	private String valorPorNoche;
 	
@@ -17,6 +20,7 @@ public class AlojamientoDTO {
 	
 	private byte[] imagenPrincipal;
 	
+	private List<ImagenDTO> imagenes;
 
 
 	public AlojamientoDTO(String ciudad, String valorPorNoche,
@@ -80,6 +84,14 @@ public class AlojamientoDTO {
 		this.caracteristicas = caracteristicas;
 	}
 	
+	public List<ImagenDTO> getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(List<ImagenDTO> imagenes) {
+		this.imagenes = imagenes;
+	}
+
 	public AlojamientoDTO buildObject( Servicio servicio){
 		ServicioDTO parserServicio = new ServicioDTO();
 		parserServicio = parserServicio.buildObject(servicio);
@@ -87,5 +99,12 @@ public class AlojamientoDTO {
 		Alojamiento alojamiento = servicio.getAlojamiento();
 		AlojamientoDTO alojamientoDTO = new AlojamientoDTO(alojamiento.getCiudad(), String.valueOf(alojamiento.getValorpornoche()), alojamiento.getRestricciones(), parserServicio, alojamiento.getImagenprincipal());
 		return alojamientoDTO;
+	}
+
+	@Override
+	public String toString() {
+		return "AlojamientoDTO [ciudad=" + ciudad + ", valorPorNoche=" + valorPorNoche + ", restricciones="
+				+ restricciones + ", caracteristicas=" + caracteristicas + ", servicio=" + servicio
+				+ ", imagenPrincipal=" + Arrays.toString(imagenPrincipal) + ", imagenes=" + imagenes + "]";
 	}
 }

@@ -4,10 +4,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.dao.AlojamientoDAO;
 import com.viagging.core.model.Alojamiento;
 
+@Transactional
 @Repository
 public class AlojamientoDAOImpl implements AlojamientoDAO  {
 

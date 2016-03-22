@@ -1,7 +1,7 @@
 angular.module('viaggingApp', ['flow', 'angularFileUpload'])
-.controller('AlojamientoCtrl', ['$scope', 'FileUploader', '$http', function($scope, FileUploader, $http) {
+.controller('TurismoCtrl', ['$scope', 'FileUploader', '$http', function($scope, FileUploader, $http) {
 
-	$scope.alojamiento = {
+	$scope.turismo = {
 			servicio:{ 
 				id: 0,
 				nombre: "",
@@ -9,7 +9,9 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 				activo: true
 			},	
 			ciudad: "",
-			valorPorNoche: "",
+			valor: "",
+			tiempoDeRecorrido: "",
+			horario: "",
 			caracteristicas: "",
 			restricciones: "",
 			imagenes: [],
@@ -21,7 +23,14 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 	$scope.selection = {};
 
 	$scope.$watch("ajaxURL", function (newValue, oldValue) {
-		$http.get('/viagging-providers-web/obtenerCaracteristicas?categoria=ALOJAMIENTO').
+		$http.get('/viagging-providers-web/obtenerCiudades').
+		success(function(data, status, headers, config) {
+			$scope.ciudades = data;
+			console.log(data);
+		}).
+		error(function(data, status, headers, config) {
+		});
+		$http.get('/viagging-providers-web/obtenerCaracteristicas?categoria=TURISMO').
 		success(function(data, status, headers, config) {
 			$scope.caracteristicas = data;
 			console.log("caracteristicas" + data);
@@ -44,20 +53,21 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 	});
 
 
-	$scope.guardarAlojamiento = function(falojamiento) {
+	$scope.guardarTurismo = function(fturismo) {
+		console.log("entrando al controlador");
 		var files = [];
 		for (var i = 0; i < uploader.queue.length; i++) {
 			files.push(uploader.queue[i].file);
 		}
 		console.log("array", files);
-		$scope.alojamiento.caracteristicas=JSON.stringify($scope.selection);
-		console.log("seleccionadas"+$scope.alojamiento.caracteristicas);
+		$scope.turismo.caracteristicas=JSON.stringify($scope.selection);
+		console.log("seleccionadas"+$scope.turismo.caracteristicas);
 		for (var i = 0; i < $scope.selection.length; i++) {
 			console.log("seleccionadas"+$scope.selection[i].caracteristica);
 		}
-		$scope.alojamiento.imagenes=files;
-		console.log("imagenes", $scope.alojamiento.imagenes);
-		$http.post('/viagging-providers-web/guardarAlojamiento', angular.toJson($scope.alojamiento), {
+		$scope.turismo.imagenes=files;
+		console.log("imagenes", $scope.turismo.imagenes);
+		$http.post('/viagging-providers-web/guardarTurismo', angular.toJson($scope.turismo), {
 			headers: {"Content-Type": "application/json"},
 			transformRequest: angular.identity
 		}).

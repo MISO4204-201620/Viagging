@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viagging.core.dao.ServicioDAO;
+import com.viagging.core.dao.UsuarioDAO;
 import com.viagging.core.model.Servicio;
+import com.viagging.core.model.Usuario;
 import com.viagging.core.services.ServicioService;
+import com.viagging.rest.dto.ServicioDTO;
 import com.viagging.util.CategoryEnum;
 
 @Service
@@ -16,6 +19,9 @@ public class ServicioServiceImpl implements ServicioService {
 	
 	@Autowired
 	private ServicioDAO servicioDAO;
+	
+	@Autowired
+	private UsuarioDAO usuarioDAO;
 
 	@Override
 	public Servicio getServicioById(Integer idServicio) {
@@ -39,7 +45,6 @@ public class ServicioServiceImpl implements ServicioService {
     
 	@Override
 	public List<Servicio> getAllServiciosByCategoria(Integer idCategoria) {
-		
 		if(CategoryEnum.ALIMENTACION.getId().equals(String.valueOf(idCategoria))){
 			return servicioDAO.getAllServiciosAlimentacion();			
 		}else if(CategoryEnum.ALOJAMIENTO.getId().equals(String.valueOf(idCategoria))){
@@ -49,5 +54,16 @@ public class ServicioServiceImpl implements ServicioService {
 		} else{
 			return servicioDAO.getAllServiciosTransporte();
 		}
+	}
+	
+	@Override
+	public Servicio servicioDTOToModel(ServicioDTO servicioDTO) {
+		Servicio servicio = new Servicio();
+		servicio.setActivo(true);
+		Usuario usuario = usuarioDAO.getUsuarioById(1);
+		servicio.setUsuario(usuario);
+		servicio.setDescripcion(servicioDTO.getDescripcionCorta());
+		servicio.setNombre(servicioDTO.getNombre());
+		return servicio;
 	}
 }

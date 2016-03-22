@@ -3,6 +3,7 @@ package com.viagging.core.services;
 import java.util.List;
 
 import com.viagging.core.model.Servicio;
+import com.viagging.rest.dto.ServicioDTO;
 
 public interface ServicioService {
 	
@@ -15,4 +16,6 @@ public interface ServicioService {
 	Servicio updateServicio(Servicio servicio);
     
 	List<Servicio> getAllServiciosByCategoria(Integer idCategoria);
+	
+	Servicio servicioDTOToModel(ServicioDTO servicio);
 }

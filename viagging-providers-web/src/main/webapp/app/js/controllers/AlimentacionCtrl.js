@@ -1,7 +1,7 @@
 angular.module('viaggingApp', ['flow', 'angularFileUpload'])
-.controller('AlojamientoCtrl', ['$scope', 'FileUploader', '$http', function($scope, FileUploader, $http) {
+.controller('AlimentacionCtrl', ['$scope', 'FileUploader', '$http', function($scope, FileUploader, $http) {
 
-	$scope.alojamiento = {
+	$scope.alimentacion = {
 			servicio:{ 
 				id: 0,
 				nombre: "",
@@ -9,7 +9,10 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 				activo: true
 			},	
 			ciudad: "",
-			valorPorNoche: "",
+			horarioApertura: "",
+			horarioCierre: "",
+			precioMenor: "",
+			precioMayor: "",
 			caracteristicas: "",
 			restricciones: "",
 			imagenes: [],
@@ -21,7 +24,7 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 	$scope.selection = {};
 
 	$scope.$watch("ajaxURL", function (newValue, oldValue) {
-		$http.get('/viagging-providers-web/obtenerCaracteristicas?categoria=ALOJAMIENTO').
+		$http.get('/viagging-providers-web/obtenerCaracteristicas?categoria=ALIMENTACION').
 		success(function(data, status, headers, config) {
 			$scope.caracteristicas = data;
 			console.log("caracteristicas" + data);
@@ -57,7 +60,7 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 		}
 		$scope.alojamiento.imagenes=files;
 		console.log("imagenes", $scope.alojamiento.imagenes);
-		$http.post('/viagging-providers-web/guardarAlojamiento', angular.toJson($scope.alojamiento), {
+		$http.post('/viagging-providers-web/guardarAlimentacion', angular.toJson($scope.alojamiento), {
 			headers: {"Content-Type": "application/json"},
 			transformRequest: angular.identity
 		}).

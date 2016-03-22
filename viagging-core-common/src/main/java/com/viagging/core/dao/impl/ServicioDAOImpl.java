@@ -4,12 +4,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.viagging.core.dao.ServicioDAO;
 import com.viagging.core.model.Servicio;
+import com.viagging.rest.dto.ServicioDTO;
 
 /**
  * The Class ServicioDAOImpl.
  */
+@Transactional
 @Repository
 public class ServicioDAOImpl implements ServicioDAO {
 
@@ -77,6 +81,13 @@ public class ServicioDAOImpl implements ServicioDAO {
 			entityManager.remove(servicio);
 		}
 		return servicio;
+	}
+
+
+	@Override
+	public Servicio servicioDTOToModel(ServicioDTO servicio) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

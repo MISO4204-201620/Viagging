@@ -26,6 +26,8 @@ public class Alimentacion implements Serializable {
 	private String ciudad;
 
 	private String horarioapertura;
+	
+	private String horariocierre;
 
 	private byte[] imagenprincipal;
 
@@ -126,6 +128,14 @@ public class Alimentacion implements Serializable {
 		servicio.setAlimentacion(null);
 
 		return servicio;
+	}
+
+	public String getHorariocierre() {
+		return horariocierre;
+	}
+
+	public void setHorariocierre(String horariocierre) {
+		this.horariocierre = horariocierre;
 	}
 
 }

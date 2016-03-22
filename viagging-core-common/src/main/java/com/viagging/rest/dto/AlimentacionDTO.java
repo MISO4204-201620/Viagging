@@ -1,7 +1,6 @@
 package com.viagging.rest.dto;
 
 import com.viagging.core.model.Alimentacion;
-import com.viagging.core.model.Alojamiento;
 import com.viagging.core.model.Servicio;
 import com.viagging.util.CategoryEnum;
 
@@ -10,6 +9,8 @@ public class AlimentacionDTO {
 	private String ciudad;
 
 	private String horarioApertura;
+	
+	private String horarioCierre;
 	
 	private String restricciones;
 	
@@ -115,5 +116,13 @@ public class AlimentacionDTO {
 		AlimentacionDTO alimentacionDTO = new AlimentacionDTO(alimentacion.getCiudad(), alimentacion.getHorarioapertura(),  alimentacion.getRestricciones(), String.valueOf(alimentacion.getPreciomenor()), String.valueOf(alimentacion.getPreciomayor()), alimentacion.getImagenprincipal(),parserServicio);
 
 		return alimentacionDTO;
+	}
+
+	public String getHorarioCierre() {
+		return horarioCierre;
+	}
+
+	public void setHorarioCierre(String horarioCierre) {
+		this.horarioCierre = horarioCierre;
 	}
 }

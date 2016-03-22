@@ -4,10 +4,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.dao.PaseoEcologicoDAO;
 import com.viagging.core.model.PaseoEcologico;
+import com.viagging.rest.dto.PaseoEcologicoDTO;
 
+@Transactional
 @Repository
 public class PaseoEcologicoDAOImpl implements PaseoEcologicoDAO{
 	

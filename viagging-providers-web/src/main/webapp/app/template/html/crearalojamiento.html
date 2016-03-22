@@ -78,13 +78,13 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
-								<form class="form-horizontal" role="form" name="fService" novalidate ng-submit="saveService(fService)" ng-hide="saving">
+								<form class="form-horizontal" role="form" name="falojamiento" novalidate ng-submit="guardarAlojamiento(falojamiento)" ng-hide="saving">
 									<!-- #section:elements.form -->
 									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nombre </label>
 
 										<div class="col-sm-9">
-											<input type="text" id="form-field-1" placeholder="Nombre del servicio" class="col-xs-10 col-sm-5" ng-model="servicio.nombre" />
+											<input type="text" id="form-field-1" placeholder="Nombre del servicio" class="col-xs-10 col-sm-5" ng-model="alojamiento.servicio.nombre" />
 										</div>
 									</div>
 
@@ -92,7 +92,7 @@
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-2">Descripcion</label>
 										
 										<div class="col-sm-9">
-											<textarea id="form-field-2" class="autosize-transition form-control" ng-model="servicio.descripcion"></textarea>
+											<textarea id="form-field-2" class="autosize-transition form-control" ng-model="alojamiento.servicio.descripcionCorta"></textarea>
 										</div>
 									</div>
 								
@@ -105,19 +105,22 @@
 	                    			
 	                    			<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-3">Valor por noche</label>
-										<div class="col-sm-4" id="slider-eq">
-											<span class="ui-slider-green ui-slider-small">77</span>
+										<div class="col-sm-9">
+											<input type="text" id="form-field-1" placeholder="Valor por noche" class="col-xs-10 col-sm-5" ng-model="alojamiento.valorPorNoche" />
 										</div>
+<!-- 										<div class="col-sm-4" id="slider-eq"> -->
+<!-- 											<span class="ui-slider-green ui-slider-small">77</span> -->
+<!-- 										</div> -->
 									</div>
 									
 									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-3">Caracteristicas</label>
 										<div class="col-sm-4">
 												<!-- #section:custom/checkbox -->
-												<div class="checkbox">
-													<label>
-														<input name="form-field-checkbox" type="checkbox" class="ace" />
-														<span class="lbl"> choice 1</span>
+												<div class="checkbox" ng-repeat="caracteristica in caracteristicas">
+													<label for="{{caracteristica}}">
+														<input name="form-field-checkbox" type="checkbox" class="ace" ng-model="selection[caracteristica]" id="{{caracteristica}}"/>
+														<span class="lbl">{{caracteristica}}</span>
 													</label>
 												</div>
 										</div>
@@ -127,7 +130,7 @@
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-2">Restricciones</label>
 										
 										<div class="col-sm-9">
-											<textarea id="form-field-2" class="autosize-transition form-control" ng-model="servicio.descripcion"></textarea>
+											<textarea id="form-field-2" class="autosize-transition form-control" ng-model="alojamiento.restricciones"></textarea>
 										</div>
 									</div>
 									
