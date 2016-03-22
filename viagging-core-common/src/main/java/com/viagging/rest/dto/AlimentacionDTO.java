@@ -81,12 +81,15 @@ public class AlimentacionDTO {
 		this.precioMayor = precioMayor;
 	}
 	
-	public AlimentacionDTO buildObject( Servicio servicio){
-		ServicioDTO parserServicio = new ServicioDTO();
-		parserServicio = parserServicio.buildObject(servicio);
+	public static AlimentacionDTO buildObject(Servicio servicio) {
+		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.ALIMENTACION.getId());
 		Alimentacion alimentacion = servicio.getAlimentacion();
-		AlimentacionDTO alimentacionDTO = new AlimentacionDTO(alimentacion.getCiudad(), alimentacion.getHorarioapertura(),  String.valueOf(alimentacion.getPreciomenor()), String.valueOf(alimentacion.getPreciomayor()),parserServicio,alimentacion.getHorariocierre());
+		AlimentacionDTO alimentacionDTO = new AlimentacionDTO(
+				alimentacion.getCiudad(), alimentacion.getHorarioapertura(),
+				String.valueOf(alimentacion.getPreciomenor()),
+				String.valueOf(alimentacion.getPreciomayor()), parserServicio,
+				alimentacion.getHorariocierre());
 
 		return alimentacionDTO;
 	}

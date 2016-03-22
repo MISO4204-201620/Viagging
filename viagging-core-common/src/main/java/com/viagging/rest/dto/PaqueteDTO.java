@@ -76,14 +76,13 @@ public class PaqueteDTO {
 		this.activo = activo;
 	}
     
-	public List<PaqueteDTO> buildListObject(List<Paquete> listaPaquete){
+	public static List<PaqueteDTO> buildListObject(List<Paquete> listaPaquete){
 		List<PaqueteDTO> listaPaqueteDTO = new ArrayList<>();
 		for (Paquete paquete : listaPaquete) {
 			PaqueteDTO paqueteDTO = new PaqueteDTO(paquete.getId(), paquete.getActivo(), paquete.getNombrePaquete(), String.valueOf(paquete.getPrecio()));
 		    listaPaqueteDTO.add(paqueteDTO);
 		}
 		return listaPaqueteDTO;
-		
 	}
 
 }

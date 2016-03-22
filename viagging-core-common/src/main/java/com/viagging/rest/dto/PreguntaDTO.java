@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PreguntaDTO {
+	
 	public Integer getId() {
 		return id;
 	}
@@ -58,9 +59,7 @@ public class PreguntaDTO {
 
 	private String respuesta;
 
-
 	private PaqueteDTO paquete;
-
 
 	private ServicioDTO servicio;
 

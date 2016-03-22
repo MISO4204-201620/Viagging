@@ -101,7 +101,7 @@ public class UsuarioDTO {
 	}
 	
 	/**
-	 * Builds and {@link UsuarioDTO} object from an {@link Usuario} object.
+	 * Builds an {@link UsuarioDTO} object from an {@link Usuario} object.
 	 *
 	 * @param usuario the usuario
 	 * @return the usuario dto
