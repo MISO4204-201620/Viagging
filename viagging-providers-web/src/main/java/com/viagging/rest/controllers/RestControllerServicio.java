@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 import com.viagging.core.services.ServicioService;
 import com.viagging.rest.dto.AlimentacionDTO;
 import com.viagging.rest.dto.AlojamientoDTO;
@@ -47,7 +46,8 @@ public class RestControllerServicio {
 	  @ResponseStatus(value = HttpStatus.OK)
 	  public AlimentacionDTO getServiceAlimentacion(@QueryParam("idService") String idService) {
 		  System.out.println("getServiceTransporte"+idService);
-		  AlimentacionDTO alimentacionDTO  = AlimentacionDTO.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
+		  AlimentacionDTO alimentacion = new AlimentacionDTO();		  
+		  AlimentacionDTO alimentacionDTO  = alimentacion.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
 		  if(alimentacionDTO == null){
       	      throw new NotFoundException(SERVICE_ERROR_MESSAGE_NOT_FOUND);
           }
@@ -89,7 +89,7 @@ public class RestControllerServicio {
 	  public List<ServicioDTO> getServices(@QueryParam("idCategory") String idCategory) {
           System.out.println("ingreso a getServices");	  
           ServicioDTO servicio = new ServicioDTO();	
-		  List<ServicioDTO> listServicioDTO  = servicio.buildListObject(servicioService.getAllServiciosByCategoria(idCategory));
+		  List<ServicioDTO> listServicioDTO  = servicio.buildListObject(servicioService.getAllServiciosByCategoria(idCategory),idCategory);
           if(listServicioDTO.isEmpty()){
         	  throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);
           }
@@ -110,11 +110,4 @@ public class RestControllerServicio {
           //servicioService.createServicio(servicio);
 	  }
 	  
-		@RequestMapping(value = "/register", method=RequestMethod.GET)
-	    public ModelAndView readAllCookies() {		
-			System.out.println("CookieControllerExample readAllCookies is called");
-						
-			return new ModelAndView("/tables");
-	 
-	    }
 }

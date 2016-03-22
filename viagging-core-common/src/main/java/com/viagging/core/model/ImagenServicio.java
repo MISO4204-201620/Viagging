@@ -1,12 +1,7 @@
 package com.viagging.core.model;
 
-
-
-
-
 import java.io.Serializable;
 import javax.persistence.*;
-
 
 /**
  * The persistent class for the tp_imagen_servicio database table.
@@ -19,11 +14,11 @@ public class ImagenServicio implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
 	private byte[] imagen;
 
-	//bi-directional many-to-one association to TpServicio
 	@ManyToOne
 	@JoinColumn(name="idservicio")
 	private Servicio servicio;

@@ -27,22 +27,60 @@ public class ServicioDTO {
     private String ciudad;
 
     private PaqueteDTO paquete;
-
-
+    
+    private String imagenPrincipal;
+    
+    private List<String> imagenes;
+    
+    private String restricciones;
+    
+    private List<CaracteristicasDTO> caracteristicas;
 
 	public ServicioDTO() {
 	}
 	
 	public ServicioDTO(Integer id, Boolean activo,
-			String nombre, String descripcionCorta,String precio) {
+			String nombre, String descripcionCorta,String precio,String restricciones) {
 		super();
 		this.id = id;
 		this.activo = activo;
 		this.nombre = nombre;
 		this.descripcionCorta = descripcionCorta;
 		this.precio = precio;
+		this.restricciones = restricciones;
+	}
+	
+	public String getRestricciones() {
+		return restricciones;
+	}
+
+	public void setRestricciones(String restricciones) {
+		this.restricciones = restricciones;
+	}
+
+	public List<CaracteristicasDTO> getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public void setCaracteristicas(List<CaracteristicasDTO> caracteristicas) {
+		this.caracteristicas = caracteristicas;
+	}
+
+	public List<String> getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(List<String> imagenes) {
+		this.imagenes = imagenes;
 	}
     
+	public String getImagenPrincipal() {
+		return imagenPrincipal;
+	}
+
+	public void setImagenPrincipal(String imagenPrincipal) {
+		this.imagenPrincipal = imagenPrincipal;
+	}
 
 	public PaqueteDTO getPaquete() {
 		return paquete;
@@ -108,41 +146,24 @@ public class ServicioDTO {
 		this.idCategoria = idCategoria;
 	}
 	
-	public List<ServicioDTO> buildListObject(List<Servicio> listServicio) {
-		List<ServicioDTO> listServicioDTO = new ArrayList<>();
-		for (Servicio servicio : listServicio) {
-			ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(), servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()));
-
-			//TODO Mover esta lógica a un método
-			String idCategoria = "";
-			if (servicio.getAlimentacion() != null) {
-				idCategoria = CategoryEnum.ALIMENTACION.getId();
-			} else if (servicio.getTransporte() != null) {
-				idCategoria = CategoryEnum.TRANSPORTE.getId();
-			} else if (servicio.getAlojamiento() != null) {
-				idCategoria = CategoryEnum.ALOJAMIENTO.getId();
-			} else if (servicio.getPaseoEcologico() != null) {
-				idCategoria = CategoryEnum.PASEO_ECOLOGICO.getId();
-			}
-
-			servicioDTO.setIdCategoria(idCategoria);
-			servicioDTO.getCiudadCategoria(servicio);
-			listServicioDTO.add(servicioDTO);
+	public List<ServicioDTO> buildListObject( List<Servicio> listServicio,String idCategory){
+		 List<ServicioDTO> listServicioDTO = new ArrayList<>();
+		 for (Servicio servicio : listServicio) {
+		     ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(), servicio.getNombre(), servicio.getDescripcion(),String.valueOf(servicio.getPrecio()),servicio.getRestricciones());		 
+			 servicioDTO.setIdCategoria(idCategory);
+			 servicioDTO.getCiudadCategoria(servicio);
+			 servicioDTO.setImagenPrincipal(new String(servicio.getImagenprincipal()));
+			 
+		     listServicioDTO.add(servicioDTO);
 		}
 		return listServicioDTO;
 	}
 
-	public static ServicioDTO buildObject(Servicio servicio){
-		ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(),  servicio.getNombre(), servicio.getDescripcion(),String.valueOf(servicio.getPrecio()));
-		servicioDTO.getCiudadCategoria(servicio);
+	public ServicioDTO buildObject( Servicio servicio){
+		 ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(),  servicio.getNombre(), servicio.getDescripcion(),String.valueOf(servicio.getPrecio()),servicio.getRestricciones());
+		 servicioDTO.getCiudadCategoria(servicio);
+		 servicioDTO.setImagenPrincipal(new String(servicio.getImagenprincipal()));
 		return servicioDTO;
-	}
-	
-	@Override
-	public String toString() {
-		return "ServicioDTO [id=" + id + ", activo=" + activo + ", nombre="
-				+ nombre + ", descripcionCorta=" + descripcionCorta
-				+ ", precio=" + precio + ", idCategoria=" + idCategoria + "]";
 	}
 	
 	private void getCiudadCategoria(Servicio servicio){
@@ -164,7 +185,8 @@ public class ServicioDTO {
 		System.out.println("buildListServicioDTO");
 		for (PaqueteServicio paqueteServicio : listaPaqueteServicio) {
 			System.out.println(paqueteServicio.getServicio().getNombre());
-			ServicioDTO servicioDTO = ServicioDTO.buildObject(paqueteServicio.getServicio());
+			ServicioDTO servicioDTO = new ServicioDTO();
+			servicioDTO = servicioDTO.buildObject(paqueteServicio.getServicio());
 			servicioDTO.setPaquete(servicioDTO.buildPaquete(paqueteServicio.getServicio()));
 			listaServicioDTO.add(servicioDTO);
 		}

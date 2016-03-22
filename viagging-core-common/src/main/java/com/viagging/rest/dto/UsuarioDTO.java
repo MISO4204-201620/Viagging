@@ -13,10 +13,10 @@ public class UsuarioDTO {
 	private String correo;
 	
 	@JsonInclude(Include.NON_NULL)
-	private Integer numeroCelular;
+	private String numeroCelular;
 	
 	@JsonInclude(Include.NON_NULL)
-	private Integer numeroDocumento;
+	private String numeroDocumento;
 
 	private String primerApellido;
 
@@ -44,19 +44,19 @@ public class UsuarioDTO {
 		this.correo = correo;
 	}
 
-	public Integer getNumeroCelular() {
+	public String getNumeroCelular() {
 		return numeroCelular;
 	}
 
-	public void setNumeroCelular(Integer numeroCelular) {
+	public void setNumeroCelular(String numeroCelular) {
 		this.numeroCelular = numeroCelular;
 	}
 
-	public Integer getNumeroDocumento() {
+	public String getNumeroDocumento() {
 		return numeroDocumento;
 	}
 
-	public void setNumeroDocumento(Integer numeroDocumento) {
+	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = numeroDocumento;
 	}
 
