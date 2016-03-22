@@ -143,7 +143,10 @@ public class TransporteDTO {
 		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.TRANSPORTE.getId());
 		Transporte transporte = servicio.getTransporte();
-		String imagenPrincipal = new String(transporte.getImagenprincipal());
+		String imagenPrincipal = "";
+		if(transporte.getImagenprincipal() != null){
+			imagenPrincipal = new String(transporte.getImagenprincipal());
+		}
 		TransporteDTO transporteDTO = new TransporteDTO(parserServicio, transporte.getTipotransporte(), transporte.getLugarorigen(), transporte.getLugardestino(),
 				transporte.getTiempoestimado(), transporte.getHorarioinicio(), transporte.getHorariofin(), transporte.getRestricciones(), transporte.getFrecuenciasalida(),String.valueOf(transporte.getNumeropasajeros()),imagenPrincipal);
 		return transporteDTO;

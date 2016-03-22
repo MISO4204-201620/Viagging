@@ -19,8 +19,16 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 			controller: 'AppCtrl'
 		})
 		.state("detail", {
-			url: "/detail/:serviceId",
-			templateUrl: '../app/views/detail.html'
+			url: "/detail/:categoryId/:serviceId",
+			templateUrl: '../app/views/detail.html',
+			resolve: {
+				product : ['productsService', '$stateParams', function(productsService, $stateParams){
+					var categoryId = $stateParams.categoryId;
+					var productId = $stateParams.serviceId;
+					return productsService.getProductById(categoryId, productId);
+				}]
+			},
+			controller: 'DetailCtrl'
 		})
 		.state("login", {
 			url: "/login",

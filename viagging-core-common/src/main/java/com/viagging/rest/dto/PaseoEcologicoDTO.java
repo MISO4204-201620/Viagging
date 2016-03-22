@@ -106,7 +106,10 @@ public class PaseoEcologicoDTO {
 		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.PASEO_ECOLOGICO.getId());
 		PaseoEcologico paseoEcologico = servicio.getPaseoEcologico();	
-		String imagenPrincipal = new String(paseoEcologico.getImagenprincipal());
+		String imagenPrincipal = "";
+		if(paseoEcologico.getImagenprincipal() != null){
+			imagenPrincipal = new String(paseoEcologico.getImagenprincipal());
+		}
 		PaseoEcologicoDTO paseoEcologicoDTO = new PaseoEcologicoDTO(paseoEcologico.getFecha().toString(),paseoEcologico.getCiudad(),
 				paseoEcologico.getTiempoderecorrido(), paseoEcologico.getHorario(),  paseoEcologico.getRestricciones(), imagenPrincipal, parserServicio);
 		return paseoEcologicoDTO;
