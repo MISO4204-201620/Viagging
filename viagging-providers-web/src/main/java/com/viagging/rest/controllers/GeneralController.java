@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.viagging.core.model.Caracteristica;
 import com.viagging.core.services.CaracteristicaService;
-import com.viagging.rest.dto.File;
 import com.viagging.rest.dto.ImagenDTO;
 
 @RestController

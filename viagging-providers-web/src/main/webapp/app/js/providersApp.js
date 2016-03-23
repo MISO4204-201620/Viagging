@@ -11,7 +11,7 @@ providersApp.config(['$stateProvider', function($stateProvider){
     			})
     			.state("content", {
     				url: "/content",
-    				templateUrl: 'app/templates/html/contenido.html'
+    				templateUrl: '/contenido.html',
     			})
     			.state("query", {
     				url: "/query",

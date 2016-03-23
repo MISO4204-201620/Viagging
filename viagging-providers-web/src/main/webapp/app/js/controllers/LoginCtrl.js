@@ -1,9 +1,14 @@
-providersApp.controller('LoginCtrl', ['$scope', '$http','ngDialog','$rootScope','$location', function($scope, $http,ngDialog, $rootScope,$location) {
+providersApp.controller('LoginCtrl', ['$scope', '$http','ngDialog','$rootScope','$location','$state', function($scope, $http,ngDialog, $rootScope,$location,$state) {
 	
 	   $scope.login = function() { 
-		   console.log('login');
+		   console.log('loginb ingreso');
+		   $location.path( '/contenido.html' );
+		   
+
+				     
+				   
 		   //$stateProvider.run("homwe");
-		  $location.path('/contenido');
+		//  $location.path('/contenido');
 			/* $http.get('/viagging-providers-web/register').
 			    success(function(data, status, headers, config) {
 			    	console.log(status);
@@ -15,4 +20,7 @@ providersApp.controller('LoginCtrl', ['$scope', '$http','ngDialog','$rootScope',
 			    });*/
 			    console.log('despues de llamar Packages');
 	     }
+	   $scope.ActiveChange =   function (activeTab) {
+		   $state.go('content');
+	    }
 }]);
