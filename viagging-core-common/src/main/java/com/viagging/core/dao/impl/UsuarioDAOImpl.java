@@ -2,14 +2,20 @@ package com.viagging.core.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.viagging.core.dao.UsuarioDAO;
 import com.viagging.core.model.Usuario;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Transactional
 @Repository
 public class UsuarioDAOImpl implements UsuarioDAO {
 
@@ -18,7 +24,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	/** The entity manager. */
 	@PersistenceContext
 	private EntityManager entityManager;
-
     
 	@Override
 	public Usuario findUsuarioByLoginAndPassword(String login, String password) {
@@ -44,7 +49,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		entityManager.persist(usuario);
 		return usuario;
 	}
-
 
 	@Override
 	public Usuario updateUsuario(Usuario usuario) {

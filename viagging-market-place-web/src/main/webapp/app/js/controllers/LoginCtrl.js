@@ -1,5 +1,5 @@
-marketPlaceApp.controller('LoginCtrl', ['$scope', '$state', 'loginService', 
-    function($scope, $state, loginService){
+marketPlaceApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'loginService',
+    function($scope, $rootScope, $state, loginService){
 	
 	'use strict';
 	
@@ -8,21 +8,20 @@ marketPlaceApp.controller('LoginCtrl', ['$scope', '$state', 'loginService',
 		password: "",
 	};
 	
-	var successHandler = function(result){
-		alert("Bienvenido!");
+	var successCallback = function(userData){
+//		alert("Hola " + userData.primerNombre + "!");
+		$rootScope.$broadcast('USER_LOGGED_IN', userData);	
 		$state.go("home");
 	};
 	
-	var errorHandler = function(){
-		alert("Las credenciales que ha ingresado no son validas!");
+	var errorCallback = function(){
+		alert("Las credenciales que ha ingresado no son válidas!");
 		$scope.user.password = "";
 	};
 	
 	$scope.loginUser = function(){
 		if($scope.user.login != "" && $scope.user.password != ""){
-			loginService.loginUser($scope.user)
-				.success(successHandler)
-				.error(errorHandler);
+			loginService.loginUser($scope.user, successCallback, errorCallback);
 		}
 	};
 }]);

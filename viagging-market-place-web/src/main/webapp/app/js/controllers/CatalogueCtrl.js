@@ -1,31 +1,19 @@
-marketPlaceApp.controller('CatalogueCtrl', ['$scope', 'productsService', function($scope, productsService){
+marketPlaceApp.controller('CatalogueCtrl', ['$scope', '$state', 'configService', 'productsService', 'userService',
+    function($scope, $state, configService, productsService, userService){
 	
-//	$scope.productos = [
-//        {
-//        	imagen: "",
-//        	titulo: "Hotel Cartagena Plaza Prueba",
-//        	descripcion: "Hotel Cartagena Plaza est&aacute ubicado en frente de la playa de Cartagena de Indias, a 10 minutos en coche del Aeropuerto Internacional Rafel Nu&ntildeez Prueba",
-//        	valor: "300000"
-//        },
-//        {
-//        	imagen: "",
-//        	titulo: "Hotel Cartagena Plaza Prueba",
-//        	descripcion: "Hotel Cartagena Plaza est&aacute ubicado en frente de la playa de Cartagena de Indias, a 10 minutos en coche del Aeropuerto Internacional Rafel Nu&ntildeez Prueba",
-//        	valor: "300000"
-//        },
-//        {
-//        	imagen: "",
-//        	titulo: "Hotel Cartagena Plaza Prueba",
-//        	descripcion: "Hotel Cartagena Plaza est&aacute ubicado en frente de la playa de Cartagena de Indias, a 10 minutos en coche del Aeropuerto Internacional Rafel Nu&ntildeez Prueba",
-//        	valor: "300000"
-//        },
-//        {
-//        	imagen: "",
-//        	titulo: "Hotel Cartagena Plaza Prueba",
-//        	descripcion: "Hotel Cartagena Plaza est&aacute ubicado en frente de la playa de Cartagena de Indias, a 10 minutos en coche del Aeropuerto Internacional Rafel Nu&ntildeez Prueba",
-//        	valor: "300000"
-//        }
-//	];
+	$scope.categories = configService.getCategories();
+	
+	$scope.prices = configService.getPrices();
+	
+	$scope.products = productsService.getProducts();
+	
+	$scope.addProductToCart = function(serviceId){
+		if(userService.getUserData() == null){
+			$state.go("login");
+		} else {
+//			cartServicio
+		}
+	};
 	
 	var initCatalogueCtrl = function(){
 	}();

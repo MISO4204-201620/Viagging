@@ -17,22 +17,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viagging.api.model.UserLogin;
-import com.viagging.api.services.impl.LoginService;
 import com.viagging.core.model.Usuario;
+import com.viagging.core.services.UsuarioService;
 import com.viagging.rest.dto.UsuarioDTO;
 import com.viagging.util.CookieUtil;
 
+/**
+ * The Class LoginController.
+ */
 @RestController
 public class LoginController {
 	
+	/** The usuario service. */
 	@Autowired
-	private LoginService loginService;
+	private UsuarioService usuarioService;
 	
-	private static final String AUTHORIZATION_TOKEN_COOKIE = "viagging_authorization_token";
+	/** The Constant AUTHORIZATION_TOKEN_COOKIE. */
+	private static final String AUTHORIZATION_TOKEN_COOKIE = "Authorization";
 	
+	/**
+	 * Login.
+	 *
+	 * @param userLogin the user login
+	 * @param response the response
+	 * @return the response entity
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<UsuarioDTO> login(@RequestBody final UserLogin userLogin, HttpServletResponse response){
-		Usuario usuario = loginService.getUserDetails(userLogin.getLogin(), userLogin.getPassword());
+		Usuario usuario = usuarioService.findUsuarioByLoginAndPassword(userLogin.getLogin(), userLogin.getPassword());
 		
 		if(usuario == null){
 			return new ResponseEntity<UsuarioDTO>(HttpStatus.BAD_REQUEST);

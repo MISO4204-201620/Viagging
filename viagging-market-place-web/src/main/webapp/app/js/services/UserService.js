@@ -1,19 +1,21 @@
-marketPlaceApp.service('userService', function(){
+marketPlaceApp.service('userService', [ 'storageService', function(storageService){
 
-	'use strict';
-	
-	var user = {};
-	
 	var userService = {
 		
-		setUser : function(_user){
-			user = _user;
+		setUserData : function(userData){
+			storageService.put('userData', userData);
+		},
+			
+		getUserData : function(){
+			return storageService.get('userData');
 		},
 		
-		getUser : function(){
-			return user;
+		removeUserData : function(){
+			storageService.remove('userData');
 		}
-	};	
+
+	};
 	
 	return userService;
-});
+	
+}]);
