@@ -18,7 +18,7 @@ import com.viagging.rest.dto.ServicioDTO;
 import com.viagging.rest.dto.TransporteDTO;
 
 @RestController
-public class RestControllerServicio {
+public class ServiceController {
 
 	public static final String USUARIO_ERROR_MESSAGE_NOT_FOUND = "usuario no encontrado";
 	public static final String SERVICES_ERROR_MESSAGE_NOT_FOUND = "servicios no encontrados";
