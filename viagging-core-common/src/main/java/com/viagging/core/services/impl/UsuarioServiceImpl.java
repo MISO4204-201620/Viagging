@@ -1,11 +1,20 @@
 package com.viagging.core.services.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viagging.core.dao.UsuarioDAO;
+import com.viagging.core.dao.impl.CuentaAccesoDAOImpl;
+import com.viagging.core.model.CuentaAcceso;
+import com.viagging.core.model.Perfil;
 import com.viagging.core.model.Usuario;
+import com.viagging.core.services.CuentaAccesoService;
+import com.viagging.core.services.PerfilService;
 import com.viagging.core.services.UsuarioService;
+import com.viagging.exception.LoginExistExeption;
+import com.viagging.rest.dto.UsuarioDTO;
 
 /**
  * The Class UsuarioServiceImpl.
@@ -13,9 +22,16 @@ import com.viagging.core.services.UsuarioService;
 @Service
 public class UsuarioServiceImpl implements  UsuarioService  {
 
-	/** The usuario dao. */
+	private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioServiceImpl.class);
+	
 	@Autowired
 	private UsuarioDAO usuarioDAO;
+	
+	@Autowired
+	private PerfilService perfilService;
+	
+	@Autowired
+	private CuentaAccesoService cuentaAccesoService;
 
 	/* (non-Javadoc)
 	 * @see com.viagging.core.services.UsuarioService#findUsuarioByLoginAndPassword(java.lang.String, java.lang.String)
@@ -37,8 +53,25 @@ public class UsuarioServiceImpl implements  UsuarioService  {
 	 * @see com.viagging.core.services.UsuarioService#createUsuario(com.viagging.core.model.Usuario)
 	 */
 	@Override
-	public Usuario createUsuario(Usuario usuario) {
-		return usuarioDAO.createUsuario(usuario);
+	public Usuario createUsuario(Usuario usuario,String idPerfil) throws Exception {
+		
+		try {
+			    Usuario usuarioExistente = usuarioDAO.findUsuarioByLogin(usuario.getLogin());
+				if(usuarioExistente == null){
+				    usuario = usuarioDAO.createUsuario(usuario);
+					Perfil perfil  = perfilService.getPerfilById(Integer.valueOf(idPerfil));
+					CuentaAcceso cuentaAcceso = new CuentaAcceso();
+					cuentaAcceso.setPerfil(perfil);
+					cuentaAcceso.setUsuario(usuario);
+					cuentaAccesoService.createCuentaAcceso(cuentaAcceso);
+				}else{
+					throw new LoginExistExeption();
+				}
+		} catch (Exception e) {
+			LOGGER.error(e.getMessage());
+			throw e;
+		}		
+		return usuario;
 	}
 
 	/* (non-Javadoc)
@@ -47,6 +80,22 @@ public class UsuarioServiceImpl implements  UsuarioService  {
 	@Override
 	public Usuario updateUsuario(Usuario usuario) {
 		return usuarioDAO.updateUsuario(usuario);
+	}
+	
+	@Override
+	public Usuario buildUsuario(UsuarioDTO usuarioDTO){
+		Usuario usuario = new Usuario();
+		usuario.setLogin(usuarioDTO.getLogin());
+		usuario.setPassword(usuarioDTO.getPassword());
+		usuario.setNumeroCelular(usuarioDTO.getNumeroCelular());
+		usuario.setNumeroDocumento(usuarioDTO.getNumeroDocumento());
+		usuario.setPrimerApellido(usuarioDTO.getPrimerApellido());
+		usuario.setSegundoApellido(usuarioDTO.getSegundoApellido());
+		usuario.setPrimerNombre(usuarioDTO.getPrimerNombre());
+		usuario.setSegundoNombre(usuarioDTO.getSegundoNombre());
+		usuario.setTipoDocumento(usuarioDTO.getTipoDocumento());
+		usuario.setCorreo(usuarioDTO.getCorreo());
+		return usuario;
 	}
 	
 }

@@ -13,5 +13,7 @@ public interface UsuarioDAO {
 
 	Usuario updateUsuario(Usuario usuario);
 	
+	Usuario findUsuarioByLogin(String login);
+	
 }
 
