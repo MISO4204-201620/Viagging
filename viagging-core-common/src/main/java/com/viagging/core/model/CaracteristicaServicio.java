@@ -37,5 +37,21 @@ public class CaracteristicaServicio implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+	public Servicio getServicio() {
+		return servicio;
+	}
+
+	public void setServicio(Servicio servicio) {
+		this.servicio = servicio;
+	}
+
+	public Caracteristica getCaracteristica() {
+		return caracteristica;
+	}
+
+	public void setCaracteristica(Caracteristica caracteristica) {
+		this.caracteristica = caracteristica;
+	}
 	
 }

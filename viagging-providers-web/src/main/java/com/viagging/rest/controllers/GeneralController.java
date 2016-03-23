@@ -43,6 +43,7 @@ public class GeneralController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void saveImage(@RequestBody String file, @QueryParam("idServicio") String idServicio) {
+		System.out.println(idServicio + "ids");
 		imageService.createImagenServicio(file, idServicio);
 	}
 

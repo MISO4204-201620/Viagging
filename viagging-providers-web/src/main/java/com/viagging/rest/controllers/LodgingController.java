@@ -6,10 +6,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.viagging.core.services.AlojamientoService;
 import com.viagging.rest.dto.AlojamientoDTO;
 
+@RestController
 public class LodgingController {
 	
 	@Autowired
@@ -17,8 +19,9 @@ public class LodgingController {
 	
 	@RequestMapping(value = "/saveLodging", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void saveLodging(@RequestBody AlojamientoDTO alojamiento) {
-		lodgingService.createAlojamiento(alojamiento);
+	public Integer saveLodging(@RequestBody AlojamientoDTO alojamiento) {
+		Integer idService = lodgingService.createAlojamiento(alojamiento);
+		return idService;
 	}
 
 }

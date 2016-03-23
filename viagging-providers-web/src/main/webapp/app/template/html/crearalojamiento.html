@@ -97,11 +97,12 @@
 									</div>
 								
 	                    			<div class="form-group">
-	                        			<label class="col-sm-3 control-label no-padding-right" for="form-field-3">Ciudad</label>
-	                        			<div class="col-sm-9">
-	                        				<select id="form-field-3" class="col-xs-10 col-sm-5" ng-model="alojamiento.ciudad" ng-options="ciudad for ciudad in ciudades"></select>
-	                    				</div>
-	                    			</div>
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Ciudad </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="form-field-1" placeholder="Bogota" class="col-xs-10 col-sm-5" ng-model="alojamiento.ciudad" />
+										</div>
+									</div>
 	                    			
 	                    			<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-3">Valor por noche</label>
@@ -130,7 +131,7 @@
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-2">Restricciones</label>
 										
 										<div class="col-sm-9">
-											<textarea id="form-field-2" class="autosize-transition form-control" ng-model="alojamiento.restricciones"></textarea>
+											<textarea id="form-field-2" class="autosize-transition form-control" ng-model="alojamiento.servicio.restricciones"></textarea>
 										</div>
 									</div>
 									

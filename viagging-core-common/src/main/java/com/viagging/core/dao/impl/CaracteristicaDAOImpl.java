@@ -19,8 +19,20 @@ public class CaracteristicaDAOImpl implements CaracteristicaDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Caracteristica> getCaracteristicaByCategoria(String categoria) {
+	public List<Caracteristica> getCaracteristicasByCategoria(String categoria) {
 		return (List<Caracteristica>) entityManager.createNamedQuery("Caracteristica.findByCategoria").setParameter("categoria", categoria).getResultList();
+	}
+
+	@Override
+	public Caracteristica getCaracteristicaById(String id) {
+		return (Caracteristica) entityManager.createNamedQuery("Caracteristica.findById").setParameter("idCaracteristica", id).getSingleResult();
+	}
+
+	@Override
+	public Caracteristica getCaracteristicaByCtgAndCars(String categoria, String caracteristica) {
+		System.out.println(categoria + " -- " + caracteristica);
+		return (Caracteristica) entityManager.createNamedQuery("Caracteristica.findByCategoriaAndCaracteristica").setParameter("categoria", categoria)
+				.setParameter("valor", caracteristica).getSingleResult();
 	}
 
 

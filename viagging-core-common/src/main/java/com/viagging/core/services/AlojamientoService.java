@@ -13,5 +13,5 @@ public interface AlojamientoService {
 	
 	Alojamiento deleteAlojamiento(Integer idAlojamiento);
 	
-	void createAlojamiento(AlojamientoDTO alojamiento);
+	Integer createAlojamiento(AlojamientoDTO alojamiento);
 }

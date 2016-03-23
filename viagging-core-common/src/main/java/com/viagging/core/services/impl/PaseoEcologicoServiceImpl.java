@@ -1,7 +1,6 @@
 package com.viagging.core.services.impl;
 
 
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.viagging.core.dao.PaseoEcologicoDAO;
@@ -42,16 +41,16 @@ public class PaseoEcologicoServiceImpl implements PaseoEcologicoService {
 
 	@Override
 	public void createPaseoEcologico(PaseoEcologicoDTO paseoEcologicoDTO) {
-		PaseoEcologico paseoEcologico = paseoEcologicoDTOToModel(paseoEcologicoDTO);
+		PaseoEcologico paseoEcologico = buildPaseoEcologico(paseoEcologicoDTO);
 		createPaseoEcologico(paseoEcologico);
 	}
 	
-	private PaseoEcologico paseoEcologicoDTOToModel(PaseoEcologicoDTO paseoEcologicoDTO) {
+	private PaseoEcologico buildPaseoEcologico(PaseoEcologicoDTO paseoEcologicoDTO) {
 		PaseoEcologico paseoEcologico = new PaseoEcologico();
 		paseoEcologico.setCiudad(paseoEcologicoDTO.getCiudad());
 		paseoEcologico.setHorario(paseoEcologicoDTO.getHorario());
 		paseoEcologico.setTiempoderecorrido(paseoEcologicoDTO.getTiempoDeRecorrido());
-		Servicio servicio = servicioService.servicioDTOToModel(paseoEcologicoDTO.getServicio());
+		Servicio servicio = servicioService.buildServicio(paseoEcologicoDTO.getServicio());
 		servicioService.createServicio(servicio);
 		return paseoEcologico;
 	}

@@ -18,7 +18,7 @@ public class CaracteristicaServiceImpl implements CaracteristicaService  {
 
 	@Override
 	public List<Caracteristica> getCaracteristicaByCategoria(String categoria) {
-		return caracteristicaDAO.getCaracteristicaByCategoria(categoria);
+		return caracteristicaDAO.getCaracteristicasByCategoria(categoria);
 	}
 
 }

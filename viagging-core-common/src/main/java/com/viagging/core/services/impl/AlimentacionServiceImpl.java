@@ -42,18 +42,18 @@ public class AlimentacionServiceImpl implements  AlimentacionService  {
 
 	@Override
 	public void createAlimentacion(AlimentacionDTO alimentacionDTO) {
-		Alimentacion alimentacion = alimentacionDTOToModel(alimentacionDTO);
+		Alimentacion alimentacion = buildAlimentacion(alimentacionDTO);
 		createAlimentacion(alimentacion);
 	}
 	
-	private Alimentacion alimentacionDTOToModel(AlimentacionDTO alimentacionDTO) {
+	private Alimentacion buildAlimentacion(AlimentacionDTO alimentacionDTO) {
 		Alimentacion alimentacion = new Alimentacion();
 		alimentacion.setCiudad(alimentacionDTO.getCiudad());
 		alimentacion.setHorarioapertura(alimentacionDTO.getHorarioApertura());
 		alimentacion.setHorariocierre(alimentacionDTO.getHorarioCierre());
 		alimentacion.setPreciomayor(Integer.parseInt(alimentacionDTO.getPrecioMayor()));
 		alimentacion.setPreciomenor(Integer.parseInt(alimentacionDTO.getPrecioMenor()));
-		Servicio servicio = servicioService.servicioDTOToModel(alimentacionDTO.getServicio());
+		Servicio servicio = servicioService.buildServicio(alimentacionDTO.getServicio());
 		servicioService.createServicio(servicio);
 		return alimentacion;
 	}
