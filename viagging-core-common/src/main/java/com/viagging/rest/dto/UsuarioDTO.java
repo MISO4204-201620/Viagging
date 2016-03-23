@@ -8,8 +8,12 @@ import com.viagging.core.model.Usuario;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UsuarioDTO {
 	
-	private Integer id;
+	private String id;
     
+	private String login;
+
+	private String password;
+	
 	private String correo;
 	
 	@JsonInclude(Include.NON_NULL)
@@ -28,12 +32,25 @@ public class UsuarioDTO {
 
 	private String tipoDocumento;
 
-	public Integer getId() {
-		return id;
+    private PerfilDTO perfil;
+
+	@Override
+	public String toString() {
+		return "UsuarioDTO [id=" + id + ", login=" + login + ", password="
+				+ password + ", correo=" + correo + ", numeroCelular="
+				+ numeroCelular + ", numeroDocumento=" + numeroDocumento
+				+ ", primerApellido=" + primerApellido + ", primerNombre="
+				+ primerNombre + ", segundoApellido=" + segundoApellido
+				+ ", segundoNombre=" + segundoNombre + ", tipoDocumento="
+				+ tipoDocumento + ", perfil=" + perfil + "]";
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public PerfilDTO getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(PerfilDTO perfil) {
+		this.perfil = perfil;
 	}
 
 	public String getCorreo() {
@@ -100,6 +117,31 @@ public class UsuarioDTO {
 		this.tipoDocumento = tipoDocumento;
 	}
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
 	/**
 	 * Builds an {@link UsuarioDTO} object from an {@link Usuario} object.
 	 *
@@ -108,7 +150,7 @@ public class UsuarioDTO {
 	 */
 	public static UsuarioDTO buildObject(Usuario usuario){
 		UsuarioDTO usuarioDto = new UsuarioDTO();
-		usuarioDto.setId(usuario.getId());
+		usuarioDto.setId(String.valueOf(usuario.getId()));
 		usuarioDto.setCorreo(usuario.getCorreo());
 		usuarioDto.setNumeroCelular(usuario.getNumeroCelular());
 		usuarioDto.setPrimerNombre(usuario.getPrimerNombre());
@@ -117,6 +159,7 @@ public class UsuarioDTO {
 		usuarioDto.setSegundoApellido(usuario.getSegundoApellido());
 		usuarioDto.setTipoDocumento(usuario.getTipoDocumento());
 		usuarioDto.setNumeroDocumento(usuario.getNumeroDocumento());
+		usuarioDto.setLogin(usuario.getLogin());
 		return usuarioDto;
 	}
 }

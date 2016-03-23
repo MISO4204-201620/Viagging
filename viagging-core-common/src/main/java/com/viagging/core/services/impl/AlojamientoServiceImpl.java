@@ -46,6 +46,7 @@ public class AlojamientoServiceImpl implements AlojamientoService {
 		return alojamientoDAO.deleteAlojamiento(idAlojamiento);
 	}
 	
+	@Override
 	public Integer createAlojamiento(AlojamientoDTO alojamientoDTO) {
 		Alojamiento alojamiento = buildAlojamiento(alojamientoDTO);
 		alojamiento = createAlojamiento(alojamiento);

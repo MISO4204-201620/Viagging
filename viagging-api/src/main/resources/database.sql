@@ -52,7 +52,7 @@ CREATE TABLE TP_Usuario (
   segundoApellido VARCHAR(20) NULL,
   tipoDocumento VARCHAR(20) NOT NULL,
   numeroDocumento VARCHAR(20) NOT NULL,
-  correo VARCHAR(20) NULL,
+  correo VARCHAR(50) NULL,
   numeroCelular VARCHAR(20) NULL,
   PRIMARY KEY(id)
 );

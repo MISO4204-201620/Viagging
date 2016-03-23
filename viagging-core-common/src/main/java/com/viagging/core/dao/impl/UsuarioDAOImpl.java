@@ -58,4 +58,14 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		return _usuario;
 	}
 	
+	@Override
+	public Usuario findUsuarioByLogin(String login) {
+		try {
+			Query query = entityManager.createNamedQuery("Usuario.findLogin");
+			query.setParameter("login", login);
+			return (Usuario) query.getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
 }
