@@ -12,7 +12,7 @@ import com.viagging.rest.dto.NombreValorDTO;
 import com.viagging.util.CategoryEnum;
 
 @RestController
-public class RestControllerCategory {
+public class CategoryController {
 
 	@RequestMapping(value = "/getCategory", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
