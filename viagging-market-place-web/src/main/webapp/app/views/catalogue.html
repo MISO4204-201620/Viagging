@@ -1,11 +1,11 @@
-   <div ng-controller="CatalogueCtrl" class="container main-container" >
+   <div class="container main-container" >
        <div class="row">
        	<!-- Inicio Filtros busqueda -->
        	<div class="col-lg-3 col-md-3 col-sm-12">
        		<!-- Categories -->
        		<div class="col-lg-12 col-md-12 col-sm-6">
         		<div class="no-padding">
-            		<span class="title">CATEGORIAS</span>
+            		<span style="text-transform:uppercase;" class="title">CATEGOR&iacute;AS</span>
             	</div>
 				<div id="main_menu" style="border-bottom:1px solid #ddd;">
 	               <div class="checkbox" ng-repeat="categorie in categories" style="border-top:1px solid #ddd; border-left:1px solid #ddd; border-right:1px solid #ddd; background-color:#f5f5f5; padding:10px; margin:0px;">
@@ -23,7 +23,7 @@
 				<div id="main_menu" style="border-bottom:1px solid #ddd;">
                     <div class="checkbox" ng-repeat="price in prices" style="border-top:1px solid #ddd; border-left:1px solid #ddd; border-right:1px solid #ddd; background-color:#f5f5f5; padding:10px; margin:0px;">
                     	<label>
-							<input type="checkbox"> Entre {{price.low}} y {{price.high}}	                        		
+							<input type="checkbox"> Entre {{price.low | currency}} y {{price.high | currency}}	                        		
 						</label>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
 			
 			<div class="col-lg-12 col-md-12 col-sm-6" style="padding-top:30px;">
         		<div class="no-padding">
-            		<span class="title">DESCRIPCION</span>
+            		<span style="text-transform:uppercase;" class="title">DESCRIPCI&oacuteN</span>
             	</div>
 				<div id="main_menu" style="border-bottom:1px solid #ddd;">
                        <!-- Search Form -->
@@ -56,27 +56,27 @@
 		<!-- Catalogue -->
        	<div class="col-lg-9 col-md-9 col-sm-12">
        		<div class="col-lg-12 col-sm-12">
-           		<span class="title">ALOJAMIENTO</span>
+           		<span class="title">PRODUCTOS</span>
            	</div>
            	<div style="float:left;">
-	            <div ng-repeat="producto in productos" class="col-lg-4 col-sm-4 hero-feature text-center">
+	            <div ng-repeat="product in products" class="col-lg-4 col-sm-4 hero-feature text-center">
 	                <div class="thumbnail">
-	                	<a ui-sref="detail" class="link-p">
+	                	<a ui-sref="detail({serviceId: product.id, categoryId: product.idCategoria})" class="link-p">
 	                    	<img src="../app/images/hotel_1.jpg" alt="">
 	                	</a>
 	                    <div class="caption prod-caption">
-	                        <h4><a ui-sref="detail">{{producto.titulo}}</a></h4>
-	                        <p>{{producto.descripcion}}</p>
+	                        <h4><a ui-sref="detail({serviceId: product.id, categoryId: product.idCategoria})">{{product.nombre}}</a></h4>
+	                        <p>{{product.descripcionCorta}}</p>
 	                        <p>
 	                        	<div class="btn-group">
-		                        	<a href="#" class="btn btn-default">$ {{producto.valor}}</a>
-		                        	<a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Comprar</a>
+		                        	<ngcart-addtocart id="{{product.id}}" name="{{product.nombre}}" price="{{product.precio}}" quantity="1" ></ngcart-addtocart>
 	                        	</div>
 	                        </p>
 	                    </div>
 	                </div>
 	            </div>
             </div>
+            <!-- 
 			<div class="text-center">
 	        	<ul class="pagination catalogue-pagination">
 					<li class="disabled"><a>First</a></li>
@@ -89,6 +89,7 @@
 					<li><a href="#">Last</a></li>
 				</ul>
 			</div>
+			 -->
        	</div>
        	<!-- End Catalogue -->
        </div>

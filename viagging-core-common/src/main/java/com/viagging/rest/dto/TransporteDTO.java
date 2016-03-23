@@ -23,7 +23,6 @@ public class TransporteDTO {
 	private String frecuenciaSalida;
 	
 	private String numeroPasajeros;
-	
 
 	public TransporteDTO(){
 		
@@ -117,13 +116,15 @@ public class TransporteDTO {
 		this.tiempoEstimado = tiempoEstimado;
 	}
 	
-	public TransporteDTO buildObject( Servicio servicio){
-		ServicioDTO parserServicio = new ServicioDTO();
-		parserServicio = parserServicio.buildObject(servicio);
+	public static TransporteDTO buildObject(Servicio servicio){
+		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.TRANSPORTE.getId());
 		Transporte transporte = servicio.getTransporte();
-		TransporteDTO transporteDTO = new TransporteDTO(parserServicio, transporte.getTipotransporte(), transporte.getLugarorigen(), transporte.getLugardestino(),
-				transporte.getTiempoestimado(), transporte.getHorarioinicio(), transporte.getHorariofin(),  transporte.getFrecuenciasalida(),String.valueOf(transporte.getNumeropasajeros()));
+		TransporteDTO transporteDTO = new TransporteDTO(parserServicio,
+				transporte.getTipotransporte(), transporte.getLugarorigen(),
+				transporte.getLugardestino(), transporte.getTiempoestimado(),
+				transporte.getHorarioinicio(), transporte.getHorariofin(),
+				transporte.getFrecuenciasalida(), String.valueOf(transporte.getNumeropasajeros()));
 		return transporteDTO;
 	}
 }

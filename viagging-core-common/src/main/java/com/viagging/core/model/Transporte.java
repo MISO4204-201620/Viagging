@@ -34,6 +34,8 @@ public class Transporte implements Serializable {
 	private String tiempoestimado;
 
 	private String tipotransporte;
+	
+	private String caracteristicas;
 
 	public Transporte() {
 	}
@@ -109,5 +111,12 @@ public class Transporte implements Serializable {
 	public void setTipotransporte(String tipotransporte) {
 		this.tipotransporte = tipotransporte;
 	}
-	
+
+	public String getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public void setCaracteristicas(String caracteristicas) {
+		this.caracteristicas = caracteristicas;
+	}
 }

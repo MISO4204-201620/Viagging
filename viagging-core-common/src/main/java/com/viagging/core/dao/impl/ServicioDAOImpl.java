@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.dao.ServicioDAO;
 import com.viagging.core.model.Servicio;
+import com.viagging.rest.dto.ServicioDTO;
 
 /**
  * The Class ServicioDAOImpl.
@@ -82,6 +83,13 @@ public class ServicioDAOImpl implements ServicioDAO {
 			entityManager.remove(servicio);
 		}
 		return servicio;
+	}
+
+
+	@Override
+	public Servicio servicioDTOToModel(ServicioDTO servicio) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

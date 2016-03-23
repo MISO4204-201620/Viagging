@@ -1,7 +1,9 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 
 /**
  * The persistent class for the tr_caracteristica database table.
@@ -9,8 +11,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="tr_caracteristica")
-@NamedQuery(name="Caracteristica.findAll", query="SELECT t FROM Caracteristica t")
+@NamedQueries({ @NamedQuery(name="Caracteristica.findAll", query="SELECT t FROM Caracteristica t"),
+				@NamedQuery(name="Caracteristica.findByCategoria", query="SELECT t FROM Caracteristica t WHERE t.categoria = :categoria"),})
 public class Caracteristica implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -40,8 +44,6 @@ public class Caracteristica implements Serializable {
 		this.valor = valor;
 	}
 
-	
-
 	public Integer getId() {
 		return this.id;
 	}
@@ -49,5 +51,4 @@ public class Caracteristica implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
 }

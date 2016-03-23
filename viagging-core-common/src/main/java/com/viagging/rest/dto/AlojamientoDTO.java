@@ -44,10 +44,8 @@ public class AlojamientoDTO {
 		this.valorPorNoche = valorPorNoche;
 	}
 
-
-	public AlojamientoDTO buildObject( Servicio servicio){
-		ServicioDTO parserServicio = new ServicioDTO();
-		parserServicio = parserServicio.buildObject(servicio);
+	public static AlojamientoDTO buildObject( Servicio servicio){
+		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.ALOJAMIENTO.getId());
 		Alojamiento alojamiento = servicio.getAlojamiento();
 		AlojamientoDTO alojamientoDTO = new AlojamientoDTO(alojamiento.getCiudad(), String.valueOf(alojamiento.getValorpornoche()), parserServicio);

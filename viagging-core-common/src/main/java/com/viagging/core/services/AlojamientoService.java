@@ -1,6 +1,9 @@
 package com.viagging.core.services;
 
+import org.json.JSONException;
+
 import com.viagging.core.model.Alojamiento;
+import com.viagging.rest.dto.AlojamientoDTO;
 
 public interface AlojamientoService {
 
@@ -11,4 +14,6 @@ public interface AlojamientoService {
 	Alojamiento updateAlojamiento(Alojamiento alojamiento);
 	
 	Alojamiento deleteAlojamiento(Integer idAlojamiento);
+	
+	void createAlojamiento(AlojamientoDTO alojamiento) throws JSONException;
 }

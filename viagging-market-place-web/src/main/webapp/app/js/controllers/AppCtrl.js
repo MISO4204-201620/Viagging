@@ -1,7 +1,12 @@
-marketPlaceApp.controller('AppCtrl', ['$scope', 'configService', function($scope, configService){
+marketPlaceApp.controller('AppCtrl', ['$scope', '$rootScope', 'ngCart', 'userService',
+    function($scope, $rootScope, ngCart, userService){
 
-	$scope.categories = configService.getCategories();
+	$scope.userData = userService.getUserData();
+	$scope.isUserLoggedIn = $scope.userData != null;
 	
-	$scope.prices = configService.getPrices();	
+	$rootScope.$on('USER_LOGGED_IN', function(event, userData){
+		$scope.isUserLoggedIn = true;
+		$scope.userData = userData;
+	});
 	
 }]);

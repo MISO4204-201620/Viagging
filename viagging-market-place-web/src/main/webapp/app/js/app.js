@@ -1,6 +1,6 @@
 'use strict';
 
-var marketPlaceApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap']);
+var marketPlaceApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap', 'ngCart']);
 
 marketPlaceApp.config(['$stateProvider', function($stateProvider){
 
@@ -8,16 +8,27 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 		.state("home", {
 			url: "/home",
 			templateUrl: '../app/views/catalogue.html',
-			controller: 'AppCtrl',
 			resolve: {
-				init : ['configService', function(configService){
+				config : ['configService', function(configService){
 					return configService.initMarketPlaceConfig();
+				}],
+				products : ['productsService', function(productsService){
+					return productsService.getAllProducts();
 				}]
-			}
+			},
+			controller: 'CatalogueCtrl'
 		})
 		.state("detail", {
-			url: "/detail",
-			templateUrl: '../app/views/detail.html'
+			url: "/detail/:categoryId/:serviceId",
+			templateUrl: '../app/views/detail.html',
+			resolve: {
+				product : ['productsService', '$stateParams', function(productsService, $stateParams){
+					var categoryId = $stateParams.categoryId;
+					var productId = $stateParams.serviceId;
+					return productsService.getProductById(categoryId, productId);
+				}]
+			},
+			controller: 'DetailCtrl'
 		})
 		.state("login", {
 			url: "/login",

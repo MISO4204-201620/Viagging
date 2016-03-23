@@ -15,6 +15,8 @@ public interface ServicioService {
 
 	Servicio updateServicio(Servicio servicio);
     
+	Servicio servicioDTOToModel(ServicioDTO servicio);
+	
 	List<Servicio> getAllServiciosByCategoria(String idCategoria);
 	
 	List<Servicio> buildListServices(List<ServicioDTO> listServiceDTO);

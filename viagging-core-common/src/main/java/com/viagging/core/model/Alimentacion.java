@@ -79,5 +79,4 @@ public class Alimentacion implements Serializable {
 		this.preciomenor = preciomenor;
 	}
 
-	
 }
