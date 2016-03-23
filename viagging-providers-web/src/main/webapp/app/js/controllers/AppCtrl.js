@@ -4,6 +4,7 @@ $scope.idEspecifico = '1';
 $scope.name;
 $scope.lastName;
 $scope.filtrarnombre = "";
+//$rootScope.respuestaCreacion = "";
 $scope.chooseservices=[];
 $scope.ocultarSeccionAdicionarPaquete = true;
 $scope.onlyNumbers = /^\d+$/;
@@ -42,7 +43,6 @@ $scope.onlyNumbers = /^\d+$/;
 		    }
 	    }).
 	    error(function(data, status, headers, config) {
-	      // log error
 	    }); 
 
 	}
@@ -147,13 +147,28 @@ $scope.onlyNumbers = /^\d+$/;
 	$scope.createPackage = function() { 
 		console.log("crear paquete");
 		console.log($scope.paquete);
-		$scope.paquete.servicios = $scope.chooseservices;
-		 $http.post('/viagging-providers-web/addPackage',$scope.paquete).
-			 success(function(data, status, headers, config) {
-	    	console.log(status);
-        }).
-          error(function(data, status, headers, config) {
-        }); 
+		if($scope.paquete.precio > 2147483647){
+	    	$rootScope.respuestaCreacion = "Precio debe ser menor a 2147483648";
+	    	ngDialog.open({ template: 'popup.html', className: 'ngdialog-theme-popup' });
+		}else{
+		
+			$scope.paquete.servicios = $scope.chooseservices;
+			 $http.post('/viagging-providers-web/addPackage',$scope.paquete).
+				 success(function(data, status, headers, config) {
+		    	console.log(status);
+		    	$rootScope.respuestaCreacion = "Paquete Creado";
+		    	ngDialog.open({ template: 'popup.html', className: 'ngdialog-theme-popup' });
+		    	$scope.paquete.precio = "";
+		    	$scope.paquete.nombre = "";
+		    	console.log($rootScope.respuestaCreacion);
+	
+	        }).
+	          error(function(data, status, headers, config) {
+	        	  $rootScope.respuestaCreacion = "Error al crear paquete";
+	        	  ngDialog.open({ template: 'popup.html', className: 'ngdialog-theme-popup' });
+	        }); 
+		}
+    	 
 	}
 	
 	$scope.desasociarServicio = function(id) { 
@@ -179,7 +194,9 @@ $scope.onlyNumbers = /^\d+$/;
 			      console.log(data);
 			    }).
 			    error(function(data, status, headers, config) {
-			      // log error
+			    	console.log(data);
+			    	console.log(status);
+			    	$scope.listPackages = [];
 			    }); 
 			    console.log('despues de llamar Packages');
 	     }
@@ -195,7 +212,7 @@ $scope.onlyNumbers = /^\d+$/;
 			      console.log(data);
 			    }).
 			    error(function(data, status, headers, config) {
-			      // log error
+
 			    }); 
 			    console.log('despues de llamar Packages');
 	     }
