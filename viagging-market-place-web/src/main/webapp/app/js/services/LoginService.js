@@ -1,13 +1,9 @@
-marketPlaceApp.service('loginService', ['$http', function($http){
+marketPlaceApp.service('loginService', ['$http', 'userService', function($http, userService){
 	
 	'use strict';
 	
-	var userData = {};
-	
 	var loginService = {
 	
-		isUserLoggedIn : false,
-			
 		loginUser : function(user, successCallback, errorCallback){
 			
 			return $http({
@@ -17,25 +13,18 @@ marketPlaceApp.service('loginService', ['$http', function($http){
 	            cache: false
 	        }).success(function(response){
 	        	if(angular.isObject(response)){
-	        		userData = response;
-	        		isUserLoggedIn = true;
-	        		successCallback();
+	        		userService.setUserData(response);
+	        		successCallback(response);
 	        	} else {
-	        		errorCallback();
+	        		errorCallback(response);
 	        	}
 	        	 
 	        }).error(errorCallback);
 		},
 		
 		logoutUser : function(){
-			userData = null;
-			isUserLoggedIn = false;
-		},
-		
-		getUserData : function(){
-			return userData;
+			userService.removeUserData();
 		}
-	
 	
 	};
 	

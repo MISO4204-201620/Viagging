@@ -1,5 +1,5 @@
-marketPlaceApp.controller('LoginCtrl', ['$scope', '$state', 'loginService', 
-    function($scope, $state, loginService){
+marketPlaceApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'loginService',
+    function($scope, $rootScope, $state, loginService){
 	
 	'use strict';
 	
@@ -8,8 +8,9 @@ marketPlaceApp.controller('LoginCtrl', ['$scope', '$state', 'loginService',
 		password: "",
 	};
 	
-	var successCallback = function(result){
-		alert("Bienvenido!");
+	var successCallback = function(userData){
+//		alert("Hola " + userData.primerNombre + "!");
+		$rootScope.$broadcast('USER_LOGGED_IN', userData);	
 		$state.go("home");
 	};
 	

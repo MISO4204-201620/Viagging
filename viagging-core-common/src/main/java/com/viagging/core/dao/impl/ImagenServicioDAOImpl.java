@@ -4,10 +4,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.dao.ImagenServicioDAO;
 import com.viagging.core.model.ImagenServicio;
 
+@Transactional
 @Repository
 public class ImagenServicioDAOImpl implements ImagenServicioDAO {
 
