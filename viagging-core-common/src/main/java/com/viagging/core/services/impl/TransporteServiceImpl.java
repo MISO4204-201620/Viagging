@@ -1,20 +1,13 @@
 package com.viagging.core.services.impl;
 
-import java.util.Iterator;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.viagging.core.dao.ServicioDAO;
 import com.viagging.core.dao.TransporteDAO;
-import com.viagging.core.dao.UsuarioDAO;
 import com.viagging.core.model.Servicio;
 import com.viagging.core.model.Transporte;
-import com.viagging.core.model.Usuario;
+import com.viagging.core.services.ServicioService;
 import com.viagging.core.services.TransporteService;
-import com.viagging.rest.dto.ServicioDTO;
 import com.viagging.rest.dto.TransporteDTO;
 
 @Service
@@ -24,10 +17,7 @@ public class TransporteServiceImpl implements TransporteService {
 	private TransporteDAO transporteDAO;
 
 	@Autowired
-	private UsuarioDAO usuarioDAO;
-	
-	@Autowired
-	private ServicioDAO servicioDAO;
+	private ServicioService servicioService;
 	
 	@Override
 	public Transporte getTransporteById(Integer idTransporte) {
@@ -50,13 +40,13 @@ public class TransporteServiceImpl implements TransporteService {
 	}
 
 	@Override
-	public void createTransporte(TransporteDTO transporteDTO) throws JSONException {
+	public void createTransporte(TransporteDTO transporteDTO) {
 		Transporte transporte = transporteDTOToModel(transporteDTO);
 		createTransporte(transporte);
 		
 	}
 	
-	private Transporte transporteDTOToModel(TransporteDTO transporteDTO) throws JSONException {
+	private Transporte transporteDTOToModel(TransporteDTO transporteDTO) {
 		Transporte transporte = new Transporte();
 		transporte.setFrecuenciasalida(transporteDTO.getFrecuenciaSalida());
 		transporte.setHorariofin(transporteDTO.getHorarioFin());
@@ -65,20 +55,9 @@ public class TransporteServiceImpl implements TransporteService {
 		transporte.setLugarorigen(transporteDTO.getLugarOrigen());
 		transporte.setTiempoestimado(transporteDTO.getTiempoEstimado());
 		transporte.setTipotransporte(transporteDTO.getTipoTransporte());
-		Servicio servicio = servicioDTOToModel(transporteDTO.getServicio());
-		servicioDAO.createServicio(servicio);
+		Servicio servicio = servicioService.servicioDTOToModel(transporteDTO.getServicio());
+		servicioService.createServicio(servicio);
 		return transporte;
 	}
-	
-	private Servicio servicioDTOToModel(ServicioDTO servicioDTO) {
-		Servicio servicio = new Servicio();
-		servicio.setActivo(true);
-		Usuario usuario = usuarioDAO.getUsuarioById(1);
-		servicio.setUsuario(usuario);
-		servicio.setDescripcion(servicioDTO.getDescripcionCorta());
-		servicio.setNombre(servicioDTO.getNombre());
-		return servicio;
-		
-	}
-	
+
 }

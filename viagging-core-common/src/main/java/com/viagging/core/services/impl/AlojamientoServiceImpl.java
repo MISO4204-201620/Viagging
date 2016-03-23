@@ -1,25 +1,14 @@
 package com.viagging.core.services.impl;
 
-import java.util.Iterator;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viagging.core.dao.AlojamientoDAO;
-import com.viagging.core.dao.ImagenServicioDAO;
-import com.viagging.core.dao.ServicioDAO;
-import com.viagging.core.dao.UsuarioDAO;
 import com.viagging.core.model.Alojamiento;
-import com.viagging.core.model.ImagenServicio;
 import com.viagging.core.model.Servicio;
-import com.viagging.core.model.Usuario;
 import com.viagging.core.services.AlojamientoService;
+import com.viagging.core.services.ServicioService;
 import com.viagging.rest.dto.AlojamientoDTO;
-import com.viagging.rest.dto.ImagenDTO;
-import com.viagging.rest.dto.ServicioDTO;
-import com.viagging.core.services.AlojamientoService;
 
 @Service
 public class AlojamientoServiceImpl implements AlojamientoService {
@@ -28,14 +17,8 @@ public class AlojamientoServiceImpl implements AlojamientoService {
 	private AlojamientoDAO alojamientoDAO;
 	
 	@Autowired
-	private ServicioDAO servicioDAO;
+	private ServicioService servicioService;
 	
-	@Autowired
-	private ImagenServicioDAO imagenDAO;
-	
-	@Autowired
-	private UsuarioDAO usuarioDAO;
-
 	@Override
 	public Alojamiento getAlojamientoById(Integer idAlojamiento) {
 		return alojamientoDAO.getAlojamientoById(idAlojamiento);
@@ -56,35 +39,17 @@ public class AlojamientoServiceImpl implements AlojamientoService {
 		return alojamientoDAO.deleteAlojamiento(idAlojamiento);
 	}
 	
-	public void createAlojamiento(AlojamientoDTO alojamientoDTO) throws JSONException {
+	public void createAlojamiento(AlojamientoDTO alojamientoDTO) {
 		Alojamiento alojamiento = alojamientoDTOToModel(alojamientoDTO);
 		createAlojamiento(alojamiento);
 	}
 	
-	private Alojamiento alojamientoDTOToModel(AlojamientoDTO alojamientoDTO) throws JSONException  {
+	private Alojamiento alojamientoDTOToModel(AlojamientoDTO alojamientoDTO) {
 		Alojamiento alojamiento = new Alojamiento();
 		alojamiento.setCiudad(alojamientoDTO.getCiudad());
 		alojamiento.setValorpornoche(Integer.parseInt(alojamientoDTO.getValorPorNoche()));
-		Servicio servicio = servicioDTOToModel(alojamientoDTO.getServicio());
-		servicioDAO.createServicio(servicio);
+		Servicio servicio = servicioService.servicioDTOToModel(alojamientoDTO.getServicio());
+		servicioService.createServicio(servicio);
 		return alojamiento;
-	}
-	
-	private Servicio servicioDTOToModel(ServicioDTO servicioDTO) {
-		Servicio servicio = new Servicio();
-		servicio.setActivo(true);
-		Usuario usuario = usuarioDAO.getUsuarioById(1);
-		servicio.setUsuario(usuario);
-		servicio.setDescripcion(servicioDTO.getDescripcionCorta());
-		servicio.setNombre(servicioDTO.getNombre());
-		return servicio;
-		
-	}
-	
-	private ImagenServicio imagenDTOToModel(ImagenDTO imagenDTO) {
-		ImagenServicio imagen = new ImagenServicio();
-//		System.out.println(imagenDTO.getImagen() + "imagen");
-//		imagen.setImagen(Base64.encodeBase64URLSafeString(imagenDTO.getImagen()).getBytes());
-		return imagen;
 	}
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-var marketPlaceApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap']);
+var marketPlaceApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap', 'ngCart']);
 
 marketPlaceApp.config(['$stateProvider', function($stateProvider){
 
@@ -16,7 +16,7 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 					return productsService.getAllProducts();
 				}]
 			},
-			controller: 'AppCtrl'
+			controller: 'CatalogueCtrl'
 		})
 		.state("detail", {
 			url: "/detail/:categoryId/:serviceId",

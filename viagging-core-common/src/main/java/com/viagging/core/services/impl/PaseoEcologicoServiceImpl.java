@@ -1,9 +1,7 @@
 package com.viagging.core.services.impl;
 
-import java.util.Iterator;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.viagging.core.dao.PaseoEcologicoDAO;

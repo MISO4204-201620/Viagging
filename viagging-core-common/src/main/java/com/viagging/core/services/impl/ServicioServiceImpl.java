@@ -3,7 +3,6 @@ package com.viagging.core.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,7 +71,7 @@ public class ServicioServiceImpl implements ServicioService {
 	}
 	
 	@Override
-	public Servicio servicioDTOToModel(ServicioDTO servicioDTO) throws JSONException {
+	public Servicio servicioDTOToModel(ServicioDTO servicioDTO) {
 		Servicio servicio = new Servicio();
 		servicio.setRestricciones(servicioDTO.getRestricciones());
 		servicio.setActivo(true);

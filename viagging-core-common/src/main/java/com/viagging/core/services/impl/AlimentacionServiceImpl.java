@@ -1,17 +1,13 @@
 package com.viagging.core.services.impl;
 
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.viagging.core.dao.AlimentacionDAO;
-import com.viagging.core.dao.ServicioDAO;
-import com.viagging.core.dao.UsuarioDAO;
 import com.viagging.core.model.Alimentacion;
 import com.viagging.core.model.Servicio;
-import com.viagging.core.model.Usuario;
 import com.viagging.core.services.AlimentacionService;
+import com.viagging.core.services.ServicioService;
 import com.viagging.rest.dto.AlimentacionDTO;
-import com.viagging.rest.dto.ServicioDTO;
 
 
 @Service
@@ -22,10 +18,7 @@ public class AlimentacionServiceImpl implements  AlimentacionService  {
 	private AlimentacionDAO alimentacionDAO;
 	
 	@Autowired
-	private ServicioDAO servicioDAO;
-	
-	@Autowired
-	private UsuarioDAO usuarioDAO;
+	private ServicioService servicioService;
 
 	@Override
 	public Alimentacion getAlimentacionById(Integer idAlimentacion) {
@@ -48,30 +41,20 @@ public class AlimentacionServiceImpl implements  AlimentacionService  {
 	}
 
 	@Override
-	public void createAlimentacion(AlimentacionDTO alojamiento) throws JSONException {
-		// TODO Auto-generated method stub
+	public void createAlimentacion(AlimentacionDTO alimentacionDTO) {
+		Alimentacion alimentacion = alimentacionDTOToModel(alimentacionDTO);
+		createAlimentacion(alimentacion);
 	}
 	
-	private Alimentacion alimentacionDTOToModel(AlimentacionDTO alimentacionDTO) throws JSONException {
+	private Alimentacion alimentacionDTOToModel(AlimentacionDTO alimentacionDTO) {
 		Alimentacion alimentacion = new Alimentacion();
 		alimentacion.setCiudad(alimentacionDTO.getCiudad());
 		alimentacion.setHorarioapertura(alimentacionDTO.getHorarioApertura());
 		alimentacion.setHorariocierre(alimentacionDTO.getHorarioCierre());
 		alimentacion.setPreciomayor(Integer.parseInt(alimentacionDTO.getPrecioMayor()));
 		alimentacion.setPreciomenor(Integer.parseInt(alimentacionDTO.getPrecioMenor()));
-		Servicio servicio = servicioDTOToModel(alimentacionDTO.getServicio());
-		servicioDAO.createServicio(servicio);
+		Servicio servicio = servicioService.servicioDTOToModel(alimentacionDTO.getServicio());
+		servicioService.createServicio(servicio);
 		return alimentacion;
-	}
-	
-	private Servicio servicioDTOToModel(ServicioDTO servicioDTO) {
-		Servicio servicio = new Servicio();
-		servicio.setActivo(true);
-		Usuario usuario = usuarioDAO.getUsuarioById(1);
-		servicio.setUsuario(usuario);
-		servicio.setDescripcion(servicioDTO.getDescripcionCorta());
-		servicio.setNombre(servicioDTO.getNombre());
-		return servicio;
-		
 	}
 }

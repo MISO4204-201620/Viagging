@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.dao.PaseoEcologicoDAO;
 import com.viagging.core.model.PaseoEcologico;
-import com.viagging.rest.dto.PaseoEcologicoDTO;
 
 @Transactional
 @Repository

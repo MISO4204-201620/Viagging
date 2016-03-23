@@ -1,4 +1,4 @@
-marketPlaceApp.service('configService', ['$http', '$q', function($http, $q){
+marketPlaceApp.service('configService', ['$http', '$q', 'storageService', function($http, $q, storageService){
 	
 	'use strict';
 	
@@ -12,22 +12,30 @@ marketPlaceApp.service('configService', ['$http', '$q', function($http, $q){
 	var configService = {
 	
 		initMarketPlaceConfig : function(){
-			return $http({
-	            url: "/viagging-market-place-web/config",
-	            method: "GET",
-	            cache: false
-	        }).then(function successCallback(response) {
-	        	if(angular.isObject(response.data)){
-	        		var config = response.data;
-	        		//Set application config data
-	        		initApplicationConfig(config);
-	        		return $q.resolve(response.data);
-	        	} else {
-	        		return $q.reject(response.data);
-	        	}
-	        }, function errorCallback(response) {
-	        	return $q.reject(response.data);
-	        });
+			
+			var marketPlaceConfig = storageService.get('marketPlaceConfig');
+			if(marketPlaceConfig != null){
+				initApplicationConfig(marketPlaceConfig);
+				return $q.resolve(marketPlaceConfig);
+			} else {
+				return $http({
+		            url: "/viagging-market-place-web/config",
+		            method: "GET",
+		            cache: false
+		        }).then(function successCallback(response) {
+		        	if(angular.isObject(response.data)){
+		        		var marketPlaceConfig = response.data;
+		        		//Set application config data
+		        		initApplicationConfig(marketPlaceConfig);
+		        		storageService.put('marketPlaceConfig', marketPlaceConfig);
+		        		return $q.resolve(response.data);
+		        	} else {
+		        		return $q.reject(response.data);
+		        	}
+		        }, function errorCallback(response) {
+		        	return $q.reject(response.data);
+		        });
+			}
 		},
 			
 		getCategories : function(){
