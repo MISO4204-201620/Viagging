@@ -29,5 +29,11 @@ public class ImagenServicioServiceImpl implements ImagenServicioService{
 		return imagenServicioDAO.deleteImagenServicio(idImagenServicio);
 
 	}
+
+	@Override
+	public void createImagenServicio(String imagenServicio, String idServicio) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

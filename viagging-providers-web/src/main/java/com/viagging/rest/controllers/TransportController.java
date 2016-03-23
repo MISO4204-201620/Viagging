@@ -18,9 +18,9 @@ public class TransportController {
 	@Autowired
 	private TransporteService transportService;
 
-	@RequestMapping(value = "/guardarTransporte", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveTransport", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void guardarTransporte(@RequestBody TransporteDTO transporte) throws JSONException {
+	public void saveTransport(@RequestBody TransporteDTO transporte) throws JSONException {
 		transportService.createTransporte(transporte);
 	}
 }
