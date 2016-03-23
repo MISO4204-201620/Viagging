@@ -41,12 +41,12 @@ public class PaseoEcologicoServiceImpl implements PaseoEcologicoService {
 	}
 
 	@Override
-	public void createPaseoEcologico(PaseoEcologicoDTO paseoEcologicoDTO) throws JSONException {
+	public void createPaseoEcologico(PaseoEcologicoDTO paseoEcologicoDTO) {
 		PaseoEcologico paseoEcologico = paseoEcologicoDTOToModel(paseoEcologicoDTO);
 		createPaseoEcologico(paseoEcologico);
 	}
 	
-	private PaseoEcologico paseoEcologicoDTOToModel(PaseoEcologicoDTO paseoEcologicoDTO) throws JSONException {
+	private PaseoEcologico paseoEcologicoDTOToModel(PaseoEcologicoDTO paseoEcologicoDTO) {
 		PaseoEcologico paseoEcologico = new PaseoEcologico();
 		paseoEcologico.setCiudad(paseoEcologicoDTO.getCiudad());
 		paseoEcologico.setHorario(paseoEcologicoDTO.getHorario());
