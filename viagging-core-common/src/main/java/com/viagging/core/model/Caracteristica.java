@@ -6,13 +6,7 @@ import javax.persistence.*;
 
 
 /**
- * The persistent class for the tr_alimentacion database table.
-=======
-import javax.persistence.*;
-
-/**
  * The persistent class for the tr_caracteristica database table.
->>>>>>> a54e8ff61442a1f89fd8355e8c1dcdc6344125c9
  * 
  */
 @Entity
