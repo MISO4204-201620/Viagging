@@ -150,7 +150,7 @@ public class ServicioDTO {
 		for (Servicio servicio : listServicio) {
 			ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(), servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones());
 
-			// TODO Mover esta lógica a un método
+			// TODO Mover esta lï¿½gica a un mï¿½todo
 			String idCategoria = "";
 			if (servicio.getAlimentacion() != null) {
 				idCategoria = CategoryEnum.ALIMENTACION.getId();

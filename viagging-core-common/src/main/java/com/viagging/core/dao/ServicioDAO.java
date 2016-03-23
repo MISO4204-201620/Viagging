@@ -2,6 +2,7 @@ package com.viagging.core.dao;
 
 import java.util.List;
 import com.viagging.core.model.Servicio;
+import com.viagging.rest.dto.ServicioDTO;
 
 /**
  * The Interface ServicioDAO.
@@ -26,6 +27,6 @@ public interface ServicioDAO {
 	Servicio updateServicio(Servicio servicio);
 
 	Servicio deleteServicio(Integer idServicio);
-
-
+	
+	Servicio servicioDTOToModel(ServicioDTO servicio);
 }

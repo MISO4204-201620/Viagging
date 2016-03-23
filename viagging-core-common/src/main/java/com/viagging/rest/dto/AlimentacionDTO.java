@@ -33,11 +33,11 @@ public class AlimentacionDTO {
 		this.horarioCierre = horarioCierre;
 	}
    
-	public String getHorariocierre() {
+	public String getHorarioCierre() {
 		return horarioCierre;
 	}
 
-	public void setHorariocierre(String horariocierre) {
+	public void setHorarioCierre(String horariocierre) {
 		this.horarioCierre = horariocierre;
 	}
 	

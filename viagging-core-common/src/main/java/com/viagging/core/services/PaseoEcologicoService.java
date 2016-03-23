@@ -1,6 +1,9 @@
 package com.viagging.core.services;
 
+import org.json.JSONException;
+
 import com.viagging.core.model.PaseoEcologico;
+import com.viagging.rest.dto.PaseoEcologicoDTO;
 
 public interface PaseoEcologicoService {
 
@@ -11,4 +14,6 @@ public interface PaseoEcologicoService {
 	PaseoEcologico updatePaseoEcologico(PaseoEcologico paseoEcologico);
 	
 	PaseoEcologico deletePaseoEcologico(Integer idPaseoEcologico);
+	
+	void createPaseoEcologico(PaseoEcologicoDTO paseoEcologico) throws JSONException;
 }

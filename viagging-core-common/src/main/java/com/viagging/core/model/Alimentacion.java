@@ -24,6 +24,8 @@ public class Alimentacion implements Serializable {
 	
 	private String horariocierre;
 
+	private byte[] imagenprincipal;
+
 	private Integer preciomayor;
 
 	private Integer preciomenor;
@@ -79,5 +81,11 @@ public class Alimentacion implements Serializable {
 		this.preciomenor = preciomenor;
 	}
 
-	
+	public byte[] getImagenprincipal() {
+		return imagenprincipal;
+	}
+
+	public void setImagenprincipal(byte[] imagenprincipal) {
+		this.imagenprincipal = imagenprincipal;
+	}
 }
