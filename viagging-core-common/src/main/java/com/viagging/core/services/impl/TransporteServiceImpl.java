@@ -41,12 +41,12 @@ public class TransporteServiceImpl implements TransporteService {
 
 	@Override
 	public void createTransporte(TransporteDTO transporteDTO) {
-		Transporte transporte = transporteDTOToModel(transporteDTO);
+		Transporte transporte = buildTransporte(transporteDTO);
 		createTransporte(transporte);
 		
 	}
 	
-	private Transporte transporteDTOToModel(TransporteDTO transporteDTO) {
+	private Transporte buildTransporte(TransporteDTO transporteDTO) {
 		Transporte transporte = new Transporte();
 		transporte.setFrecuenciasalida(transporteDTO.getFrecuenciaSalida());
 		transporte.setHorariofin(transporteDTO.getHorarioFin());
@@ -55,7 +55,7 @@ public class TransporteServiceImpl implements TransporteService {
 		transporte.setLugarorigen(transporteDTO.getLugarOrigen());
 		transporte.setTiempoestimado(transporteDTO.getTiempoEstimado());
 		transporte.setTipotransporte(transporteDTO.getTipoTransporte());
-		Servicio servicio = servicioService.servicioDTOToModel(transporteDTO.getServicio());
+		Servicio servicio = servicioService.buildServicio(transporteDTO.getServicio());
 		servicioService.createServicio(servicio);
 		return transporte;
 	}

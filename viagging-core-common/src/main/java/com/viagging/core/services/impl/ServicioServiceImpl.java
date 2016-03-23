@@ -22,7 +22,7 @@ public class ServicioServiceImpl implements ServicioService {
 	
 	@Autowired
 	private UsuarioDAO usuarioDAO;
-
+	
 	@Override
 	public Servicio getServicioById(Integer idServicio) {
 		return servicioDAO.getServicioById(idServicio);
@@ -71,7 +71,7 @@ public class ServicioServiceImpl implements ServicioService {
 	}
 	
 	@Override
-	public Servicio servicioDTOToModel(ServicioDTO servicioDTO) {
+	public Servicio buildServicio(ServicioDTO servicioDTO) {
 		Servicio servicio = new Servicio();
 		servicio.setRestricciones(servicioDTO.getRestricciones());
 		servicio.setActivo(true);

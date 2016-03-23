@@ -5,6 +5,8 @@ public class CaracteristicasDTO {
 	private String categoria;
 	
 	private String valor;
+	
+	private String id;
 
 	public String getCategoria() {
 		return categoria;
@@ -20,6 +22,14 @@ public class CaracteristicasDTO {
 
 	public void setValor(String valor) {
 		this.valor = valor;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

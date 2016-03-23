@@ -9,4 +9,6 @@ public interface ImagenServicioService {
 	ImagenServicio createImagenServicio(ImagenServicio imagenServicio);
 	
 	ImagenServicio deleteImagenServicio(Integer idImagenServicio);
+	
+	void createImagenServicio(String imageService, String idService);
 }

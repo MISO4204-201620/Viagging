@@ -18,10 +18,9 @@ public class TravelController {
 	@Autowired
 	private PaseoEcologicoService travelService;
 
-	@RequestMapping(value = "/guardarTurismo", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveTravel", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void guardarTurismo(@RequestBody PaseoEcologicoDTO paseo) throws JSONException {
-		System.out.println("guardar paseo");
+	public void saveTravel(@RequestBody PaseoEcologicoDTO paseo) throws JSONException {
 		travelService.createPaseoEcologico(paseo);
 	}
 }
