@@ -32,7 +32,7 @@
 	<mvc:view-controller path="/alimentacion.html" view-name="/alimentacion"/>
 	<mvc:view-controller path="/alojamiento.html" view-name="/alojamiento"/>
 	<mvc:view-controller path="/paseoecologico.html" view-name="/paseoEcologico"/>
-	
+	<mvc:view-controller path="/popup.html" view-name="/popup"/>
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="order" value="1" />

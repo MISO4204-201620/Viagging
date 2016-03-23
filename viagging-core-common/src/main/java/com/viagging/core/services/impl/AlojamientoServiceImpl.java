@@ -5,10 +5,14 @@ import org.springframework.stereotype.Service;
 
 import com.viagging.core.dao.AlojamientoDAO;
 import com.viagging.core.model.Alojamiento;
+import com.viagging.core.model.CaracteristicaServicio;
 import com.viagging.core.model.Servicio;
 import com.viagging.core.services.AlojamientoService;
+import com.viagging.core.services.CaracteristicaServicioService;
 import com.viagging.core.services.ServicioService;
 import com.viagging.rest.dto.AlojamientoDTO;
+import com.viagging.rest.dto.CaracteristicaServicioDTO;
+import com.viagging.rest.dto.CaracteristicasDTO;
 
 @Service
 public class AlojamientoServiceImpl implements AlojamientoService {
@@ -18,6 +22,9 @@ public class AlojamientoServiceImpl implements AlojamientoService {
 	
 	@Autowired
 	private ServicioService servicioService;
+	
+	@Autowired
+	private CaracteristicaServicioService caracteristicaServicioService;
 	
 	@Override
 	public Alojamiento getAlojamientoById(Integer idAlojamiento) {
@@ -39,17 +46,27 @@ public class AlojamientoServiceImpl implements AlojamientoService {
 		return alojamientoDAO.deleteAlojamiento(idAlojamiento);
 	}
 	
-	public void createAlojamiento(AlojamientoDTO alojamientoDTO) {
-		Alojamiento alojamiento = alojamientoDTOToModel(alojamientoDTO);
-		createAlojamiento(alojamiento);
+	public Integer createAlojamiento(AlojamientoDTO alojamientoDTO) {
+		Alojamiento alojamiento = buildAlojamiento(alojamientoDTO);
+		alojamiento = createAlojamiento(alojamiento);
+		Servicio servicio = servicioService.buildServicio(alojamientoDTO.getServicio());
+		servicioService.createServicio(servicio);
+		alojamientoDTO.getServicio().setId(servicio.getId());
+		for (CaracteristicasDTO caracteristica : alojamientoDTO.getServicio().getCaracteristicas()) {
+			caracteristica.setCategoria("ALOJAMIENTO");
+			CaracteristicaServicioDTO ca = new CaracteristicaServicioDTO();
+			ca.setCaracteristica(caracteristica);
+			ca.setServicio(alojamientoDTO.getServicio());
+			CaracteristicaServicio caracteristicaServicio = caracteristicaServicioService.buildCaracteristicaServicio(ca);
+			caracteristicaServicioService.createCaracteristicaServicio(caracteristicaServicio);
+		}
+		return servicio.getId();
 	}
 	
-	private Alojamiento alojamientoDTOToModel(AlojamientoDTO alojamientoDTO) {
+	private Alojamiento buildAlojamiento(AlojamientoDTO alojamientoDTO) {
 		Alojamiento alojamiento = new Alojamiento();
 		alojamiento.setCiudad(alojamientoDTO.getCiudad());
 		alojamiento.setValorpornoche(Integer.parseInt(alojamientoDTO.getValorPorNoche()));
-		Servicio servicio = servicioService.servicioDTOToModel(alojamientoDTO.getServicio());
-		servicioService.createServicio(servicio);
 		return alojamiento;
 	}
 }

@@ -7,6 +7,10 @@ import com.viagging.core.model.Caracteristica;
 
 public interface CaracteristicaDAO {
 
-	List<Caracteristica> getCaracteristicaByCategoria(String categoria);
+	List<Caracteristica> getCaracteristicasByCategoria(String categoria);
+	
+	Caracteristica getCaracteristicaById(String id);
+	
+	Caracteristica getCaracteristicaByCtgAndCars(String categoria, String caracteristica);
 
 }
