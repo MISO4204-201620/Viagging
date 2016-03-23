@@ -8,31 +8,37 @@
 		<meta name="description" content="User login page" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-		<!-- bootstrap & fontawesome -->
-		<link rel="stylesheet" href="../assets/css/bootstrap.css" />
+
+		<link rel="stylesheet" href="app/template/assets/css/bootstrap.css" />
+		<link rel="stylesheet" href="app/template/assets/css/font-awesome.css" />
+		<link rel="stylesheet" href="app/template/assets/css/ace-fonts.css" />
+		<link rel="stylesheet" href="app/template/assets/css/ace.css" />
+		<link rel="stylesheet" href="app/template/assets/css/ace-rtl.css" />
+        <script src="app/vendor/angular/angular.js"></script>
+		<script src="app/vendor/angular/angular-route.min.js"></script>
+		<script src="app/vendor/angular/angular-resource.min.js"></script>
+		<script src="app/vendor/angular/angular-route.min.js"></script>
+		<script src="app/vendor/angular/angular-ui-router.min.js"></script>
+		<script src="app/vendor/angular/ui-bootstrap.min.js"></script>
+		<script src="app/vendor/angular/angular-resource.min.js"></script>
+		<script src="app/vendor/angular/ngDialog.js"></script>
+		
+        <!--script src="app/js/services/LoginService.js"></script-->
+		<script src="app/js/providersApp.js"></script>
+		<script src="app/js/controllers/LoginCtrl.js"></script>
+		<script src="app/js/controllers/AppCtrl.js"></script>	
+				<!--  link rel="stylesheet" href="../assets/css/bootstrap.css" />
 		<link rel="stylesheet" href="../assets/css/font-awesome.css" />
-
-		<!-- text fonts -->
 		<link rel="stylesheet" href="../assets/css/ace-fonts.css" />
-
-		<!-- ace styles -->
 		<link rel="stylesheet" href="../assets/css/ace.css" />
-
-		<!--[if lte IE 9]>
-			<link rel="stylesheet" href="../assets/css/ace-part2.css" />
-		<![endif]-->
-		<link rel="stylesheet" href="../assets/css/ace-rtl.css" />
-
-		<!--[if lte IE 9]>
-		  <link rel="stylesheet" href="../assets/css/ace-ie.css" />
-		<![endif]-->
-
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-
-		<!--[if lt IE 9]>
-		<script src="../assets/js/html5shiv.js"></script>
-		<script src="../assets/js/respond.js"></script>
-		<![endif]-->
+		<link rel="stylesheet" href="../assets/css/ace-rtl.css" />      
+        <script src="../../vendor/angular/angular.js"></script>
+		<script src="../../vendor/angular/angular-route.min.js"></script>
+		<script src="../../vendor/angular/angular-resource.min.js"></script>
+		<script src="../../vendor/angular/angular-route.min.js"></script>
+		<script src="../../vendor/angular/angular-resource.min.js"></script>
+		<script src="../../vendor/angular/ngDialog.js"></script>
+		<script src="../../js/controllers/LoginCtrl.js"></script-->
 	</head>
 
 	<body class="login-layout">
@@ -44,10 +50,9 @@
 							<div class="center">
 								<h1>
 									<i class="ace-icon fa fa-leaf green"></i>
-									<span class="red">Ace</span>
-									<span class="white" id="id-text2">Application</span>
+									<span class="red">VIAGGING</span>
 								</h1>
-								<h4 class="blue" id="id-company-text">&copy; Company Name</h4>
+								<h4 class="blue" id="id-company-text">&copy; Orange</h4>
 							</div>
 
 							<div class="space-6"></div>
@@ -62,7 +67,7 @@
 											</h4>
 
 											<div class="space-6"></div>
-
+                                         <div ng-app="providersapp" ng-controller="LoginCtrl">
 											<form>
 												<fieldset>
 													<label class="block clearfix">
@@ -87,52 +92,27 @@
 															<span class="lbl"> Remember Me</span>
 														</label>
 
-														<button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+														<button type="button" ng-click="login()" class="width-35 pull-right btn btn-sm btn-primary">
 															<i class="ace-icon fa fa-key"></i>
 															<span class="bigger-110">Login</span>
 														</button>
+														<a href="contenido.html" class="btn btn-success btn-sm pull-right">Registro</a>
 													</div>
 
 													<div class="space-4"></div>
 												</fieldset>
 											</form>
-
-											<div class="social-or-login center">
-												<span class="bigger-110">Or Login Using</span>
-											</div>
-
-											<div class="space-6"></div>
-
-											<div class="social-login center">
-												<a class="btn btn-primary">
-													<i class="ace-icon fa fa-facebook"></i>
-												</a>
-
-												<a class="btn btn-info">
-													<i class="ace-icon fa fa-twitter"></i>
-												</a>
-
-												<a class="btn btn-danger">
-													<i class="ace-icon fa fa-google-plus"></i>
-												</a>
-											</div>
+	                                        </div>
 										</div><!-- /.widget-main -->
 
-										<div class="toolbar clearfix">
+										<!-- div class="toolbar clearfix">
 											<div>
 												<a href="#" data-target="#forgot-box" class="forgot-password-link">
 													<i class="ace-icon fa fa-arrow-left"></i>
 													I forgot my password
 												</a>
 											</div>
-
-											<div>
-												<a href="#" data-target="#signup-box" class="user-signup-link">
-													I want to register
-													<i class="ace-icon fa fa-arrow-right"></i>
-												</a>
-											</div>
-										</div>
+										</div-->
 									</div><!-- /.widget-body -->
 								</div><!-- /.login-box -->
 

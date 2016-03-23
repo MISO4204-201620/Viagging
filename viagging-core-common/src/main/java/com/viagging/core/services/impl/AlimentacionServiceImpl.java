@@ -1,9 +1,6 @@
 package com.viagging.core.services.impl;
 
-import java.util.Iterator;
-
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.viagging.core.dao.AlimentacionDAO;
@@ -53,28 +50,15 @@ public class AlimentacionServiceImpl implements  AlimentacionService  {
 	@Override
 	public void createAlimentacion(AlimentacionDTO alojamiento) throws JSONException {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	private Alimentacion alimentacionDTOToModel(AlimentacionDTO alimentacionDTO) throws JSONException {
-		JSONObject jsonObj = new JSONObject(alimentacionDTO.getCaracteristicas());
-		Iterator<String> keys = jsonObj.keys();
-		String caracteristicas = "";
-		while (keys.hasNext()) {
-			String key = keys.next();
-			boolean isActive = jsonObj.getBoolean(key);
-			if (isActive) {
-				caracteristicas += key;
-			}
-		}
 		Alimentacion alimentacion = new Alimentacion();
 		alimentacion.setCiudad(alimentacionDTO.getCiudad());
 		alimentacion.setHorarioapertura(alimentacionDTO.getHorarioApertura());
 		alimentacion.setHorariocierre(alimentacionDTO.getHorarioCierre());
 		alimentacion.setPreciomayor(Integer.parseInt(alimentacionDTO.getPrecioMayor()));
 		alimentacion.setPreciomenor(Integer.parseInt(alimentacionDTO.getPrecioMenor()));
-		alimentacion.setRestricciones(alimentacionDTO.getRestricciones());
-		alimentacion.setCaracteristicas(caracteristicas);
 		Servicio servicio = servicioDTOToModel(alimentacionDTO.getServicio());
 		servicioDAO.createServicio(servicio);
 		return alimentacion;

@@ -72,10 +72,6 @@ public class ServicioController {
 	@RequestMapping(value = "/guardarAlojamiento", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void guardarAlojamiento(@RequestBody AlojamientoDTO alojamiento) throws JSONException {
-		System.out.println("Guardando alojamiento" + alojamiento.getImagenes());
-		for (ImagenDTO i : alojamiento.getImagenes()) {
-//			System.out.println(i.getImagen() + " en 1****");
-		}
 		alojamientoService.createAlojamiento(alojamiento);
 	}
 

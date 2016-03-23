@@ -49,22 +49,10 @@ public class PaseoEcologicoServiceImpl implements PaseoEcologicoService {
 	}
 	
 	private PaseoEcologico paseoEcologicoDTOToModel(PaseoEcologicoDTO paseoEcologicoDTO) throws JSONException {
-		JSONObject jsonObj = new JSONObject(paseoEcologicoDTO.getCaracteristicas());
-		Iterator<String> keys = jsonObj.keys();
-		String caracteristicas = "";
-		while (keys.hasNext()) {
-			String key = keys.next();
-			boolean isActive = jsonObj.getBoolean(key);
-			if (isActive) {
-				caracteristicas += key;
-			}
-		}
 		PaseoEcologico paseoEcologico = new PaseoEcologico();
 		paseoEcologico.setCiudad(paseoEcologicoDTO.getCiudad());
 		paseoEcologico.setHorario(paseoEcologicoDTO.getHorario());
-		paseoEcologico.setRestricciones(paseoEcologicoDTO.getRestricciones());
 		paseoEcologico.setTiempoderecorrido(paseoEcologicoDTO.getTiempoDeRecorrido());
-		paseoEcologico.setCaracteristicas(caracteristicas);
 		Servicio servicio = servicioService.servicioDTOToModel(paseoEcologicoDTO.getServicio());
 		servicioService.createServicio(servicio);
 		return paseoEcologico;

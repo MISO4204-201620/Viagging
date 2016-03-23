@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.viagging.core.dao.AlojamientoDAO;
 import com.viagging.core.dao.ImagenServicioDAO;
 import com.viagging.core.dao.ServicioDAO;
@@ -18,6 +19,7 @@ import com.viagging.core.services.AlojamientoService;
 import com.viagging.rest.dto.AlojamientoDTO;
 import com.viagging.rest.dto.ImagenDTO;
 import com.viagging.rest.dto.ServicioDTO;
+import com.viagging.core.services.AlojamientoService;
 
 @Service
 public class AlojamientoServiceImpl implements AlojamientoService {
@@ -60,28 +62,11 @@ public class AlojamientoServiceImpl implements AlojamientoService {
 	}
 	
 	private Alojamiento alojamientoDTOToModel(AlojamientoDTO alojamientoDTO) throws JSONException  {
-		JSONObject jsonObj = new JSONObject(alojamientoDTO.getCaracteristicas());
-		Iterator<String> keys = jsonObj.keys();
-		String caracteristicas = "";
-		while (keys.hasNext()) {
-			String key = keys.next();
-			boolean isActive = jsonObj.getBoolean(key);
-			if (isActive) {
-				caracteristicas += key;
-			}
-		}
 		Alojamiento alojamiento = new Alojamiento();
 		alojamiento.setCiudad(alojamientoDTO.getCiudad());
-		alojamiento.setRestricciones(alojamientoDTO.getRestricciones());
 		alojamiento.setValorpornoche(Integer.parseInt(alojamientoDTO.getValorPorNoche()));
-		alojamiento.setCaracteristicas(caracteristicas);
 		Servicio servicio = servicioDTOToModel(alojamientoDTO.getServicio());
 		servicioDAO.createServicio(servicio);
-//		for (ImagenDTO img : alojamientoDTO.getImagenes()) {
-//			System.out.println(img.getImagen() + " imagen 1");
-//			ImagenServicio imagen = imagenDTOToModel(img);
-//			imagenDAO.createImagenServicio(imagen);
-//		}
 		return alojamiento;
 	}
 	

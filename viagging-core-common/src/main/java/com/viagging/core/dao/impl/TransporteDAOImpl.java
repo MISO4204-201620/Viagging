@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.dao.TransporteDAO;
-import com.viagging.core.model.Alojamiento;
 import com.viagging.core.model.Transporte;
 
 @Transactional

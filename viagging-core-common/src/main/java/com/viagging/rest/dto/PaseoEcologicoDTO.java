@@ -4,8 +4,6 @@ import com.viagging.core.model.PaseoEcologico;
 import com.viagging.core.model.Servicio;
 import com.viagging.util.CategoryEnum;
 
-
-
 public class PaseoEcologicoDTO {
  	
 	private String fecha;
@@ -15,39 +13,22 @@ public class PaseoEcologicoDTO {
 	private String tiempoDeRecorrido;
 	
 	private String horario;
-	
-	private String caracteristicas;
-	
-	private String restricciones;
-	
-	private byte[] imagenPrincipal;
-    
+	    
 	private ServicioDTO servicio;
 	
 	public PaseoEcologicoDTO(){}
 	
 	
 	public PaseoEcologicoDTO(String fecha, String ciudad,
-			String tiempoDeRecorrido, String horario,
-			String restricciones, byte[] imagenPrincipal, ServicioDTO servicio) {
+			String tiempoDeRecorrido, String horario, ServicioDTO servicio) {
 		super();
 		this.fecha = fecha;
 		this.ciudad = ciudad;
 		this.tiempoDeRecorrido = tiempoDeRecorrido;
 		this.horario = horario;
-		this.restricciones = restricciones;
-		this.imagenPrincipal = imagenPrincipal;
 		this.servicio = servicio;
 	}
-
-	public byte[] getImagenPrincipal() {
-		return imagenPrincipal;
-	}
-
-	public void setImagenPrincipal(byte[] imagenPrincipal) {
-		this.imagenPrincipal = imagenPrincipal;
-	}
-
+    
 	public ServicioDTO getServicio() {
 		return servicio;
 	}
@@ -87,31 +68,16 @@ public class PaseoEcologicoDTO {
 	public void setHorario(String horario) {
 		this.horario = horario;
 	}
-
-	public String getCaracteristicas() {
-		return caracteristicas;
-	}
-
-	public void setCaracteristicas(String caracteristicas) {
-		this.caracteristicas = caracteristicas;
-	}
-
-	public String getRestricciones() {
-		return restricciones;
-	}
-
-	public void setRestricciones(String restricciones) {
-		this.restricciones = restricciones;
-	}
-
 	
-	public PaseoEcologicoDTO buildObject( Servicio servicio){
-		ServicioDTO parserServicio = new ServicioDTO();
-		parserServicio = parserServicio.buildObject(servicio);
+	public static PaseoEcologicoDTO buildObject(Servicio servicio){
+		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.PASEO_ECOLOGICO.getId());
 		PaseoEcologico paseoEcologico = servicio.getPaseoEcologico();	
-		PaseoEcologicoDTO paseoEcologicoDTO = new PaseoEcologicoDTO(paseoEcologico.getFecha().toString(),paseoEcologico.getCiudad(),
-				paseoEcologico.getTiempoderecorrido(), paseoEcologico.getHorario(),  paseoEcologico.getRestricciones(), paseoEcologico.getImagenprincipal(), parserServicio);
+		PaseoEcologicoDTO paseoEcologicoDTO = new PaseoEcologicoDTO(
+				paseoEcologico.getFecha().toString(),
+				paseoEcologico.getCiudad(),
+				paseoEcologico.getTiempoderecorrido(),
+				paseoEcologico.getHorario(), parserServicio);
 		return paseoEcologicoDTO;
 		
 	}

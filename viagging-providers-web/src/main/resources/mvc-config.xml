@@ -24,15 +24,22 @@
 	<!-- activate @Transactional JPA annotation -->
 	<tx:annotation-driven />
 
-	<!-- ViewResolver bean config for mapping strings to jsp views -->
+	<!-- ViewResolver bean config for mapping strings to html views -->
+	<mvc:view-controller path="/" view-name="/login"/>
+	<mvc:view-controller path="/contenido.html" view-name="/crearPaquete"/>
+	<mvc:view-controller path="/consulta.html" view-name="/consultaPaquete"/>
+	<mvc:view-controller path="/transporte.html" view-name="/transporte"/>
+	<mvc:view-controller path="/alimentacion.html" view-name="/alimentacion"/>
+	<mvc:view-controller path="/alojamiento.html" view-name="/alojamiento"/>
+	<mvc:view-controller path="/paseoecologico.html" view-name="/paseoEcologico"/>
+	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<!-- Example: a logical view name of 'showMessage' is mapped to '/WEB-INF/jsp/showMessage.jsp' -->
 		<property name="order" value="1" />
-		<property name="prefix" value="/WEB-INF/view/" />
-		<property name="suffix" value=".jsp" />
+		<property name="prefix" value="/app/template/html/" />
+		<property name="suffix" value=".html" />
 	</bean>
-
+    
 	<!-- Static Resources Configuration (get access to static sources such as
 		CSS and JavaScript files) -->
 	<mvc:resources mapping="/app/**" location="/app/" />

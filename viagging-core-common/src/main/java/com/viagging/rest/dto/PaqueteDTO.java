@@ -1,8 +1,10 @@
 package com.viagging.rest.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.viagging.core.model.Paquete;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PaqueteDTO {
@@ -11,10 +13,53 @@ public class PaqueteDTO {
 
 	private Boolean activo;
 	
-	private String nombrePaquete;
+	private String nombre;
 	
-	private List<String>listaIdServicios;
+	private String precio;
 	
+	private List<ServicioDTO>servicios;
+	
+	public PaqueteDTO(){}
+	
+	public PaqueteDTO(Integer id, Boolean activo, String nombre, String precio) {
+		super();
+		this.id = id;
+		this.activo = activo;
+		this.nombre = nombre;
+		this.precio = precio;
+	}
+
+	public List<ServicioDTO> getServicios() {
+		return servicios;
+	}
+
+	public void setServicios(List<ServicioDTO> servicios) {
+		this.servicios = servicios;
+	}
+
+	@Override
+	public String toString() {
+		return "PaqueteDTO [id=" + id + ", activo=" + activo + ", nombre="
+				+ nombre + ", precio=" + precio + ", servicios=" + servicios
+				+ "]";
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(String precio) {
+		this.precio = precio;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -30,21 +75,14 @@ public class PaqueteDTO {
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
 	}
-
-	public String getNombrePaquete() {
-		return nombrePaquete;
-	}
-
-	public void setNombrePaquete(String nombrePaquete) {
-		this.nombrePaquete = nombrePaquete;
-	}
-
-	public List<String> getListaIdServicios() {
-		return listaIdServicios;
-	}
-
-	public void setListaIdServicios(List<String> listaIdServicios) {
-		this.listaIdServicios = listaIdServicios;
+    
+	public static List<PaqueteDTO> buildListObject(List<Paquete> listaPaquete){
+		List<PaqueteDTO> listaPaqueteDTO = new ArrayList<>();
+		for (Paquete paquete : listaPaquete) {
+			PaqueteDTO paqueteDTO = new PaqueteDTO(paquete.getId(), paquete.getActivo(), paquete.getNombrePaquete(), String.valueOf(paquete.getPrecio()));
+		    listaPaqueteDTO.add(paqueteDTO);
+		}
+		return listaPaqueteDTO;
 	}
 
 }

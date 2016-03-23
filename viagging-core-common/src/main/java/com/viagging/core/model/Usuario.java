@@ -11,7 +11,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="tp_usuario")
-@NamedQuery(name="Usuario.findAll", query="SELECT t FROM Usuario t")
+@NamedQueries({
+	@NamedQuery(name="Usuario.findAll", query="SELECT t FROM Usuario t"),
+	@NamedQuery(name="Usuario.findByPasswordAndLogin", 
+		query="SELECT t FROM Usuario t WHERE t.login = :login AND t.password = :password")
+})
+
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,11 +24,15 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
+	private String login;
+
+	private String password;
+	
 	private String correo;
 
-	private Integer numeroCelular;
+	private String numeroCelular;
 
-	private Integer numeroDocumento;
+	private String numeroDocumento;
 
 	private String primerApellido;
 
@@ -85,7 +94,31 @@ public class Usuario implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+    
+	public String getNumeroCelular() {
+		return numeroCelular;
+	}
 
+	public void setNumeroCelular(String numeroCelular) {
+		this.numeroCelular = numeroCelular;
+	}
+	
+	public String getLogin() {
+		return this.login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	public String getCorreo() {
 		return this.correo;
 	}
@@ -94,19 +127,11 @@ public class Usuario implements Serializable {
 		this.correo = correo;
 	}
 
-	public Integer getNumeroCelular() {
-		return this.numeroCelular;
+	public String getNumeroDocumento() {
+		return numeroDocumento;
 	}
 
-	public void setNumeroCelular(Integer numeroCelular) {
-		this.numeroCelular = numeroCelular;
-	}
-
-	public Integer getNumeroDocumento() {
-		return this.numeroDocumento;
-	}
-
-	public void setNumeroDocumento(Integer numeroDocumento) {
+	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = numeroDocumento;
 	}
 

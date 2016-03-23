@@ -57,26 +57,14 @@ public class TransporteServiceImpl implements TransporteService {
 	}
 	
 	private Transporte transporteDTOToModel(TransporteDTO transporteDTO) throws JSONException {
-		JSONObject jsonObj = new JSONObject(transporteDTO.getCaracteristicas());
-		Iterator<String> keys = jsonObj.keys();
-		String caracteristicas = "";
-		while (keys.hasNext()) {
-			String key = keys.next();
-			boolean isActive = jsonObj.getBoolean(key);
-			if (isActive) {
-				caracteristicas += key;
-			}
-		}
 		Transporte transporte = new Transporte();
 		transporte.setFrecuenciasalida(transporteDTO.getFrecuenciaSalida());
 		transporte.setHorariofin(transporteDTO.getHorarioFin());
 		transporte.setHorarioinicio(transporteDTO.getHorarioInicio());
 		transporte.setLugardestino(transporteDTO.getLugarDestino());
 		transporte.setLugarorigen(transporteDTO.getLugarOrigen());
-		transporte.setRestricciones(transporteDTO.getRestricciones());
 		transporte.setTiempoestimado(transporteDTO.getTiempoEstimado());
 		transporte.setTipotransporte(transporteDTO.getTipoTransporte());
-		transporte.setCaracteristicas(caracteristicas);
 		Servicio servicio = servicioDTOToModel(transporteDTO.getServicio());
 		servicioDAO.createServicio(servicio);
 		return transporte;

@@ -1,29 +1,16 @@
 
-var app = angular.module('sampleapp', ['ngDialog']).controller('samplecontroller', ['$scope', '$http','ngDialog','$rootScope', function($scope, $http,ngDialog, $rootScope) {
+providersApp.controller('samplecontroller', ['$scope', '$http','ngDialog','$rootScope', function($scope, $http,ngDialog, $rootScope) {
 $scope.idEspecifico = '1';
 $scope.name;
 $scope.lastName;
+$scope.filtrarnombre = "";
 $scope.chooseservices=[];
-var servicesSelect = {
-		id: "f",
-		nombre : "f",
-		precio : "f",
-		descripcionCorta: "f",
-	    datosServicio : false
-};
+$scope.ocultarSeccionAdicionarPaquete = true;
+$scope.onlyNumbers = /^\d+$/;
 
-//$scope.getCategory();
    $scope.getCategory = function() { 
-		console.log('esta entrando category'); 
-		 /*  $scope.category = 
-			        [
-				      {key: '01', value: 'TRANSPORTE'},
-				      {key: '02', value: 'ALOJAMIENTO'},
-				      {key: '03', value: 'PASEO_ECOLOGICO'},
-				      {key: '04', value: 'ALIMENTACION'}
-				    ];
-				   */
-		console.log($scope.category);
+	   console.log("ingreso a categoria");
+	   
 		 $http.get('/viagging-providers-web/getCategory').
 		    success(function(data, status, headers, config) {
 		    	console.log(status);
@@ -58,58 +45,27 @@ var servicesSelect = {
 	      // log error
 	    }); 
 
-
-	    
-	    
-	    console.log('despues de llamar');
 	}
-
-
-
-	$scope.test1 = function() { 
-		console.log("alojamiento");
-		console.log($rootScope.idEspecifico);
-	    var post = {
-	    		userId: $scope.name,
-				id : $scope.lastName,
-				title : 'test1',
-				body: 'test12'
-		};
-	    
-	    $scope.post1 = post;
-	    $http.post('/viagging-providers-web/savePost', post).
-	    success(function(data, status, headers, config) {
-	    	console.log(status);
-	      $scope.post1 = data;
-	      console.log(data);
-	    }).
-	    error(function(data, status, headers, config) {
-	    }); 
-	    console.log('despues de llamar');
-	}
-
 
 	$scope.especifico = function(id,idCategoria) { 	
 		$rootScope.idEspecifico = id;
 	    console.log('especifico'+id + "---"+idCategoria); 
-	    ngDialog.open({ template: '../html/transporte.html', className: 'ngdialog-theme-default' });
+
 	    if(idCategoria == "01"){
-	         ngDialog.open({ template: '../html/transporte.html', className: 'ngdialog-theme-default' });
+	         ngDialog.open({ template: 'transporte.html', className: 'ngdialog-theme-default' });
 	    }else if(idCategoria == "02"){
-	    	ngDialog.open({ template: '../html/alojamiento.html', className: 'ngdialog-theme-default' });
+	    	ngDialog.open({ template: 'alojamiento.html', className: 'ngdialog-theme-default' });
 	    }else if(idCategoria == "03"){
-	    	ngDialog.open({ template: '../html/paseoEcologico.html', className: 'ngdialog-theme-default' });
+	    	ngDialog.open({ template: 'paseoecologico.html', className: 'ngdialog-theme-default' });
 	    }else if(idCategoria == "04"){
-	    	ngDialog.open({ template: '../html/alimentacion.html', className: 'ngdialog-theme-default' });
+	    	ngDialog.open({ template: 'alimentacion.html', className: 'ngdialog-theme-default' });
 	    }
-	    console.log('despues de llamarbb especifico');
 	}
 
 
 
 	$scope.saveServicesTemp = function() { 	
 	      for (var i=0;i<$scope.listservices.length;i++){
-	    	  console.log("saveServicesTemp---"+i); 
 	    	  var flagExist = false;
 	    	  if($scope.listservices[i].datosServicio){
 		    	  for (var j=0;j<$scope.chooseservices.length;j++){
@@ -118,12 +74,12 @@ var servicesSelect = {
 		              }
 		    	  }
 		    	  if(!flagExist){
-		    		  console.log("saveServicesTempdddd---"+i); 
 		    		  $scope.chooseservices.push($scope.listservices[i]);
 		    	  }
 	    	  }
 	    	  
-	      }		
+	      }	
+	      $scope.ocultarSeccionAdicionarPaquete = false;
 	}
 	
 	
@@ -155,7 +111,6 @@ var servicesSelect = {
 	    }).
 	    error(function(data, status, headers, config) {
 	    }); 
-	    console.log('despues de llamar');
 	}
 	
 	
@@ -176,7 +131,6 @@ var servicesSelect = {
 	
 	
 	$scope.getDatosPaseoEcologico = function() { 
-		console.log("Alimentacion");
 		console.log($rootScope.idEspecifico);
 	    $http.get('/viagging-providers-web/getServicePaseoEcologico',{
 	    	params: { idService: $rootScope.idEspecifico }
@@ -187,6 +141,78 @@ var servicesSelect = {
 	    }).
 	    error(function(data, status, headers, config) {
 	    }); 
-	    console.log('despues de llamar');
 	}
+	
+	
+	$scope.createPackage = function() { 
+		console.log("crear paquete");
+		console.log($scope.paquete);
+		$scope.paquete.servicios = $scope.chooseservices;
+		 $http.post('/viagging-providers-web/addPackage',$scope.paquete).
+			 success(function(data, status, headers, config) {
+	    	console.log(status);
+        }).
+          error(function(data, status, headers, config) {
+        }); 
+	}
+	
+	$scope.desasociarServicio = function(id) { 
+		console.log("desasociarServicio"+id);
+  	  for (var j=0;j<$scope.chooseservices.length;j++){
+	       if($scope.chooseservices[j].id == id){
+	    	   $scope.chooseservices.splice(j, 1);	
+	    	   break;
+         }
+	  }
+  	    if($scope.chooseservices.length == 0){
+  	       $scope.ocultarSeccionAdicionarPaquete = true;
+  	    }
+  	 }
+     
+	   $scope.getPackages = function(filtro) { 
+		   console.log("filtro"+filtro);
+			 $http.get('/viagging-providers-web/getPackages',{
+			    	params: { filtro: filtro }
+			    }).success(function(data, status, headers, config) {
+			    	console.log(status);
+			      $scope.listPackages = data;
+			      console.log(data);
+			    }).
+			    error(function(data, status, headers, config) {
+			      // log error
+			    }); 
+			    console.log('despues de llamar Packages');
+	     }
+	   
+
+	   $scope.getPackage = function(idPaquete) { 
+			 $http.get('/viagging-providers-web/getPackage',{
+			    	params: { idPackage: idPaquete }
+			    }).
+			    success(function(data, status, headers, config) {
+			    	console.log(status);
+			      $scope.listaServicios = data;
+			      console.log(data);
+			    }).
+			    error(function(data, status, headers, config) {
+			      // log error
+			    }); 
+			    console.log('despues de llamar Packages');
+	     }
+	   
+	   $scope.login = function() { 
+		   console.log('login');
+			 $http.get('/viagging-providers-web/getPackage',{
+			    	params: { idPackage: idPaquete }
+			    }).
+			    success(function(data, status, headers, config) {
+			    	console.log(status);
+			      $scope.listaServicios = data;
+			      console.log(data);
+			    }).
+			    error(function(data, status, headers, config) {
+			      // log error
+			    }); 
+			    console.log('despues de llamar Packages');
+	     }
 }]);

@@ -11,46 +11,36 @@ public class AlimentacionDTO {
 	private String horarioApertura;
 	
 	private String horarioCierre;
-	
-	private String restricciones;
-	
-	private String caracteristicas;
-	
+		
 	private String precioMenor;
 	
 	private String precioMayor;
-	
-	private byte[] imagenPrincipal;
-	
+		
 	private ServicioDTO servicio;
-
 
 
 	public AlimentacionDTO(){}
 
-	public AlimentacionDTO(String ciudad, String horarioApertura, String restricciones,
-			String precioMenor, String precioMayor, byte[] imagenPrincipal,
-			ServicioDTO servicio) {
+	public AlimentacionDTO(String ciudad, String horarioApertura,
+			String precioMenor, String precioMayor,
+			ServicioDTO servicio,String horarioCierre) {
 		super();
 		this.ciudad = ciudad;
 		this.horarioApertura = horarioApertura;
-		this.restricciones = restricciones;
 		this.precioMenor = precioMenor;
 		this.precioMayor = precioMayor;
-		this.imagenPrincipal = imagenPrincipal;
 		this.servicio = servicio;
+		this.horarioCierre = horarioCierre;
+	}
+   
+	public String getHorarioCierre() {
+		return horarioCierre;
 	}
 
-	public byte[] getImagenPrincipal() {
-		return imagenPrincipal;
+	public void setHorarioCierre(String horariocierre) {
+		this.horarioCierre = horariocierre;
 	}
-
-	public void setImagenPrincipal(byte[] imagenPrincipal) {
-		this.imagenPrincipal = imagenPrincipal;
-	}
-
-
-
+	
 	public ServicioDTO getServicio() {
 		return servicio;
 	}
@@ -75,23 +65,6 @@ public class AlimentacionDTO {
 		this.horarioApertura = horarioApertura;
 	}
 
-
-	public String getRestricciones() {
-		return restricciones;
-	}
-
-	public void setRestricciones(String restricciones) {
-		this.restricciones = restricciones;
-	}
-
-	public String getCaracteristicas() {
-		return caracteristicas;
-	}
-
-	public void setCaracteristicas(String caracteristicas) {
-		this.caracteristicas = caracteristicas;
-	}
-
 	public String getPrecioMenor() {
 		return precioMenor;
 	}
@@ -108,21 +81,16 @@ public class AlimentacionDTO {
 		this.precioMayor = precioMayor;
 	}
 	
-	public AlimentacionDTO buildObject( Servicio servicio){
-		ServicioDTO parserServicio = new ServicioDTO();
-		parserServicio = parserServicio.buildObject(servicio);
+	public static AlimentacionDTO buildObject(Servicio servicio) {
+		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.ALIMENTACION.getId());
 		Alimentacion alimentacion = servicio.getAlimentacion();
-		AlimentacionDTO alimentacionDTO = new AlimentacionDTO(alimentacion.getCiudad(), alimentacion.getHorarioapertura(),  alimentacion.getRestricciones(), String.valueOf(alimentacion.getPreciomenor()), String.valueOf(alimentacion.getPreciomayor()), alimentacion.getImagenprincipal(),parserServicio);
+		AlimentacionDTO alimentacionDTO = new AlimentacionDTO(
+				alimentacion.getCiudad(), alimentacion.getHorarioapertura(),
+				String.valueOf(alimentacion.getPreciomenor()),
+				String.valueOf(alimentacion.getPreciomayor()), parserServicio,
+				alimentacion.getHorariocierre());
 
 		return alimentacionDTO;
-	}
-
-	public String getHorarioCierre() {
-		return horarioCierre;
-	}
-
-	public void setHorarioCierre(String horarioCierre) {
-		this.horarioCierre = horarioCierre;
 	}
 }

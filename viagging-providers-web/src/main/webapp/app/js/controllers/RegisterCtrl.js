@@ -1,4 +1,4 @@
-marketPlaceApp.controller('RegisterCtrl', ['$scope', function($scope){
+providersApp.controller('RegisterCtrl', ['$scope', function($scope){
 
 
 }]);

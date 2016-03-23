@@ -7,15 +7,28 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 	$stateProvider
 		.state("home", {
 			url: "/home",
-			templateUrl: '../app/views/main.html'
-		})
-		.state("catalogue", {
-			url: "/catalogue",
-			templateUrl: '../app/views/catalogue.html'
+			templateUrl: '../app/views/catalogue.html',
+			resolve: {
+				config : ['configService', function(configService){
+					return configService.initMarketPlaceConfig();
+				}],
+				products : ['productsService', function(productsService){
+					return productsService.getAllProducts();
+				}]
+			},
+			controller: 'AppCtrl'
 		})
 		.state("detail", {
-			url: "/detail",
-			templateUrl: '../app/views/detail.html'
+			url: "/detail/:categoryId/:serviceId",
+			templateUrl: '../app/views/detail.html',
+			resolve: {
+				product : ['productsService', '$stateParams', function(productsService, $stateParams){
+					var categoryId = $stateParams.categoryId;
+					var productId = $stateParams.serviceId;
+					return productsService.getProductById(categoryId, productId);
+				}]
+			},
+			controller: 'DetailCtrl'
 		})
 		.state("login", {
 			url: "/login",

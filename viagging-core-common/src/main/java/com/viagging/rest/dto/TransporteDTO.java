@@ -1,6 +1,7 @@
 package com.viagging.rest.dto;
 
 import com.viagging.core.model.Servicio;
+import com.viagging.core.model.Transporte;
 import com.viagging.util.CategoryEnum;
 
 public class TransporteDTO {
@@ -18,26 +19,19 @@ public class TransporteDTO {
 	private String horarioInicio;
 	
 	private String horarioFin;
-	
-	private String restricciones;
-	
+		
 	private String frecuenciaSalida;
 	
 	private String numeroPasajeros;
-	
-	private byte[] imagenPrincipal;
-	
-	private String caracteristicas;
-	
+
 	public TransporteDTO(){
 		
 	}
 	
 	public TransporteDTO(ServicioDTO servicio, String tipoTransporte,
 			String lugarOrigen, String lugarDestino, String tiempoEstimado,
-			String horarioInicio, String horarioFin, String restricciones,
-			String frecuenciaSalida, String numeroPasajeros,
-			 byte[] imagenPrincipal) {
+			String horarioInicio, String horarioFin,
+			String frecuenciaSalida, String numeroPasajeros) {
 		super();
 		this.servicio = servicio;
 		this.tipoTransporte = tipoTransporte;
@@ -46,19 +40,8 @@ public class TransporteDTO {
 		this.tiempoEstimado = tiempoEstimado;
 		this.horarioInicio = horarioInicio;
 		this.horarioFin = horarioFin;
-		this.restricciones = restricciones;
 		this.frecuenciaSalida = frecuenciaSalida;
 		this.numeroPasajeros = numeroPasajeros;
-		this.imagenPrincipal = imagenPrincipal;
-	}
-
-	 
-	public byte[] getImagenPrincipal() {
-		return imagenPrincipal;
-	}
-
-	public void setImagenPrincipal(byte[] imagenPrincipal) {
-		this.imagenPrincipal = imagenPrincipal;
 	}
 	
 	public String getNumeroPasajeros() {
@@ -83,14 +66,6 @@ public class TransporteDTO {
 
 	public void setHorarioFin(String horarioFin) {
 		this.horarioFin = horarioFin;
-	}
-
-	public String getRestricciones() {
-		return restricciones;
-	}
-
-	public void setRestricciones(String restricciones) {
-		this.restricciones = restricciones;
 	}
 
 	public String getFrecuenciaSalida() {
@@ -141,21 +116,15 @@ public class TransporteDTO {
 		this.tiempoEstimado = tiempoEstimado;
 	}
 	
-	public TransporteDTO buildObject( Servicio servicio){
-		ServicioDTO parserServicio = new ServicioDTO();
-		parserServicio = parserServicio.buildObject(servicio);
+	public static TransporteDTO buildObject(Servicio servicio){
+		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.TRANSPORTE.getId());
-		TransporteDTO transporteDTO = new TransporteDTO(parserServicio, servicio.getTransporte().getTipotransporte(), servicio.getTransporte().getLugarorigen(), servicio.getTransporte().getLugardestino(),
-				servicio.getTransporte().getTiempoestimado(), servicio.getTransporte().getHorarioinicio(), servicio.getTransporte().getHorariofin(), servicio.getTransporte().getRestricciones(), servicio.getTransporte().getFrecuenciasalida(),String.valueOf(servicio.getTransporte().getNumeropasajeros()),servicio.getTransporte().getImagenprincipal());
-		//org.apache.commons.beanutils.PropertyUtilsBean.copyProperties(Object dest, Object orig)
+		Transporte transporte = servicio.getTransporte();
+		TransporteDTO transporteDTO = new TransporteDTO(parserServicio,
+				transporte.getTipotransporte(), transporte.getLugarorigen(),
+				transporte.getLugardestino(), transporte.getTiempoestimado(),
+				transporte.getHorarioinicio(), transporte.getHorariofin(),
+				transporte.getFrecuenciasalida(), String.valueOf(transporte.getNumeropasajeros()));
 		return transporteDTO;
-	}
-
-	public String getCaracteristicas() {
-		return caracteristicas;
-	}
-
-	public void setCaracteristicas(String caracteristicas) {
-		this.caracteristicas = caracteristicas;
 	}
 }

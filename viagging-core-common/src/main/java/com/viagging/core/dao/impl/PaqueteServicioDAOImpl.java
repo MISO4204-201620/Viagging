@@ -1,15 +1,20 @@
 package com.viagging.core.dao.impl;
 
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.viagging.core.dao.PaqueteServicioDAO;
 import com.viagging.core.model.PaqueteServicio;
 
 /**
  * The Class ModuloDAOImpl.
  */
+@Transactional
 @Repository
 public class PaqueteServicioDAOImpl implements PaqueteServicioDAO {
 
@@ -54,6 +59,12 @@ public class PaqueteServicioDAOImpl implements PaqueteServicioDAO {
 			entityManager.remove(paqueteServicio);
 		}
 		return paqueteServicio;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PaqueteServicio> getPaqueteServicioByIdPaquete(String idPaquete) {
+		return (List<PaqueteServicio>) entityManager.createNamedQuery("PaqueteServicio.findByIdPaquete").setParameter("idPaquete", Integer.valueOf(idPaquete)).getResultList();
 	}
 
 }

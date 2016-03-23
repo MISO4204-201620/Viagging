@@ -2,6 +2,8 @@ package com.viagging.core.services;
 
 import java.util.List;
 
+import org.json.JSONException;
+
 import com.viagging.core.model.Servicio;
 import com.viagging.rest.dto.ServicioDTO;
 
@@ -15,7 +17,9 @@ public interface ServicioService {
 
 	Servicio updateServicio(Servicio servicio);
     
-	List<Servicio> getAllServiciosByCategoria(Integer idCategoria);
+	Servicio servicioDTOToModel(ServicioDTO servicio) throws JSONException;
 	
-	Servicio servicioDTOToModel(ServicioDTO servicio);
+	List<Servicio> getAllServiciosByCategoria(String idCategoria);
+	
+	List<Servicio> buildListServices(List<ServicioDTO> listServiceDTO);
 }
