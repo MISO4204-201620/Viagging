@@ -25,17 +25,17 @@ angular
     		var files = [];
     		for (var i = 0; i < uploader.queue.length; i++) {
     			files.push(uploader.queue[i]._file);
-//    			$http.put('/viagging-providers-web/guardarImagen3?idservicio=TRANSPORTE', uploader.queue[i]._file, {
-//        			headers: {"Content-Type": "application/json"},
-//        			transformRequest: angular.identity}
-//        		)
-//        		.success(function(response) {
-//        			console.log('success', response);
-//        		})
-//        		.error(function(response) {
-//        			console.log('error', response);
-//        		});
-//    			console.log("arrayaqui1", uploader.queue[i]._file);
+    			$http.put('/viagging-providers-web/guardarImagen3?idservicio=TRANSPORTE', uploader.queue[i]._file, {
+        			headers: {"Content-Type": "application/json"},
+        			transformRequest: angular.identity}
+        		)
+        		.success(function(response) {
+        			console.log('success', response);
+        		})
+        		.error(function(response) {
+        			console.log('error', response);
+        		});
+    			console.log("arrayaqui1", uploader.queue[i]._file);
     		}
     		console.log("arrayaqui", files);
     		$http.post('/viagging-providers-web/saveImage', angular.toJson(files), {

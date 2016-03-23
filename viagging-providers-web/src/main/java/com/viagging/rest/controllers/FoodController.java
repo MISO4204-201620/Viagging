@@ -18,9 +18,9 @@ public class FoodController {
 	@Autowired
 	private AlimentacionService foodService;
 
-	@RequestMapping(value = "/guardarAlimentacion", method = RequestMethod.POST)
+	@RequestMapping(value = "/saveFood", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void guardarAlojamiento(@RequestBody AlimentacionDTO alimentacion) throws JSONException {
+	public void saveFood(@RequestBody AlimentacionDTO alimentacion) throws JSONException {
 		foodService.createAlimentacion(alimentacion);
 	}
 }
