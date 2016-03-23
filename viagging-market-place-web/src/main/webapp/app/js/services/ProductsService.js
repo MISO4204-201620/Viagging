@@ -2,7 +2,7 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 	
 	var products = [];
 	
-	var currentProduct = {};
+	var currentProduct = {};	
 	
 	var productsService = {
 			
@@ -23,7 +23,12 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 	        });
 		},
 		
-		getProductById : function(categoryId, serviceId){
+		getDetailedProductById : function(serviceId){
+			var product = this.getProductById(serviceId);
+			if(product == null){
+				return null;
+			}
+			var categoryId = product.idCategoria;
 			var url = "";
 			if(categoryId == "01"){
 				url= "/viagging-providers-web/getServiceTransport";
@@ -58,6 +63,17 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 		
 		getCurrentProduct: function(){
 			return currentProduct;
+		},
+		
+		getProductById : function(productId){
+			var result = $.grep(products, function(currentProduct){
+				return currentProduct.id == productId;
+			});
+			
+			if(result.length == 1){
+				return result[0];
+			}
+			return null;
 		}
 	};
 	
