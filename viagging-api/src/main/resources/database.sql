@@ -20,6 +20,7 @@ DROP TABLE IF EXISTS TR_PaseosEcologicos;
 DROP TABLE IF EXISTS TR_Transporte;
 DROP TABLE IF EXISTS TR_Alimentacion;
 DROP TABLE IF EXISTS TR_Alojamiento;
+DROP TABLE IF EXISTS TP_PreguntasFrecuentes;
 
 CREATE TABLE TP_Modulo (
   id     SERIAL,
@@ -242,4 +243,11 @@ CREATE TABLE TR_Caracteristica_servicio (
   PRIMARY KEY(id),
   FOREIGN KEY (idCaracteristica) REFERENCES TR_Caracteristica(id),
   FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id)
+);
+
+CREATE TABLE TP_PreguntasFrecuentes (
+  id SERIAL,
+  titulo VARCHAR(100),
+  descripcion VARCHAR(300),
+  PRIMARY KEY(id)
 );
