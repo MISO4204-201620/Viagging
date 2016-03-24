@@ -15,7 +15,6 @@
 					<table class="table table-bordered tbl-cart">
 						<thead>
 							<tr>
-								<td class="hidden-xs">Imagen</td>
 								<td>Producto</td>
 								<td class="td-qty">Cantidad</td>
 								<td>Precio (Unidad)</td>
@@ -25,13 +24,6 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="item in ngCart.getCart().items track by $index">
-								<td class="hidden-xs">
-									<a ui-sref="detail({serviceId: item.getId()})">
-										<img src="../app/images/hotel_1.jpg"
-											alt="Age Of Wisdom Tan Graphic Tee" title="" width="47"
-											height="47" />
-									</a>
-								</td>
 								<td>
 									<a ui-sref="detail({serviceId: item.getId()})">{{item.getName()}}</a>
 								</td>
