@@ -1,5 +1,5 @@
 <div class="alert alert-warning" role="alert" ng-show="ngCart.getTotalItems() === 0">
-    No ha agregado nada al carrito.
+    No has agregado nada al carrito.
 </div>
 
 <div class="container main-container">
@@ -11,7 +11,7 @@
 				<span class="title">CARRITO</span>
 			</div>
 			<div class="col-lg-12 col-sm-12 hero-feature">
-				<div class="table-responsive" ng-show="ngCart.getTotalItems() > 0">
+				<div class="table-responsive">
 					<table class="table table-bordered tbl-cart">
 						<thead>
 							<tr>
@@ -26,14 +26,14 @@
 						<tbody>
 							<tr ng-repeat="item in ngCart.getCart().items track by $index">
 								<td class="hidden-xs">
-									<a ui-sref="detail">
+									<a ui-sref="detail({serviceId: item.getId()})">
 										<img src="../app/images/hotel_1.jpg"
 											alt="Age Of Wisdom Tan Graphic Tee" title="" width="47"
 											height="47" />
 									</a>
 								</td>
 								<td>
-									<a ui-sref="detail">{{item.getName()}}</a>
+									<a ui-sref="detail({serviceId: item.getId()})">{{item.getName()}}</a>
 								</td>
 								<td>
 									<div class="input-group bootstrap-touchspin">
@@ -57,7 +57,7 @@
 								</a></td>
 							</tr>
 							<tr>
-								<td colspan="5" align="right">Total</td>
+								<td colspan="4" align="right">Total</td>
 								<td class="total" colspan="2"><b>{{ngCart.totalCost() | currency}}</b></td>
 							</tr>
 						</tbody>
@@ -67,7 +67,7 @@
 					<button type="button" class="btn btn-primary" ui-sref="home">
 						<i class="fa fa-arrow-circle-left"></i> Continuar Comprando
 					</button>
-					<button type="button" class="btn btn-primary" ui-sref="checkout">
+					<button type="button" class="btn btn-success" ui-sref="checkout">
 						Checkout <i class="fa fa-arrow-circle-right"></i>
 					</button>
 				</div>

@@ -17,7 +17,7 @@
 						<span>{{item.getPrice() | currency}}</span>
 					</a>
 				</li>
-				<li class="divider"></li>
+				<li class="divider" ng-show="ngCart.getTotalItems() > 0"></li>
 				<li><a ui-sref="cart">Total: {{ngCart.totalCost() | currency}}</a></li>
 			</ul>
 		</div>

@@ -19,24 +19,25 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 			controller: 'CatalogueCtrl'
 		})
 		.state("detail", {
-			url: "/detail/:categoryId/:serviceId",
+			url: "/detail/:serviceId",
 			templateUrl: '../app/views/detail.html',
 			resolve: {
 				product : ['productsService', '$stateParams', function(productsService, $stateParams){
-					var categoryId = $stateParams.categoryId;
 					var productId = $stateParams.serviceId;
-					return productsService.getProductById(categoryId, productId);
+					return productsService.getDetailedProductById(productId);
 				}]
 			},
 			controller: 'DetailCtrl'
 		})
 		.state("login", {
 			url: "/login",
-			templateUrl: '../app/views/login.html'
+			templateUrl: '../app/views/login.html',
+			controller: 'LoginCtrl'
 		})
 		.state("register", {
 			url: "/register",
-			templateUrl: '../app/views/register.html'
+			templateUrl: '../app/views/register.html',
+			controller: 'RegisterCtrl'
 		})
 		.state("cart", {
 			url: "/cart",
@@ -44,7 +45,33 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 		})
 		.state("checkout", {
 			url: "/checkout",
-			templateUrl: '../app/views/checkout.html'
+			templateUrl: '../app/views/checkout.html',
+			controller: 'CheckoutCtrl'
+		})
+		.state("wishlist", {
+			url: "/user/wishlist",
+			templateUrl: '../app/views/wishlist.html',
+			controller: 'WishlistCtrl'
+		})
+		.state("profile", {
+			url: "/user/profile",
+			templateUrl: '../app/views/profile.html',
+			controller: 'ProfileCtrl'
+		})
+		.state("messages", {
+			url: "/user/messages",
+			templateUrl: '../app/views/messages.html',
+			controller: 'MessagesCtrl'
+		})
+		.state("purchases", {
+			url: "/user/purchases",
+			templateUrl: '../app/views/purchases.html',
+			controller: 'PurchasesCtrl'
+		})
+		.state("faq", {
+			url: "/faq",
+			templateUrl: '../app/views/faq.html',
+			controller: 'FaqCtrl'
 		})
 		.state("compare", {
 			url: "/compare",
@@ -52,7 +79,8 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 		})
 		.state("contact", {
 			url: "/contact",
-			templateUrl: '../app/views/contact.html'
+			templateUrl: '../app/views/contact.html',
+			controller: 'ContactCtrl'
 		})
 		.state("typography", {
 			url: "/typography",

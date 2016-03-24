@@ -1,4 +1,8 @@
-marketPlaceApp.controller('CheckoutCtrl', ['$scope', 'ngCart', function($scope, ngCart){
-
-
+marketPlaceApp.controller('CheckoutCtrl', ['$scope', 'ngCart', 'userService',
+    function($scope, ngCart, userService){
+	
+	$scope.ngCart = ngCart;
+	
+	$scope.userData = userService.getUserData();
+	
 }]);
