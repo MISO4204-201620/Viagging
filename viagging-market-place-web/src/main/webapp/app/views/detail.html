@@ -53,40 +53,29 @@
 							<div class="well product-short-detail">
 								<div class="row">
 									<div class="the-list">
-										<h3 class="col-xs-12" style="color:red;">{{product.servicio.precio | currency}}</h3>
+										<h3 class="col-xs-12">{{product.servicio.precio | currency}}</h3>
 									</div>
-									<!--
 									<div class="the-list">
-										<div class="col-xs-4">Seleccionar</div>
-										<div class="col-xs-8">
-											<select class="form-control">
-												<option value="">Select Option</option>
-												<option value="option1">Option 1</option>
-												<option value="option2">Option 2</option>
-												<option value="option3">Option 3</option>
-											</select>
-										</div>
+										<h3 class="col-xs-12 product-code">Codigo : {{product.servicio.id}}</h3>
 									</div>
-									-->
+									<div class="the-list">
+										<p style="padding:0 5px 0 15px">{{product.servicio.descripcionCorta}}</p>
+									</div>
+									<div class="product-rating" style="padding-left: 15px">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star-half-o"></i>
+									</div>
 									<div class="clearfix"></div>
 									<hr/>
-									<div class="col-xs-12 input-qty-detail">
-										<div class="col-xs-10" style="style= padding-bottom: 5px; padding-left: 2px;">Cantidad</div>
-										<div class="input-group bootstrap-touchspin"><span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-down" type="button">-</button></span><span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span><input type="text" class="form-control input-qty text-center" value="1" style="display: block;"><span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span><span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-up" type="button">+</button></span></div>
-										<button class="btn btn-default pull-left"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+									<div class="col-xs-12 text-center">
+										<a class="btn btn-default"><i class="fa fa-heart"></i> Agregar</a></span>
+										<span ng-show="!inCart()"><a class="btn btn-primary" ng-click="ngCart.addItem(product.servicio.id.toString(), product.servicio.nombre, product.servicio.precio, 1, null)"><i class="fa fa-shopping-cart"></i> Agregar</a></span>
+										<span ng-show="inCart()"><a class="btn btn-danger" ng-click="ngCart.removeItemById(product.servicio.id.toString())"><i class="fa fa-remove"></i> Remover</a></span>
 									</div>
 									<div class="clearfix"></div><br/>
-									<div class="col-xs-12 add-to-detail">
-										<div class="row">
-										<!--
-										<div class="col-xs-6 text-center">
-											<a href="compare.html"><i class="fa fa-list"></i> Add to Compare</a>
-										</div>-->
-										<div class="col-xs-6 text-center">
-											<a href="wishlist.html"><i class="fa fa-heart"></i> Add to Wishlist</a>
-										</div>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>

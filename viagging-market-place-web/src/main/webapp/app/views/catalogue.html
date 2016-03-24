@@ -31,7 +31,7 @@
 			
 			<div class="col-lg-12 col-md-12 col-sm-6" style="padding-top:30px;">
         		<div class="no-padding">
-            		<span style="text-transform:uppercase;" class="title">DESCRIPCI&oacuteN</span>
+            		<span style="text-transform:uppercase;" class="title">DESCRIPCIÓN</span>
             	</div>
 				<div id="main_menu" style="border-bottom:1px solid #ddd;">
                        <!-- Search Form -->
@@ -58,23 +58,21 @@
        		<div class="col-lg-12 col-sm-12">
            		<span class="title">PRODUCTOS</span>
            	</div>
-           	<div style="float:left;">
-	            <div ng-repeat="product in products" class="col-lg-4 col-sm-4 hero-feature text-center">
-	                <div class="thumbnail">
-	                	<a ui-sref="detail({serviceId: product.id})" class="link-p">
-	                    	<img src="../app/images/hotel_1.jpg" alt="">
-	                	</a>
-	                    <div class="caption prod-caption">
-	                        <h4><a ui-sref="detail({serviceId: product.id})">{{product.nombre}}</a></h4>
-	                        <p>{{product.descripcionCorta}}</p>
-	                        <p>
-	                        	<div class="btn-group">
-		                        	<ngcart-addtocart id="{{product.id}}" name="{{product.nombre}}" price="{{product.precio}}" quantity="1" ></ngcart-addtocart>
-	                        	</div>
-	                        </p>
-	                    </div>
-	                </div>
-	            </div>
+            <div ng-repeat="product in products" class="col-lg-4 col-sm-6 hero-feature text-center">
+                <div class="thumbnail">
+                	<a ui-sref="detail({serviceId: product.id})" class="link-p">
+                    	<img src="../app/images/hotel_1.jpg" alt="">
+                	</a>
+                    <div class="caption prod-caption">
+                        <h4><a ui-sref="detail({serviceId: product.id})">{{product.nombre}}</a></h4>
+                        <p>{{product.descripcionCorta}}</p>
+                        <p>
+                        	<div class="btn-group">
+	                        	<ngcart-addtocart id="{{product.id}}" name="{{product.nombre}}" price="{{product.precio}}" quantity="1" ></ngcart-addtocart>
+                        	</div>
+                        </p>
+                    </div>
+                </div>
             </div>
             <!-- 
 			<div class="text-center">

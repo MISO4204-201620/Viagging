@@ -26,7 +26,7 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 		getDetailedProductById : function(serviceId){
 			var product = this.getProductById(serviceId);
 			if(product == null){
-				return null;
+				return $q.reject();
 			}
 			var categoryId = product.idCategoria;
 			var url = "";

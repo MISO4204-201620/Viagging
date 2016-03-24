@@ -5,3 +5,29 @@
   max-width: 40px!important;
   height: 40px!important;
 }
+
+.product-code{
+	font-family: oswald, Helvetica Neue, Arial, sans-serif;
+	font-size: 14px;
+	font-weight: lighter;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.profile-picture {
+    border: 1px solid #CCC;
+    background-color: #FFF;
+    padding: 4px;
+    display: inline-block;
+    max-width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.editable-click {
+  border-bottom: 1px dashed #BBB;
+  cursor: pointer;
+  font-weight: normal;
+}

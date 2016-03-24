@@ -1,1 +1,82 @@
-<ngcart-checkout></ngcart-checkout>
+<div class="alert alert-warning" role="alert" ng-show="ngCart.getTotalItems() === 0">
+    No has agregado nada al carrito.
+</div>
+
+<div class="container main-container">
+	<div class="row">
+		<div class="clearfix visible-sm"></div>
+
+		<!-- Cart -->
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<div class="col-lg-12 col-sm-12">
+				<span class="title">CHECKOUT</span>
+			</div>
+			<div class="col-lg-12 col-sm-12 hero-feature">
+				<div class="table-responsive" ng-show="ngCart.getTotalItems() > 0">
+					<table class="table table-bordered tbl-checkout">
+						<tbody>
+							<tr>
+								<td>Primer nombre</td>
+								<td>{{userData.primerNombre}}</td>
+								<td>Segundo nombre</td>
+								<td>{{userData.segundoNombre}}</td>
+							</tr>
+							<tr>
+								<td>Primer apellido</td>
+								<td>{{userData.primerApellido}}</td>
+								<td>Segundo apellido</td>
+								<td>{{userData.segundoApellido}}</td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td>{{userData.correo}}</td>
+								<td>Celular</td>
+								<td>{{userData.numeroCelular}}</td>
+							</tr>
+							<tr>
+								<td>Comment</td>
+								<td colspan="3"><textarea name="" class="form-control"></textarea>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-bordered tbl-cart">
+						<thead>
+							<tr>
+								<td>Producto</td>								
+								<td class="td-qty">Cantidad</td>
+								<td>Precio (Unidad)</td>
+								<td>Sub Total</td>
+								<td>Remover</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in ngCart.getCart().items track by $index">
+								<td>{{item.getName()}}</td>
+								<td class="text-center">{{item.getQuantity() | number}}</td>
+								<td class="price">{{item.getPrice() | currency}}</td>
+								<td>{{item.getTotal() | currency}}</td>
+								<td class="text-center">
+									<a class="remove_cart" rel="2"
+										ng-click="ngCart.removeItemById(item.getId())"> <i class="fa fa-trash-o"></i>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" align="right">Total</td>
+								<td class="total" colspan="2"><b>{{ngCart.totalCost() | currency}}</b></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="btn-group btns-cart">
+					<button type="button" class="btn btn-primary">Continuar</button>
+				</div>
+
+			</div>
+		</div>
+		<!-- End Cart -->
+	</div>
+</div>
