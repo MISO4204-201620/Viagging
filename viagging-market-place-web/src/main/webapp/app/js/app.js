@@ -71,6 +71,11 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 		.state("faq", {
 			url: "/faq",
 			templateUrl: '../app/views/faq.html',
+			resolve: {
+				faq : ['faqService', function(faqService){
+					return faqService.getAllFaqs();
+				}]
+			},
 			controller: 'FaqCtrl'
 		})
 		.state("compare", {
