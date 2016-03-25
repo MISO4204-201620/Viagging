@@ -21,6 +21,7 @@ DROP TABLE IF EXISTS TR_Transporte;
 DROP TABLE IF EXISTS TR_Alimentacion;
 DROP TABLE IF EXISTS TR_Alojamiento;
 DROP TABLE IF EXISTS TP_PreguntasFrecuentes;
+DROP TABLE IF EXISTS TP_ListaDeseos;
 
 CREATE TABLE TP_Modulo (
   id SERIAL,
@@ -259,7 +260,16 @@ CREATE TABLE TP_PreguntasFrecuentes (
   PRIMARY KEY(id)
 );
 
-
+CREATE TABLE TP_ListaDeseos (
+  id SERIAL,
+  idUsuario INTEGER NOT NULL,
+  idServicio INTEGER NULL,
+  idPaquete INTEGER NULL,
+  PRIMARY KEY(id),
+  FOREIGN KEY (idUsuario) REFERENCES TP_Usuario(id),
+  FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id),
+  FOREIGN KEY (idPaquete) REFERENCES TP_Paquete(id)
+);
 
 -- Inserts para tipos de perfil
 INSERT INTO tb_perfil (id,nombre) VALUES ('1','Usuario');

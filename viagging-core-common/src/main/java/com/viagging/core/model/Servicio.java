@@ -1,10 +1,21 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 /**
@@ -13,11 +24,12 @@ import java.util.List;
  */
 @Entity
 @Table(name="tp_servicio")
-@NamedQueries({ @NamedQuery (name="Servicio.findAllTransporte", query="SELECT t FROM Servicio t where t.transporte != null"),
-	            @NamedQuery (name="Servicio.findAllAlojamiento", query="SELECT t FROM Servicio t where t.alojamiento != null"),
-	            @NamedQuery (name="Servicio.findAllAlimentacion", query="SELECT t FROM Servicio t where t.alimentacion != null"),
-	            @NamedQuery (name="Servicio.findAllPaseoEcologico", query="SELECT t FROM Servicio t where t.paseoEcologico != null"),
-	            @NamedQuery (name="Servicio.findAll", query="SELECT t FROM Servicio t")
+@NamedQueries({ 
+	@NamedQuery(name = "Servicio.findAllTransporte", query = "SELECT t FROM Servicio t where t.transporte != null"),
+	@NamedQuery(name = "Servicio.findAllAlojamiento", query = "SELECT t FROM Servicio t where t.alojamiento != null"),
+	@NamedQuery(name = "Servicio.findAllAlimentacion", query = "SELECT t FROM Servicio t where t.alimentacion != null"),
+	@NamedQuery(name = "Servicio.findAllPaseoEcologico", query = "SELECT t FROM Servicio t where t.paseoEcologico != null"),
+	@NamedQuery(name = "Servicio.findAll", query = "SELECT t FROM Servicio t")
 })
 public class Servicio implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -80,6 +92,7 @@ public class Servicio implements Serializable {
 	private List<PaqueteServicio> paqueteServicios;
 
 	//bi-directional many-to-one association to Pregunta
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="servicio")
 	private List<Pregunta> preguntas;
 

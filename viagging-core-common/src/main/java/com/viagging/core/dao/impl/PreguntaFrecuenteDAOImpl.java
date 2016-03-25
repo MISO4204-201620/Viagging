@@ -36,7 +36,7 @@ public class PreguntaFrecuenteDAOImpl implements PreguntaFrecuenteDAO{
 		_preguntaFrecuente.setDescripcion(preguntaFrecuente.getDescripcion());
 		_preguntaFrecuente.setTitulo(preguntaFrecuente.getTitulo());
 		entityManager.persist(_preguntaFrecuente);
-		return null;
+		return _preguntaFrecuente;
 	}
 
 	@Override
