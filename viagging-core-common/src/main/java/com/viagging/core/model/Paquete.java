@@ -46,7 +46,7 @@ public class Paquete implements Serializable {
 	private List<Movimiento> movimientos;
 
 	//bi-directional many-to-one association to PaqueteServicio
-	@OneToMany(mappedBy="paquete")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="paquete")
 	private List<PaqueteServicio> paqueteServicios;
 
 	//bi-directional many-to-one association to Pregunta

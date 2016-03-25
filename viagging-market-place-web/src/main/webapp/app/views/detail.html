@@ -6,7 +6,7 @@
 			<!-- Product Detail -->
         	<div class="col-lg-12 col-md-12 col-sm-6">
         		<div class="col-lg-12 col-sm-12">
-            		<span class="title">{{product.servicio.nombre}}</span>
+            		<span class="title">{{product.nombre}}</span>
             	</div>
 	            <div class="col-lg-12 col-sm-12 hero-feature">
 
@@ -53,13 +53,13 @@
 							<div class="well product-short-detail">
 								<div class="row">
 									<div class="the-list">
-										<h3 class="col-xs-12">{{product.servicio.precio | currency}}</h3>
+										<h3 class="col-xs-12">{{product.precio | currency}}</h3>
 									</div>
 									<div class="the-list">
-										<h3 class="col-xs-12 product-code">Código : {{product.servicio.id}}</h3>
+										<h3 class="col-xs-12 product-code">Código : {{product.id}}</h3>
 									</div>
 									<div class="the-list">
-										<p style="padding:0 5px 0 15px">{{product.servicio.descripcionCorta}}</p>
+										<p style="padding:0 5px 0 15px">{{product.descripcion}}</p>
 									</div>
 									<div class="product-rating" style="padding-left: 15px">
 										<i class="fa fa-star"></i>
@@ -72,8 +72,8 @@
 									<hr/>
 									<div class="col-xs-12 text-center">
 										<a class="btn btn-default"><i class="fa fa-heart"></i> Agregar</a></span>
-										<span ng-show="!inCart()"><a class="btn btn-primary" ng-click="ngCart.addItem(product.servicio.id.toString(), product.servicio.nombre, product.servicio.precio, 1, null)"><i class="fa fa-shopping-cart"></i> Agregar</a></span>
-										<span ng-show="inCart()"><a class="btn btn-danger" ng-click="ngCart.removeItemById(product.servicio.id.toString())"><i class="fa fa-remove"></i> Remover</a></span>
+										<span ng-show="!inCart()"><a class="btn btn-primary" ng-click="ngCart.addItem(product.id, product.nombre, product.precio, 1, null)"><i class="fa fa-shopping-cart"></i> Agregar</a></span>
+										<span ng-show="inCart()"><a class="btn btn-danger" ng-click="ngCart.removeItemById(product.id)"><i class="fa fa-remove"></i> Remover</a></span>
 									</div>
 									<div class="clearfix"></div><br/>
 								</div>
@@ -94,7 +94,7 @@
 							<div class="tab-content">
 								<div class="tab-pane active" id="desc">
 									<div class="well">
-										<p>{{product.servicio.descripcionCorta}}</p>
+										<p>{{product.descripcion}}</p>
 									</div>
 								</div>
 								<div class="tab-pane" id="detail">

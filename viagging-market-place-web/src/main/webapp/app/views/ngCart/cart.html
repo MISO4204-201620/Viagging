@@ -25,7 +25,7 @@
 						<tbody>
 							<tr ng-repeat="item in ngCart.getCart().items track by $index">
 								<td>
-									<a ui-sref="detail({serviceId: item.getId()})">{{item.getName()}}</a>
+									<a ui-sref="detail({productId: item.getId()})">{{item.getName()}}</a>
 								</td>
 								<td>
 									<div class="input-group bootstrap-touchspin">

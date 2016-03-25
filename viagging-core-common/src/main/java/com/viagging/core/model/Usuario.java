@@ -45,6 +45,18 @@ public class Usuario implements Serializable {
 	private String segundoNombre;
 
 	private String tipoDocumento;
+	
+	private String direccion1;
+	
+	private String direccion2;
+	
+	private String ciudad;
+	
+	private String pais;
+	
+	private String estado;
+	
+	private String zipcode;
 
 	//bi-directional many-to-one association to Conversacion
 	@OneToMany(mappedBy="usuario1")
@@ -175,6 +187,58 @@ public class Usuario implements Serializable {
 
 	public void setTipoDocumento(String tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
+	}
+
+	public String getDireccion1() {
+		return direccion1;
+	}
+
+	public void setDireccion1(String direccion1) {
+		this.direccion1 = direccion1;
+	}
+
+	public String getDireccion2() {
+		return direccion2;
+	}
+
+	public void setDireccion2(String direccion2) {
+		this.direccion2 = direccion2;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public List<Conversacion> getConversacion1() {
