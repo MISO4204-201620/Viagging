@@ -160,6 +160,7 @@ $scope.onlyNumbers = /^\d+$/;
 		    	ngDialog.open({ template: 'popup.html', className: 'ngdialog-theme-popup' });
 		    	$scope.paquete.precio = "";
 		    	$scope.paquete.nombre = "";
+		    	$scope.paquete.descripcion = "";
 		    	console.log($rootScope.respuestaCreacion);
 	
 	        }).

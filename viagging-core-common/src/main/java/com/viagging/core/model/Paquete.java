@@ -25,6 +25,8 @@ public class Paquete implements Serializable {
 
 	private String nombrePaquete;
 	
+	private String descripcion;
+	
 	private Integer precio;
 
 
@@ -59,14 +61,27 @@ public class Paquete implements Serializable {
 	
 	
 	public Paquete( Boolean activo, String nombrePaquete,
-			Integer precio) {
+			Integer precio,String descripcion) {
 		super();
 		this.activo = activo;
 		this.nombrePaquete = nombrePaquete;
 		this.precio = precio;
+		this.descripcion = descripcion;
 	}
 
 	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+
+
 	public Integer getId() {
 		return this.id;
 	}
