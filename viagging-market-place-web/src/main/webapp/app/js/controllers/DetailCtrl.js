@@ -1,12 +1,13 @@
-marketPlaceApp.controller('DetailCtrl', ['$scope', 'productsService','ngCart', function($scope, productsService, ngCart){
+marketPlaceApp.controller('DetailCtrl', ['$scope', 'product','ngCart', function($scope, product, ngCart){
 	
 	'use strict';
 	
-	$scope.ngCart = ngCart;
-	
-	$scope.product = productsService.getCurrentProduct();
-	
 	$scope.inCart = function(){
-        return ngCart.getItemById(String($scope.product.servicio.id));
+        return ngCart.getItemById($scope.product.id);
     };
+    
+    var initDetailCtrl = function(){
+    	$scope.ngCart = ngCart;
+    	$scope.product = product;
+    }();
 }]);

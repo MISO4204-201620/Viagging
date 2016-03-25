@@ -23,19 +23,19 @@ DROP TABLE IF EXISTS TR_Alojamiento;
 DROP TABLE IF EXISTS TP_PreguntasFrecuentes;
 
 CREATE TABLE TP_Modulo (
-  id     SERIAL,
+  id SERIAL,
   nombre VARCHAR(20) NULL,
   PRIMARY KEY(id)
 );
 
 CREATE TABLE TB_Perfil (
-  id     SERIAL,
+  id SERIAL,
   nombre VARCHAR(20) NULL,
   PRIMARY KEY(id)
 );
 
 CREATE TABLE TR_PermisoPerfil (
-  id       SERIAL,
+  id SERIAL,
   idModulo INTEGER NOT NULL,
   idPerfil INTEGER NOT NULL,
   PRIMARY KEY(id),
@@ -55,6 +55,12 @@ CREATE TABLE TP_Usuario (
   numeroDocumento VARCHAR(20) NOT NULL,
   correo VARCHAR(50) NULL,
   numeroCelular VARCHAR(20) NULL,
+  direccion1 VARCHAR(120) NULL,
+  direccion2 VARCHAR(120) NULL,
+  ciudad VARCHAR(120) NULL,
+  pais VARCHAR(50) NULL,
+  estado VARCHAR(120) NULL,
+  zipcode VARCHAR(20) NULL
   PRIMARY KEY(id)
 );
 
@@ -90,7 +96,7 @@ CREATE TABLE TP_Mensaje (
 
 CREATE TABLE TR_PaseoEcologico (
   id SERIAL,
-  ciudad TEXT  NULL,
+  ciudad TEXT NULL,
   tiempoDeRecorrido TEXT NULL,
   horario TEXT NULL,
   fecha DATE NULL,
@@ -99,10 +105,10 @@ CREATE TABLE TR_PaseoEcologico (
 
 CREATE TABLE TR_Transporte (
   id SERIAL,
-  tipoTransporte TEXT  NULL,
+  tipoTransporte TEXT NULL,
   lugarOrigen TEXT NULL,
   lugarDestino TEXT NULL,
-  tiempoEstimado TEXT  NULL,
+  tiempoEstimado TEXT NULL,
   horarioInicio TEXT NULL,
   horarioFin TEXT NULL,
   frecuenciaSalida TEXT NULL,
@@ -122,7 +128,7 @@ CREATE TABLE TR_Alimentacion (
 
 CREATE TABLE TR_Alojamiento (
   id SERIAL,
-  ciudad TEXT  NULL,
+  ciudad TEXT NULL,
   valorPorNoche INTEGER NULL,
   PRIMARY KEY(id)
 );
@@ -150,7 +156,7 @@ CREATE TABLE TP_Servicio (
 
 CREATE TABLE TP_IMAGEN_SERVICIO (
   id SERIAL,
-  idServicio INTEGER  NULL,
+  idServicio INTEGER NULL,
   imagen BYTEA NULL,
   PRIMARY KEY(id),
   FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id)
@@ -207,7 +213,7 @@ CREATE TABLE TR_Compra (
 CREATE TABLE TR_Comentario_calificacion (
   id SERIAL,
   idServicio INTEGER NULL,
-  idUsuario  INTEGER NOT NULL,
+  idUsuario INTEGER NOT NULL,
   idPaquete INTEGER NULL,
   comentario VARCHAR(255) NULL,
   calificacion FLOAT NULL,
@@ -222,7 +228,7 @@ CREATE TABLE TR_Comentario_calificacion (
 
 CREATE TABLE TR_PaqueteServicio (
   id SERIAL,
-  idPaquete  INTEGER NOT NULL,
+  idPaquete INTEGER NOT NULL,
   idServicio INTEGER NOT NULL,
   PRIMARY KEY(id),
   FOREIGN KEY (idPaquete) REFERENCES TP_Paquete(id),
@@ -232,14 +238,14 @@ CREATE TABLE TR_PaqueteServicio (
 CREATE TABLE TR_Caracteristica (
   id SERIAL,
   categoria text NULL,
-  valor  text NOT NULL,
+  valor text NOT NULL,
   PRIMARY KEY(id)
 );
 
 CREATE TABLE TR_Caracteristica_servicio (
   id SERIAL,
   idCaracteristica INTEGER NOT NULL,
-  idServicio  INTEGER NOT NULL,
+  idServicio INTEGER NOT NULL,
   PRIMARY KEY(id),
   FOREIGN KEY (idCaracteristica) REFERENCES TR_Caracteristica(id),
   FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id)

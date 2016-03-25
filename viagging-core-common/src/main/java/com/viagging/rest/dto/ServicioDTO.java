@@ -25,6 +25,8 @@ public class ServicioDTO {
 	private String precio;
 
 	private String idCategoria;
+	
+	private CategoryEnum categoria;
 
 	private String ciudad;
 
@@ -37,6 +39,14 @@ public class ServicioDTO {
 	private String restricciones;
 
 	private List<CaracteristicasDTO> caracteristicas;
+	
+	private AlimentacionDTO alimentacion;
+	
+	private AlojamientoDTO alojamiento;
+	
+	private PaseoEcologicoDTO paseoEcologico;
+	
+	private TransporteDTO transporte;
 
 	public ServicioDTO() {
 	}
@@ -164,12 +174,52 @@ public class ServicioDTO {
 		this.idCategoria = idCategoria;
 	}
 
+	public CategoryEnum getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoryEnum categoria) {
+		this.categoria = categoria;
+	}
+
+	public AlimentacionDTO getAlimentacion() {
+		return alimentacion;
+	}
+
+	public void setAlimentacion(AlimentacionDTO alimentacion) {
+		this.alimentacion = alimentacion;
+	}
+
+	public AlojamientoDTO getAlojamiento() {
+		return alojamiento;
+	}
+
+	public void setAlojamiento(AlojamientoDTO alojamiento) {
+		this.alojamiento = alojamiento;
+	}
+
+	public PaseoEcologicoDTO getPaseoEcologico() {
+		return paseoEcologico;
+	}
+
+	public void setPaseoEcologico(PaseoEcologicoDTO paseoEcologico) {
+		this.paseoEcologico = paseoEcologico;
+	}
+
+	public TransporteDTO getTransporte() {
+		return transporte;
+	}
+
+	public void setTransporte(TransporteDTO transporte) {
+		this.transporte = transporte;
+	}
+
 	public static List<ServicioDTO> buildListObject(List<Servicio> listServicio) {
 		List<ServicioDTO> listServicioDTO = new ArrayList<>();
 		for (Servicio servicio : listServicio) {
 			ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(), servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones());
 
-			// TODO Mover esta lï¿½gica a un mï¿½todo
+			// TODO Mover esta lógica a un método
 			String idCategoria = "";
 			if (servicio.getAlimentacion() != null) {
 				idCategoria = CategoryEnum.ALIMENTACION.getId();
