@@ -166,6 +166,7 @@ CREATE TABLE TP_Paquete (
   id SERIAL,
   idUsuario INTEGER NOT NULL,
   nombrePaquete VARCHAR(100) NULL,
+  descipcion VARCHAR(200) NULL,
   activo boolean NULL,
   precio INTEGER  NULL,
   PRIMARY KEY(id),
@@ -257,3 +258,10 @@ CREATE TABLE TP_PreguntasFrecuentes (
   descripcion VARCHAR(300),
   PRIMARY KEY(id)
 );
+
+
+
+-- Inserts para tipos de perfil
+INSERT INTO tb_perfil (id,nombre) VALUES ('1','Usuario');
+INSERT INTO tb_perfil (id,nombre) VALUES ('2','Proveedor');
+INSERT INTO tb_perfil (id,nombre) VALUES ('3','Administrador');

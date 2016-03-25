@@ -20,6 +20,7 @@ public class PaqueteDTOMapper {
 		paqueteDTO.setId(paquete.getId());
 		paqueteDTO.setActivo(paquete.getActivo());
 		paqueteDTO.setNombre(paquete.getNombrePaquete());
+		paqueteDTO.setDescripcion(paquete.getDescripcion());
 		paqueteDTO.setPrecio(String.valueOf(paquete.getPrecio()));
 		paqueteDTO.setServicios(servicioDTOMapper.mapObjectListFromPaqueteServicio(paquete.getPaqueteServicios()));
 		return paqueteDTO;
