@@ -10,28 +10,11 @@
             	</div>
 	            <div class="col-lg-12 col-sm-12 hero-feature">
                     <div class="row">
-                    	<div class="col-xs-12 blog-list">
+                    	<div class="col-xs-12 blog-list" ng-repeat="faq in faqs">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<h4><a href="blog-detail.html"><i class="fa fa-check-square-o"></i> ¿Cómo me registro en Viagging?</a></h4>
+								<h4><p style="color:#337ab7;"><i class="fa fa-check-square-o"></i> {{faq.titulo}}</p></h4>
 		                        <p>
-									Registrarse es muy fácil, solo hay que ingresar al módulo 'Registro' ubicado en la parte superior y diligenciar la informaci&oacuten solicitada.
-									<!--<a href="blog-detail.html">Read More</a> -->
-								</p>
-							</div>
-						</div>
-						<div class="col-xs-12 blog-list">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<h4><a href="blog-detail.html"><i class="fa fa-check-square-o"></i> ¿Cómo actualizo mis datos?</a></h4>
-		                        <p>
-									Para actualizar los datos debe ingresar por 'Login'. Debe digitar su usuario y clave. Luego, en el menú principal encontrará su nombre con una lista desplegable, allí debe seleccionar 'Perfil'. Haga clic y ver&aacute allí sus datos para actualizarlos.
-								</p>
-							</div>
-						</div>
-						<div class="col-xs-12 blog-list">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-								<h4><a href="blog-detail.html"><i class="fa fa-check-square-o"></i> ¿Cómo puedo calificar los servicios que compro?</a></h4>
-		                        <p>
-									Para calificar los servicios que ha comprado, Viagging ofrece un medio que permite comunicar su experiencia con el producto. Solo debe dirigirse al producto y en la parte inferior izquierda clic en la pestaña 'Calificación'. En este módulo puede ver las demás opiniones.
+									{{faq.descripcion}}
 								</p>
 							</div>
 						</div>

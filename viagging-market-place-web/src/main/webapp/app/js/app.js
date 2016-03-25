@@ -7,7 +7,7 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 	$stateProvider
 		.state("home", {
 			url: "/home",
-			templateUrl: '../app/views/catalogue.html',
+			templateUrl: 'views/catalogue.html',
 			resolve: {
 				config : ['configService', function(configService){
 					return configService.initMarketPlaceConfig();
@@ -19,12 +19,11 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 			controller: 'CatalogueCtrl'
 		})
 		.state("detail", {
-			url: "/detail/:serviceId",
-			templateUrl: '../app/views/detail.html',
+			url: "/detail/:productId",
+			templateUrl: 'views/detail.html',
 			resolve: {
 				product : ['productsService', '$stateParams', function(productsService, $stateParams){
-					var productId = $stateParams.serviceId;
-					return productsService.getDetailedProductById(productId);
+					return productsService.getProductById($stateParams.productId);
 				}]
 			},
 			controller: 'DetailCtrl'
@@ -71,6 +70,11 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 		.state("faq", {
 			url: "/faq",
 			templateUrl: '../app/views/faq.html',
+			resolve: {
+				faq : ['faqService', function(faqService){
+					return faqService.getAllFaqs();
+				}]
+			},
 			controller: 'FaqCtrl'
 		})
 		.state("compare", {

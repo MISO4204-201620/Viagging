@@ -31,6 +31,18 @@ public class UsuarioDTO {
 	private String segundoNombre;
 
 	private String tipoDocumento;
+	
+	private String direccion1;
+	
+	private String direccion2;
+	
+	private String ciudad;
+	
+	private String pais;
+	
+	private String estado;
+	
+	private String zipcode;
 
     private PerfilDTO perfil;
 
@@ -140,8 +152,55 @@ public class UsuarioDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	
+	public String getDireccion1() {
+		return direccion1;
+	}
+
+	public void setDireccion1(String direccion1) {
+		this.direccion1 = direccion1;
+	}
+
+	public String getDireccion2() {
+		return direccion2;
+	}
+
+	public void setDireccion2(String direccion2) {
+		this.direccion2 = direccion2;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
 	/**
 	 * Builds an {@link UsuarioDTO} object from an {@link Usuario} object.
 	 *
@@ -160,6 +219,12 @@ public class UsuarioDTO {
 		usuarioDto.setTipoDocumento(usuario.getTipoDocumento());
 		usuarioDto.setNumeroDocumento(usuario.getNumeroDocumento());
 		usuarioDto.setLogin(usuario.getLogin());
+		usuarioDto.setDireccion1(usuario.getDireccion1());
+		usuarioDto.setDireccion2(usuario.getDireccion2());
+		usuarioDto.setCiudad(usuario.getCiudad());
+		usuarioDto.setPais(usuario.getPais());
+		usuarioDto.setEstado(usuario.getEstado());
+		usuarioDto.setZipcode(usuario.getZipcode());
 		return usuarioDto;
 	}
 }
