@@ -4,10 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viagging.core.dao.TransporteDAO;
+import com.viagging.core.model.CaracteristicaServicio;
 import com.viagging.core.model.Servicio;
 import com.viagging.core.model.Transporte;
+import com.viagging.core.services.CaracteristicaServicioService;
 import com.viagging.core.services.ServicioService;
 import com.viagging.core.services.TransporteService;
+import com.viagging.rest.dto.CaracteristicaServicioDTO;
+import com.viagging.rest.dto.CaracteristicasDTO;
 import com.viagging.rest.dto.TransporteDTO;
 
 @Service
@@ -18,6 +22,9 @@ public class TransporteServiceImpl implements TransporteService {
 
 	@Autowired
 	private ServicioService servicioService;
+	
+	@Autowired
+	private CaracteristicaServicioService caracteristicaServicioService;
 	
 	@Override
 	public Transporte getTransporteById(Integer idTransporte) {
@@ -40,9 +47,22 @@ public class TransporteServiceImpl implements TransporteService {
 	}
 
 	@Override
-	public void createTransporte(TransporteDTO transporteDTO) {
+	public Integer createTransporte(TransporteDTO transporteDTO) {
 		Transporte transporte = buildTransporte(transporteDTO);
 		createTransporte(transporte);
+		Servicio servicio = servicioService.buildServicio(transporteDTO.getServicio());
+		servicio.setTransporte(transporte);
+		servicioService.createServicio(servicio);
+		transporteDTO.getServicio().setId(servicio.getId());
+		for (CaracteristicasDTO caracteristica : transporteDTO.getServicio().getCaracteristicas()) {
+			caracteristica.setCategoria("TRANSPORTE");
+			CaracteristicaServicioDTO ca = new CaracteristicaServicioDTO();
+			ca.setCaracteristica(caracteristica);
+			ca.setServicio(transporteDTO.getServicio());
+			CaracteristicaServicio caracteristicaServicio = caracteristicaServicioService.buildCaracteristicaServicio(ca);
+			caracteristicaServicioService.createCaracteristicaServicio(caracteristicaServicio);
+		}
+		return servicio.getId();
 		
 	}
 	

@@ -51,6 +51,7 @@ public class AlojamientoServiceImpl implements AlojamientoService {
 		Alojamiento alojamiento = buildAlojamiento(alojamientoDTO);
 		alojamiento = createAlojamiento(alojamiento);
 		Servicio servicio = servicioService.buildServicio(alojamientoDTO.getServicio());
+		servicio.setAlojamiento(alojamiento);
 		servicioService.createServicio(servicio);
 		alojamientoDTO.getServicio().setId(servicio.getId());
 		for (CaracteristicasDTO caracteristica : alojamientoDTO.getServicio().getCaracteristicas()) {
