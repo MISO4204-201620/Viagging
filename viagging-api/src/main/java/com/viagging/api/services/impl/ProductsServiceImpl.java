@@ -3,7 +3,6 @@
  */
 package com.viagging.api.services.impl;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +12,16 @@ import org.springframework.util.StringUtils;
 
 import com.viagging.api.constants.ProductType;
 import com.viagging.api.model.Producto;
+import com.viagging.api.model.mapper.ProductoMapper;
 import com.viagging.api.services.ProductService;
+import com.viagging.core.model.Pregunta;
 import com.viagging.core.services.PaqueteService;
+import com.viagging.core.services.PreguntaService;
 import com.viagging.core.services.ServicioService;
 import com.viagging.rest.dto.PaqueteDTO;
 import com.viagging.rest.dto.ServicioDTO;
 import com.viagging.rest.dto.mapper.PaqueteDTOMapper;
+import com.viagging.rest.dto.mapper.PreguntaDTOMapper;
 import com.viagging.rest.dto.mapper.ServicioDTOMapper;
 
 /**
@@ -36,10 +39,19 @@ public class ProductsServiceImpl implements ProductService {
 	private PaqueteService paqueteService;
 	
 	@Autowired
+	private PreguntaService preguntaService;
+	
+	@Autowired
 	private PaqueteDTOMapper paqueteDTOMapper;
 	
 	@Autowired
 	private ServicioDTOMapper servicioDTOMapper;
+	
+	@Autowired
+	private ProductoMapper productoMapper;
+	
+	@Autowired
+	private PreguntaDTOMapper preguntaDTOMapper;
 	
 	@Override
 	public List<Producto> getAllProducts(){
@@ -49,17 +61,26 @@ public class ProductsServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public Producto getProductById(String productId){
-		Producto producto = new Producto();
-		
+	public Producto getProductById(String productId){		
 		Integer id = Integer.parseInt(productId.replaceAll("[\\D]", ""));
-		
+		Producto producto = new Producto();
 		if(StringUtils.startsWithIgnoreCase(productId, ProductType.PAQUETE.getPrefix())){
 			PaqueteDTO paquete = paqueteDTOMapper.mapObject(paqueteService.getPaqueteById(id));
-			producto = buildProductoFromPaquete(paquete);
+			producto = productoMapper.buildProductoFromPaquete(paquete);
+			
+			List<Pregunta> preguntas = preguntaService.findPreguntasByPaquete(paquete.getId());
+			if(preguntas != null){
+				producto.setPreguntas(preguntaDTOMapper.mapObjectList(preguntas));
+			}
+			
 		} else if(StringUtils.startsWithIgnoreCase(productId, ProductType.SERVICIO.getPrefix())){
 			ServicioDTO servicio = servicioDTOMapper.mapObject(servicioService.getServicioById(id));
-			producto = buildProductoFromServicio(servicio);
+			producto = productoMapper.buildProductoFromServicio(servicio);
+			
+			List<Pregunta> preguntas = preguntaService.findPreguntasByServicio(servicio.getId());
+			if(preguntas != null){
+				producto.setPreguntas(preguntaDTOMapper.mapObjectList(preguntas));
+			}
 		}
 		return producto;
 	}
@@ -74,56 +95,17 @@ public class ProductsServiceImpl implements ProductService {
 	private List<Producto> buildProductosFromPaquetesAndServicios(List<PaqueteDTO> paquetes, List<ServicioDTO> servicios){
 		List<Producto> productos = new ArrayList<>();
 		for(PaqueteDTO paquete : paquetes){
-			Producto productoPaquete = buildProductoFromPaquete(paquete);
+			Producto productoPaquete = productoMapper.buildProductoFromPaquete(paquete);
 			if(productoPaquete != null){
 				productos.add(productoPaquete);
 			}
 		}
 		for(ServicioDTO servicio : servicios){
-			productos.add(buildProductoFromServicio(servicio));
+			Producto productoServicio = productoMapper.buildProductoFromServicio(servicio);
+			if(productoServicio != null){
+				productos.add(productoServicio);
+			}
 		}
 		return productos;
 	}
-	
-	/**
-	 * Builds the producto from paquete.
-	 *
-	 * @param paquete the paquete
-	 * @return the producto
-	 */
-	private Producto buildProductoFromPaquete(PaqueteDTO paquete){
-		if(paquete.getServicios() == null){
-			return null;
-		}
-		Producto producto = new Producto();
-		producto.setId(ProductType.PAQUETE.getPrefix() + paquete.getId());
-		producto.setNombre(paquete.getNombre());
-		producto.setDescripcion("");
-		producto.setTipoProducto(ProductType.PAQUETE);
-		producto.setServicios(paquete.getServicios());
-		producto.setPrecio(new BigDecimal(paquete.getPrecio()));
-		producto.setActivo(paquete.getActivo());
-		return producto;
-	}
-	
-	/**
-	 * Builds the producto from servicio.
-	 *
-	 * @param servicio the servicio
-	 * @return the producto
-	 */
-	private Producto buildProductoFromServicio(ServicioDTO servicio){
-		Producto producto = new Producto();
-		producto.setId(ProductType.SERVICIO.getPrefix() + servicio.getId());
-		producto.setNombre(servicio.getNombre());
-		producto.setDescripcion(servicio.getDescripcionCorta());
-		producto.setTipoProducto(ProductType.SERVICIO);
-		producto.setPrecio(new BigDecimal(servicio.getPrecio()));
-		producto.setActivo(servicio.getActivo());
-		List<ServicioDTO> servicios = new ArrayList<>();
-		servicios.add(servicio);
-		producto.setServicios(servicios);
-		return producto;
-	}
-	
 }

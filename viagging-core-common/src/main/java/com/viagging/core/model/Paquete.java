@@ -1,10 +1,20 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 /**
@@ -48,10 +58,12 @@ public class Paquete implements Serializable {
 	private List<Movimiento> movimientos;
 
 	//bi-directional many-to-one association to PaqueteServicio
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="paquete")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="paquete")
 	private List<PaqueteServicio> paqueteServicios;
 
 	//bi-directional many-to-one association to Pregunta
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="paquete")
 	private List<Pregunta> preguntas;
 

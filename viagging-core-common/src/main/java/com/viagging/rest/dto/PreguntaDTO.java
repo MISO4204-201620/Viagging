@@ -5,6 +5,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PreguntaDTO {
 	
+	private Integer id;
+
+	private String pregunta;
+
+	private String respuesta;
+
+	private PaqueteDTO paquete;
+
+	private ServicioDTO servicio;
+
+	private UsuarioDTO usuario;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -52,16 +64,5 @@ public class PreguntaDTO {
 	public void setUsuario(UsuarioDTO usuario) {
 		this.usuario = usuario;
 	}
-
-	private Integer id;
-
-	private String pregunta;
-
-	private String respuesta;
-
-	private PaqueteDTO paquete;
-
-	private ServicioDTO servicio;
-
-	private UsuarioDTO usuario;
+	
 }
