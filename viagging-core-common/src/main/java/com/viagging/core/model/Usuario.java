@@ -82,10 +82,6 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private List<ComentarioCalificacion> comentarioCalificacion;
 
-	//bi-directional many-to-one association to Compra
-	@OneToMany(mappedBy="usuario")
-	private List<Compra> compras;
-
 	//bi-directional many-to-one association to CuentaAcceso
 	@OneToMany(mappedBy="usuario")
 	private List<CuentaAcceso> cuentaAcceso;
@@ -371,28 +367,6 @@ public class Usuario implements Serializable {
 		comentarioCalificacion.setUsuario(null);
 
 		return comentarioCalificacion;
-	}
-
-	public List<Compra> getCompras() {
-		return this.compras;
-	}
-
-	public void setCompras(List<Compra> compras) {
-		this.compras = compras;
-	}
-
-	public Compra addCompra(Compra compra) {
-		getCompras().add(compra);
-		compra.setUsuario(this);
-
-		return compra;
-	}
-
-	public Compra removeCompra(Compra compra) {
-		getCompras().remove(compra);
-		compra.setUsuario(null);
-
-		return compra;
 	}
 
 	public List<CuentaAcceso> getCuentaAcceso() {
