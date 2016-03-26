@@ -302,3 +302,13 @@ CREATE TABLE TP_ListaDeseos (
 INSERT INTO tb_perfil (id,nombre) VALUES ('1','Usuario');
 INSERT INTO tb_perfil (id,nombre) VALUES ('2','Proveedor');
 INSERT INTO tb_perfil (id,nombre) VALUES ('3','Administrador');
+
+INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('1','ALOJAMIENTO','PISCINA');
+INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('2','ALOJAMIENTO','BAR');
+INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('3','ALOJAMIENTO','RESTAURANTE');
+INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('4','ALOJAMIENTO','LAVANDERIA');
+INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('5','ALIMENTACION','DESAYUNO');
+INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('6','ALIMENTACION','ALMUERZO');
+INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('7','ALIMENTACION','CENA');
+INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('8','TRANSPORTE','AIRE_ACONDICIONADO');
+INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('9','PASEOECOLOGICO','REFRIGERIO');
