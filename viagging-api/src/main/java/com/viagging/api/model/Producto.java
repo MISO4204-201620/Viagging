@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.viagging.api.constants.ProductType;
+import com.viagging.rest.dto.ComentarioCalificacionDTO;
+import com.viagging.rest.dto.PreguntaDTO;
 import com.viagging.rest.dto.ServicioDTO;
 
 /**
@@ -29,6 +31,12 @@ public class Producto {
 	
 	/** The servicios. */
 	private List<ServicioDTO> servicios;
+	
+	/** The preguntas. */
+	private List<PreguntaDTO> preguntas;
+	
+	/** The comentarios. */
+	private List<ComentarioCalificacionDTO> comentarios;
 	
 	/**
 	 * Gets the producto id.
@@ -154,6 +162,22 @@ public class Producto {
 	 */
 	public void setServicios(List<ServicioDTO> servicios) {
 		this.servicios = servicios;
+	}
+
+	public List<PreguntaDTO> getPreguntas() {
+		return preguntas;
+	}
+
+	public void setPreguntas(List<PreguntaDTO> preguntas) {
+		this.preguntas = preguntas;
+	}
+
+	public List<ComentarioCalificacionDTO> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<ComentarioCalificacionDTO> comentarios) {
+		this.comentarios = comentarios;
 	}
 	
 }

@@ -21,6 +21,7 @@ DROP TABLE IF EXISTS TR_Transporte;
 DROP TABLE IF EXISTS TR_Alimentacion;
 DROP TABLE IF EXISTS TR_Alojamiento;
 DROP TABLE IF EXISTS TP_PreguntasFrecuentes;
+DROP TABLE IF EXISTS TP_ListaDeseos;
 
 CREATE TABLE TP_Modulo (
   id SERIAL,
@@ -166,6 +167,7 @@ CREATE TABLE TP_Paquete (
   id SERIAL,
   idUsuario INTEGER NOT NULL,
   nombrePaquete VARCHAR(100) NULL,
+  descipcion VARCHAR(200) NULL,
   activo boolean NULL,
   precio INTEGER  NULL,
   PRIMARY KEY(id),
@@ -218,7 +220,7 @@ CREATE TABLE TR_Comentario_calificacion (
   comentario VARCHAR(255) NULL,
   calificacion FLOAT NULL,
   fechaRegistro DATE NULL,
-  idCompra INTEGER NOT NULL,
+  idCompra INTEGER NULL,
   PRIMARY KEY(id),
   FOREIGN KEY (idUsuario) REFERENCES TP_Usuario(id),
   FOREIGN KEY (idPaquete) REFERENCES TP_Paquete(id),
@@ -257,3 +259,19 @@ CREATE TABLE TP_PreguntasFrecuentes (
   descripcion VARCHAR(300),
   PRIMARY KEY(id)
 );
+
+CREATE TABLE TP_ListaDeseos (
+  id SERIAL,
+  idUsuario INTEGER NOT NULL,
+  idServicio INTEGER NULL,
+  idPaquete INTEGER NULL,
+  PRIMARY KEY(id),
+  FOREIGN KEY (idUsuario) REFERENCES TP_Usuario(id),
+  FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id),
+  FOREIGN KEY (idPaquete) REFERENCES TP_Paquete(id)
+);
+
+-- Inserts para tipos de perfil
+INSERT INTO tb_perfil (id,nombre) VALUES ('1','Usuario');
+INSERT INTO tb_perfil (id,nombre) VALUES ('2','Proveedor');
+INSERT INTO tb_perfil (id,nombre) VALUES ('3','Administrador');

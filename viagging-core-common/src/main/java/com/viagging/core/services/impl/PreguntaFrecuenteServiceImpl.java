@@ -1,6 +1,5 @@
 package com.viagging.core.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.viagging.core.dao.PreguntaFrecuenteDAO;
 import com.viagging.core.model.PreguntaFrecuente;
 import com.viagging.core.services.PreguntaFrecuenteService;
-import com.viagging.rest.dto.PreguntaFrecuenteDTO;
 
 @Service
 public class PreguntaFrecuenteServiceImpl implements PreguntaFrecuenteService{
@@ -35,17 +33,6 @@ public class PreguntaFrecuenteServiceImpl implements PreguntaFrecuenteService{
 	@Override
 	public PreguntaFrecuente deletePreguntaFrecuente(Integer idPreguntaFrecuente) {
 		return preguntaFrecuenteDAO.deletePreguntaFrecuente(idPreguntaFrecuente);
-	}
-
-	@Override
-	public List<PreguntaFrecuente> buildPreguntasFrecuentes(List<PreguntaFrecuenteDTO> listaPreguntaFrecuenteDTO) {
-		List<PreguntaFrecuente> listPreguntasFrecuentes = new ArrayList<PreguntaFrecuente>();
-		for (PreguntaFrecuenteDTO preguntaFrecuenteDTO : listaPreguntaFrecuenteDTO) {
-			PreguntaFrecuente preguntaFrecuente = new PreguntaFrecuente();
-			preguntaFrecuente.setId(preguntaFrecuenteDTO.getId());
-			listPreguntasFrecuentes.add(preguntaFrecuente);
-		}
-		return listPreguntasFrecuentes;
 	}
 
 	@Override

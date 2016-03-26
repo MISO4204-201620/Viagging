@@ -3,7 +3,6 @@ package com.viagging.core.services;
 import java.util.List;
 
 import com.viagging.core.model.PreguntaFrecuente;
-import com.viagging.rest.dto.PreguntaFrecuenteDTO;
 
 public interface PreguntaFrecuenteService {
 	
@@ -16,6 +15,4 @@ public interface PreguntaFrecuenteService {
 	PreguntaFrecuente updatePreguntaFrecuente(PreguntaFrecuente preguntaFrecuente);
 
 	PreguntaFrecuente deletePreguntaFrecuente(Integer idPreguntaFrecuente);
-	
-	List<PreguntaFrecuente> buildPreguntasFrecuentes(List<PreguntaFrecuenteDTO> listaPreguntaFrecuenteDTO);
 }

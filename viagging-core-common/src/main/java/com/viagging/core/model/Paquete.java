@@ -1,10 +1,20 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 /**
@@ -24,6 +34,8 @@ public class Paquete implements Serializable {
 	private Boolean activo;
 
 	private String nombrePaquete;
+	
+	private String descripcion;
 	
 	private Integer precio;
 
@@ -46,10 +58,12 @@ public class Paquete implements Serializable {
 	private List<Movimiento> movimientos;
 
 	//bi-directional many-to-one association to PaqueteServicio
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="paquete")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="paquete")
 	private List<PaqueteServicio> paqueteServicios;
 
 	//bi-directional many-to-one association to Pregunta
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="paquete")
 	private List<Pregunta> preguntas;
 
@@ -59,14 +73,27 @@ public class Paquete implements Serializable {
 	
 	
 	public Paquete( Boolean activo, String nombrePaquete,
-			Integer precio) {
+			Integer precio,String descripcion) {
 		super();
 		this.activo = activo;
 		this.nombrePaquete = nombrePaquete;
 		this.precio = precio;
+		this.descripcion = descripcion;
 	}
 
 	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+
+
 	public Integer getId() {
 		return this.id;
 	}

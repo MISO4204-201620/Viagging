@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viagging.core.dao.UsuarioDAO;
-import com.viagging.core.dao.impl.CuentaAccesoDAOImpl;
 import com.viagging.core.model.CuentaAcceso;
 import com.viagging.core.model.Perfil;
 import com.viagging.core.model.Usuario;

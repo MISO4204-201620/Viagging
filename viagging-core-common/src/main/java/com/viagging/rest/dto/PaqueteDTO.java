@@ -17,16 +17,19 @@ public class PaqueteDTO {
 	
 	private String precio;
 	
+	private String descripcion;
+	
 	private List<ServicioDTO>servicios;
 	
 	public PaqueteDTO(){}
 	
-	public PaqueteDTO(Integer id, Boolean activo, String nombre, String precio) {
+	public PaqueteDTO(Integer id, Boolean activo, String nombre, String precio,String descripcion) {
 		super();
 		this.id = id;
 		this.activo = activo;
 		this.nombre = nombre;
 		this.precio = precio;
+		this.descripcion = descripcion;
 	}
 
 	public List<ServicioDTO> getServicios() {
@@ -76,10 +79,18 @@ public class PaqueteDTO {
 		this.activo = activo;
 	}
     
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+	
 	public static List<PaqueteDTO> buildListObject(List<Paquete> listaPaquete){
 		List<PaqueteDTO> listaPaqueteDTO = new ArrayList<>();
 		for (Paquete paquete : listaPaquete) {
-			PaqueteDTO paqueteDTO = new PaqueteDTO(paquete.getId(), paquete.getActivo(), paquete.getNombrePaquete(), String.valueOf(paquete.getPrecio()));
+			PaqueteDTO paqueteDTO = new PaqueteDTO(paquete.getId(), paquete.getActivo(), paquete.getNombrePaquete(), String.valueOf(paquete.getPrecio()),paquete.getDescripcion());
 		    listaPaqueteDTO.add(paqueteDTO);
 		}
 		return listaPaqueteDTO;

@@ -50,6 +50,11 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 		.state("wishlist", {
 			url: "/user/wishlist",
 			templateUrl: '../app/views/wishlist.html',
+			resolve: {
+				wishlist : ['wishListService', function(wishListService){
+					return wishListService.getAllWishList();
+				}]
+			},
 			controller: 'WishlistCtrl'
 		})
 		.state("profile", {

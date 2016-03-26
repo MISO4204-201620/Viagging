@@ -64,7 +64,7 @@ public class PaqueteServiceImpl implements PaqueteService{
 	
 	@Override
 	public Paquete buildPaquete(PaqueteDTO paqueteDTO) {
-		Paquete paquete = new Paquete( true, paqueteDTO.getNombre(), Integer.valueOf(paqueteDTO.getPrecio()));		
+		Paquete paquete = new Paquete( true, paqueteDTO.getNombre(), Integer.valueOf(paqueteDTO.getPrecio()),paqueteDTO.getDescripcion());		
 		return paquete;
 	}
 	
