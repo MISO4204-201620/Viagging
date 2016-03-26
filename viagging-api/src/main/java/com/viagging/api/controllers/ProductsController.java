@@ -15,10 +15,14 @@ import com.viagging.api.model.Producto;
 import com.viagging.api.services.ProductsService;
 import com.viagging.api.util.ProductsUtil;
 import com.viagging.core.model.ComentarioCalificacion;
+import com.viagging.core.model.Pregunta;
 import com.viagging.core.model.mapper.ComentarioCalificacionMapper;
+import com.viagging.core.model.mapper.PreguntaMapper;
 import com.viagging.core.services.ComentarioCalificacionService;
+import com.viagging.core.services.PreguntaService;
 import com.viagging.rest.dto.ComentarioCalificacionDTO;
 import com.viagging.rest.dto.PaqueteDTO;
+import com.viagging.rest.dto.PreguntaDTO;
 import com.viagging.rest.dto.ServicioDTO;
 
 /**
@@ -40,6 +44,12 @@ public class ProductsController {
 	
 	@Autowired
 	private ComentarioCalificacionMapper comentarioCalificacionMapper;
+	
+	@Autowired
+	private PreguntaService preguntaService;
+	
+	@Autowired
+	private PreguntaMapper preguntaMapper;
 	
 	/**
 	 * Gets the all products.
@@ -80,6 +90,23 @@ public class ProductsController {
 		
 		ComentarioCalificacion comentario = comentarioCalificacionMapper.mapObject(comentarioDTO);
 		comentarioCalificacionService.createComentario(comentario);
+	}
+	
+	@RequestMapping(value = "/{id}/question", method = RequestMethod.POST)
+	public void addQuestion(@RequestBody PreguntaDTO preguntaDTO, @PathVariable String id){
+		Integer productId = productsUtil.getProductId(id);
+		if(productsUtil.isPaqueteProducto(id)){
+			PaqueteDTO paquete = new PaqueteDTO();
+			paquete.setId(productId);
+			preguntaDTO.setPaquete(paquete);
+		} else if(productsUtil.isServicioProducto(id)){
+			ServicioDTO servicio = new ServicioDTO();
+			servicio.setId(productId);
+			preguntaDTO.setServicio(servicio);
+		}
+		
+		Pregunta pregunta = preguntaMapper.mapObject(preguntaDTO);
+		preguntaService.createPregunta(pregunta);
 	}
 	
 }

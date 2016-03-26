@@ -220,7 +220,7 @@ CREATE TABLE TR_Comentario_calificacion (
   comentario VARCHAR(255) NULL,
   calificacion FLOAT NULL,
   fechaRegistro DATE NULL,
-  idCompra INTEGER NOT NULL,
+  idCompra INTEGER NULL,
   PRIMARY KEY(id),
   FOREIGN KEY (idUsuario) REFERENCES TP_Usuario(id),
   FOREIGN KEY (idPaquete) REFERENCES TP_Paquete(id),
