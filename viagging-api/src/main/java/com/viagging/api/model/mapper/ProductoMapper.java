@@ -27,7 +27,7 @@ public class ProductoMapper {
 		Producto producto = new Producto();
 		producto.setId(ProductType.PAQUETE.getPrefix() + paquete.getId());
 		producto.setNombre(paquete.getNombre());
-		producto.setDescripcion("");
+		producto.setDescripcion(paquete.getDescripcion());
 		producto.setTipoProducto(ProductType.PAQUETE);
 		producto.setServicios(paquete.getServicios());
 		producto.setPrecio(new BigDecimal(paquete.getPrecio()));
