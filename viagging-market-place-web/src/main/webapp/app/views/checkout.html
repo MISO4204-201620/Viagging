@@ -40,7 +40,7 @@
 					</table>
 				</div>
 				<h4>
-					<i class="fa fa-angle-double-right"></i> Dirección de Facturación:
+					<i class="fa fa-angle-double-right"></i> Dirección de Facturación
 				</h4>
 				<div class="table-responsive">
 					<table class="table table-bordered tbl-checkout">
@@ -111,15 +111,18 @@
 					<form ng-submit="submitPayment()">
 						<div class="form-group">
 			        	 	<label class="radio-inline">
-			        	 		<input id="visa" name="payment-method" value="VISA" type="radio">
+			        	 		<input id="visa" name="payment-method" value="VISA" type="radio"
+			        	 			ng-model="payment.medioPago" selected="selected">
 			        	 		<img class="payment-method"src="images/payment-methods/VISA.png"/>
 			        	 	</label>
 			    			<label class="radio-inline">
-			    				<input id="mastercard" name="payment-method" value="MASTERCARD" type="radio">
+			    				<input id="mastercard" name="payment-method" value="MASTERCARD" type="radio"
+			    					ng-model="payment.medioPago">
 			    				<img class="payment-method"src="images/payment-methods/MASTERCARD.png"/>
 			    			</label>
 					    	<label class="radio-inline">
-					    		<input id="amex" name="payment-method" value="AMEX" type="radio">
+					    		<input id="amex" name="payment-method" value="AMEX" type="radio"
+					    			ng-model="payment.medioPago">
 					    		<img class="payment-method" src="images/payment-methods/AMEX.png"/>
 				    		</label>
 					    </div>
@@ -129,21 +132,24 @@
 									<label for="fullname">Nombre en la tarjeta (*)</label>
 									<input type="text" class="form-control" id="fullname"
 										placeholder="Nombre Completo" required
-										data-ng-pattern="/^[A-Za-zá-úà-ùÁ-ÚÀ-Ù\s.'`_]*$/"><br clear="all" />
+										data-ng-pattern="/^[A-Za-zá-úà-ùÁ-ÚÀ-Ù\s.'`_]*$/"
+										ng-model="payment.nombrePagador"><br clear="all" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-5 col-md-6 col-sm-12 col-xs-12">
 									<label for="ccNumber">Número de tarjeta (*)</label>
 									<input type="text" class="form-control" id="ccNumber"
-										placeholder="5412 7512 3412 3456" required><br clear="all" />
+										placeholder="5412 7512 3412 3456" required
+										ng-model="payment.numeroTarjeta"><br clear="all" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-2 col-md-3 col-sm-12 col-xs-12">
 									<label for="ccSecurityCode">Código de seguridad (*)</label>
 									<input type="text" class="form-control" id="ccSecurityCode"
-										placeholder="000" required><br clear="all" />
+										placeholder="000" required
+										ng-model="payment.codigoSeguridad"><br clear="all" />
 								</div>
 							</div>
 							<div class="row">
@@ -154,12 +160,14 @@
 							<div class="row">
 								<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
 									<input type="text" class="form-control"
-										id="ccExpirationDateMonth" placeholder="MM" required>
+										id="ccExpirationDateMonth" placeholder="MM" required
+										ng-model="payment.mesVencimiento">
 									<br clear="all" />
 								</div>
 								<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
 									<input type="text" class="form-control"
-										id="ccExpirationDateYear" placeholder="AA" required>
+										id="ccExpirationDateYear" placeholder="AA" required
+										ng-model="payment.annoVencimiento">
 									<br clear="all" />
 								</div>
 							</div>
@@ -170,7 +178,8 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-2 col-md-2 col-sm-6 col-xs-6">
-									<select class="form-control" id="ccInstallments">
+									<select class="form-control" id="ccInstallments"
+										ng-model="payment.cuotas">
 										<option value="1" selected="selected">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>

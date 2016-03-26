@@ -3,7 +3,7 @@ marketPlaceApp.controller('ProfileCtrl', ['$scope', 'userService',  function($sc
 	$scope.userData = userService.getUserData();
 	
 	$scope.updateUser = function(){
-		alert("it's updating mothafucka!");
+		alert("Test!");
 	};
 
 }]);
