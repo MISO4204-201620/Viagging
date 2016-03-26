@@ -26,8 +26,8 @@
 
 	<!-- ViewResolver bean config for mapping strings to html views -->
 	<mvc:view-controller path="/" view-name="/login"/>
-	<mvc:view-controller path="/contenido.html" view-name="/crearPaquete"/>
-	<mvc:view-controller path="/consulta.html" view-name="/consultaPaquete"/>
+	<mvc:view-controller path="/crearpaquete.html" view-name="/crearPaquete"/>
+	<mvc:view-controller path="/consultapaquete.html" view-name="/consultaPaquete"/>
 	<mvc:view-controller path="/transporte.html" view-name="/transporte"/>
 	<mvc:view-controller path="/alimentacion.html" view-name="/alimentacion"/>
 	<mvc:view-controller path="/alojamiento.html" view-name="/alojamiento"/>
