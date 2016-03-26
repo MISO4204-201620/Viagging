@@ -75,6 +75,7 @@ public class TransporteServiceImpl implements TransporteService {
 		transporte.setLugarorigen(transporteDTO.getLugarOrigen());
 		transporte.setTiempoestimado(transporteDTO.getTiempoEstimado());
 		transporte.setTipotransporte(transporteDTO.getTipoTransporte());
+		transporte.setNumeropasajeros(Integer.parseInt(transporteDTO.getNumeroPasajeros()));
 		Servicio servicio = servicioService.buildServicio(transporteDTO.getServicio());
 		servicioService.createServicio(servicio);
 		return transporte;

@@ -71,6 +71,7 @@ public class ServicioDAOImpl implements ServicioDAO {
 	public Servicio updateServicio(Servicio servicio) {
 		Servicio _servicio = entityManager.find(Servicio.class, servicio.getId());
 		_servicio.setNombre(servicio.getNombre());
+		_servicio.setImagenprincipal(servicio.getImagenprincipal());
 		entityManager.persist(_servicio);
 		return _servicio;
 	}

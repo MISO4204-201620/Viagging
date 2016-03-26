@@ -8,20 +8,21 @@ angular.module('viaggingApp', ['angularFileUpload'])
 				descripcionCorta: "",
 				activo: true,
 				restricciones: "",
-				caracteristicas: ""
+				caracteristicas: "",
+				precio: ""
 			},
 			tipoTransporte: "",
 			lugarOrigen: "",
 			lugarDestino: "",
-			valor: "",
 			tiempoEstimado: "",
 			horarioInicio: "",
 			horarioFin: "",
 			frecuenciaSalida: "",
-			numPasajeros: 2,
+			numeroPasajeros: 2,
 	}
 
 	$scope.caracteristicas = [];
+	$scope.transportTypes = [];
 	$scope.selection = {};
 
 	$scope.$watch("ajaxURL", function (newValue, oldValue) {
@@ -31,15 +32,23 @@ angular.module('viaggingApp', ['angularFileUpload'])
 		}).
 		error(function(data, status, headers, config) {
 		});
+		$http.get('/viagging-providers-web/getTransportTypes').
+		success(function(data, status, headers, config) {
+			$scope.transportTypes = data;
+		}).
+		error(function(data, status, headers, config) {
+		});
 	});
 
 	$scope.guardarTransporte = function(ftransporte) {
 		var idService;
 		$scope.transporte.servicio.caracteristicas=JSON.stringify($scope.selection);
+		console.log($scope.transporte.servicio.caracteristicas);
 		$http.post('/viagging-providers-web/saveTransport', angular.toJson($scope.transporte), {
 			headers: {"Content-Type": "application/json"},
 			transformRequest: angular.identity
 		}).success(function(data, status, headers, config) {
+			reset();
 			idService = data;
 			for (var i = 0; i < uploader.queue.length; i++) {
 				$http.put('/viagging-providers-web/saveImage', uploader.queue[i]._file, {
@@ -64,7 +73,9 @@ angular.module('viaggingApp', ['angularFileUpload'])
 					id: 0,
 					nombre: "",
 					descripcionCorta: "",
-					activo: true
+					activo: true,
+					restricciones: "",
+					caracteristicas: ""
 				},
 				tipoTransporte: "",
 				lugarOrigen: "",
@@ -74,12 +85,10 @@ angular.module('viaggingApp', ['angularFileUpload'])
 				horarioInicio: "",
 				horarioFin: "",
 				frecuenciaSalida: "",
-				numPasajeros: 2,
-				caracteristicas: "",
-				restricciones: "",
-				imagenes: [],
-				imagenPrincipal: ""
-		}
+				numeroPasajeros: 2,
+		};
+		$scope.selection = {};
+		uploader.queue = [];
 	}
 	
 	$scope.cancel = function () {

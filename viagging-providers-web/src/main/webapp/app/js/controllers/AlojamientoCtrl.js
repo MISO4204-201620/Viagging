@@ -8,10 +8,10 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 				descripcionCorta: "",
 				activo: true,
 				restricciones: "",
-				caracteristicas: ""
+				caracteristicas: "",
+				precio: ""
 			},	
-			ciudad: "",
-			valorPorNoche: "",
+			ciudad: ""
 	}
 
 	$scope.caracteristicas = [];
@@ -34,6 +34,7 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 			headers: {"Content-Type": "application/json"},
 			transformRequest: angular.identity
 		}).success(function(data, status, headers, config) {
+			reset();
 			idService = data;
 			for (var i = 0; i < uploader.queue.length; i++) {
 				$http.put('/viagging-providers-web/saveImage', uploader.queue[i]._file, {
@@ -48,7 +49,6 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 	    			console.log('error', response);
 	    		});
 			}
-			reset();
 		}).error(function(data, status, headers, config) {}); 
 	} 
 	
@@ -58,14 +58,15 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 					id: 0,
 					nombre: "",
 					descripcionCorta: "",
-					activo: true
+					activo: true,
+					restricciones: "",
+					caracteristicas: "",
+					precio: ""
 				},	
-				ciudad: "",
-				valorPorNoche: "",
-				caracteristicas: "",
-				restricciones: "",
-				imagenes: []
-		}
+				ciudad: ""
+		};
+		$scope.selection = {};
+		uploader.queue = [];
 	}
 	
 	$scope.cancel = function () {
