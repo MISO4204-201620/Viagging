@@ -6,91 +6,66 @@ angular.module('viaggingApp', ['angularFileUpload'])
 				id: 0,
 				nombre: "",
 				descripcionCorta: "",
-				activo: true
+				activo: true,
+				restricciones: "",
+				caracteristicas: "",
+				precio: ""
 			},
 			tipoTransporte: "",
 			lugarOrigen: "",
 			lugarDestino: "",
-			valor: "",
 			tiempoEstimado: "",
 			horarioInicio: "",
 			horarioFin: "",
 			frecuenciaSalida: "",
-			numPasajeros: 2,
-			caracteristicas: "",
-			restricciones: "",
-			imagenes: [],
-			imagenPrincipal: ""
+			numeroPasajeros: 2,
 	}
 
-	$scope.ciudades = [];
 	$scope.caracteristicas = [];
+	$scope.transportTypes = [];
 	$scope.selection = {};
 
 	$scope.$watch("ajaxURL", function (newValue, oldValue) {
-		$http.get('/viagging-providers-web/obtenerCaracteristicas?categoria=TRANSPORTE').
+		$http.get('/viagging-providers-web/getFeatures?categoria=TRANSPORTE').
 		success(function(data, status, headers, config) {
 			$scope.caracteristicas = data;
 		}).
 		error(function(data, status, headers, config) {
 		});
-	});
-
-	var uploader = $scope.uploader = new FileUploader({
-		url: '/viagging-providers-web/guardarImagen'
-	});
-
-	uploader.filters.push({
-		name: 'customFilter',
-		fn: function(item /*{File|FileLikeObject}*/, options) {
-			return this.queue.length < 10;
-		}
-	});
-
-	$scope.guardarTransporte = function(fTransporte) {
-		var files = [];
-		for (var i = 0; i < uploader.queue.length; i++) {
-			files.push(uploader.queue[i].file);
-		}
-		console.log("array", files);
-		$scope.alojamiento.caracteristicas=JSON.stringify($scope.selection);
-		console.log("seleccionadas"+$scope.alojamiento.caracteristicas);
-		for (var i = 0; i < $scope.selection.length; i++) {
-			console.log("seleccionadas"+$scope.selection[i].caracteristica);
-		}
-		$scope.alojamiento.imagenes=files;
-		console.log("imagenes", $scope.alojamiento.imagenes);
-		$http.post('/viagging-providers-web/guardarTransporte', angular.toJson($scope.transporte), {
-			headers: {"Content-Type": "application/json"},
-			transformRequest: angular.identity
-		}).
+		$http.get('/viagging-providers-web/getTransportTypes').
 		success(function(data, status, headers, config) {
-			console.log(status);
-			console.log(data);
-			reset();
+			$scope.transportTypes = data;
 		}).
 		error(function(data, status, headers, config) {
-		}); 
-	} 
-
-	$scope.uploadImage = function() {
-		var files = [];
-		for (var i = 0; i < uploader.queue.length; i++) {
-			files.push(uploader.queue[i]._file._proto_);
-			console.log("arrayaqui1", uploader.queue[i]._file);
-		}
-		console.log("arrayaqui", files);
-		$http.post('/viagging-providers-web/guardarImagen2', angular.toJson(files), {
-			transformRequest: angular.identity}
-		)
-		.success(function(response) {
-			console.log('success', response);
-			reset();
-		})
-		.error(function(response) {
-			console.log('error', response);
 		});
-	}
+	});
+
+	$scope.guardarTransporte = function(ftransporte) {
+		var idService;
+		$scope.transporte.servicio.caracteristicas=JSON.stringify($scope.selection);
+		console.log($scope.transporte.servicio.caracteristicas);
+		$http.post('/viagging-providers-web/saveTransport', angular.toJson($scope.transporte), {
+			headers: {"Content-Type": "application/json"},
+			transformRequest: angular.identity
+		}).success(function(data, status, headers, config) {
+			reset();
+			idService = data;
+			for (var i = 0; i < uploader.queue.length; i++) {
+				$http.put('/viagging-providers-web/saveImage', uploader.queue[i]._file, {
+					params: { idServicio : idService },
+	    			headers: {"Content-Type": "application/json"},
+	    			transformRequest: angular.identity}
+	    		)
+	    		.success(function(response) {
+	    			console.log('success', response);
+	    		})
+	    		.error(function(response) {
+	    			console.log('error', response);
+	    		});
+			}
+			reset();
+		}).error(function(data, status, headers, config) {}); 
+	} 
 
 	function reset() {
 		$scope.transporte = {
@@ -98,7 +73,9 @@ angular.module('viaggingApp', ['angularFileUpload'])
 					id: 0,
 					nombre: "",
 					descripcionCorta: "",
-					activo: true
+					activo: true,
+					restricciones: "",
+					caracteristicas: ""
 				},
 				tipoTransporte: "",
 				lugarOrigen: "",
@@ -108,17 +85,28 @@ angular.module('viaggingApp', ['angularFileUpload'])
 				horarioInicio: "",
 				horarioFin: "",
 				frecuenciaSalida: "",
-				numPasajeros: 2,
-				caracteristicas: "",
-				restricciones: "",
-				imagenes: [],
-				imagenPrincipal: ""
-		}
+				numeroPasajeros: 2,
+		};
+		$scope.selection = {};
+		uploader.queue = [];
 	}
-
+	
 	$scope.cancel = function () {
 		reset();
 	}
+	
+	var uploader = $scope.uploader = new FileUploader({
+		url: '/viagging-providers-web/guardarImagen'
+	});
+
+	// FILTERS
+
+	uploader.filters.push({
+		name: 'customFilter',
+		fn: function(item /*{File|FileLikeObject}*/, options) {
+			return this.queue.length < 10;
+		}
+	});
 
 	console.info('uploader', uploader);
 }]);

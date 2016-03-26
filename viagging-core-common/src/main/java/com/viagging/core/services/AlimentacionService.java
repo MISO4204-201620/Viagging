@@ -14,5 +14,5 @@ public interface AlimentacionService {
 	
 	Alimentacion deleteAlimentacion(Integer idAlimentacion);
 	
-	void createAlimentacion(AlimentacionDTO alojamiento);
+	Integer createAlimentacion(AlimentacionDTO alojamiento);
 }

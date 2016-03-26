@@ -75,6 +75,7 @@ public class ServicioServiceImpl implements ServicioService {
 		Servicio servicio = new Servicio();
 		servicio.setRestricciones(servicioDTO.getRestricciones());
 		servicio.setActivo(true);
+		servicio.setPrecio(Integer.parseInt(servicioDTO.getPrecio()));
 		Usuario usuario = usuarioDAO.getUsuarioById(1);
 		servicio.setUsuario(usuario);
 		servicio.setDescripcion(servicioDTO.getDescripcionCorta());

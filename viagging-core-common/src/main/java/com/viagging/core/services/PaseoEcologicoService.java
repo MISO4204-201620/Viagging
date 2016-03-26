@@ -13,5 +13,5 @@ public interface PaseoEcologicoService {
 	
 	PaseoEcologico deletePaseoEcologico(Integer idPaseoEcologico);
 	
-	void createPaseoEcologico(PaseoEcologicoDTO paseoEcologico);
+	Integer createPaseoEcologico(PaseoEcologicoDTO paseoEcologico);
 }

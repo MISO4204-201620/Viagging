@@ -33,6 +33,13 @@
 	<mvc:view-controller path="/alojamiento.html" view-name="/alojamiento"/>
 	<mvc:view-controller path="/paseoecologico.html" view-name="/paseoEcologico"/>
 	<mvc:view-controller path="/popup.html" view-name="/popup"/>
+	<mvc:view-controller path="/crearalojamiento.html" view-name="/crearalojamiento"/>
+	<mvc:view-controller path="/crearalimentacion.html" view-name="/crearalimentacion"/>
+	<mvc:view-controller path="/creartransporte.html" view-name="/creartransporte"/>
+	<mvc:view-controller path="/crearturismo.html" view-name="/crearturismo"/>
+	
+	
+	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="order" value="1" />

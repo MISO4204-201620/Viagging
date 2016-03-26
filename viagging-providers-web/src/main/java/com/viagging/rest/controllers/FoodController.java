@@ -1,6 +1,5 @@
 package com.viagging.rest.controllers;
 
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +19,8 @@ public class FoodController {
 
 	@RequestMapping(value = "/saveFood", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void saveFood(@RequestBody AlimentacionDTO alimentacion) throws JSONException {
-		foodService.createAlimentacion(alimentacion);
+	public Integer saveFood(@RequestBody AlimentacionDTO alimentacion) {
+		Integer idService = foodService.createAlimentacion(alimentacion);
+		return idService;
 	}
 }

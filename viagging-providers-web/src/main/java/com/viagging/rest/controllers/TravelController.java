@@ -20,7 +20,8 @@ public class TravelController {
 
 	@RequestMapping(value = "/saveTravel", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void saveTravel(@RequestBody PaseoEcologicoDTO paseo) throws JSONException {
-		travelService.createPaseoEcologico(paseo);
+	public Integer saveTravel(@RequestBody PaseoEcologicoDTO paseo) {
+		Integer idService = travelService.createPaseoEcologico(paseo);
+		return idService;
 	}
 }

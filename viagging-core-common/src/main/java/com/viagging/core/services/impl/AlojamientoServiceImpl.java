@@ -50,7 +50,9 @@ public class AlojamientoServiceImpl implements AlojamientoService {
 	public Integer createAlojamiento(AlojamientoDTO alojamientoDTO) {
 		Alojamiento alojamiento = buildAlojamiento(alojamientoDTO);
 		alojamiento = createAlojamiento(alojamiento);
+		System.out.println(alojamientoDTO.getServicio().getPrecio() + " .. precio");
 		Servicio servicio = servicioService.buildServicio(alojamientoDTO.getServicio());
+		servicio.setAlojamiento(alojamiento);
 		servicioService.createServicio(servicio);
 		alojamientoDTO.getServicio().setId(servicio.getId());
 		for (CaracteristicasDTO caracteristica : alojamientoDTO.getServicio().getCaracteristicas()) {
@@ -67,7 +69,6 @@ public class AlojamientoServiceImpl implements AlojamientoService {
 	private Alojamiento buildAlojamiento(AlojamientoDTO alojamientoDTO) {
 		Alojamiento alojamiento = new Alojamiento();
 		alojamiento.setCiudad(alojamientoDTO.getCiudad());
-		alojamiento.setValorpornoche(Integer.parseInt(alojamientoDTO.getValorPorNoche()));
 		return alojamiento;
 	}
 }

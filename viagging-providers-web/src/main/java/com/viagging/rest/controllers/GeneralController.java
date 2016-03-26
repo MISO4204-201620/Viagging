@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.viagging.core.model.Caracteristica;
 import com.viagging.core.services.CaracteristicaService;
 import com.viagging.core.services.ImagenServicioService;
+import com.viagging.util.TransportEnum;
 
 @RestController
 public class GeneralController {
@@ -37,6 +38,12 @@ public class GeneralController {
 			fts.add(feature.getValor());
 		}
 		return fts;
+	}
+	
+	@RequestMapping(value = "/getTransportTypes", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public List<String> getTransportTypes() {
+		return TransportEnum.getValues();
 	}
 	
 	@RequestMapping(value = "/saveImage", method = RequestMethod.PUT)

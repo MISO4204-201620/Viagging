@@ -13,5 +13,5 @@ public interface TransporteService {
 	
 	Transporte deleteTransporte(Integer idTransporte);
 	
-	void createTransporte(TransporteDTO transporte);
+	Integer createTransporte(TransporteDTO transporte);
 }

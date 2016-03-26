@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.viagging.core.dao.ImagenServicioDAO;
 import com.viagging.core.dao.ServicioDAO;
 import com.viagging.core.model.ImagenServicio;
+import com.viagging.core.model.Servicio;
 import com.viagging.core.services.ImagenServicioService;
 
 @Service
@@ -38,9 +39,14 @@ public class ImagenServicioServiceImpl implements ImagenServicioService{
 	@Override
 	public void createImagenServicio(String imagenServicio, String idServicio) {
 		String encoded = Base64.encodeBase64URLSafeString(imagenServicio.getBytes());
+		Servicio servicio = servicioDAO.getServicioById(Integer.parseInt(idServicio));
+		if (servicio.getImagenprincipal() == null) {
+			servicio.setImagenprincipal(encoded.getBytes());
+			servicioDAO.updateServicio(servicio);
+		}
 		ImagenServicio imagen = new ImagenServicio();
 		imagen.setImagen(encoded.getBytes());
-		imagen.setServicio(servicioDAO.getServicioById(Integer.parseInt(idServicio)));
+		imagen.setServicio(servicio);
 		createImagenServicio(imagen);
 	}
 	

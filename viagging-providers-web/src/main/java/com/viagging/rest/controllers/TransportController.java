@@ -20,7 +20,8 @@ public class TransportController {
 
 	@RequestMapping(value = "/saveTransport", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void saveTransport(@RequestBody TransporteDTO transporte) throws JSONException {
-		transportService.createTransporte(transporte);
+	public Integer saveTransport(@RequestBody TransporteDTO transporte) {
+		Integer idService = transportService.createTransporte(transporte);
+		return idService;
 	}
 }
