@@ -34,7 +34,16 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 	        }, function errorCallback(response) {
 	        	return $q.reject(response.data);
 	        });
-		}		
+		},
+		
+		addCommentToProduct : function(comment, productId, successCallback, errorCallback){
+			$http({
+				url: "/viagging-api/products/" + productId + "/comment",
+				method: "POST",
+	            cache: false,
+	            data: comment
+	        }).success(successCallback).error(errorCallback);
+		}
 	};
 	
 	return productsService;
