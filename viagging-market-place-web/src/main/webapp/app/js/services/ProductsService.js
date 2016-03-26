@@ -43,6 +43,15 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 	            cache: false,
 	            data: comment
 	        }).success(successCallback).error(errorCallback);
+		},
+		
+		addQuestionToProduct : function(question, productId, successCallback, errorCallback){
+			$http({
+				url: "/viagging-api/products/" + productId + "/question",
+				method: "POST",
+	            cache: false,
+	            data: question
+	        }).success(successCallback).error(errorCallback);
 		}
 	};
 	

@@ -14,10 +14,31 @@ marketPlaceApp.controller('DetailCtrl', ['$scope', 'product','ngCart', 'wishList
 			function(){
 				alert("Gracias por agregar tu comentario y calificación!");
 				
-				$scope.product.comentarios.push($scope.comentarioCalificacion);
+				$scope.product.comentarios.push(angular.copy($scope.comentarioCalificacion));
+				$scope.comentarioCalificacion.comentario = "";
+				$scope.comentarioCalificacion.calificacion = 5;
 			},
 			function(){
 				alert("No ha sido posible agregar tu comentario y calificación. Inténtalo de nuevo!");
+			});
+	};
+	
+	$scope.preguntaProducto = {
+			pregunta: "",
+			respuesta: "",
+			usuario: userService.getUserData()
+	};
+	
+	$scope.addQuestion = function(){
+		productsService.addQuestionToProduct($scope.preguntaProducto, $scope.product.id,
+			function(){
+				alert("Tu pregunta ha sido agregada!");
+				
+				$scope.product.preguntas.push(angular.copy($scope.preguntaProducto));
+				$scope.preguntaProducto.pregunta = "";
+			},
+			function(){
+				alert("No ha sido posible agregar tu pregunta. Inténtalo de nuevo!");
 			});
 	};
 	
