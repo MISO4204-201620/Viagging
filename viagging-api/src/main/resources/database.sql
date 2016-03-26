@@ -9,11 +9,14 @@ DROP TABLE IF EXISTS TR_Movimiento;
 DROP TABLE IF EXISTS TR_PaqueteServicio;
 DROP TABLE IF EXISTS TR_Comentario_calificacion;
 DROP TABLE IF EXISTS TR_Compra;
+DROP TABLE IF EXISTS TP_Compra;
 DROP TABLE IF EXISTS TP_Imagen_servicio;
 DROP TABLE IF EXISTS TR_Caracteristica_servicio;
 DROP TABLE IF EXISTS TR_Caracteristica;
 DROP TABLE IF EXISTS TP_Servicio;
 DROP TABLE IF EXISTS TP_Paquete;
+DROP TABLE IF EXISTS TP_Orden;
+DROP TABLE IF EXISTS TP_Transaccion;
 DROP TABLE IF EXISTS TP_Usuario;
 DROP TABLE IF EXISTS TR_PaseoEcologico;
 DROP TABLE IF EXISTS TR_PaseosEcologicos;
@@ -61,7 +64,7 @@ CREATE TABLE TP_Usuario (
   ciudad VARCHAR(120) NULL,
   pais VARCHAR(50) NULL,
   estado VARCHAR(120) NULL,
-  zipcode VARCHAR(20) NULL
+  zipcode VARCHAR(20) NULL,
   PRIMARY KEY(id)
 );
 
@@ -167,7 +170,7 @@ CREATE TABLE TP_Paquete (
   id SERIAL,
   idUsuario INTEGER NOT NULL,
   nombrePaquete VARCHAR(100) NULL,
-  descipcion VARCHAR(200) NULL,
+  descripcion VARCHAR(200) NULL,
   activo boolean NULL,
   precio INTEGER  NULL,
   PRIMARY KEY(id),
@@ -200,16 +203,40 @@ CREATE TABLE TR_Pregunta (
   FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id)
 );
 
-CREATE TABLE TR_Compra (
-  id SERIAL,
-  idServicio INTEGER NULL,
-  idPaquete INTEGER NULL,
-  idUsuario INTEGER NOT NULL,
-  fechaCompra DATE NULL,
-  PRIMARY KEY(id),
-  FOREIGN KEY (idUsuario) REFERENCES TP_Usuario(id),
-  FOREIGN KEY (idPaquete) REFERENCES TP_Paquete(id),
-  FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id)
+CREATE TABLE TP_Transaccion (
+	id SERIAL,
+	medioPago VARCHAR(50) NOT NULL,
+	valor NUMERIC NOT NULL,
+	nombrePagador VARCHAR(200) NOT NULL,
+	numeroTarjeta VARCHAR(20) NOT NULL,
+	codigoSeguridad VARCHAR(4) NOT NULL,
+	mesVencimiento VARCHAR(2) NOT NULL,
+	annoVencimiento VARCHAR(2) NOT NULL,
+	cuotas INTEGER NOT NULL,
+	estado VARCHAR(30) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE TP_Orden (
+	id SERIAL,
+	idUsuario INTEGER NOT NULL,
+	idTransaccion INTEGER NOT NULL,
+	fechaCompra DATE NOT NULL,
+	estado VARCHAR(30) NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY (idUsuario) REFERENCES TP_Usuario(id),
+	FOREIGN KEY (idTransaccion) REFERENCES TP_Transaccion(id)
+);
+
+CREATE TABLE TP_Compra (
+	id SERIAL,
+	idServicio INTEGER NULL,
+	idPaquete INTEGER NULL,
+	idOrden INTEGER NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY (idPaquete) REFERENCES TP_Paquete(id),
+	FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id),
+	FOREIGN KEY (idOrden) REFERENCES TP_Orden(id)
 );
 
 CREATE TABLE TR_Comentario_calificacion (
@@ -225,7 +252,7 @@ CREATE TABLE TR_Comentario_calificacion (
   FOREIGN KEY (idUsuario) REFERENCES TP_Usuario(id),
   FOREIGN KEY (idPaquete) REFERENCES TP_Paquete(id),
   FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id),
-  FOREIGN KEY (idCompra) REFERENCES TR_Compra(id)
+  FOREIGN KEY (idCompra) REFERENCES TP_Compra(id)
 );
 
 CREATE TABLE TR_PaqueteServicio (
