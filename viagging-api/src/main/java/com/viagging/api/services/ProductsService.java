@@ -1,25 +1,26 @@
 /*
  * 
  */
-package com.viagging.api.services.impl;
+package com.viagging.api.services;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import com.viagging.api.constants.ProductType;
 import com.viagging.api.model.Producto;
 import com.viagging.api.model.mapper.ProductoMapper;
-import com.viagging.api.services.ProductService;
+import com.viagging.api.util.ProductsUtil;
+import com.viagging.core.model.ComentarioCalificacion;
 import com.viagging.core.model.Pregunta;
+import com.viagging.core.services.ComentarioCalificacionService;
 import com.viagging.core.services.PaqueteService;
 import com.viagging.core.services.PreguntaService;
 import com.viagging.core.services.ServicioService;
 import com.viagging.rest.dto.PaqueteDTO;
 import com.viagging.rest.dto.ServicioDTO;
+import com.viagging.rest.dto.mapper.ComentarioCalificacionDTOMapper;
 import com.viagging.rest.dto.mapper.PaqueteDTOMapper;
 import com.viagging.rest.dto.mapper.PreguntaDTOMapper;
 import com.viagging.rest.dto.mapper.ServicioDTOMapper;
@@ -28,7 +29,7 @@ import com.viagging.rest.dto.mapper.ServicioDTOMapper;
  * The Class ProductoServiceImpl.
  */
 @Service
-public class ProductsServiceImpl implements ProductService {
+public class ProductsService {
 
 	/** The servicio service. */
 	@Autowired
@@ -53,18 +54,25 @@ public class ProductsServiceImpl implements ProductService {
 	@Autowired
 	private PreguntaDTOMapper preguntaDTOMapper;
 	
-	@Override
+	@Autowired
+	private ComentarioCalificacionDTOMapper comentarioDTOMapper;
+	
+	@Autowired
+	private ComentarioCalificacionService comentarioService;
+	
+	@Autowired
+	private ProductsUtil productsUtil;
+	
 	public List<Producto> getAllProducts(){
 		List<PaqueteDTO> paquetes = paqueteDTOMapper.mapObjectList(paqueteService.getAllPaquete());
 		List<ServicioDTO> servicios = servicioDTOMapper.mapObjectList(servicioService.getAllServicio());
 		return buildProductosFromPaquetesAndServicios(paquetes, servicios);
 	}
 	
-	@Override
-	public Producto getProductById(String productId){		
-		Integer id = Integer.parseInt(productId.replaceAll("[\\D]", ""));
+	public Producto getProductById(String productId){	
+		Integer id = productsUtil.getProductId(productId);
 		Producto producto = new Producto();
-		if(StringUtils.startsWithIgnoreCase(productId, ProductType.PAQUETE.getPrefix())){
+		if(productsUtil.isPaqueteProducto(productId)){
 			PaqueteDTO paquete = paqueteDTOMapper.mapObject(paqueteService.getPaqueteById(id));
 			producto = productoMapper.buildProductoFromPaquete(paquete);
 			
@@ -73,13 +81,23 @@ public class ProductsServiceImpl implements ProductService {
 				producto.setPreguntas(preguntaDTOMapper.mapObjectList(preguntas));
 			}
 			
-		} else if(StringUtils.startsWithIgnoreCase(productId, ProductType.SERVICIO.getPrefix())){
+			List<ComentarioCalificacion> comentarios = comentarioService.findComentariosByPaquete(paquete.getId());
+			if(comentarios != null){
+				producto.setComentarios(comentarioDTOMapper.mapObjectList(comentarios));
+			}
+			
+		} else if(productsUtil.isServicioProducto(productId)){
 			ServicioDTO servicio = servicioDTOMapper.mapObject(servicioService.getServicioById(id));
 			producto = productoMapper.buildProductoFromServicio(servicio);
 			
 			List<Pregunta> preguntas = preguntaService.findPreguntasByServicio(servicio.getId());
 			if(preguntas != null){
 				producto.setPreguntas(preguntaDTOMapper.mapObjectList(preguntas));
+			}
+			
+			List<ComentarioCalificacion> comentarios = comentarioService.findComentariosByServicio(servicio.getId());
+			if(comentarios != null){
+				producto.setComentarios(comentarioDTOMapper.mapObjectList(comentarios));
 			}
 		}
 		return producto;
@@ -108,4 +126,5 @@ public class ProductsServiceImpl implements ProductService {
 		}
 		return productos;
 	}
+	
 }
