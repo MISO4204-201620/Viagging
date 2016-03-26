@@ -1,90 +1,47 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-/**
- * The persistent class for the tr_compra database table.
- * 
- */
 @Entity
-@Table(name="tr_compra")
-@NamedQuery(name="Compra.findAll", query="SELECT t FROM Compra t")
+@Table(name="tp_compra")
 public class Compra implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 539459438973538178L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
-
-	@Temporal(TemporalType.DATE)
-	private Date fechaCompra;
-
-	//bi-directional many-to-one association to ComentarioCalificacion
-	@OneToMany(mappedBy="compra")
-	private List<ComentarioCalificacion> comentarioCalificacion;
-
-	//bi-directional many-to-one association to Paquete
+	
 	@ManyToOne
 	@JoinColumn(name="idpaquete")
 	private Paquete paquete;
 
-	//bi-directional many-to-one association to Servicio
 	@ManyToOne
 	@JoinColumn(name="idservicio")
 	private Servicio servicio;
-
-	//bi-directional many-to-one association to Usuario
+	
 	@ManyToOne
-	@JoinColumn(name="idusuario")
-	private Usuario usuario;
-
-	public Compra() {
-	}
+	@JoinColumn(name="idorden")
+	private Orden orden;
 
 	public Integer getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Date getFechaCompra() {
-		return this.fechaCompra;
-	}
-
-	public void setFechaCompra(Date fechaCompra) {
-		this.fechaCompra = fechaCompra;
-	}
-
-	public List<ComentarioCalificacion> getComentarioCalificacion() {
-		return this.comentarioCalificacion;
-	}
-
-	public void setComentarioCalificacion(List<ComentarioCalificacion> comentarioCalificacion) {
-		this.comentarioCalificacion = comentarioCalificacion;
-	}
-
-	public ComentarioCalificacion addComentarioCalificacion(ComentarioCalificacion comentarioCalificacion) {
-		getComentarioCalificacion().add(comentarioCalificacion);
-		comentarioCalificacion.setCompra(this);
-
-		return comentarioCalificacion;
-	}
-
-	public ComentarioCalificacion removeComentarioCalificacion(ComentarioCalificacion comentarioCalificacion) {
-		getComentarioCalificacion().remove(comentarioCalificacion);
-		comentarioCalificacion.setCompra(null);
-
-		return comentarioCalificacion;
-	}
-
 	public Paquete getPaquete() {
-		return this.paquete;
+		return paquete;
 	}
 
 	public void setPaquete(Paquete paquete) {
@@ -92,19 +49,19 @@ public class Compra implements Serializable {
 	}
 
 	public Servicio getServicio() {
-		return this.servicio;
+		return servicio;
 	}
 
 	public void setServicio(Servicio servicio) {
 		this.servicio = servicio;
 	}
 
-	public Usuario getUsuario() {
-		return this.usuario;
+	public Orden getOrden() {
+		return orden;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setOrden(Orden orden) {
+		this.orden = orden;
 	}
-
+	
 }

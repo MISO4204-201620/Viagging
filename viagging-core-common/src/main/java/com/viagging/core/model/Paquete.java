@@ -16,7 +16,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-
 /**
  * The persistent class for the tp_paquete database table.
  * 
@@ -25,6 +24,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Table(name="tp_paquete")
 @NamedQuery(name="Paquete.findAll", query="SELECT t FROM Paquete t")
 public class Paquete implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -38,7 +38,6 @@ public class Paquete implements Serializable {
 	private String descripcion;
 	
 	private Integer precio;
-
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -69,8 +68,6 @@ public class Paquete implements Serializable {
 
 	public Paquete() {
 	}
-   
-	
 	
 	public Paquete( Boolean activo, String nombrePaquete,
 			Integer precio,String descripcion) {
@@ -80,24 +77,18 @@ public class Paquete implements Serializable {
 		this.precio = precio;
 		this.descripcion = descripcion;
 	}
-
 	
 	public String getDescripcion() {
 		return descripcion;
 	}
 
-
-
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
-
-
 	public Integer getId() {
 		return this.id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -196,7 +187,6 @@ public class Paquete implements Serializable {
 	public Movimiento removeMovimiento(Movimiento movimiento) {
 		getMovimientos().remove(movimiento);
 		movimiento.setPaquete(null);
-
 		return movimiento;
 	}
 
@@ -218,7 +208,6 @@ public class Paquete implements Serializable {
 	public PaqueteServicio removePaqueteServicio(PaqueteServicio paqueteServicio) {
 		getPaqueteServicios().remove(paqueteServicio);
 		paqueteServicio.setPaquete(null);
-
 		return paqueteServicio;
 	}
 
@@ -233,14 +222,12 @@ public class Paquete implements Serializable {
 	public Pregunta addPregunta(Pregunta pregunta) {
 		getPreguntas().add(pregunta);
 		pregunta.setPaquete(this);
-
 		return pregunta;
 	}
 
 	public Pregunta removePregunta(Pregunta pregunta) {
 		getPreguntas().remove(pregunta);
 		pregunta.setPaquete(null);
-
 		return pregunta;
 	}
 
