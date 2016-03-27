@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viagging.api.model.UserLogin;
+import com.viagging.core.constant.Profile;
 import com.viagging.core.model.Usuario;
+import com.viagging.core.model.mapper.UsuarioMapper;
 import com.viagging.core.services.UsuarioService;
 import com.viagging.rest.dto.UsuarioDTO;
+import com.viagging.rest.dto.mapper.UsuarioDTOMapper;
 import com.viagging.util.CookieUtil;
 
 /**
@@ -34,6 +37,12 @@ public class LoginController {
 	
 	/** The Constant AUTHORIZATION_TOKEN_COOKIE. */
 	private static final String AUTHORIZATION_TOKEN_COOKIE = "Authorization";
+	
+	@Autowired
+	private UsuarioMapper usuarioMapper;
+	
+	@Autowired
+	private UsuarioDTOMapper usuarioDTOMapper;
 	
 	/**
 	 * Login.
@@ -51,7 +60,29 @@ public class LoginController {
 		}
 		
 		UsuarioDTO usuarioDTO = UsuarioDTO.buildObject(usuario);
+		addAuthorizationCookie(response, usuario);
 		
+		return new ResponseEntity<UsuarioDTO>(usuarioDTO, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<UsuarioDTO> register(@RequestBody final UsuarioDTO usuarioDTO, HttpServletResponse response){
+		Usuario usuarioNuevo;
+		try {
+			usuarioNuevo = usuarioService.createUsuario(usuarioMapper.mapObject(usuarioDTO), Profile.USUARIO.getId());
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		if(usuarioNuevo != null){
+			addAuthorizationCookie(response, usuarioNuevo);
+		}
+		
+		UsuarioDTO usuarioDTONuevo = usuarioDTOMapper.mapObject(usuarioNuevo);
+		return new ResponseEntity<>(usuarioDTONuevo, HttpStatus.OK);
+	}
+	
+	private void addAuthorizationCookie(HttpServletResponse response, Usuario usuario){
 		String token = Jwts.builder().setSubject(usuario.getLogin())
 				.claim("usuarioId", usuario.getId())
 				.setIssuedAt(new Date())
@@ -60,8 +91,6 @@ public class LoginController {
 		
 		Cookie authCookie = CookieUtil.createCookie(AUTHORIZATION_TOKEN_COOKIE, token);
 		response.addCookie(authCookie);
-		
-		return new ResponseEntity<UsuarioDTO>(usuarioDTO, HttpStatus.OK);
 	}
 
 }
