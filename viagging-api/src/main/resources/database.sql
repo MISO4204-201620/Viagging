@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS TP_Compra;
 DROP TABLE IF EXISTS TP_Imagen_servicio;
 DROP TABLE IF EXISTS TR_Caracteristica_servicio;
 DROP TABLE IF EXISTS TR_Caracteristica;
+DROP TABLE IF EXISTS TP_ListaDeseos;
 DROP TABLE IF EXISTS TP_Servicio;
 DROP TABLE IF EXISTS TP_Paquete;
 DROP TABLE IF EXISTS TP_Orden;
@@ -24,7 +25,6 @@ DROP TABLE IF EXISTS TR_Transporte;
 DROP TABLE IF EXISTS TR_Alimentacion;
 DROP TABLE IF EXISTS TR_Alojamiento;
 DROP TABLE IF EXISTS TP_PreguntasFrecuentes;
-DROP TABLE IF EXISTS TP_ListaDeseos;
 
 CREATE TABLE TP_Modulo (
   id SERIAL,
@@ -313,3 +313,7 @@ INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('6','ALIMENTACION','A
 INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('7','ALIMENTACION','CENA');
 INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('8','TRANSPORTE','AIRE_ACONDICIONADO');
 INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('9','PASEOECOLOGICO','REFRIGERIO');
+
+INSERT INTO tp_preguntasfrecuentes (id,titulo,descripcion) VALUES ('1','¿Cómo me registro en Viagging?','Registrarse es muy fácil, solo hay que ingresar al módulo Registro ubicado en la parte superior y diligenciar la información solicitada.');
+INSERT INTO tp_preguntasfrecuentes (id,titulo,descripcion) VALUES ('2','¿Cómo actualizo mis datos?','Para actualizar los datos debe ingresar por Login. Debe digitar su usuario y clave. Luego, en el menú principal encontrará su nombre con una lista desplegable, allí debe seleccionar Perfil. Haga clic y verá allí sus datos para actualizarlos.');
+INSERT INTO tp_preguntasfrecuentes (id,titulo,descripcion) VALUES ('3','¿Cómo puedo calificar los servicios que compro?','Para calificar los servicios que ha comprado, Viagging ofrece un medio que permite comunicar su experiencia con el producto. Solo debe dirigirse al producto y en la parte inferior izquierda clic en la pestaña Calificación. En este módulo puede ver las demás opiniones.');

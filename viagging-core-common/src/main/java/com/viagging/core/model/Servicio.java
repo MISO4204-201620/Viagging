@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -95,6 +96,10 @@ public class Servicio implements Serializable {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="servicio")
 	private List<Pregunta> preguntas;
+	
+//	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="servicio", fetch=FetchType.EAGER)
+	private List<CaracteristicaServicio> caracteristicas;
 
 	public Servicio() {
 	}
@@ -303,6 +308,14 @@ public class Servicio implements Serializable {
 		pregunta.setServicio(null);
 
 		return pregunta;
+	}
+
+	public List<CaracteristicaServicio> getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public void setCaracteristicas(List<CaracteristicaServicio> caracteristicas) {
+		this.caracteristicas = caracteristicas;
 	}
 
 }

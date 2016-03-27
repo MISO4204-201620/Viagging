@@ -49,9 +49,13 @@ public class ProductoMapper {
 		producto.setTipoProducto(ProductType.SERVICIO);
 		producto.setPrecio(new BigDecimal(servicio.getPrecio()));
 		producto.setActivo(servicio.getActivo());
+		producto.setImagenPrincipal(servicio.getImagenPrincipal());
+		producto.setImagenes(servicio.getImagenes());
 		List<ServicioDTO> servicios = new ArrayList<>();
 		servicios.add(servicio);
 		producto.setServicios(servicios);
+		servicio.setImagenes(null);
+		servicio.setImagenPrincipal(null);
 		return producto;
 	}
 }

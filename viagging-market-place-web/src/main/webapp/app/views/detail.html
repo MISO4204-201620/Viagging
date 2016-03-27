@@ -99,20 +99,15 @@
 									
 										<p>{{product.descripcion}}</p>
 										
-										<span class="title">Características</span>
+										<span class="title"><i class="fa fa-tags"></i> INCLUYE</span>
 										
-										<table class="table table-bordered">
-											<tbody>
-												<tr>
-													<td width="40%">Caracteristica 1</td>
-													<td>Si</td>
-												</tr>
-												<tr>
-													<td>Caracteristica 2</td>
-													<td>No</td>
-												</tr>
-											</tbody>
-										</table>
+										<div ng-repeat="servicio in product.servicios">
+											<span class="title" style="border-bottom:0px; margin-bottom:10px;">{{servicio.categoria}}</span>
+											<p ng-if="product.tipoProducto == 'PAQUETE'">{{servicio.descripcionCorta}}</p>
+											<div ng-repeat="caracteristica in servicio.caracteristicas">
+												<p class="ng-binding"><i class="fa fa-check-circle"></i> {{caracteristica.valor}}</p>
+											</div>
+										</div>
 									</div>
 								</div>
 								

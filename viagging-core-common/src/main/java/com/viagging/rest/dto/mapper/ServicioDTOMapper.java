@@ -26,12 +26,16 @@ public class ServicioDTOMapper {
 	@Autowired
 	private PaseoEcologicoDTOMapper paseoEcologicoDTOMapper;
 	
+	@Autowired
+	private CaracteristicaDTOMapper caracteristicaDTOMapper;
+	
 	public ServicioDTO mapObject(Servicio servicio) {
 		ServicioDTO servicioDTO = new ServicioDTO();
 		servicioDTO.setId(servicio.getId());
 		servicioDTO.setActivo(servicio.getActivo());
 		servicioDTO.setNombre(servicio.getNombre());
 		servicioDTO.setDescripcionCorta(servicio.getDescripcion());
+		servicioDTO.setCaracteristicas(caracteristicaDTOMapper.mapObjectListFromCaracteristicaServicio(servicio.getCaracteristicas()));
 		servicioDTO.setPrecio(String.valueOf(servicio.getPrecio()));
 		servicioDTO.setRestricciones(servicio.getRestricciones());
 		if(servicio.getImagenprincipal() != null){
