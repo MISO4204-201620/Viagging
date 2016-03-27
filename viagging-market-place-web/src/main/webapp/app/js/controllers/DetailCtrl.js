@@ -3,13 +3,8 @@ marketPlaceApp.controller('DetailCtrl', ['$scope', 'product','ngCart', 'wishList
 	
 	'use strict';
 	
-	$scope.comentarioCalificacion = {
-		comentario: "",
-		calificacion: 5,
-		usuario: userService.getUserData()
-	};
-	
 	$scope.addComment = function(){
+		$scope.comentarioCalificacion.usuario = userService.getUserData();
 		productsService.addCommentToProduct($scope.comentarioCalificacion, $scope.product.id,
 			function(){
 				alert("Gracias por agregar tu comentario y calificación!");
@@ -23,13 +18,8 @@ marketPlaceApp.controller('DetailCtrl', ['$scope', 'product','ngCart', 'wishList
 			});
 	};
 	
-	$scope.preguntaProducto = {
-			pregunta: "",
-			respuesta: "",
-			usuario: userService.getUserData()
-	};
-	
 	$scope.addQuestion = function(){
+		$scope.preguntaProducto.usuario = userService.getUserData();
 		productsService.addQuestionToProduct($scope.preguntaProducto, $scope.product.id,
 			function(){
 				alert("Tu pregunta ha sido agregada!");
@@ -61,5 +51,7 @@ marketPlaceApp.controller('DetailCtrl', ['$scope', 'product','ngCart', 'wishList
     var initDetailCtrl = function(){
     	$scope.ngCart = ngCart;
     	$scope.product = product;
+    	$scope.comentarioCalificacion = {};
+    	$scope.preguntaProducto = {};
     }();
 }]);

@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 
 import com.viagging.api.constants.ProductType;
 import com.viagging.api.model.Payment;
+import com.viagging.api.model.PaymentProduct;
 import com.viagging.core.constant.EstadoOrden;
 import com.viagging.core.constant.EstadoTransaccion;
 import com.viagging.core.model.Compra;
@@ -27,10 +28,9 @@ public class PaymentsService {
 	@Autowired
 	private OrdenService ordenService;
 	
-	public EstadoTransaccion submitPayment(Payment payment){
+	public Orden submitPayment(Payment payment){
 		Orden orden = buildOrdenFromPayment(payment);
-		Orden processedOrder = ordenService.createOrden(orden);
-		return processedOrder.getTransaccion().getEstado() ;
+		return ordenService.createOrden(orden);
 	}
 	
 	private Orden buildOrdenFromPayment(Payment payment){
@@ -64,11 +64,13 @@ public class PaymentsService {
 		return transaccion;
 	}
 	
-	private List<Compra> buildComprasFromProductos(List<String> productos, Orden orden){
+	private List<Compra> buildComprasFromProductos(List<PaymentProduct> productos, Orden orden){
 		List<Compra> compras = new ArrayList<>();
-		for(String idProducto : productos){
+		for(PaymentProduct producto : productos){
+			String idProducto = producto.getId();
 			Compra compra = new Compra();
 			compra.setOrden(orden);
+			compra.setCantidad(producto.getCantidad());
 			Integer id = getProductId(idProducto);
 			if(isPaqueteProducto(idProducto)){
 				Paquete paquete = new Paquete();

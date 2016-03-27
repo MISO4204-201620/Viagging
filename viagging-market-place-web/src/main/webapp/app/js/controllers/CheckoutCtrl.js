@@ -14,7 +14,7 @@ marketPlaceApp.controller('CheckoutCtrl', ['$scope', 'ngCart', 'userService', '$
 	};
 	
 	var successCallback = function (data){
-//		$state.go("response");
+		$scope.ngCart.empty();
 		alert("Gracias!");
 		$state.go("home");
 	};
@@ -29,7 +29,11 @@ marketPlaceApp.controller('CheckoutCtrl', ['$scope', 'ngCart', 'userService', '$
 		$scope.payment.valorTotal = $scope.ngCart.getSubTotal();
 		$scope.payment.productos = [];
 		angular.forEach(productsInCart, function(product) {
-			$scope.payment.productos.push(product.getId());
+			var producto = {
+				id : product.getId(),
+				cantidad: product.getQuantity()
+			};
+			$scope.payment.productos.push(producto);
 		});
 		
 		paymentsService.submitPayment($scope.payment, successCallback, errorCallback);

@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.viagging.core.constant.EstadoOrden;
 
 @Entity
@@ -50,6 +51,7 @@ public class Orden implements Serializable{
 	private Transaccion transaccion;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@JsonManagedReference
 	@OneToMany(mappedBy="orden", cascade=CascadeType.ALL)
 	private List<Compra> compras;
 

@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="tp_compra")
 public class Compra implements Serializable {
@@ -29,8 +31,11 @@ public class Compra implements Serializable {
 	private Servicio servicio;
 	
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name="idorden")
 	private Orden orden;
+	
+	private Integer cantidad;
 
 	public Integer getId() {
 		return id;
@@ -62,6 +67,14 @@ public class Compra implements Serializable {
 
 	public void setOrden(Orden orden) {
 		this.orden = orden;
+	}
+
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
 	}
 	
 }

@@ -6,7 +6,7 @@ public class Payment {
 
 	private Integer idUsuario;
 	
-	private List<String> productos;
+	private List<PaymentProduct> productos;
 	
 	private String medioPago;
 	
@@ -32,11 +32,11 @@ public class Payment {
 		this.idUsuario = idUsuario;
 	}
 
-	public List<String> getProductos() {
+	public List<PaymentProduct> getProductos() {
 		return productos;
 	}
 
-	public void setProductos(List<String> productos) {
+	public void setProductos(List<PaymentProduct> productos) {
 		this.productos = productos;
 	}
 
