@@ -1,44 +1,32 @@
-providersApp.service('loginService', ['$http', '$q', function($http, $q){
+providersApp.service('loginService', ['$http', 'userService', function($http, userService){
 	
 	'use strict';
 	
-	var applicationConfig = {};
+	var loginService = {
 	
-	var initApplicationConfig = function(config){
-		applicationConfig.categories = config.categories;
-		applicationConfig.prices = config.prices;
-	};
-	
-	var configService = {
-	
-		initMarketPlaceConfig : function(){
-			return $http({
-	            url: "/viagging-market-place-web/config",
-	            method: "GET",
-	            cache: false
-	        }).then(function successCallback(response) {
-	        	if(angular.isObject(response.data)){
-	        		var config = response.data;
-	        		//Set application config data
-	        		return $q.resolve(response.data);
-	        	} else {
-	        		console.log("ingr");
-	        		return $q.reject(response.data);
-	        	}
-	        }, function errorCallback(response) {
-	        	console.log("errorCallback");
-	        	return $q.reject(response.data);
-	        });
-		},
+		loginUser : function(user, successCallback, errorCallback){
 			
-		getCategories : function(){
-			return applicationConfig.categories;
+			return $http({
+	            url: "/viagging-api/login",
+	            method: "POST",
+	            data: user,
+	            cache: false
+	        }).success(function(response){
+	        	if(angular.isObject(response)){
+	        		userService.setUserData(response);
+	        		successCallback(response);
+	        	} else {
+	        		errorCallback(response);
+	        	}
+	        	 
+	        }).error(errorCallback);
 		},
 		
-		getPrices : function(){
-			return applicationConfig.prices;
+		logoutUser : function(){
+			userService.removeUserData();
 		}
+	
 	};
 	
-	return configService;
+	return loginService;
 }]);

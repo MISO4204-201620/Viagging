@@ -1,26 +1,38 @@
-providersApp.controller('LoginCtrl', ['$scope', '$http','ngDialog','$rootScope','$location','$state', function($scope, $http,ngDialog, $rootScope,$location,$state) {
+providersApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', '$http',
+    function($scope, $rootScope, $state, $http){
 	
-	   $scope.login = function() { 
-		   console.log('loginb ingreso');
-		   $location.path( '/contenido.html' );
-		   
-
-				     
-				   
-		   //$stateProvider.run("homwe");
-		//  $location.path('/contenido');
-			/* $http.get('/viagging-providers-web/register').
-			    success(function(data, status, headers, config) {
-			    	console.log(status);
-			      $scope.listaServicios = data;
-			      console.log(data);
-			    }).
-			    error(function(data, status, headers, config) {
-			      // log error
-			    });*/
-			    console.log('despues de llamar Packages');
-	     }
-	   $scope.ActiveChange =   function (activeTab) {
-		   $state.go('content');
-	    }
+	'use strict';
+	
+	$scope.user = {
+		login: "",
+		password: "",
+	};
+	
+	var successCallback = function(userData){
+//		alert("Hola " + userData.primerNombre + "!");
+		$rootScope.$broadcast('USER_LOGGED_IN', userData);	
+		$state.go("home");
+	};
+	
+	var errorCallback = function(){
+		alert("Las credenciales que ha ingresado no son v�lidas!");
+		$scope.user.password = "";
+	};
+	
+	$scope.loginUser = function(){
+		console.log("esta intentando ingresar");
+		if($scope.user.login != "" && $scope.user.password != "") {
+			$http.post('/viagging-api/login', angular.toJson($scope.user), {
+    			headers: {"Content-Type": "application/json"},
+    			transformRequest: angular.identity}
+    		)
+    		.success(function(response) {
+    			console.log('success', response);
+    		})
+    		.error(function(response) {
+    			console.log('error', response);
+    		});
+			console.log("no estan vacios");
+		}
+	};
 }]);
