@@ -3,7 +3,7 @@ marketPlaceApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'login
 	
 	'use strict';
 	
-	$scope.user = {
+	$scope.userLogin = {
 		login: "",
 		password: "",
 	};
@@ -20,8 +20,6 @@ marketPlaceApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'login
 	};
 	
 	$scope.loginUser = function(){
-		if($scope.user.login != "" && $scope.user.password != ""){
-			loginService.loginUser($scope.user, successCallback, errorCallback);
-		}
+		loginService.loginUser($scope.userLogin, successCallback, errorCallback);
 	};
 }]);
