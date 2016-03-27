@@ -41,12 +41,12 @@
            	</div>
             <div ng-repeat="product in products" class="col-lg-4 col-sm-6 hero-feature text-center">
                 <div class="thumbnail">
-                	<a ui-sref="detail({productId: product.id})" class="link-p">
-                    	<img src="../app/images/hotel_1.jpg" alt="">
+                	<a ui-sref="detail({productId: product.id})" class="link-p" style="overflow: hidden; position: relative;">
+                    	<img data-ng-src="data:image/png;base64,{{product.imagenPrincipal}}" alt="" style="position: absolute; width: 571px; height: auto; max-width: none; max-height: none; left: -164px; top: 0px;">
                 	</a>
                     <div class="caption prod-caption">
                         <h4><a ui-sref="detail({productId: product.id})">{{product.nombre}}</a></h4>
-                        <p>{{product.descripcion}}</p>
+                        <p style="height:100px;">{{product.descripcion}}</p>
                         <p>
                         	<div class="btn-group">
 	                        	<ngcart-addtocart id="{{product.id}}" name="{{product.nombre}}" price="{{product.precio}}" quantity="1" ></ngcart-addtocart>

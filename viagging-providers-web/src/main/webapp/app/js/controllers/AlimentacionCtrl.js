@@ -33,7 +33,16 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 
 	$scope.guardarAlimentacion = function(falimentacion) {
 		var idService;
-		$scope.alimentacion.servicio.caracteristicas=JSON.stringify($scope.selection);
+		
+		var caracteristicas = [];
+		for(valorCaracteristica in $scope.selection){
+			var caracteristica = {
+				valor: valorCaracteristica
+			};
+			caracteristicas.push(caracteristica);
+		}
+		$scope.alimentacion.servicio.caracteristicas = caracteristicas;
+		
 		$http.post('/viagging-providers-web/saveFood', angular.toJson($scope.alimentacion), {
 			headers: {"Content-Type": "application/json"},
 			transformRequest: angular.identity

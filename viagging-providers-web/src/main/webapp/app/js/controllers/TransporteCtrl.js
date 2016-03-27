@@ -42,7 +42,16 @@ angular.module('viaggingApp', ['angularFileUpload'])
 
 	$scope.guardarTransporte = function(ftransporte) {
 		var idService;
-		$scope.transporte.servicio.caracteristicas=JSON.stringify($scope.selection);
+
+		var caracteristicas = [];
+		for(valorCaracteristica in $scope.selection){
+			var caracteristica = {
+				valor: valorCaracteristica
+			};
+			caracteristicas.push(caracteristica);
+		}
+		$scope.transporte.servicio.caracteristicas = caracteristicas;
+		
 		console.log($scope.transporte.servicio.caracteristicas);
 		$http.post('/viagging-providers-web/saveTransport', angular.toJson($scope.transporte), {
 			headers: {"Content-Type": "application/json"},
