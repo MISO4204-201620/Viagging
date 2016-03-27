@@ -2,24 +2,40 @@ marketPlaceApp.controller('RegisterCtrl', ['$scope', '$rootScope', '$state', 'lo
    function($scope, $rootScope, $state, loginService, emailValidationHelper){
 
 	$scope.user = {
-			primerNombre: "",
-			primerApellido: "",
-			correo: "",
-			login: "",
-			password: "",
-			passwordCopy: "",
-		};
+		primerNombre: "",
+		primerApellido: "",
+		correo: "",
+		login: "",
+		password: "",
+		passwordCopy: "",
+	};
 	
-	var successCallback = function(userData){
+	$scope.userLogin = {
+		login: "",
+		password: "",
+	};
+	
+	var registerSuccessCallback = function(userData){
 		alert("Bienvenido a Viagging " + userData.primerNombre + " " + userData.primerApellido);
 		$rootScope.$broadcast('USER_LOGGED_IN', userData);	
 		$state.go("home");
 	};
 	
-	var errorCallback = function(){
+	var registerErrorCallback = function(){
 		alert("Ha ocurrido un error durante el registro.");
 		$scope.user.password = "";
 		$scope.user.passwordCopy = "";
+	};
+	
+	var loginSuccessCallback = function(userData){
+		alert("Bienvenido de nuevo " + userData.primerNombre + " " + userData.primerApellido);
+		$rootScope.$broadcast('USER_LOGGED_IN', userData);	
+		$state.go("home");
+	};
+	
+	var loginErrorCallback = function(){
+		alert("Las credenciales que ha ingresado no son válidas!");
+		$scope.user.password = "";
 	};
 	
 	var validateForm = function(){
@@ -36,8 +52,12 @@ marketPlaceApp.controller('RegisterCtrl', ['$scope', '$rootScope', '$state', 'lo
 	
 	$scope.registerUser = function(){
 		if(validateForm()){
-			loginService.registerUser($scope.user, successCallback, errorCallback);
+			loginService.registerUser($scope.user, registerSuccessCallback, registerErrorCallback);
 		}
+	};
+	
+	$scope.loginUser = function(){
+		loginService.loginUser($scope.userLogin, loginSuccessCallback, loginErrorCallback);
 	};
 	
 }]);
