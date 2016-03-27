@@ -233,6 +233,7 @@ CREATE TABLE TP_Compra (
 	idServicio INTEGER NULL,
 	idPaquete INTEGER NULL,
 	idOrden INTEGER NOT NULL,
+	cantidad INTEGER NOT NULL,
 	PRIMARY KEY(id),
 	FOREIGN KEY (idPaquete) REFERENCES TP_Paquete(id),
 	FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id),
