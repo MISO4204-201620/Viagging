@@ -27,8 +27,8 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-            	<li ng-if="!isUserLoggedIn"><a ui-sref="login">Login</a></li>
-            	<li ng-if="!isUserLoggedIn"><a ui-sref="register">Registro</a></li>
+            	<li ng-if="!isUserLoggedIn"><a ui-sref="login"><i class="fa fa-key"></i> Login</a></li>
+            	<li ng-if="!isUserLoggedIn"><a ui-sref="register"><i class="fa fa-user-plus"></i> Registro</a></li>
             	<li ng-if="isUserLoggedIn" class="nav-dropdown">
                 	<a class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer;padding-top: 7px;padding-bottom: 7px;">
                 	<img class="nav-user-photo" src="../app/images/user.png">

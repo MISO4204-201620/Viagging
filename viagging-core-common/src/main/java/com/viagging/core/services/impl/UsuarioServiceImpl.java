@@ -40,6 +40,11 @@ public class UsuarioServiceImpl implements  UsuarioService  {
 		return usuarioDAO.findUsuarioByLoginAndPassword(login, password);
 	};
 	
+	@Override
+	public Usuario findUsuarioByLogin(String login){
+		return usuarioDAO.findUsuarioByLogin(login);
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.viagging.core.services.UsuarioService#getUsuarioById(java.lang.Integer)
 	 */

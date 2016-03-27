@@ -3,25 +3,23 @@ marketPlaceApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'login
 	
 	'use strict';
 	
-	$scope.user = {
+	$scope.userLogin = {
 		login: "",
 		password: "",
 	};
 	
 	var successCallback = function(userData){
-//		alert("Hola " + userData.primerNombre + "!");
+		alert("Bienvenido de nuevo " + userData.primerNombre + " " + userData.primerApellido);
 		$rootScope.$broadcast('USER_LOGGED_IN', userData);	
 		$state.go("home");
 	};
 	
 	var errorCallback = function(){
-		alert("Las credenciales que ha ingresado no son v·lidas!");
+		alert("Las credenciales que ha ingresado no son v√°lidas!");
 		$scope.user.password = "";
 	};
 	
 	$scope.loginUser = function(){
-		if($scope.user.login != "" && $scope.user.password != ""){
-			loginService.loginUser($scope.user, successCallback, errorCallback);
-		}
+		loginService.loginUser($scope.userLogin, successCallback, errorCallback);
 	};
 }]);

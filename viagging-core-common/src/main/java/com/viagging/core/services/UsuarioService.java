@@ -7,6 +7,8 @@ public interface UsuarioService {
      
 	Usuario findUsuarioByLoginAndPassword(String login, String password);
 	
+	Usuario findUsuarioByLogin(String login);
+	
 	Usuario getUsuarioById(Integer idUsuario);
 
 	Usuario createUsuario(Usuario usuario,String idPerfil)throws Exception;
