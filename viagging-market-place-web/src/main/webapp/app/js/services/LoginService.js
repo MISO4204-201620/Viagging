@@ -1,13 +1,13 @@
 marketPlaceApp.service('loginService', ['$http', 'userService', function($http, userService){
-	
+
 	'use strict';
-	
+
 	var loginService = {
-	
+
 		loginUser : function(userLogin, successCallback, errorCallback){
-			
+
 			return $http({
-	            url: "/viagging-api/login",
+	            url: "/viagging-market-place-web/login",
 	            method: "POST",
 	            data: userLogin,
 	            cache: false
@@ -18,18 +18,18 @@ marketPlaceApp.service('loginService', ['$http', 'userService', function($http, 
 	        	} else {
 	        		errorCallback(response);
 	        	}
-	        	 
+
 	        }).error(errorCallback);
 		},
-		
+
 		logoutUser : function(){
 			userService.removeUserData();
 		},
-		
+
 		registerUser : function(user, successCallback, errorCallback){
-			
+
 			return $http({
-	            url: "/viagging-api/register",
+	            url: "/viagging-market-place-web/register",
 	            method: "POST",
 	            data: user,
 	            cache: false
@@ -40,11 +40,11 @@ marketPlaceApp.service('loginService', ['$http', 'userService', function($http, 
 	        	} else {
 	        		errorCallback(response);
 	        	}
-	        	 
+
 	        }).error(errorCallback);
 		}
-	
+
 	};
-	
+
 	return loginService;
 }]);
