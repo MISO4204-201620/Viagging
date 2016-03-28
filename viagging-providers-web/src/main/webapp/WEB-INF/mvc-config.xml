@@ -37,7 +37,7 @@
 	<mvc:view-controller path="/crearalimentacion.html" view-name="/crearalimentacion"/>
 	<mvc:view-controller path="/creartransporte.html" view-name="/creartransporte"/>
 	<mvc:view-controller path="/crearturismo.html" view-name="/crearturismo"/>
-	
+	<mvc:view-controller path="/activarpaquete.html" view-name="/activarPaquete"/>
 	
 	
 	<bean

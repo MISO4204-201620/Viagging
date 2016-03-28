@@ -64,13 +64,18 @@ public class PaqueteServiceImpl implements PaqueteService{
 	
 	@Override
 	public Paquete buildPaquete(PaqueteDTO paqueteDTO) {
-		Paquete paquete = new Paquete( true, paqueteDTO.getNombre(), Integer.valueOf(paqueteDTO.getPrecio()),paqueteDTO.getDescripcion());		
+		Paquete paquete = new Paquete(paqueteDTO.getId(), paqueteDTO.getActivo(), paqueteDTO.getNombre(), Integer.valueOf(paqueteDTO.getPrecio()),paqueteDTO.getDescripcion());		
 		return paquete;
 	}
 	
 	@Override
 	public List<Paquete> getAllPaquetesByFiltro(String filtro){
 		return paqueteDAO.getAllPaquetesByFiltro(filtro);		
+	}
+	
+	@Override
+	public Paquete activatePaquete(Paquete paquete){
+		  return paqueteDAO.activatePaquete(paquete);
 	}
 
 }

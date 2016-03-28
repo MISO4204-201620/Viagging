@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.codec.binary.Base64;
 import org.json.JSONObject;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

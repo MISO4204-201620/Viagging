@@ -92,7 +92,7 @@ public class Servicio implements Serializable {
 	private List<PaqueteServicio> paqueteServicios;
 
 	//bi-directional many-to-one association to Pregunta
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	@OneToMany(mappedBy="servicio")
 	private List<Pregunta> preguntas;
 

@@ -11,7 +11,7 @@
 	<!-- mvc:annotation-driven /-->
 
 	<!-- JPA Persistence Context and EntityManager configuration -->
-	<!--  context:component-scan base-package="com.viagging"></context:component-scan-->
+	<context:component-scan base-package="com.viagging"></context:component-scan>
      
      	<!-- Properties config -->
 	<bean id="propertyLocations" class="org.springframework.beans.factory.config.ListFactoryBean">

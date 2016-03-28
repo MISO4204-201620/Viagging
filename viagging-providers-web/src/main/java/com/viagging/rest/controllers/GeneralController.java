@@ -56,6 +56,7 @@ public class GeneralController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public void saveImage(@RequestBody String file, @QueryParam("idServicio") String idServicio) {
 		System.out.println(idServicio + "ids");
+		System.out.println(file + "file");
 		imageService.createImagenServicio(file, idServicio);
 	}
 	

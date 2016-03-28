@@ -23,6 +23,7 @@ public interface PaqueteDAO {
 	Paquete deletePaquete(Integer idPaquete);
 	
 	List<Paquete> getAllPaquetesByFiltro(String filtro);
-
+   
+	Paquete activatePaquete(Paquete paquete);
 
 }

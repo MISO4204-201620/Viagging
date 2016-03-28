@@ -4,14 +4,19 @@ $scope.idEspecifico = '1';
 $scope.name;
 $scope.lastName;
 $scope.filtrarnombre = "";
-//$rootScope.respuestaCreacion = "";
 $scope.chooseservices=[];
 $scope.ocultarSeccionAdicionarPaquete = true;
-$scope.onlyNumbers = /^\d+$/;
+$scope.paquete = {
+		precio: 0,
+		nombre: "",
+		descripcion: "",
+		activo: false,
+		id : 0
+}
+
+
 
    $scope.getCategory = function() { 
-	   console.log("ingreso a categoria");
-	   
 		 $http.get('/viagging-providers-web/getCategory').
 		    success(function(data, status, headers, config) {
 		    	console.log(status);
@@ -19,7 +24,6 @@ $scope.onlyNumbers = /^\d+$/;
 		      console.log(data);
 		    }).
 		    error(function(data, status, headers, config) {
-		      // log error
 		    }); 
 		    console.log('despues de llamar');
      }
@@ -145,19 +149,16 @@ $scope.onlyNumbers = /^\d+$/;
 	
 	
 	$scope.createPackage = function() { 
-		console.log("crear paquete");
-		console.log($scope.paquete);
 		if($scope.paquete.precio > 2147483647){
-	    	$rootScope.respuestaCreacion = "Precio debe ser menor a 2147483648";
-	    	ngDialog.open({ template: 'popup.html', className: 'ngdialog-theme-popup' });
+			alert("Precio debe ser menor a 2147483648");
+	    	//ngDialog.open({ template: 'popup.html', className: 'ngdialog-theme-popup' });
 		}else{
 		
 			$scope.paquete.servicios = $scope.chooseservices;
 			 $http.post('/viagging-providers-web/addPackage',$scope.paquete).
 				 success(function(data, status, headers, config) {
 		    	console.log(status);
-		    	$rootScope.respuestaCreacion = "Paquete Creado";
-		    	ngDialog.open({ template: 'popup.html', className: 'ngdialog-theme-popup' });
+		    	alert("Paquete creado");
 		    	$scope.paquete.precio = "";
 		    	$scope.paquete.nombre = "";
 		    	$scope.paquete.descripcion = "";
@@ -165,7 +166,7 @@ $scope.onlyNumbers = /^\d+$/;
 	
 	        }).
 	          error(function(data, status, headers, config) {
-	        	  $rootScope.respuestaCreacion = "Error al crear paquete";
+	        	  alert("Error al crear paquete");
 	        	  ngDialog.open({ template: 'popup.html', className: 'ngdialog-theme-popup' });
 	        }); 
 		}
@@ -232,5 +233,26 @@ $scope.onlyNumbers = /^\d+$/;
 			      // log error
 			    }); 
 			    console.log('despues de llamar Packages');
+	     }
+	   
+	   $scope.activatePackage = function(id,estado) { 
+		   $scope.paquete.id = id;
+		   $scope.paquete.activo = estado;
+		   console.log("id"+id);
+		   console.log("estado"+estado);
+			 $http.post('/viagging-providers-web/activatePackage',$scope.paquete).
+			 success(function(data, status, headers, config) {
+	    	      console.log(status);
+	    	      alert("Transacción exitosa");
+	    	      for (var i=0;i<$scope.listPackages.length;i++){
+	    	    	  if($scope.listPackages[i].id == id){
+	    	    		  $scope.listPackages[i].activo = estado;
+	    	    		  break;
+	    	    	  }	    	    	  
+	    	      }
+            }).
+          error(function(data, status, headers, config) {
+        	  alert("Error al activar/desactivar");
+            });
 	     }
 }]);

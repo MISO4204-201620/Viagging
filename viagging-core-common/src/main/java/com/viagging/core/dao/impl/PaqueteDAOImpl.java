@@ -76,5 +76,13 @@ public class PaqueteDAOImpl implements PaqueteDAO {
 		return listaPaquete;
 				
 	}
+	
+	@Override
+	public Paquete activatePaquete(Paquete paquete) {
+		Paquete _paquete = entityManager.find(Paquete.class, paquete.getId());
+		_paquete.setActivo(paquete.getActivo());
+		entityManager.persist(_paquete);
+		return _paquete;
+	}
 
 }
