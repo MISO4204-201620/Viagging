@@ -7,11 +7,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
-import com.viagging.api.constants.ProductType;
 import com.viagging.api.model.Payment;
 import com.viagging.api.model.PaymentProduct;
+import com.viagging.api.util.ProductsUtil;
 import com.viagging.core.constant.EstadoOrden;
 import com.viagging.core.constant.EstadoTransaccion;
 import com.viagging.core.model.Compra;
@@ -27,6 +26,9 @@ public class PaymentsService {
 
 	@Autowired
 	private OrdenService ordenService;
+	
+	@Autowired
+	private ProductsUtil productsUtil;
 	
 	public Orden submitPayment(Payment payment){
 		Orden orden = buildOrdenFromPayment(payment);
@@ -71,12 +73,12 @@ public class PaymentsService {
 			Compra compra = new Compra();
 			compra.setOrden(orden);
 			compra.setCantidad(producto.getCantidad());
-			Integer id = getProductId(idProducto);
-			if(isPaqueteProducto(idProducto)){
+			Integer id = productsUtil.getProductId(idProducto);
+			if(productsUtil.isPaqueteProducto(idProducto)){
 				Paquete paquete = new Paquete();
 				paquete.setId(id);
 				compra.setPaquete(paquete);
-			} else if(isServicioProducto(idProducto)){
+			} else if(productsUtil.isServicioProducto(idProducto)){
 				Servicio servicio = new Servicio();
 				servicio.setId(id);
 				compra.setServicio(servicio);
@@ -84,18 +86,6 @@ public class PaymentsService {
 			compras.add(compra);
 		}
 		return compras;
-	}
-	
-	private Integer getProductId(String productId){
-		return Integer.parseInt(productId.replaceAll("[\\D]", ""));
-	}
-	
-	private boolean isPaqueteProducto(String productId){
-		return StringUtils.startsWithIgnoreCase(productId, ProductType.PAQUETE.getPrefix());
-	}
-	
-	private boolean isServicioProducto(String productId){
-		return StringUtils.startsWithIgnoreCase(productId, ProductType.SERVICIO.getPrefix());
 	}
 	
 }

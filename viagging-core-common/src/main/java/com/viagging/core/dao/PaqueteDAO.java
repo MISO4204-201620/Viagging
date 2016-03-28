@@ -1,6 +1,7 @@
 package com.viagging.core.dao;
 
 import java.util.List;
+
 import com.viagging.core.model.Paquete;
 
 /**
@@ -8,21 +9,18 @@ import com.viagging.core.model.Paquete;
  */
 public interface PaqueteDAO {
 
-
 	Paquete getPaqueteById(Integer idPaquete);
-
 
 	List<Paquete> getAllPaquetes();
 
 	Paquete createPaquete(Paquete paquete);
 
-
 	Paquete updatePaquete(Paquete paquete);
-
 
 	Paquete deletePaquete(Integer idPaquete);
 	
 	List<Paquete> getAllPaquetesByFiltro(String filtro);
 
-
+	List<Paquete> findAllByCriteria(Paquete paquete);
+	
 }

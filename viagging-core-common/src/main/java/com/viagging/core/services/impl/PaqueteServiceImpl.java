@@ -73,4 +73,9 @@ public class PaqueteServiceImpl implements PaqueteService{
 		return paqueteDAO.getAllPaquetesByFiltro(filtro);		
 	}
 
+	@Override
+	public List<Paquete> findAllByCriteria(Paquete paquete) {
+		return paqueteDAO.findAllByCriteria(paquete);
+	}
+	
 }

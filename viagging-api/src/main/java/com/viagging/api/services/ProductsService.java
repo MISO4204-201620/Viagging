@@ -9,11 +9,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.viagging.api.model.Busqueda;
 import com.viagging.api.model.Producto;
 import com.viagging.api.model.mapper.ProductoMapper;
 import com.viagging.api.util.ProductsUtil;
 import com.viagging.core.model.ComentarioCalificacion;
+import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Pregunta;
+import com.viagging.core.model.Servicio;
 import com.viagging.core.services.ComentarioCalificacionService;
 import com.viagging.core.services.PaqueteService;
 import com.viagging.core.services.PreguntaService;
@@ -124,6 +127,28 @@ public class ProductsService {
 				productos.add(productoServicio);
 			}
 		}
+		return productos;
+	}
+	
+	public List<Producto> findProducts(Busqueda busqueda){
+		//Find servicios
+		Servicio servicio = new Servicio();
+		servicio.setNombre(busqueda.getTexto());
+		servicio.setDescripcion(busqueda.getTexto());
+		
+		List<Servicio> servicios = servicioService.findAllByCriteria(servicio);
+		List<ServicioDTO> serviciosDTO = servicioDTOMapper.mapObjectList(servicios);
+		
+		//Find paquetes
+		Paquete paquete = new Paquete();
+		paquete.setNombrePaquete(busqueda.getTexto());
+		paquete.setDescripcion(busqueda.getTexto());
+		
+		List<Paquete> paquetes = paqueteService.findAllByCriteria(paquete);
+		List<PaqueteDTO> paquetesDTO = paqueteDTOMapper.mapObjectList(paquetes);
+		
+		List<Producto> productos = buildProductosFromPaquetesAndServicios(paquetesDTO, serviciosDTO);
+		
 		return productos;
 	}
 	

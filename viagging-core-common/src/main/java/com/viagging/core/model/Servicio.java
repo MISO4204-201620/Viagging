@@ -30,7 +30,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 	@NamedQuery(name = "Servicio.findAllAlojamiento", query = "SELECT t FROM Servicio t where t.alojamiento != null"),
 	@NamedQuery(name = "Servicio.findAllAlimentacion", query = "SELECT t FROM Servicio t where t.alimentacion != null"),
 	@NamedQuery(name = "Servicio.findAllPaseoEcologico", query = "SELECT t FROM Servicio t where t.paseoEcologico != null"),
-	@NamedQuery(name = "Servicio.findAll", query = "SELECT t FROM Servicio t")
+	@NamedQuery(name = "Servicio.findAll", query = "SELECT t FROM Servicio t"),
+	@NamedQuery(name = "Servicio.findAllByCriteria", query = "SELECT t FROM Servicio t WHERE t.nombre LIKE :nombre OR t.descripcion LIKE :descripcion")
 })
 public class Servicio implements Serializable {
 	private static final long serialVersionUID = 1L;
