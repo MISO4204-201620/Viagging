@@ -15,37 +15,39 @@ public class Producto {
 
 	/** The producto id. */
 	private String id;
-	
+
 	/** The nombre. */
 	private String nombre;
-	
+
 	/** The descripcion. */
 	private String descripcion;
-	
+
 	/** The precio. */
 	private BigDecimal precio;
-	
+
 	private ProductType tipoProducto;
-	
+
 	private Boolean activo;
-	
+
 	private String imagenPrincipal;
 
 	private List<String> imagenes;
-	
+
+	private Double calificacion;
+
 	/** The servicios. */
 	private List<ServicioDTO> servicios;
-	
+
 	/** The preguntas. */
 	private List<PreguntaDTO> preguntas;
-	
+
 	/** The comentarios. */
 	private List<ComentarioCalificacionDTO> comentarios;
-	
+
 	/**
 	 * Gets the producto id.
 	 *
-	 * @return the producto id 
+	 * @return the producto id
 	 */
 	public String getId() {
 		return id;
@@ -54,7 +56,7 @@ public class Producto {
 	/**
 	 * Sets the producto id.
 	 *
-	 * @param id the new producto id 
+	 * @param id the new producto id
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -113,7 +115,7 @@ public class Producto {
 	public void setPrecio(BigDecimal precio) {
 		this.precio = precio;
 	}
-	
+
 	/**
 	 * Gets the tipo producto.
 	 *
@@ -130,7 +132,7 @@ public class Producto {
 	 */
 	public void setTipoProducto(ProductType tipoProducto) {
 		this.tipoProducto = tipoProducto;
-	}		
+	}
 
 	/**
 	 * Gets the activo.
@@ -198,6 +200,14 @@ public class Producto {
 
 	public void setImagenes(List<String> imagenes) {
 		this.imagenes = imagenes;
+	}
+
+	public Double getCalificacion() {
+		return calificacion;
+	}
+
+	public void setCalificacion(Double calificacion) {
+		this.calificacion = calificacion;
 	}
 
 }

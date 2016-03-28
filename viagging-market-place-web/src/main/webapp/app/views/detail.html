@@ -62,11 +62,11 @@
 										<p style="padding:0 5px 0 15px">{{product.descripcion}}</p>
 									</div>
 									<div class="product-rating" style="padding-left: 15px">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-half-o"></i>
+										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 1, 'fa-star-o' : product.calificacion < 1}"></i>
+										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 2, 'fa-star-o' : product.calificacion < 2}"></i>
+										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 3, 'fa-star-o' : product.calificacion < 3}"></i>
+										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 4, 'fa-star-o' : product.calificacion < 4}"></i>
+										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 5, 'fa-star-o' : product.calificacion < 5}"></i>
 									</div>
 									<div class="clearfix"></div>
 									<hr/>
