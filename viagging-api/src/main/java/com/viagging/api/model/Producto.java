@@ -29,6 +29,10 @@ public class Producto {
 	
 	private Boolean activo;
 	
+	private String imagenPrincipal;
+
+	private List<String> imagenes;
+	
 	/** The servicios. */
 	private List<ServicioDTO> servicios;
 	
@@ -179,5 +183,21 @@ public class Producto {
 	public void setComentarios(List<ComentarioCalificacionDTO> comentarios) {
 		this.comentarios = comentarios;
 	}
-	
+
+	public String getImagenPrincipal() {
+		return imagenPrincipal;
+	}
+
+	public void setImagenPrincipal(String imagenPrincipal) {
+		this.imagenPrincipal = imagenPrincipal;
+	}
+
+	public List<String> getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(List<String> imagenes) {
+		this.imagenes = imagenes;
+	}
+
 }

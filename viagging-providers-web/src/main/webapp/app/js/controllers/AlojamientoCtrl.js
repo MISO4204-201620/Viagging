@@ -29,12 +29,21 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 
 	$scope.guardarAlojamiento = function(falojamiento) {
 		var idService;
-		$scope.alojamiento.servicio.caracteristicas=JSON.stringify($scope.selection);
+		
+		var caracteristicas = [];
+		for(valorCaracteristica in $scope.selection){
+			var caracteristica = {
+				valor: valorCaracteristica
+			};
+			caracteristicas.push(caracteristica);
+		}
+		$scope.alojamiento.servicio.caracteristicas = caracteristicas;
+		
 		$http.post('/viagging-providers-web/saveLodging', angular.toJson($scope.alojamiento), {
 			headers: {"Content-Type": "application/json"},
 			transformRequest: angular.identity
 		}).success(function(data, status, headers, config) {
-			console.log(uploader.queue[0]._file);
+			reset();
 			idService = data;
 			for (var i = 0; i < uploader.queue.length; i++) {
 				$http.put('/viagging-providers-web/saveImage', uploader.queue[i]._file, {
@@ -49,7 +58,6 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 	    			console.log('error', response);
 	    		});
 			}
-			reset();
 		}).error(function(data, status, headers, config) {}); 
 	} 
 	
@@ -77,5 +85,4 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 	var uploader = $scope.uploader = new FileUploader({
 		url: '/viagging-providers-web/guardarImagen'
 	});
-
 }]);

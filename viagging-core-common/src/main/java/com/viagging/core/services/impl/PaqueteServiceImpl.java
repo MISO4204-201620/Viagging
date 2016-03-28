@@ -72,10 +72,16 @@ public class PaqueteServiceImpl implements PaqueteService{
 	public List<Paquete> getAllPaquetesByFiltro(String filtro){
 		return paqueteDAO.getAllPaquetesByFiltro(filtro);		
 	}
+
+	@Override
+	public List<Paquete> findAllByCriteria(Paquete paquete) {
+		return paqueteDAO.findAllByCriteria(paquete);
+	}
 	
 	@Override
 	public Paquete activatePaquete(Paquete paquete){
 		  return paqueteDAO.activatePaquete(paquete);
 	}
-
+	
 }
+

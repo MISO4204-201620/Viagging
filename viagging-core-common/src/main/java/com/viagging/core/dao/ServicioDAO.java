@@ -29,4 +29,6 @@ public interface ServicioDAO {
 	Servicio deleteServicio(Integer idServicio);
 	
 	Servicio servicioDTOToModel(ServicioDTO servicio);
+	
+	List<Servicio> findAllByCriteria(Servicio servicio);
 }

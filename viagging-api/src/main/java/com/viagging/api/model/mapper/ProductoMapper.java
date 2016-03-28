@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.viagging.api.constants.ProductType;
 import com.viagging.api.model.Producto;
@@ -32,6 +33,24 @@ public class ProductoMapper {
 		producto.setServicios(paquete.getServicios());
 		producto.setPrecio(new BigDecimal(paquete.getPrecio()));
 		producto.setActivo(paquete.getActivo());
+		
+		producto.setImagenes(new ArrayList<String>());
+		//Imagenes
+		for(ServicioDTO servicio : paquete.getServicios()){
+			if(StringUtils.isEmpty(producto.getImagenPrincipal())){
+				producto.setImagenPrincipal(servicio.getImagenPrincipal());
+			} else {
+				producto.getImagenes().add(servicio.getImagenPrincipal());
+			}
+			if(servicio.getImagenes() != null){
+				for(String imagen : servicio.getImagenes()){
+					producto.getImagenes().add(imagen);
+				}
+			}
+			servicio.setImagenes(null);
+			servicio.setImagenPrincipal(null);
+		}
+		
 		return producto;
 	}
 	
@@ -49,9 +68,13 @@ public class ProductoMapper {
 		producto.setTipoProducto(ProductType.SERVICIO);
 		producto.setPrecio(new BigDecimal(servicio.getPrecio()));
 		producto.setActivo(servicio.getActivo());
+		producto.setImagenPrincipal(servicio.getImagenPrincipal());
+		producto.setImagenes(servicio.getImagenes());
 		List<ServicioDTO> servicios = new ArrayList<>();
 		servicios.add(servicio);
 		producto.setServicios(servicios);
+		servicio.setImagenes(null);
+		servicio.setImagenPrincipal(null);
 		return producto;
 	}
 }

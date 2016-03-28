@@ -19,16 +19,13 @@ import com.viagging.core.model.Paquete;
 @Repository
 public class PaqueteDAOImpl implements PaqueteDAO {
 
-
 	@PersistenceContext
 	private EntityManager entityManager;
-
 
 	@Override
 	public Paquete getPaqueteById(Integer idPaquete){
 		return entityManager.find(Paquete.class, idPaquete);
 	}
-
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -36,13 +33,11 @@ public class PaqueteDAOImpl implements PaqueteDAO {
 		return (List<Paquete>) entityManager.createNamedQuery("Paquete.findAll").getResultList();
 	}
 
-
 	@Override
 	public Paquete createPaquete(Paquete paquete){
 		entityManager.persist(paquete);
 		return paquete;
 	}
-
 
 	@Override
 	public Paquete updatePaquete(Paquete paquete) {
@@ -51,7 +46,6 @@ public class PaqueteDAOImpl implements PaqueteDAO {
 		entityManager.persist(_paquete);
 		return _paquete;
 	}
-
 
 	@Override
 	public Paquete deletePaquete(Integer idPaquete){
@@ -74,7 +68,14 @@ public class PaqueteDAOImpl implements PaqueteDAO {
 		        
 				List<Paquete> listaPaquete =  query.getResultList(); 
 		return listaPaquete;
-				
+	}
+
+	@Override
+	public List<Paquete> findAllByCriteria(Paquete paquete) {
+		Query query = entityManager.createNamedQuery("Paquete.findAllByCriteria");
+		query.setParameter("nombre", "%"+paquete.getNombrePaquete()+"%");
+		query.setParameter("descripcion", "%"+paquete.getDescripcion()+"%");
+		return (List<Paquete>) query.getResultList();
 	}
 	
 	@Override
@@ -84,5 +85,6 @@ public class PaqueteDAOImpl implements PaqueteDAO {
 		entityManager.persist(_paquete);
 		return _paquete;
 	}
+
 
 }
