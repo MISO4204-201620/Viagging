@@ -1,5 +1,8 @@
 package com.viagging.rest.dto;
 
+import com.viagging.core.model.Perfil;
+import com.viagging.core.model.Usuario;
+
 public class PerfilDTO {
 	
 	private String id;
@@ -27,4 +30,10 @@ public class PerfilDTO {
 		this.id = id;
 	}
 	
+	public static PerfilDTO buildObject(Perfil perfil){
+		PerfilDTO perfilDto = new PerfilDTO();
+		perfilDto.setId(String.valueOf(perfil.getId()));
+		perfilDto.setNombre(perfil.getNombre());
+		return perfilDto;
+	}
 }

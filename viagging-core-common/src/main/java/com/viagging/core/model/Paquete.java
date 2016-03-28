@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,7 +23,11 @@ import org.hibernate.annotations.LazyCollectionOption;
  */
 @Entity
 @Table(name="tp_paquete")
-@NamedQuery(name="Paquete.findAll", query="SELECT t FROM Paquete t")
+@NamedQueries({
+	@NamedQuery(name = "Paquete.findAll", query = "SELECT t FROM Paquete t"),
+	@NamedQuery(name = "Paquete.findAllByCriteria", query = "SELECT t FROM Paquete t WHERE t.nombrePaquete LIKE :nombre OR t.descripcion LIKE :descripcion")
+})
+
 public class Paquete implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -57,25 +62,26 @@ public class Paquete implements Serializable {
 	private List<Movimiento> movimientos;
 
 	//bi-directional many-to-one association to PaqueteServicio
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	@OneToMany(mappedBy="paquete")
 	private List<PaqueteServicio> paqueteServicios;
 
 	//bi-directional many-to-one association to Pregunta
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	@OneToMany(mappedBy="paquete")
 	private List<Pregunta> preguntas;
 
 	public Paquete() {
 	}
 	
-	public Paquete( Boolean activo, String nombrePaquete,
+	public Paquete( int id, Boolean activo, String nombrePaquete,
 			Integer precio,String descripcion) {
 		super();
 		this.activo = activo;
 		this.nombrePaquete = nombrePaquete;
 		this.precio = precio;
 		this.descripcion = descripcion;
+		this.id = id;
 	}
 	
 	public String getDescripcion() {

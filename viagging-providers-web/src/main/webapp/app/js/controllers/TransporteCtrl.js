@@ -1,4 +1,4 @@
-providersApp.controller('TransporteCtrl', ['$scope', 'FileUploader', '$http', function($scope, FileUploader, $http) {
+providersApp.controller('TransporteCtrl', ['$scope', 'userService', 'FileUploader', '$http', function($scope, userService, FileUploader, $http) {
 
 	$scope.transporte = {
 			servicio:{ 
@@ -44,7 +44,15 @@ providersApp.controller('TransporteCtrl', ['$scope', 'FileUploader', '$http', fu
 
 	$scope.guardarTransporte = function(ftransporte) {
 		var idService;
-		$scope.transporte.servicio.caracteristicas=JSON.stringify($scope.selection);
+		var caracteristicas = [];
+		for(valorCaracteristica in $scope.selection){
+			var caracteristica = {
+				valor: valorCaracteristica
+			};
+			caracteristicas.push(caracteristica);
+		}
+		$scope.transporte.servicio.caracteristicas = caracteristicas;
+		$scope.transporte.servicio.usuario.id=$scope.userData.id;
 		console.log($scope.transporte.servicio.caracteristicas);
 		$http.post('/viagging-providers-web/saveTransport', angular.toJson($scope.transporte), {
 			headers: {"Content-Type": "application/json"},

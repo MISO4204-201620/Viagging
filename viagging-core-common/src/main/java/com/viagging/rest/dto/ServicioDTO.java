@@ -1,11 +1,7 @@
 package com.viagging.rest.dto;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import org.json.JSONObject;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.viagging.core.model.PaqueteServicio;
 import com.viagging.core.model.Servicio;
@@ -76,23 +72,28 @@ public class ServicioDTO {
 		return caracteristicas;
 	}
 
-	public void setCaracteristicas(String caracteristicas1) {
-		try {
-			JSONObject jsonObj = new JSONObject(caracteristicas1);		
-			Iterator<String> keys = jsonObj.keys();		
-			List<CaracteristicasDTO> caracteristicasDTO = new ArrayList<CaracteristicasDTO>();		
-			while (keys.hasNext()) {
-				String key = keys.next();		
-				boolean isActive = jsonObj.getBoolean(key);		
-				if (isActive) {	
-					CaracteristicasDTO caracteristica = new CaracteristicasDTO();
-					caracteristica.setCategoria(getIdCategoria());
-					caracteristica.setValor(key);
-					caracteristicasDTO.add(caracteristica);
-				}		
-			}
-			this.caracteristicas = caracteristicasDTO;
-		} catch (Exception e){e.printStackTrace();}
+//	public void setCaracteristicas(String caracteristicas1) {
+//		try {
+//			JSONObject jsonObj = new JSONObject(caracteristicas1);		
+//			Iterator<String> keys = jsonObj.keys();		
+//			List<CaracteristicasDTO> caracteristicasDTO = new ArrayList<CaracteristicasDTO>();		
+//			while (keys.hasNext()) {
+//				String key = keys.next();		
+//				boolean isActive = jsonObj.getBoolean(key);		
+//				if (isActive) {	
+//					CaracteristicasDTO caracteristica = new CaracteristicasDTO();
+//					caracteristica.setCategoria(getIdCategoria());
+//					caracteristica.setValor(key);
+//					caracteristicasDTO.add(caracteristica);
+//				}		
+//			}
+//			this.caracteristicas = caracteristicasDTO;
+//		} catch (Exception e){e.printStackTrace();}
+//	}
+	
+	
+	public void setCaracteristicas(List<CaracteristicasDTO> caracteristicas) {
+		this.caracteristicas = caracteristicas;
 	}
 
 

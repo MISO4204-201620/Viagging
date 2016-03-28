@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 	@NamedQuery(name = "Servicio.findAllAlojamiento", query = "SELECT t FROM Servicio t where t.alojamiento != null"),
 	@NamedQuery(name = "Servicio.findAllAlimentacion", query = "SELECT t FROM Servicio t where t.alimentacion != null"),
 	@NamedQuery(name = "Servicio.findAllPaseoEcologico", query = "SELECT t FROM Servicio t where t.paseoEcologico != null"),
-	@NamedQuery(name = "Servicio.findAll", query = "SELECT t FROM Servicio t")
+	@NamedQuery(name = "Servicio.findAll", query = "SELECT t FROM Servicio t"),
+	@NamedQuery(name = "Servicio.findAllByCriteria", query = "SELECT t FROM Servicio t WHERE t.nombre LIKE :nombre OR t.descripcion LIKE :descripcion")
 })
 public class Servicio implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -92,9 +94,13 @@ public class Servicio implements Serializable {
 	private List<PaqueteServicio> paqueteServicios;
 
 	//bi-directional many-to-one association to Pregunta
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	@OneToMany(mappedBy="servicio")
 	private List<Pregunta> preguntas;
+	
+//	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="servicio", fetch=FetchType.EAGER)
+	private List<CaracteristicaServicio> caracteristicas;
 
 	public Servicio() {
 	}
@@ -303,6 +309,14 @@ public class Servicio implements Serializable {
 		pregunta.setServicio(null);
 
 		return pregunta;
+	}
+
+	public List<CaracteristicaServicio> getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public void setCaracteristicas(List<CaracteristicaServicio> caracteristicas) {
+		this.caracteristicas = caracteristicas;
 	}
 
 }

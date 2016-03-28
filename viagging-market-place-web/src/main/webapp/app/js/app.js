@@ -18,6 +18,17 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 			},
 			controller: 'CatalogueCtrl'
 		})
+		.state("search", {
+			url: "/search",
+			templateUrl: 'views/search.html',
+			params: { busqueda : null },
+			resolve: {
+				products : ['productsService', '$stateParams', function(productsService, $stateParams){
+					return productsService.findProducts($stateParams.busqueda);
+				}]
+			},
+			controller: 'SearchCtrl'
+		})
 		.state("detail", {
 			url: "/detail/:productId",
 			templateUrl: 'views/detail.html',

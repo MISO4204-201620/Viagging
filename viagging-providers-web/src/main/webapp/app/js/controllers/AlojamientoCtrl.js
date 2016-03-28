@@ -1,4 +1,4 @@
-providersApp.controller('AlojamientoCtrl', ['$scope', 'FileUploader', '$http', function($scope, FileUploader, $http) {
+providersApp.controller('AlojamientoCtrl', ['$scope', 'userService', 'FileUploader', '$http', function($scope, userService, FileUploader, $http) {
 
 	$scope.alojamiento = {
 			servicio:{ 
@@ -31,7 +31,16 @@ providersApp.controller('AlojamientoCtrl', ['$scope', 'FileUploader', '$http', f
 
 	$scope.guardarAlojamiento = function(falojamiento) {
 		var idService;
-		$scope.alojamiento.servicio.caracteristicas=JSON.stringify($scope.selection);
+		
+		var caracteristicas = [];
+		for(valorCaracteristica in $scope.selection){
+			var caracteristica = {
+				valor: valorCaracteristica
+			};
+			caracteristicas.push(caracteristica);
+		}
+		$scope.alojamiento.servicio.caracteristicas = caracteristicas;
+		$scope.alojamiento.servicio.usuario.id=$scope.userData.id;
 		$http.post('/viagging-providers-web/saveLodging', angular.toJson($scope.alojamiento), {
 			headers: {"Content-Type": "application/json"},
 			transformRequest: angular.identity
@@ -78,5 +87,4 @@ providersApp.controller('AlojamientoCtrl', ['$scope', 'FileUploader', '$http', f
 	var uploader = $scope.uploader = new FileUploader({
 		url: '/viagging-providers-web/guardarImagen'
 	});
-
 }]);

@@ -1,5 +1,7 @@
 package com.viagging.core.dao.impl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.dao.UsuarioDAO;
+import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Usuario;
 
 import javax.persistence.NoResultException;
@@ -68,4 +71,5 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			return null;
 		}
 	}
+	
 }

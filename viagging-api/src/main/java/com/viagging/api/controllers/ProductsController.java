@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.viagging.api.model.Busqueda;
 import com.viagging.api.model.Producto;
 import com.viagging.api.services.ProductsService;
 import com.viagging.api.util.ProductsUtil;
@@ -109,4 +110,12 @@ public class ProductsController {
 		preguntaService.createPregunta(pregunta);
 	}
 	
+	@RequestMapping(value = "/find", method = RequestMethod.POST)
+	public ResponseEntity<List<Producto>> findProducts(@RequestBody Busqueda busqueda){
+		List<Producto> productos = productsService.findProducts(busqueda);
+		if(productos != null){
+			return new ResponseEntity<>(productos, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
 }

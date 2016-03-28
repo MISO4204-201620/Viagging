@@ -1,0 +1,48 @@
+   <div class="container main-container" >
+       <div class="row">
+       	<!-- Inicio Filtros busqueda -->
+       	<div class="col-lg-3 col-md-3 col-sm-12">
+       		<!-- Categories -->
+       		<div class="col-lg-12 col-md-12 col-sm-6">
+        		<div class="no-padding">
+            		<span style="text-transform:uppercase;" class="title">CATEGORÍAS</span>
+            	</div>
+				<div id="main_menu" style="border-bottom:1px solid #ddd;">
+	               <div class="checkbox" ng-repeat="categorie in categories" style="border-top:1px solid #ddd; border-left:1px solid #ddd; border-right:1px solid #ddd; background-color:#f5f5f5; padding:10px; margin:0px;">
+	                	<label>
+							<input type="checkbox" value="{{categorie.key}}"> {{categorie.value}}
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-12 col-md-12 col-sm-6" style="padding-top:30px;">
+        		<div class="no-padding">
+            		<span class="title">PRECIO</span>
+            	</div>
+				<div id="main_menu" style="border-bottom:1px solid #ddd;">
+                    <div class="checkbox" ng-repeat="price in prices" style="border-top:1px solid #ddd; border-left:1px solid #ddd; border-right:1px solid #ddd; background-color:#f5f5f5; padding:10px; margin:0px;">
+                    	<label>
+							<input type="checkbox"> Entre {{price.low | currency}} y {{price.high | currency}}
+						</label>
+                    </div>
+                </div>
+			</div>
+
+			<!-- Final Filtros busqueda -->
+       	</div>
+
+		<div class="clearfix visible-sm"></div>
+
+		<!-- Catalogue -->
+       	<div class="col-lg-9 col-md-9 col-sm-12">
+       		<div class="col-lg-12 col-sm-12">
+           		<span class="title">PRODUCTOS</span>
+           	</div>
+           	<!-- Products -->
+            <div ng-include src="'views/products.html'"></div>
+            <!-- End Products -->
+		</div>
+       	<!-- End Catalogue -->
+	</div>
+</div>

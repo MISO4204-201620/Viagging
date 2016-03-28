@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -91,6 +92,14 @@ public class ServicioDAOImpl implements ServicioDAO {
 	public Servicio servicioDTOToModel(ServicioDTO servicio) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public List<Servicio> findAllByCriteria(Servicio servicio){
+		Query query = entityManager.createNamedQuery("Servicio.findAllByCriteria");
+		query.setParameter("nombre", "%"+servicio.getNombre()+"%");
+		query.setParameter("descripcion", "%"+servicio.getDescripcion()+"%");
+		return (List<Servicio>) query.getResultList();
 	}
 
 }

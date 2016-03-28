@@ -100,6 +100,10 @@ public class UsuarioServiceImpl implements  UsuarioService  {
 		usuario.setSegundoNombre(usuarioDTO.getSegundoNombre());
 		usuario.setTipoDocumento(usuarioDTO.getTipoDocumento());
 		usuario.setCorreo(usuarioDTO.getCorreo());
+		usuario.setDireccion1(usuarioDTO.getDireccion1());
+		usuario.setDireccion2(usuarioDTO.getDireccion2());
+		usuario.setCiudad(usuarioDTO.getCiudad());
+		usuario.setPais(usuarioDTO.getPais());
 		return usuario;
 	}
 	

@@ -1,4 +1,4 @@
-providersApp.controller('TurismoCtrl', ['$scope', 'FileUploader', '$http', function($scope, FileUploader, $http) {
+providersApp.controller('TurismoCtrl', ['$scope', 'userService', 'FileUploader', '$http', function($scope, userService, FileUploader, $http) {
 
 	$scope.turismo = {
 			servicio:{ 
@@ -32,7 +32,15 @@ providersApp.controller('TurismoCtrl', ['$scope', 'FileUploader', '$http', funct
 
 	$scope.guardarTurismo = function(fturismo) {
 		var idService;
-		$scope.turismo.servicio.caracteristicas=JSON.stringify($scope.selection);
+		var caracteristicas = [];
+		for(valorCaracteristica in $scope.selection){
+			var caracteristica = {
+				valor: valorCaracteristica
+			};
+			caracteristicas.push(caracteristica);
+		}
+		$scope.turismo.servicio.caracteristicas = caracteristicas;
+		$scope.turismo.servicio.usuario.id=$scope.userData.id;
 		$http.post('/viagging-providers-web/saveTravel', angular.toJson($scope.turismo), {
 			headers: {"Content-Type": "application/json"},
 			transformRequest: angular.identity

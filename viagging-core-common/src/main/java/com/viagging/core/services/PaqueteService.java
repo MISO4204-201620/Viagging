@@ -19,5 +19,9 @@ public interface PaqueteService {
 	Paquete buildPaquete(PaqueteDTO paqueteDTO);
 	
 	List<Paquete> getAllPaquetesByFiltro(String filtro);
+	
+	List<Paquete> findAllByCriteria(Paquete paquete);
+	
+	Paquete activatePaquete(Paquete paquete);
 
 }

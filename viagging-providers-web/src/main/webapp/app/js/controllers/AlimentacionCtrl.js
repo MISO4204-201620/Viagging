@@ -35,8 +35,15 @@ providersApp.controller('AlimentacionCtrl', ['$scope', 'userService', 'FileUploa
 
 	$scope.guardarAlimentacion = function(falimentacion) {
 		var idService;
+		var caracteristicas = [];
+		for(valorCaracteristica in $scope.selection){
+			var caracteristica = {
+				valor: valorCaracteristica
+			};
+			caracteristicas.push(caracteristica);
+		}
+		$scope.alimentacion.servicio.caracteristicas = caracteristicas;
 		$scope.alimentacion.servicio.usuario.id=$scope.userData.id;
-		$scope.alimentacion.servicio.caracteristicas=JSON.stringify($scope.selection);
 		$http.post('/viagging-providers-web/saveFood', angular.toJson($scope.alimentacion), {
 			headers: {"Content-Type": "application/json"},
 			transformRequest: angular.identity
@@ -99,6 +106,4 @@ providersApp.controller('AlimentacionCtrl', ['$scope', 'userService', 'FileUploa
 	});
 
 	console.info('uploader', uploader);
-
-
 }]);

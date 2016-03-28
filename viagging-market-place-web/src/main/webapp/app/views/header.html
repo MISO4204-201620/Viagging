@@ -11,13 +11,14 @@
 				</div>
 			</div>
 			<!-- End Logo -->
-			
+
 			<!-- Search Form -->
-	            <div class="col-lg-5 col-md-5 col-sm-7 col-xs-12">
+	            <div class="col-lg-5 col-md-4 col-sm-7 col-xs-12">
 	            	<div class="well">
-	                    <form action="">
+	                    <form ng-submit="buscarProductos()">
 	                        <div class="input-group">
-	                            <input type="text" class="form-control input-search" placeholder="Buscar..."/>
+	                            <input type="text" class="form-control input-search" placeholder="Buscar..."
+	                            	ng-model="busqueda.texto"/>
 	                            <span class="input-group-btn">
 	                                <button class="btn btn-primary no-border-left" type="submit"><i class="fa fa-search"></i> Buscar</button>
 	                            </span>
