@@ -10,7 +10,8 @@
 				<div id="main_menu" style="border-bottom: 1px solid #ddd;">
 					<div class="checkbox" ng-repeat="categorie in categories"
 						style="border-top: 1px solid #ddd; border-left: 1px solid #ddd; border-right: 1px solid #ddd; background-color: #f5f5f5; padding: 10px; margin: 0px;">
-						<label> <input type="checkbox" value="{{categorie.key}}">
+						<label>
+						<input type="checkbox" value="{{categorie.key}}" ng-click="busqueda.categoria = '{{categorie.key}}'">
 							{{categorie.value}}
 						</label>
 					</div>

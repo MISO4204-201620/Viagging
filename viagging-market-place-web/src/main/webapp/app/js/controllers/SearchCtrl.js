@@ -9,4 +9,8 @@ marketPlaceApp.controller('SearchCtrl', ['$scope', '$state', 'configService', 'p
 
 	$scope.busqueda = angular.copy($stateParams.busqueda);
 
+	$scope.$watch('busqueda.categoria', function(newVal, oldVal){
+		console.log("old=" + oldVal + ";new="+newVal);
+	});
+
 }]);
