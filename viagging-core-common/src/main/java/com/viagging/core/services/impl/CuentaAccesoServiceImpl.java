@@ -30,5 +30,10 @@ public class CuentaAccesoServiceImpl implements  CuentaAccesoService  {
 		return cuentaAccesoDAO.findCuentaAccesoByUsuarioAndProfile(usuarioId, perfilId);
 	}
 
+        @Override
+	public List<CuentaAcceso> getAllCuentaAcceso(){
+		return cuentaAccesoDAO.getAllCuentaAcceso();	
+	}
+
 
 }

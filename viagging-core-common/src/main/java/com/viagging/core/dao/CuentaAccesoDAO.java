@@ -10,6 +10,8 @@ public interface CuentaAccesoDAO {
 
 	List<CuentaAcceso> getUsersAdminProv();
 
+        List<CuentaAcceso> getAllCuentaAcceso();
+
 	CuentaAcceso findCuentaAccesoByUsuarioAndProfile(Integer usuarioId, String perfilId);
 
 }

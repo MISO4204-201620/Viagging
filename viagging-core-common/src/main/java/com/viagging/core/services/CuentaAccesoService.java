@@ -1,8 +1,8 @@
 package com.viagging.core.services;
 
 import java.util.List;
-
 import com.viagging.core.model.CuentaAcceso;
+
 
 public interface CuentaAccesoService {
 
@@ -11,5 +11,7 @@ public interface CuentaAccesoService {
 	List<CuentaAcceso> getUsersAdminProv();
 
 	CuentaAcceso findCuentaAccesoByUsuarioAndProfile(Integer usuarioId, String perfilId);
+
+        List<CuentaAcceso> getAllCuentaAcceso();
 
 }

@@ -1,6 +1,14 @@
 angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 .controller('UsuarioCtrl', ['$scope', 'FileUploader', '$http', function($scope, FileUploader, $http) {
 
+	$scope.listUsers = {
+			perfil:{ 
+				id: 0,
+				nombre: "ADMIN"
+			},	
+			primerNombre: "",
+			primerApellido: ""
+	}
 	
    $scope.getProfile = function() {    
 		 $http.get('/viagging-providers-web/getProfiles').
@@ -24,6 +32,17 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 		    }); 
      }
 	
+   $scope.getUsers = function() { 
+		 $http.get('/viagging-providers-web/getUsers').
+		    success(function(data, status, headers, config) {
+		    	console.log(status);
+		      $scope.listUsers = data;
+		      console.log(data);
+		    }).
+		    error(function(data, status, headers, config) {
+		    }); 
+		    console.log('despues de llamar');
+   }
 	
 
 
