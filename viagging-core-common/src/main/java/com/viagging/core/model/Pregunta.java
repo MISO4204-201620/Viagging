@@ -1,7 +1,10 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -10,7 +13,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="tr_pregunta")
-@NamedQuery(name="Pregunta.findAll", query="SELECT t FROM Pregunta t")
+@NamedQueries({
+	@NamedQuery(name="Pregunta.findAll", query="SELECT t FROM Pregunta t"),
+	@NamedQuery(name="Pregunta.findByIdServicio", query="SELECT t FROM Pregunta t WHERE t.servicio != null AND t.servicio.id = :idservicio"),
+	@NamedQuery(name="Pregunta.findByIdPaquete", query="SELECT t FROM Pregunta t WHERE t.paquete != null AND t.paquete.id = :idpaquete")
+})
 public class Pregunta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -23,17 +30,14 @@ public class Pregunta implements Serializable {
 	private String respuesta;
 
 	//bi-directional many-to-one association to Paquete
-	@ManyToOne
 	@JoinColumn(name="idpaquete")
 	private Paquete paquete;
-
+	
 	//bi-directional many-to-one association to Servicio
-	@ManyToOne
 	@JoinColumn(name="idservicio")
 	private Servicio servicio;
 
 	//bi-directional many-to-one association to Usuario
-	@ManyToOne
 	@JoinColumn(name="idusuario")
 	private Usuario usuario;
 

@@ -2,7 +2,6 @@ package com.viagging.core.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -19,17 +18,15 @@ public class Alimentacion implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
-	private String almuerzo;
+	private String ciudad;
 
-	private String cena;
+	private String horarioapertura;
+	
+	private String horariocierre;
 
-	private String desayuno;
+	private Integer preciomayor;
 
-	private Integer precio;
-
-	//bi-directional many-to-one association to Servicio
-	@OneToMany(mappedBy="alimentacion")
-	private List<Servicio> servicios;
+	private Integer preciomenor;
 
 	public Alimentacion() {
 	}
@@ -42,58 +39,44 @@ public class Alimentacion implements Serializable {
 		this.id = id;
 	}
 
-	public String getAlmuerzo() {
-		return this.almuerzo;
+	public String getCiudad() {
+		return ciudad;
 	}
 
-	public void setAlmuerzo(String almuerzo) {
-		this.almuerzo = almuerzo;
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 
-	public String getCena() {
-		return this.cena;
+	public String getHorarioapertura() {
+		return horarioapertura;
 	}
 
-	public void setCena(String cena) {
-		this.cena = cena;
+	public void setHorarioapertura(String horarioapertura) {
+		this.horarioapertura = horarioapertura;
+	}
+	
+	public String getHorariocierre() {
+		return horariocierre;
 	}
 
-	public String getDesayuno() {
-		return this.desayuno;
+	public void setHorariocierre(String horariocierre) {
+		this.horariocierre = horariocierre;
 	}
 
-	public void setDesayuno(String desayuno) {
-		this.desayuno = desayuno;
+	public Integer getPreciomayor() {
+		return preciomayor;
 	}
 
-	public Integer getPrecio() {
-		return this.precio;
+	public void setPreciomayor(Integer preciomayor) {
+		this.preciomayor = preciomayor;
 	}
 
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
+	public Integer getPreciomenor() {
+		return preciomenor;
 	}
 
-	public List<Servicio> getServicios() {
-		return this.servicios;
-	}
-
-	public void setServicios(List<Servicio> servicios) {
-		this.servicios = servicios;
-	}
-
-	public Servicio addServicio(Servicio servicio) {
-		getServicios().add(servicio);
-		servicio.setAlimentacion(this);
-
-		return servicio;
-	}
-
-	public Servicio removeServicio(Servicio servicio) {
-		getServicios().remove(servicio);
-		servicio.setAlimentacion(null);
-
-		return servicio;
+	public void setPreciomenor(Integer preciomenor) {
+		this.preciomenor = preciomenor;
 	}
 
 }

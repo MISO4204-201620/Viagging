@@ -11,7 +11,14 @@ import java.util.List;
  */
 @Entity
 @Table(name="tp_usuario")
-@NamedQuery(name="Usuario.findAll", query="SELECT t FROM Usuario t")
+@NamedQueries({
+	@NamedQuery(name="Usuario.findAll", query="SELECT t FROM Usuario t"),
+	@NamedQuery(name="Usuario.findByPasswordAndLogin", 
+		query="SELECT t FROM Usuario t WHERE t.login = :login AND t.password = :password"),
+   @NamedQuery(name="Usuario.findLogin", 
+		query="SELECT t FROM Usuario t WHERE t.login = :login")	
+})
+
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -19,11 +26,15 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
+	private String login;
+
+	private String password;
+	
 	private String correo;
 
-	private Integer numeroCelular;
+	private String numeroCelular;
 
-	private Integer numeroDocumento;
+	private String numeroDocumento;
 
 	private String primerApellido;
 
@@ -34,6 +45,18 @@ public class Usuario implements Serializable {
 	private String segundoNombre;
 
 	private String tipoDocumento;
+	
+	private String direccion1;
+	
+	private String direccion2;
+	
+	private String ciudad;
+	
+	private String pais;
+	
+	private String estado;
+	
+	private String zipcode;
 
 	//bi-directional many-to-one association to Conversacion
 	@OneToMany(mappedBy="usuario1")
@@ -59,10 +82,6 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario")
 	private List<ComentarioCalificacion> comentarioCalificacion;
 
-	//bi-directional many-to-one association to Compra
-	@OneToMany(mappedBy="usuario")
-	private List<Compra> compras;
-
 	//bi-directional many-to-one association to CuentaAcceso
 	@OneToMany(mappedBy="usuario")
 	private List<CuentaAcceso> cuentaAcceso;
@@ -85,7 +104,31 @@ public class Usuario implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+    
+	public String getNumeroCelular() {
+		return numeroCelular;
+	}
 
+	public void setNumeroCelular(String numeroCelular) {
+		this.numeroCelular = numeroCelular;
+	}
+	
+	public String getLogin() {
+		return this.login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	public String getCorreo() {
 		return this.correo;
 	}
@@ -94,19 +137,11 @@ public class Usuario implements Serializable {
 		this.correo = correo;
 	}
 
-	public Integer getNumeroCelular() {
-		return this.numeroCelular;
+	public String getNumeroDocumento() {
+		return numeroDocumento;
 	}
 
-	public void setNumeroCelular(Integer numeroCelular) {
-		this.numeroCelular = numeroCelular;
-	}
-
-	public Integer getNumeroDocumento() {
-		return this.numeroDocumento;
-	}
-
-	public void setNumeroDocumento(Integer numeroDocumento) {
+	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = numeroDocumento;
 	}
 
@@ -148,6 +183,58 @@ public class Usuario implements Serializable {
 
 	public void setTipoDocumento(String tipoDocumento) {
 		this.tipoDocumento = tipoDocumento;
+	}
+
+	public String getDireccion1() {
+		return direccion1;
+	}
+
+	public void setDireccion1(String direccion1) {
+		this.direccion1 = direccion1;
+	}
+
+	public String getDireccion2() {
+		return direccion2;
+	}
+
+	public void setDireccion2(String direccion2) {
+		this.direccion2 = direccion2;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public List<Conversacion> getConversacion1() {
@@ -280,28 +367,6 @@ public class Usuario implements Serializable {
 		comentarioCalificacion.setUsuario(null);
 
 		return comentarioCalificacion;
-	}
-
-	public List<Compra> getCompras() {
-		return this.compras;
-	}
-
-	public void setCompras(List<Compra> compras) {
-		this.compras = compras;
-	}
-
-	public Compra addCompra(Compra compra) {
-		getCompras().add(compra);
-		compra.setUsuario(this);
-
-		return compra;
-	}
-
-	public Compra removeCompra(Compra compra) {
-		getCompras().remove(compra);
-		compra.setUsuario(null);
-
-		return compra;
 	}
 
 	public List<CuentaAcceso> getCuentaAcceso() {

@@ -1,8 +1,22 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 /**
@@ -11,20 +25,33 @@ import java.util.List;
  */
 @Entity
 @Table(name="tp_servicio")
-@NamedQuery(name="Servicio.findAll", query="SELECT t FROM Servicio t")
+@NamedQueries({ 
+	@NamedQuery(name = "Servicio.findAllTransporte", query = "SELECT t FROM Servicio t where t.transporte != null"),
+	@NamedQuery(name = "Servicio.findAllAlojamiento", query = "SELECT t FROM Servicio t where t.alojamiento != null"),
+	@NamedQuery(name = "Servicio.findAllAlimentacion", query = "SELECT t FROM Servicio t where t.alimentacion != null"),
+	@NamedQuery(name = "Servicio.findAllPaseoEcologico", query = "SELECT t FROM Servicio t where t.paseoEcologico != null"),
+	@NamedQuery(name = "Servicio.findAll", query = "SELECT t FROM Servicio t"),
+	@NamedQuery(name = "Servicio.findAllByCriteria", query = "SELECT t FROM Servicio t WHERE t.nombre LIKE :nombre OR t.descripcion LIKE :descripcion")
+})
 public class Servicio implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
 	private Boolean activo;
 
-	private Boolean datosServicio;
-
 	private String nombre;
+	
+	private String descripcion;
 
+	private Integer precio;
+    
+	private byte[] imagenprincipal;
+	
+	private String restricciones;
+	
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="idusuario")
@@ -67,12 +94,25 @@ public class Servicio implements Serializable {
 	private List<PaqueteServicio> paqueteServicios;
 
 	//bi-directional many-to-one association to Pregunta
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	@OneToMany(mappedBy="servicio")
 	private List<Pregunta> preguntas;
+	
+//	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="servicio", fetch=FetchType.EAGER)
+	private List<CaracteristicaServicio> caracteristicas;
 
 	public Servicio() {
 	}
+    
+	public String getRestricciones() {
+		return restricciones;
+	}
 
+	public void setRestricciones(String restricciones) {
+		this.restricciones = restricciones;
+	}
+	
 	public Integer getId() {
 		return this.id;
 	}
@@ -89,20 +129,28 @@ public class Servicio implements Serializable {
 		this.activo = activo;
 	}
 
-	public Boolean getDatosServicio() {
-		return this.datosServicio;
-	}
-
-	public void setDatosServicio(Boolean datosServicio) {
-		this.datosServicio = datosServicio;
-	}
-
 	public String getNombre() {
 		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public Integer getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Integer precio) {
+		this.precio = precio;
 	}
 
 	public Usuario getUsuario() {
@@ -115,6 +163,14 @@ public class Servicio implements Serializable {
 
 	public Alimentacion getAlimentacion() {
 		return this.alimentacion;
+	}
+	
+	public byte[] getImagenprincipal() {
+		return imagenprincipal;
+	}
+
+	public void setImagenprincipal(byte[] imagenprincipal) {
+		this.imagenprincipal = imagenprincipal;
 	}
 
 	public void setAlimentacion(Alimentacion alimentacion) {
@@ -253,6 +309,14 @@ public class Servicio implements Serializable {
 		pregunta.setServicio(null);
 
 		return pregunta;
+	}
+
+	public List<CaracteristicaServicio> getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public void setCaracteristicas(List<CaracteristicaServicio> caracteristicas) {
+		this.caracteristicas = caracteristicas;
 	}
 
 }

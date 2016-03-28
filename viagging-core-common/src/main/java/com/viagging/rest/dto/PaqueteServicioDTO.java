@@ -1,10 +1,9 @@
 package com.viagging.rest.dto;
 
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Servicio;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PaqueteServicioDTO {
 	

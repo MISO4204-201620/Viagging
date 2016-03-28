@@ -3,7 +3,6 @@ package com.viagging.core.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -11,7 +10,7 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="tr_paseosecologicos")
+@Table(name="tr_paseoecologico")
 @NamedQuery(name="PaseoEcologico.findAll", query="SELECT t FROM PaseoEcologico t")
 public class PaseoEcologico implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -20,20 +19,14 @@ public class PaseoEcologico implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
-	private String descripcion;
+	private String ciudad;
 
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
-	private String lugar;
+	private String horario;
 
-	private String nombre;
-
-	private Integer precio;
-
-	//bi-directional many-to-one association to Servicio
-	@OneToMany(mappedBy="paseoEcologico")
-	private List<Servicio> servicios;
+	private String tiempoderecorrido;
 
 	public PaseoEcologico() {
 	}
@@ -46,14 +39,6 @@ public class PaseoEcologico implements Serializable {
 		this.id = id;
 	}
 
-	public String getDescripcion() {
-		return this.descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
 	public Date getFecha() {
 		return this.fecha;
 	}
@@ -61,51 +46,29 @@ public class PaseoEcologico implements Serializable {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-
-	public String getLugar() {
-		return this.lugar;
+	
+	public String getCiudad() {
+		return ciudad;
 	}
 
-	public void setLugar(String lugar) {
-		this.lugar = lugar;
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 
-	public String getNombre() {
-		return this.nombre;
+	public String getHorario() {
+		return horario;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setHorario(String horario) {
+		this.horario = horario;
 	}
 
-	public Integer getPrecio() {
-		return this.precio;
+	public String getTiempoderecorrido() {
+		return tiempoderecorrido;
 	}
 
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
-	}
-
-	public List<Servicio> getServicios() {
-		return this.servicios;
-	}
-
-	public void setServicios(List<Servicio> servicios) {
-		this.servicios = servicios;
-	}
-
-	public Servicio addServicio(Servicio servicio) {
-		getServicios().add(servicio);
-		servicio.setPaseoEcologico(this);
-
-		return servicio;
-	}
-
-	public Servicio removeServicio(Servicio servicio) {
-		getServicios().remove(servicio);
-		servicio.setPaseoEcologico(null);
-
-		return servicio;
+	public void setTiempoderecorrido(String tiempoderecorrido) {
+		this.tiempoderecorrido = tiempoderecorrido;
 	}
 
 }

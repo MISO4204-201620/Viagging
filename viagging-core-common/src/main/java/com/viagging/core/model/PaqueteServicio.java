@@ -1,6 +1,7 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -10,8 +11,12 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="tr_paqueteservicio")
-@NamedQuery(name="PaqueteServicio.findAll", query="SELECT t FROM PaqueteServicio t")
+@NamedQueries({
+	 @NamedQuery(name="PaqueteServicio.findAll", query="SELECT t FROM PaqueteServicio t"),
+	 @NamedQuery (name="PaqueteServicio.findByIdPaquete", query="SELECT t FROM PaqueteServicio t where t.paquete.id = :idPaquete")
+})
 public class PaqueteServicio implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id

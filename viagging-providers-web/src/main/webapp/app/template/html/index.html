@@ -32,6 +32,9 @@
 
 		<!-- ace settings handler -->
 		<script src="../assets/js/ace-extra.js"></script>
+		
+		<script src="../../vendor/angular/angular.js"></script>
+		<script src="../../js/controllers/AppCtrl.js"></script>
 
 		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
@@ -43,6 +46,11 @@
 
 	<body class="no-skin">
 		<!-- #section:basics/navbar.layout -->
+		<div ng-app="viaggingApp" ng-controller="AppCtrl">
+			<div ng-init="test()"></div>
+			<input type="text" name="prueba" ng-model="ad.defaultContent" ng-required="true" />Aqui
+			<button ng-click="test()">Test</button>
+		 </div>	
 		<div id="navbar" class="navbar navbar-default          ace-save-state">
 			<div class="navbar-container ace-save-state" id="navbar-container">
 				<!-- #section:basics/sidebar.mobile.toggle -->

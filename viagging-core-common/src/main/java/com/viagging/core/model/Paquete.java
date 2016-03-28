@@ -1,9 +1,21 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  * The persistent class for the tp_paquete database table.
@@ -11,8 +23,13 @@ import java.util.List;
  */
 @Entity
 @Table(name="tp_paquete")
-@NamedQuery(name="Paquete.findAll", query="SELECT t FROM Paquete t")
+@NamedQueries({
+	@NamedQuery(name = "Paquete.findAll", query = "SELECT t FROM Paquete t"),
+	@NamedQuery(name = "Paquete.findAllByCriteria", query = "SELECT t FROM Paquete t WHERE t.nombrePaquete LIKE :nombre OR t.descripcion LIKE :descripcion")
+})
+
 public class Paquete implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -22,6 +39,10 @@ public class Paquete implements Serializable {
 	private Boolean activo;
 
 	private String nombrePaquete;
+	
+	private String descripcion;
+	
+	private Integer precio;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -41,22 +62,49 @@ public class Paquete implements Serializable {
 	private List<Movimiento> movimientos;
 
 	//bi-directional many-to-one association to PaqueteServicio
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	@OneToMany(mappedBy="paquete")
 	private List<PaqueteServicio> paqueteServicios;
 
 	//bi-directional many-to-one association to Pregunta
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	@OneToMany(mappedBy="paquete")
 	private List<Pregunta> preguntas;
 
 	public Paquete() {
 	}
+	
+	public Paquete( int id, Boolean activo, String nombrePaquete,
+			Integer precio,String descripcion) {
+		super();
+		this.activo = activo;
+		this.nombrePaquete = nombrePaquete;
+		this.precio = precio;
+		this.descripcion = descripcion;
+		this.id = id;
+	}
+	
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
 	public Integer getId() {
 		return this.id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public Integer getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Integer precio) {
+		this.precio = precio;
 	}
 
 	public Boolean getActivo() {
@@ -145,7 +193,6 @@ public class Paquete implements Serializable {
 	public Movimiento removeMovimiento(Movimiento movimiento) {
 		getMovimientos().remove(movimiento);
 		movimiento.setPaquete(null);
-
 		return movimiento;
 	}
 
@@ -167,7 +214,6 @@ public class Paquete implements Serializable {
 	public PaqueteServicio removePaqueteServicio(PaqueteServicio paqueteServicio) {
 		getPaqueteServicios().remove(paqueteServicio);
 		paqueteServicio.setPaquete(null);
-
 		return paqueteServicio;
 	}
 
@@ -182,14 +228,12 @@ public class Paquete implements Serializable {
 	public Pregunta addPregunta(Pregunta pregunta) {
 		getPreguntas().add(pregunta);
 		pregunta.setPaquete(this);
-
 		return pregunta;
 	}
 
 	public Pregunta removePregunta(Pregunta pregunta) {
 		getPreguntas().remove(pregunta);
 		pregunta.setPaquete(null);
-
 		return pregunta;
 	}
 

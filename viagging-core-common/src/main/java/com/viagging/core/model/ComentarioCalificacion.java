@@ -1,7 +1,9 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -11,7 +13,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name="tr_comentario_calificacion")
-@NamedQuery(name="ComentarioCalificacion.findAll", query="SELECT t FROM ComentarioCalificacion t")
+@NamedQueries({
+	@NamedQuery(name="ComentarioCalificacion.findAll", query="SELECT t FROM ComentarioCalificacion t"),
+	@NamedQuery(name="ComentarioCalificacion.findByIdServicio", query="SELECT t FROM ComentarioCalificacion t WHERE t.servicio != null AND t.servicio.id = :idservicio"),
+	@NamedQuery(name="ComentarioCalificacion.findByIdPaquete", query="SELECT t FROM ComentarioCalificacion t WHERE t.paquete != null AND t.paquete.id = :idpaquete")
+})
 public class ComentarioCalificacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -2,7 +2,7 @@ package com.viagging.core.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
+
 
 
 /**
@@ -19,15 +19,23 @@ public class Transporte implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
-	private String descripcion;
+	private String frecuenciasalida;
 
-	private String nombre;
+	private String horariofin;
 
-	private Integer precio;
+	private String horarioinicio;
 
-	//bi-directional many-to-one association to Servicio
-	@OneToMany(mappedBy="transporte")
-	private List<Servicio> servicios;
+	private String lugardestino;
+
+	private String lugarorigen;
+
+	private Integer numeropasajeros;
+
+	private String tiempoestimado;
+
+	private String tipotransporte;
+	
+	private String caracteristicas;
 
 	public Transporte() {
 	}
@@ -39,51 +47,76 @@ public class Transporte implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getDescripcion() {
-		return this.descripcion;
+  
+	public String getFrecuenciasalida() {
+		return frecuenciasalida;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setFrecuenciasalida(String frecuenciasalida) {
+		this.frecuenciasalida = frecuenciasalida;
 	}
 
-	public String getNombre() {
-		return this.nombre;
+	public String getHorariofin() {
+		return horariofin;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setHorariofin(String horariofin) {
+		this.horariofin = horariofin;
 	}
 
-	public Integer getPrecio() {
-		return this.precio;
+	public String getHorarioinicio() {
+		return horarioinicio;
 	}
 
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
+	public void setHorarioinicio(String horarioinicio) {
+		this.horarioinicio = horarioinicio;
 	}
 
-	public List<Servicio> getServicios() {
-		return this.servicios;
+	public String getLugardestino() {
+		return lugardestino;
 	}
 
-	public void setServicios(List<Servicio> servicios) {
-		this.servicios = servicios;
+	public void setLugardestino(String lugardestino) {
+		this.lugardestino = lugardestino;
 	}
 
-	public Servicio addServicio(Servicio servicio) {
-		getServicios().add(servicio);
-		servicio.setTransporte(this);
-
-		return servicio;
+	public String getLugarorigen() {
+		return lugarorigen;
 	}
 
-	public Servicio removeServicio(Servicio servicio) {
-		getServicios().remove(servicio);
-		servicio.setTransporte(null);
-
-		return servicio;
+	public void setLugarorigen(String lugarorigen) {
+		this.lugarorigen = lugarorigen;
 	}
 
+	public Integer getNumeropasajeros() {
+		return numeropasajeros;
+	}
+
+	public void setNumeropasajeros(Integer numeropasajeros) {
+		this.numeropasajeros = numeropasajeros;
+	}
+
+	public String getTiempoestimado() {
+		return tiempoestimado;
+	}
+
+	public void setTiempoestimado(String tiempoestimado) {
+		this.tiempoestimado = tiempoestimado;
+	}
+
+	public String getTipotransporte() {
+		return tipotransporte;
+	}
+
+	public void setTipotransporte(String tipotransporte) {
+		this.tipotransporte = tipotransporte;
+	}
+
+	public String getCaracteristicas() {
+		return caracteristicas;
+	}
+
+	public void setCaracteristicas(String caracteristicas) {
+		this.caracteristicas = caracteristicas;
+	}
 }
