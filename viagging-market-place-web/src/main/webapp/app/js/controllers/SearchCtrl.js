@@ -7,6 +7,6 @@ marketPlaceApp.controller('SearchCtrl', ['$scope', '$state', 'configService', 'p
 
 	$scope.products = products;
 
-	$scope.busqueda = $stateParams.busqueda;
+	$scope.busqueda = angular.copy($stateParams.busqueda);
 
 }]);
