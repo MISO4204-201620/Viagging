@@ -44,3 +44,38 @@
 .nav-tabs li a{
 	cursor: pointer;
 }
+
+.tags{
+	border: 1px solid #d5d5d5;
+	display: inline-block;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	overflow: visible;
+	direction: rtl;
+	padding: 0;
+	marging: 0;
+	height: auto;
+	width: auto;
+	background-color: transparent;
+	border-width: 0;
+	vertical-align: inherit;
+	z-index: 1;
+	top: 12px;
+	right: 28px;
+}
+
+.label-info, .label.label-info, .badge.badge-info, .badge-info{
+	background-color: #f89406;
+}
+
+.label{
+	font-size: 12px;
+	line-height: 1.15;
+	height: 20px;
+	border-radius: 0;
+	text-shadow: none;
+	font-weight: normal;
+	color: #ffffff;
+	display: inline-block;
+}
