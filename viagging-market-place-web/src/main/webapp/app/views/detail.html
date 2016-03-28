@@ -4,7 +4,7 @@
         	<div class="clearfix visible-sm"></div>
 
 			<!-- Product Detail -->
-        	<div class="col-lg-12 col-md-12 col-sm-6">
+        	<div class="col-lg-12 col-md-12 col-sm-12">
         		<div class="col-lg-12 col-sm-12">
             		<span class="title">{{product.nombre}}</span>
             	</div>
@@ -58,15 +58,12 @@
 									<div class="the-list">
 										<h3 class="col-xs-12 product-code">Código : {{product.id}}</h3>
 									</div>
-									<div class="the-list">
-										<p style="padding:0 5px 0 15px">{{product.descripcion}}</p>
-									</div>
 									<div class="product-rating" style="padding-left: 15px">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star-half-o"></i>
+										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 1, 'fa-star-o' : product.calificacion < 1}"></i>
+										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 2, 'fa-star-o' : product.calificacion < 2}"></i>
+										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 3, 'fa-star-o' : product.calificacion < 3}"></i>
+										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 4, 'fa-star-o' : product.calificacion < 4}"></i>
+										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 5, 'fa-star-o' : product.calificacion < 5}"></i>
 									</div>
 									<div class="clearfix"></div>
 									<hr/>
@@ -86,7 +83,7 @@
 							<!-- Nav tabs -->
 							<ul class="nav nav-tabs" ng-init="selectedTab='DESC'">
 								<li class="active"><a ng-click="selectedTab='DESC'" data-toggle="tab">Descripción</a></li>
-								<li><a ng-click="selectedTab='REVIEW'" data-toggle="tab">Calificación</a></li>
+								<li><a ng-click="selectedTab='REVIEW'" data-toggle="tab">Comentarios</a></li>
 								<li><a ng-click="selectedTab='QUEST'" data-toggle="tab">Preguntas</a></li>
 							</ul>
 
@@ -94,34 +91,35 @@
 							<div class="tab-content">
 								<div class="tab-pane" id="desc" ng-class="{'active':selectedTab==='DESC'}">
 									<div class="well">
-										
-										<span class="title">Detalle del Producto</span>
-									
-										<p>{{product.descripcion}}</p>
-										
+										<div ng-if="product.tipoProducto == 'PAQUETE'">
+											<span class="title">Detalle del Paquete</span>
+											<p>{{product.descripcion}}</p>
+										</div>
 										<span class="title"><i class="fa fa-tags"></i> INCLUYE</span>
-										
+
 										<div ng-repeat="servicio in product.servicios">
 											<span class="title" style="border-bottom:0px; margin-bottom:10px;">{{servicio.categoria}}</span>
-											<p ng-if="product.tipoProducto == 'PAQUETE'">{{servicio.descripcionCorta}}</p>
+											<p>{{servicio.descripcionCorta}}</p>
+											<span class="title" style="border-bottom:0px; margin-bottom:10px;">Características</span>
 											<div ng-repeat="caracteristica in servicio.caracteristicas">
 												<p class="ng-binding"><i class="fa fa-check-circle"></i> {{caracteristica.valor}}</p>
 											</div>
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="tab-pane" id="review" ng-class="{'active':selectedTab==='REVIEW'}">
 									<div class="well">
+										<span class="title"><i class="fa fa-comment"></i> Comentarios</span>
 										<div class="media" ng-repeat="comentario in product.comentarios">
 											<a class="pull-left" href="#">
 												<img class="media-object thumbnail" src="../app/images/user.png" style="width: 60px; height: 60px;">
 												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-half-o"></i>
+													<i class="fa" ng-class="{'fa-star' : comentario.calificacion >= 1, 'fa-star-o' : comentario.calificacion < 1}"></i>
+													<i class="fa" ng-class="{'fa-star' : comentario.calificacion >= 2, 'fa-star-o' : comentario.calificacion < 2}"></i>
+													<i class="fa" ng-class="{'fa-star' : comentario.calificacion >= 3, 'fa-star-o' : comentario.calificacion < 3}"></i>
+													<i class="fa" ng-class="{'fa-star' : comentario.calificacion >= 4, 'fa-star-o' : comentario.calificacion < 4}"></i>
+													<i class="fa" ng-class="{'fa-star' : comentario.calificacion >= 5, 'fa-star-o' : comentario.calificacion < 5}"></i>
 												</div>
 											</a>
 											<div class="media-body">
@@ -129,9 +127,8 @@
 												{{comentario.comentario}}
 											</div>
 										</div>
-										
+
 										<div ng-if="isUserLoggedIn">
-											<hr/>
 			                                <h4>Agrega tu comentario</h4>
 			                                <p></p>
 			                                <form role="form" ng-submit="addComment()">
@@ -154,11 +151,11 @@
 		                                </div>
 									</div>
 								</div>
-								
+
 								<div class="tab-pane" id="quest" ng-class="{'active':selectedTab==='QUEST'}">
 									<div class="well">
 										<span class="title"><i class="fa fa-question-circle"></i> Preguntas al Vendedor</span>
-	                                    
+
 										<table class="table table-bordered" ng-repeat="pregunta in product.preguntas">
 											<tbody>
 												<tr>
@@ -169,7 +166,7 @@
 												</tr>
 											</tbody>
 										</table>
-										
+
 										<div class="row" ng-if="isUserLoggedIn">
 											<div class="col-lg-12 col-md-12 col-sm-12">
 												<form role="form" ng-submit="addQuestion()">

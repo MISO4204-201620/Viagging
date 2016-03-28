@@ -1,8 +1,14 @@
 marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
-	
+
+	var products = [];
+
 	var productsService = {
-			
+
 		getAllProducts : function(){
+			if(products != null && products.length > 0){
+				return $q.resolve(products);
+			}
+
 			return $http({
 	            url: "/viagging-api/products",
 	            method: "GET",
@@ -18,7 +24,7 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 	        	return $q.reject(response.data);
 	        });
 		},
-		
+
 		getProductById : function(productId){
 			return $http({
 				url: "/viagging-api/products/" + productId,
@@ -35,13 +41,13 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 	        	return $q.reject(response.data);
 	        });
 		},
-		
+
 		findProducts : function(busqueda){
-			
+
 			if(busqueda == null){
 				busqueda = { texto : "" };
 			}
-			
+
 			return $http({
 	            url: "/viagging-api/products/find",
 	            method: "POST",
@@ -58,7 +64,7 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 	        	return $q.reject(response.data);
 	        });
 		},
-		
+
 		addCommentToProduct : function(comment, productId, successCallback, errorCallback){
 			$http({
 				url: "/viagging-api/products/" + productId + "/comment",
@@ -67,7 +73,7 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 	            data: comment
 	        }).success(successCallback).error(errorCallback);
 		},
-		
+
 		addQuestionToProduct : function(question, productId, successCallback, errorCallback){
 			$http({
 				url: "/viagging-api/products/" + productId + "/question",
@@ -77,6 +83,6 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 	        }).success(successCallback).error(errorCallback);
 		}
 	};
-	
+
 	return productsService;
 }]);
