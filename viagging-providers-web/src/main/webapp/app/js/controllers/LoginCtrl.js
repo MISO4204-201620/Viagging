@@ -1,38 +1,25 @@
-providersApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', '$http',
-    function($scope, $rootScope, $state, $http){
+providersApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'loginService',
+    function($scope, $rootScope, $state, loginService){
 	
 	'use strict';
 	
-	$scope.user = {
+	$scope.userLogin = {
 		login: "",
 		password: "",
 	};
 	
 	var successCallback = function(userData){
-//		alert("Hola " + userData.primerNombre + "!");
+		alert("Bienvenido de nuevo " + userData.primerNombre + " " + userData.primerApellido);
 		$rootScope.$broadcast('USER_LOGGED_IN', userData);	
-		$state.go("home");
+		$state.go("alimentacion");
 	};
 	
 	var errorCallback = function(){
-		alert("Las credenciales que ha ingresado no son v�lidas!");
+		alert("Las credenciales que ha ingresado no son válidas!");
 		$scope.user.password = "";
 	};
 	
 	$scope.loginUser = function(){
-		console.log("esta intentando ingresar");
-		if($scope.user.login != "" && $scope.user.password != "") {
-			$http.post('/viagging-api/login', angular.toJson($scope.user), {
-    			headers: {"Content-Type": "application/json"},
-    			transformRequest: angular.identity}
-    		)
-    		.success(function(response) {
-    			console.log('success', response);
-    		})
-    		.error(function(response) {
-    			console.log('error', response);
-    		});
-			console.log("no estan vacios");
-		}
+		loginService.loginUser($scope.userLogin, successCallback, errorCallback);
 	};
 }]);

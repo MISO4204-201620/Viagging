@@ -1,5 +1,4 @@
-angular.module('viaggingApp', ['flow', 'angularFileUpload'])
-.controller('AlimentacionCtrl', ['$scope', 'FileUploader', '$http', function($scope, FileUploader, $http) {
+providersApp.controller('AlimentacionCtrl', ['$scope', 'userService', 'FileUploader', '$http', function($scope, userService, FileUploader, $http) {
 
 	$scope.alimentacion = {
 			servicio:{ 
@@ -9,7 +8,10 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 				activo: true,
 				restricciones: "",
 				caracteristicas: "",
-				precio: ""	
+				precio: "",
+				usuario: {
+					id: ""
+				}
 			},	
 			ciudad: "",
 			horarioApertura: "",
@@ -33,12 +35,12 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 
 	$scope.guardarAlimentacion = function(falimentacion) {
 		var idService;
+		$scope.alimentacion.servicio.usuario.id=$scope.userData.id;
 		$scope.alimentacion.servicio.caracteristicas=JSON.stringify($scope.selection);
 		$http.post('/viagging-providers-web/saveFood', angular.toJson($scope.alimentacion), {
 			headers: {"Content-Type": "application/json"},
 			transformRequest: angular.identity
 		}).success(function(data, status, headers, config) {
-			reset();
 			idService = data;
 			for (var i = 0; i < uploader.queue.length; i++) {
 				$http.put('/viagging-providers-web/saveImage', uploader.queue[i]._file, {
@@ -54,6 +56,7 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 	    		});
 			}
 			reset();
+			alert("El servicio fue creado!");
 		}).error(function(data, status, headers, config) {}); 
 	} 
 

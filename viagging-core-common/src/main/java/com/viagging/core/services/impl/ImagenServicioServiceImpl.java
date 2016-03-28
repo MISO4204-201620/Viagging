@@ -1,5 +1,7 @@
 package com.viagging.core.services.impl;
 
+import java.util.Arrays;
+
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,15 +39,16 @@ public class ImagenServicioServiceImpl implements ImagenServicioService{
 	}
 
 	@Override
-	public void createImagenServicio(String imagenServicio, String idServicio) {
-		String encoded = Base64.encodeBase64URLSafeString(imagenServicio.getBytes());
+	public void createImagenServicio(byte[] imagenServicio, String idServicio) {
+		byte[] byteArray = Base64.encodeBase64(imagenServicio);
+		String encodedString = new String(byteArray);
 		Servicio servicio = servicioDAO.getServicioById(Integer.parseInt(idServicio));
-		if (servicio.getImagenprincipal() == null) {
-			servicio.setImagenprincipal(encoded.getBytes());
+		if (servicio.getImagenprincipal() == null || servicio.getImagenprincipal().length == 0) {
+			servicio.setImagenprincipal(encodedString.getBytes());
 			servicioDAO.updateServicio(servicio);
 		}
 		ImagenServicio imagen = new ImagenServicio();
-		imagen.setImagen(encoded.getBytes());
+		imagen.setImagen(encodedString.getBytes());
 		imagen.setServicio(servicio);
 		createImagenServicio(imagen);
 	}

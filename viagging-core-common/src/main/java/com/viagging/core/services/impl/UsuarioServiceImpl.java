@@ -37,6 +37,7 @@ public class UsuarioServiceImpl implements  UsuarioService  {
 	 */
 	@Override
 	public Usuario findUsuarioByLoginAndPassword(String login, String password){
+		System.out.println("consultando");
 		return usuarioDAO.findUsuarioByLoginAndPassword(login, password);
 	};
 	

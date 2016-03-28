@@ -4,12 +4,12 @@ providersApp.service('loginService', ['$http', 'userService', function($http, us
 	
 	var loginService = {
 	
-		loginUser : function(user, successCallback, errorCallback){
+		loginUser : function(userLogin, successCallback, errorCallback){
 			
 			return $http({
 	            url: "/viagging-api/login",
 	            method: "POST",
-	            data: user,
+	            data: userLogin,
 	            cache: false
 	        }).success(function(response){
 	        	if(angular.isObject(response)){
@@ -24,6 +24,24 @@ providersApp.service('loginService', ['$http', 'userService', function($http, us
 		
 		logoutUser : function(){
 			userService.removeUserData();
+		},
+		
+		registerUser : function(user, successCallback, errorCallback){
+			
+			return $http({
+	            url: "/viagging-api/register",
+	            method: "POST",
+	            data: user,
+	            cache: false
+	        }).success(function(response){
+	        	if(angular.isObject(response)){
+	        		userService.setUserData(response);
+	        		successCallback(response);
+	        	} else {
+	        		errorCallback(response);
+	        	}
+	        	 
+	        }).error(errorCallback);
 		}
 	
 	};

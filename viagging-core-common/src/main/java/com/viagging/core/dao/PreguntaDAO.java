@@ -2,6 +2,7 @@ package com.viagging.core.dao;
 
 import java.util.List;
 
+import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Pregunta;
 
 public interface PreguntaDAO {
@@ -17,4 +18,6 @@ public interface PreguntaDAO {
 	List<Pregunta> findPreguntasByPaquete(Integer idPaquete);
 	
 	List<Pregunta> findPreguntasByServicio(Integer idServicio);
+	
+	List<Pregunta> findAllPreguntas();
 }

@@ -1,5 +1,4 @@
-angular.module('viaggingApp', ['flow', 'angularFileUpload'])
-.controller('AlojamientoCtrl', ['$scope', 'FileUploader', '$http', function($scope, FileUploader, $http) {
+providersApp.controller('AlojamientoCtrl', ['$scope', 'FileUploader', '$http', function($scope, FileUploader, $http) {
 
 	$scope.alojamiento = {
 			servicio:{ 
@@ -9,7 +8,10 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 				activo: true,
 				restricciones: "",
 				caracteristicas: "",
-				precio: ""
+				precio: "",
+				usuario: {
+					id: ""
+				}
 			},	
 			ciudad: ""
 	}
@@ -34,7 +36,6 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 			headers: {"Content-Type": "application/json"},
 			transformRequest: angular.identity
 		}).success(function(data, status, headers, config) {
-			reset();
 			idService = data;
 			for (var i = 0; i < uploader.queue.length; i++) {
 				$http.put('/viagging-providers-web/saveImage', uploader.queue[i]._file, {
@@ -49,6 +50,7 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 	    			console.log('error', response);
 	    		});
 			}
+			reset();
 		}).error(function(data, status, headers, config) {}); 
 	} 
 	

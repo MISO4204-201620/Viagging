@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * The persistent class for the tr_pregunta database table.
@@ -28,17 +30,20 @@ public class Pregunta implements Serializable {
 	private String respuesta;
 
 	//bi-directional many-to-one association to Paquete
-	@ManyToOne
+	@JsonIgnore
+	@ManyToOne()
 	@JoinColumn(name="idpaquete")
 	private Paquete paquete;
 
 	//bi-directional many-to-one association to Servicio
-	@ManyToOne
+	@JsonIgnore
+	@ManyToOne()
 	@JoinColumn(name="idservicio")
 	private Servicio servicio;
 
 	//bi-directional many-to-one association to Usuario
-	@ManyToOne
+	@JsonIgnore
+	@ManyToOne()
 	@JoinColumn(name="idusuario")
 	private Usuario usuario;
 

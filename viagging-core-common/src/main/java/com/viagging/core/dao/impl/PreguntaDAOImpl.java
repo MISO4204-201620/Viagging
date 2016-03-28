@@ -73,4 +73,16 @@ public class PreguntaDAOImpl implements PreguntaDAO{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Pregunta> findAllPreguntas() {
+		try {
+			Query query = entityManager.createNamedQuery("Pregunta.findAll");
+			List<Pregunta> preguntas = (List<Pregunta>) query.getResultList();
+			return preguntas;
+		} catch(NoResultException e){
+			return null;
+		}
+	}
+
 }

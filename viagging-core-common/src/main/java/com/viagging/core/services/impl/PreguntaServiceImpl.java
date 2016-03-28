@@ -1,13 +1,19 @@
 package com.viagging.core.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viagging.core.dao.PreguntaDAO;
+import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Pregunta;
 import com.viagging.core.services.PreguntaService;
+import com.viagging.rest.dto.PaqueteDTO;
+import com.viagging.rest.dto.PreguntaDTO;
+import com.viagging.rest.dto.ServicioDTO;
+import com.viagging.rest.dto.UsuarioDTO;
 
 @Service
 public class PreguntaServiceImpl implements PreguntaService{
@@ -43,6 +49,26 @@ public class PreguntaServiceImpl implements PreguntaService{
 	@Override
 	public List<Pregunta> findPreguntasByServicio(Integer idServicio) {
 		return preguntaDAO.findPreguntasByServicio(idServicio);
+	}
+
+	@Override
+	public List<PreguntaDTO> findAllPreguntas() {
+		List<Pregunta> preguntas = preguntaDAO.findAllPreguntas();
+		List<PreguntaDTO> newPreguntas = new ArrayList<>();
+		for (Pregunta pregunta : preguntas) {
+			UsuarioDTO user = UsuarioDTO.buildObject(pregunta.getUsuario());
+			PreguntaDTO preguntaDTO = new PreguntaDTO(pregunta.getId(), pregunta.getPregunta(), pregunta.getRespuesta(), user);
+			if (pregunta.getPaquete()!= null) {
+				PaqueteDTO paquete = new PaqueteDTO(pregunta.getPaquete().getId(), pregunta.getPaquete().getActivo(), pregunta.getPaquete().getNombrePaquete(), String.valueOf(pregunta.getPaquete().getPrecio()), pregunta.getPaquete().getDescripcion());
+				preguntaDTO.setPaquete(paquete);
+			}
+			if (pregunta.getServicio() != null) {
+				ServicioDTO servicio = new ServicioDTO(pregunta.getServicio().getId(), pregunta.getServicio().getActivo(), pregunta.getServicio().getNombre(), pregunta.getServicio().getDescripcion(), String.valueOf(pregunta.getServicio().getPrecio()), pregunta.getServicio().getRestricciones());
+				preguntaDTO.setServicio(servicio);
+			}
+			newPreguntas.add(preguntaDTO);
+		}
+		return newPreguntas;
 	}
 
 }
