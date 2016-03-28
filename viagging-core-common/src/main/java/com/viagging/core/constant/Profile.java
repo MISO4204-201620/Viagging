@@ -1,5 +1,9 @@
 package com.viagging.core.constant;
 
+import java.util.ArrayList;
+import java.util.List;
+import com.viagging.rest.dto.NombreValorDTO;
+
 public enum Profile {
 
 	USUARIO("1", "Usuario"), 
@@ -32,5 +36,18 @@ public enum Profile {
 			}
 		}
 		return value;
+	}
+	
+	public static List<NombreValorDTO> getKeyValuesWithoutUser() {
+		List<NombreValorDTO> nombreValorDTO = new ArrayList<>();
+		for (Profile profile : Profile.values()) {
+			if(!profile.getId().equals(Profile.USUARIO.getId())){
+				NombreValorDTO perfil = new NombreValorDTO();
+				perfil.setKey(profile.getId());
+				perfil.setValue(profile.getName());
+				nombreValorDTO.add(perfil);
+			}
+		}
+		return nombreValorDTO;
 	}
 }

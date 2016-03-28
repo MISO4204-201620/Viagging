@@ -36,4 +36,19 @@ public class UserController {
 		
 	     }
 	}
+	
+	@RequestMapping(value = "/addProveedorAdministrador", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void addProveedorAdministrador(@RequestBody UsuarioDTO usuarioDTO) {
+		System.out.println("addUser"+usuarioDTO);
+		try {
+			usuarioService.createUsuario(usuarioService.buildUsuario(usuarioDTO),usuarioDTO.getPerfil().getId());
+		}catch (LoginExistExeption e) {
+			throw new NotFoundException(USER_ERROR_MESSAGE_LOGIN_EXIST);			
+	     } 
+		catch (Exception e) {
+			throw new NotFoundException(USER_ERROR_MESSAGE_ADD);
+		
+	     }
+	}
 }
