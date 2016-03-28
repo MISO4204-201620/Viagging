@@ -1,8 +1,12 @@
 package com.viagging.rest.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.viagging.core.model.CuentaAcceso;
 import com.viagging.core.model.Usuario;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -21,9 +25,11 @@ public class UsuarioDTO {
 	
 	@JsonInclude(Include.NON_NULL)
 	private String numeroDocumento;
-
+    
+	@JsonInclude(Include.NON_NULL)
 	private String primerApellido;
-
+    
+	@JsonInclude(Include.NON_NULL)
 	private String primerNombre;
 
 	private String segundoApellido;
@@ -226,5 +232,16 @@ public class UsuarioDTO {
 		usuarioDto.setEstado(usuario.getEstado());
 		usuarioDto.setZipcode(usuario.getZipcode());
 		return usuarioDto;
+	}
+	
+	public static List<UsuarioDTO> buildListObject(List<CuentaAcceso> listCuentaAcceso){
+		List<UsuarioDTO> listUser = new ArrayList<>();
+		for (CuentaAcceso cuentaAcceso : listCuentaAcceso) {
+			UsuarioDTO usuarioDto = new UsuarioDTO();
+		    usuarioDto = UsuarioDTO.buildObject(cuentaAcceso.getUsuario());
+            usuarioDto.setPerfil(PerfilDTO.buildObject(cuentaAcceso.getPerfil()));
+		    listUser.add(usuarioDto);
+		}
+		return listUser;
 	}
 }

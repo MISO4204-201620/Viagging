@@ -1,20 +1,14 @@
 package com.viagging.core.dao.impl;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.viagging.core.constant.Profile;
 import com.viagging.core.dao.CuentaAccesoDAO;
 import com.viagging.core.model.CuentaAcceso;
-import com.viagging.core.model.Paquete;
-import com.viagging.core.model.Usuario;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,6 +38,12 @@ public class CuentaAccesoDAOImpl implements CuentaAccesoDAO {
 				List<CuentaAcceso> listaCuentaAcceso =  query.getResultList(); 
 		return listaCuentaAcceso;
 				
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CuentaAcceso> getAllCuentaAcceso() {
+		return (List<CuentaAcceso>) entityManager.createNamedQuery("CuentaAcceso.findAll").getResultList();
 	}
 	
 }

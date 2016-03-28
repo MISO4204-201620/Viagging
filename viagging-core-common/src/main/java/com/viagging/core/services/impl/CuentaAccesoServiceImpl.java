@@ -24,4 +24,9 @@ public class CuentaAccesoServiceImpl implements  CuentaAccesoService  {
 	public List<CuentaAcceso> getUsersAdminProv(){
 		return cuentaAccesoDAO.getUsersAdminProv();
 	}
+	
+	@Override
+	public List<CuentaAcceso> getAllCuentaAcceso(){
+		return cuentaAccesoDAO.getAllCuentaAcceso();	
+	}
 }

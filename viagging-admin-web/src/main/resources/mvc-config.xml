@@ -33,6 +33,7 @@
 	<!-- ViewResolver bean config for mapping strings to html views -->
 	<mvc:view-controller path="/" view-name="/login"/>
 	<mvc:view-controller path="/crearusuario.html" view-name="/crearusuario"/>
+	<mvc:view-controller path="/consultarusuario.html" view-name="/consultarusuario"/>
 	<!-- ViewResolver bean config for mapping strings to jsp views -->
 
 	<bean

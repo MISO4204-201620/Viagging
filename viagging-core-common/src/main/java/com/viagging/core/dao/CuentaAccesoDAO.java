@@ -10,5 +10,7 @@ public interface CuentaAccesoDAO {
 	
 	List<CuentaAcceso> getUsersAdminProv();
 	
+	List<CuentaAcceso> getAllCuentaAcceso();
+	
 }
 
