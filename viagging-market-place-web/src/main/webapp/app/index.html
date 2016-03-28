@@ -12,6 +12,10 @@
 	    <link href="css/marketplace.css" rel="stylesheet">
 	</head>
 	<body ng-app="viaggingApp" ng-controller="AppCtrl">
+		<!--  Loading -->
+		<div id="myLoading" class="myLoading" market-place-loading></div>
+		<!-- End Loading -->
+		
 		<!-- Header -->
 		<market-place-header></market-place-header>
 		<!-- End Header -->
@@ -25,7 +29,7 @@
 		<!-- End Content -->
 
 		<!-- Footer -->
-		<market-place-footer></market-place-footer>
+		<div ng-include src="'views/footer.html'"></div>
 	    <!-- End Footer -->
 
 	    <a href="#top" class="back-top text-center" onclick="$('body,html').animate({scrollTop:0},500); return false">
@@ -67,7 +71,6 @@
 		<script src="js/controllers/AppCtrl.js"></script>
 		<script src="js/controllers/HeaderCtrl.js"></script>
 		<script src="js/controllers/MenuCtrl.js"></script>
-		<script src="js/controllers/FooterCtrl.js"></script>
 		<script src="js/controllers/LoginCtrl.js"></script>
 		<script src="js/controllers/RegisterCtrl.js"></script>
 		<script src="js/controllers/CatalogueCtrl.js"></script>
@@ -84,7 +87,7 @@
 		<script src="js/controllers/WishlistCtrl.js"></script>
 		<script src="js/directives/Header.js"></script>
 		<script src="js/directives/Menu.js"></script>
-		<script src="js/directives/Footer.js"></script>
+		<script src="js/directives/Loading.js"></script>
 		<script src="js/helpers/EmailValidationHelper.js"></script>
 	</body>
 </html>
