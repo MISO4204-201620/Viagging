@@ -1,0 +1,29 @@
+<div ng-repeat="product in products" class="col-lg-4 col-sm-6 hero-feature text-center">
+	<div class="thumbnail">
+		<a ui-sref="detail({productId: product.id})" class="link-p"
+			style="overflow: hidden; position: relative;">
+			<img data-ng-src="data:image/png;base64,{{product.imagenPrincipal}}"
+				style="position: absolute; width: 571px; height: auto; max-width: none; max-height: none; left: -164px; top: 0px;">
+		</a>
+		<div class="tags">
+			<span class="label-holder"> <span class="label label-info"
+				ng-if="product.tipoProducto == 'PAQUETE'">{{product.tipoProducto}}</span>
+				<span ng-if="product.tipoProducto == 'SERVICIO'"
+				ng-repeat="servicio in product.servicios"> <span
+					class="label label-info">{{servicio.categoria}}</span>
+				</span>
+			</span>
+		</div>
+		<div class="caption prod-caption">
+			<h4>
+				<a ui-sref="detail({productId: product.id})">{{product.nombre}}</a>
+			</h4>
+			<p>
+				<div class="btn-group">
+					<ngcart-addtocart id="{{product.id}}" name="{{product.nombre}}"
+						price="{{product.precio}}" quantity="1"></ngcart-addtocart>
+				</div>
+			</p>
+		</div>
+	</div>
+</div>

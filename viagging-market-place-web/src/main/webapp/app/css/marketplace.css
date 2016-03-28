@@ -79,3 +79,34 @@
 	color: #ffffff;
 	display: inline-block;
 }
+
+.myloading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.8) !important;
+    background: #fff;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    display: none;
+    top: 0;
+    z-index: 9999999;
+}
+
+.animate-loading {
+    position: fixed;
+    width: 64px;
+    height: 64px;
+    left: 50%;
+    top: 40%;
+    margin-left: -32px;
+    margin-top: -23px;
+    text-align: center;
+}
+
+.animate-image {
+    -webkit-animation: 1.5s rotate linear infinite;
+    -moz-animation: 1.5s rotate linear infinite;
+    -ms-animation: 1.5s rotate linear infinite;
+    -o-animation: 1.5s rotate linear infinite;
+    animation: 1.5s rotate linear infinite;
+}
