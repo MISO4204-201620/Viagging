@@ -20,4 +20,6 @@ public interface ServicioService {
 	List<Servicio> getAllServiciosByCategoria(String idCategoria);
 	
 	List<Servicio> buildListServices(List<ServicioDTO> listServiceDTO);
+	
+	List<Servicio> findAllByCriteria(Servicio servicio);
 }

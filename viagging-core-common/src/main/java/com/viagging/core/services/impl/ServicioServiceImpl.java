@@ -82,4 +82,9 @@ public class ServicioServiceImpl implements ServicioService {
 		servicio.setNombre(servicioDTO.getNombre());
 		return servicio;
 	}
+
+	@Override
+	public List<Servicio> findAllByCriteria(Servicio servicio) {
+		return servicioDAO.findAllByCriteria(servicio);
+	}
 }

@@ -36,6 +36,29 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 	        });
 		},
 		
+		findProducts : function(busqueda){
+			
+			if(busqueda == null){
+				busqueda = { texto : "" };
+			}
+			
+			return $http({
+	            url: "/viagging-api/products/find",
+	            method: "POST",
+	            cache: false,
+	            data: busqueda,
+	        }).then(function successCallback(response) {
+	        	if(angular.isArray(response.data)){
+	        		products = response.data;
+	        		return $q.resolve(response.data);
+	        	} else {
+	        		return $q.reject(response.data);
+	        	}
+	        }, function errorCallback(response) {
+	        	return $q.reject(response.data);
+	        });
+		},
+		
 		addCommentToProduct : function(comment, productId, successCallback, errorCallback){
 			$http({
 				url: "/viagging-api/products/" + productId + "/comment",
