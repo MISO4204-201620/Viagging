@@ -1,12 +1,16 @@
 package com.viagging.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.viagging.core.model.Alojamiento;
 import com.viagging.core.model.Servicio;
 import com.viagging.util.CategoryEnum;
 public class AlojamientoDTO {
   
+	@JsonInclude(Include.NON_NULL)
     private String ciudad;
-	
+    
+    @JsonInclude(Include.NON_NULL)
 	private String valorPorNoche;
 	 
 	private ServicioDTO servicio;

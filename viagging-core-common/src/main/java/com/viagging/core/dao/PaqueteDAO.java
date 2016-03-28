@@ -23,4 +23,6 @@ public interface PaqueteDAO {
 
 	List<Paquete> findAllByCriteria(Paquete paquete);
 	
+	Paquete activatePaquete(Paquete paquete);
+	
 }

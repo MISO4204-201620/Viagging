@@ -96,4 +96,12 @@ public class PackageController {
 		
     	return listPaquete;	  
     }
+    
+    @RequestMapping(value = "/activatePackage", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void activatePackage(@RequestBody PaqueteDTO paqueteDTO) {
+    	System.out.println(paqueteDTO);
+    	Paquete paquete = paqueteService.buildPaquete(paqueteDTO);
+    	paqueteService.activatePaquete(paquete);
+    }
 }

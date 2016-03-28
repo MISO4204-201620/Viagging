@@ -21,5 +21,7 @@ public interface PaqueteService {
 	List<Paquete> getAllPaquetesByFiltro(String filtro);
 	
 	List<Paquete> findAllByCriteria(Paquete paquete);
+	
+	Paquete activatePaquete(Paquete paquete);
 
 }

@@ -62,25 +62,26 @@ public class Paquete implements Serializable {
 	private List<Movimiento> movimientos;
 
 	//bi-directional many-to-one association to PaqueteServicio
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	@OneToMany(mappedBy="paquete")
 	private List<PaqueteServicio> paqueteServicios;
 
 	//bi-directional many-to-one association to Pregunta
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.EXTRA)
 	@OneToMany(mappedBy="paquete")
 	private List<Pregunta> preguntas;
 
 	public Paquete() {
 	}
 	
-	public Paquete( Boolean activo, String nombrePaquete,
+	public Paquete( int id, Boolean activo, String nombrePaquete,
 			Integer precio,String descripcion) {
 		super();
 		this.activo = activo;
 		this.nombrePaquete = nombrePaquete;
 		this.precio = precio;
 		this.descripcion = descripcion;
+		this.id = id;
 	}
 	
 	public String getDescripcion() {

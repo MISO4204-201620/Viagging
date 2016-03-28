@@ -85,5 +85,4 @@ angular.module('viaggingApp', ['flow', 'angularFileUpload'])
 	var uploader = $scope.uploader = new FileUploader({
 		url: '/viagging-providers-web/guardarImagen'
 	});
-
 }]);

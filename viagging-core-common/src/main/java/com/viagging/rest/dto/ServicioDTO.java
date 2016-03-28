@@ -2,7 +2,6 @@ package com.viagging.rest.dto;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.viagging.core.model.PaqueteServicio;
 import com.viagging.core.model.Servicio;

@@ -77,5 +77,14 @@ public class PaqueteDAOImpl implements PaqueteDAO {
 		query.setParameter("descripcion", "%"+paquete.getDescripcion()+"%");
 		return (List<Paquete>) query.getResultList();
 	}
+	
+	@Override
+	public Paquete activatePaquete(Paquete paquete) {
+		Paquete _paquete = entityManager.find(Paquete.class, paquete.getId());
+		_paquete.setActivo(paquete.getActivo());
+		entityManager.persist(_paquete);
+		return _paquete;
+	}
+
 
 }
