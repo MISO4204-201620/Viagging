@@ -234,6 +234,7 @@ public class UsuarioDTO {
 		return usuarioDto;
 	}
 	
+	
 	public static List<UsuarioDTO> buildListObject(List<CuentaAcceso> listCuentaAcceso){
 		List<UsuarioDTO> listUser = new ArrayList<>();
 		for (CuentaAcceso cuentaAcceso : listCuentaAcceso) {
