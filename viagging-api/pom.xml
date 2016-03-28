@@ -16,12 +16,5 @@
 			<artifactId>viagging-core-common</artifactId>
 			<version>1.0</version>
 		</dependency>
-		
-		<!-- JSON Web Token Support For The JVM -->
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.6.0</version>
-		</dependency>
 	</dependencies>
 </project>
