@@ -13,7 +13,8 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 					return productsService.getAllProducts();
 				}]
 			},
-			controller: 'CatalogueCtrl'
+			controller: 'CatalogueCtrl',
+			reloadOnSearch: true
 		})
 		.state("search", {
 			url: "/search",

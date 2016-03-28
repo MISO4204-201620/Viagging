@@ -117,11 +117,11 @@
 											<a class="pull-left" href="#">
 												<img class="media-object thumbnail" src="../app/images/user.png" style="width: 60px; height: 60px;">
 												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-half-o"></i>
+													<i class="fa" ng-class="{'fa-star' : comentario.calificacion >= 1, 'fa-star-o' : comentario.calificacion < 1}"></i>
+													<i class="fa" ng-class="{'fa-star' : comentario.calificacion >= 2, 'fa-star-o' : comentario.calificacion < 2}"></i>
+													<i class="fa" ng-class="{'fa-star' : comentario.calificacion >= 3, 'fa-star-o' : comentario.calificacion < 3}"></i>
+													<i class="fa" ng-class="{'fa-star' : comentario.calificacion >= 4, 'fa-star-o' : comentario.calificacion < 4}"></i>
+													<i class="fa" ng-class="{'fa-star' : comentario.calificacion >= 5, 'fa-star-o' : comentario.calificacion < 5}"></i>
 												</div>
 											</a>
 											<div class="media-body">
