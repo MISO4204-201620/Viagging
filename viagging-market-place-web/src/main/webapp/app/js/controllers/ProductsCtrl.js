@@ -1,4 +1,8 @@
-marketPlaceApp.controller('ProductsCtrl', ['$scope', function($scope){
+marketPlaceApp.controller('ProductsCtrl', ['$scope', 'filterFilter', function($scope, filterFilter){
+
+	if($scope.busqueda && $scope.busqueda.texto != ""){
+		$scope.products = filterFilter($scope.products, $scope.busqueda.texto);
+	}
 
 	//Pagination controls
 	$scope.currentPage = 1;

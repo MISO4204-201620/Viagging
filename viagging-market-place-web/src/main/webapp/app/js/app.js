@@ -9,9 +9,6 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 			url: "/home",
 			templateUrl: 'views/catalogue.html',
 			resolve: {
-				config : ['configService', function(configService){
-					return configService.initMarketPlaceConfig();
-				}],
 				products : ['productsService', function(productsService){
 					return productsService.getAllProducts();
 				}]
@@ -23,8 +20,11 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 			templateUrl: 'views/search.html',
 			params: { busqueda : null },
 			resolve: {
+				config : ['configService', function(configService){
+					return configService.initMarketPlaceConfig();
+				}],
 				products : ['productsService', '$stateParams', function(productsService, $stateParams){
-					return productsService.findProducts($stateParams.busqueda);
+					return productsService.getAllProducts();
 				}]
 			},
 			controller: 'SearchCtrl'
