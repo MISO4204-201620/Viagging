@@ -1,4 +1,4 @@
-package com.viagging.api.model;
+package com.viagging.rest.model;
 
 /**
  * The Class UserLogin.
