@@ -240,11 +240,9 @@ public class UsuarioDTO {
 		List<UsuarioDTO> listUser = new ArrayList<>();
 		for (CuentaAcceso cuentaAcceso : listCuentaAcceso) {
 			UsuarioDTO usuarioDto = new UsuarioDTO();
-			if(!cuentaAcceso.getPerfil().getId().equals(Profile.USUARIO.getId())){
-			    usuarioDto = UsuarioDTO.buildObject(cuentaAcceso.getUsuario());
-	            usuarioDto.setPerfil(PerfilDTO.buildObject(cuentaAcceso.getPerfil()));
-			    listUser.add(usuarioDto);
-			}
+		    usuarioDto = UsuarioDTO.buildObject(cuentaAcceso.getUsuario());
+            usuarioDto.setPerfil(PerfilDTO.buildObject(cuentaAcceso.getPerfil()));
+		    listUser.add(usuarioDto);
 		}
 		return listUser;
 	}

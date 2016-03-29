@@ -19,6 +19,8 @@ public class PaqueteDTO {
 	
 	private String descripcion;
 	
+	private UsuarioDTO usuario;
+	
 	private List<ServicioDTO>servicios;
 	
 	public PaqueteDTO(){}
@@ -86,7 +88,15 @@ public class PaqueteDTO {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
+	public UsuarioDTO getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioDTO usuario) {
+		this.usuario = usuario;
+	}
+
 	public static List<PaqueteDTO> buildListObject(List<Paquete> listaPaquete){
 		List<PaqueteDTO> listaPaqueteDTO = new ArrayList<>();
 		for (Paquete paquete : listaPaquete) {

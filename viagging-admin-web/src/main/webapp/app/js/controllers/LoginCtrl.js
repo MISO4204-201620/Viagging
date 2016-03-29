@@ -16,7 +16,7 @@ providersApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'loginSe
 	};
 	
 	var errorCallback = function(){
-		alert("Las credenciales que ha ingresado no son v�lidas!");
+		alert("Las credenciales que ha ingresado no son validas!");
 		$scope.userLogin.password = "";
 	};
 	

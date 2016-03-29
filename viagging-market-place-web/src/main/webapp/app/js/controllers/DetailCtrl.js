@@ -53,5 +53,19 @@ marketPlaceApp.controller('DetailCtrl', ['$scope', 'product','ngCart', 'wishList
     	$scope.product = product;
     	$scope.comentarioCalificacion = {};
     	$scope.preguntaProducto = {};
+    	//Carousel
+    	$scope.noWrapSlides = false;
+    	$scope.active = 0;
+    	
+    	$scope.slides = [];
+    	var imagenes = product.imagenes;
+    	var i=0;
+    	angular.forEach(imagenes, function(imagen){
+    		var obj = {
+				image : imagen,
+				id: i++
+    		};
+    		$scope.slides.push(obj);
+    	});
     }();
 }]);

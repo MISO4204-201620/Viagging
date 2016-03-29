@@ -10,6 +10,9 @@ public class PaseoEcologicoDTOMapper {
 
 	public PaseoEcologicoDTO mapObject(PaseoEcologico paseoEcologico){		
 		PaseoEcologicoDTO paseoEcologicoDTO = new PaseoEcologicoDTO();
+		paseoEcologicoDTO.setCiudad(paseoEcologico.getCiudad());
+		paseoEcologicoDTO.setHorario(paseoEcologico.getHorario());
+		paseoEcologicoDTO.setTiempoDeRecorrido(paseoEcologico.getTiempoderecorrido());
 		return paseoEcologicoDTO;
 	}
 	

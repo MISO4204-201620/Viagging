@@ -13,6 +13,9 @@ import com.viagging.rest.dto.PaqueteDTO;
 public class PaqueteDTOMapper {
 
 	@Autowired
+	private UsuarioDTOMapper usuarioDTOMapper;
+	
+	@Autowired
 	private ServicioDTOMapper servicioDTOMapper;
 	
 	public PaqueteDTO mapObject(Paquete paquete){
@@ -23,6 +26,7 @@ public class PaqueteDTOMapper {
 		paqueteDTO.setDescripcion(paquete.getDescripcion());
 		paqueteDTO.setPrecio(String.valueOf(paquete.getPrecio()));
 		paqueteDTO.setServicios(servicioDTOMapper.mapObjectListFromPaqueteServicio(paquete.getPaqueteServicios()));
+		paqueteDTO.setUsuario(usuarioDTOMapper.mapObject(paquete.getUsuario()));
 		return paqueteDTO;
 	}
     

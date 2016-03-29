@@ -64,7 +64,9 @@ providersApp.controller('AlimentacionCtrl', ['$scope', 'userService', 'FileUploa
 			}
 			reset();
 			alert("El servicio fue creado!");
-		}).error(function(data, status, headers, config) {}); 
+		}).error(function(data, status, headers, config) {
+			alert("Error en la creación");
+		}); 
 	} 
 
 	function reset() {

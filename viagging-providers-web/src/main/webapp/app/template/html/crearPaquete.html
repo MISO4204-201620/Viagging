@@ -35,21 +35,23 @@
 												<th class="center"><label class="pos-rel"> <input
 														type="checkbox" class="ace" /> <span class="lbl"></span>
 												</label></th>
+												<th class="center">Categor&iacutea</th>
 												<th class="center">Nombre</th>
 												<th class="center">Detalles</th>
 												<th class="center">Precio</th>
 												<th class="hidden-480 center">Descripción Corta</th>
-												<th class="center">Ciudad</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr
 												ng-repeat="listservices in listservices track by listservices.id">
+												
 												<td class="center"><label class="pos-rel"> <input
 														type="checkbox" ng-checked="listservices.datosServicio"
 														ng-model="listservices.datosServicio" class="ace" /> <span
 														class="lbl"></span>
 												</label></td>
+												<td>{{ listservices.categoria }}</td>
 												<td>{{ listservices.nombre }}</td>
 												<td class="center">
 													<div class="action-buttons">
@@ -66,7 +68,6 @@
 
 												<td>{{ listservices.precio }}</td>
 												<td>{{ listservices.descripcionCorta }}</td>
-												<td>{{ listservices.ciudad }}</td>
 											</tr>
 										</tbody>
 									</table>
@@ -87,18 +88,18 @@
 								class="table  table-bordered table-hover">
 								<thead>
 									<tr>
+									    <th class="center">Categor&iacutea</th>
 										<th class="center">Nombre</th>
 										<th class="center">Detalles</th>
 										<th class="center">Precio</th>
 										<th class="hidden-480">Descripción Corta</th>
-										<th class="center">Ciudad</th>
 										<th class="center">Eliminar</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr
 										ng-repeat="chooseservices in chooseservices track by chooseservices.id">
-
+                                        <td>{{ chooseservices.categoria }}</td>
 										<td>{{ chooseservices.nombre }}</td>
 										<td class="center">
 											<div class="action-buttons">
@@ -113,7 +114,6 @@
 										</td>
 										<td>{{ chooseservices.precio }}</td>
 										<td>{{ chooseservices.descripcionCorta }}</td>
-										<td>{{ chooseservices.ciudad }}</td>
 										<td class="center">
 											<div class="">
 												<a href="#"
@@ -136,7 +136,7 @@
 									for="form-field-1"> Nombre </label>
 
 								<div class="col-sm-9">
-									<input letter-only ng-model="paquete.nombre" required
+									<input  ng-model="paquete.nombre" required
 										type="text" id="form-field-1" placeholder="Nombre"
 										class="col-xs-10 col-sm-5" />
 								</div>
@@ -145,7 +145,7 @@
 								<label class="col-sm-3 control-label no-padding-right"
 									for="form-field-1"> Descripción </label>
 								<div class="col-sm-9">
-									<input letter-only ng-model="paquete.descripcion" required
+									<input  ng-model="paquete.descripcion" required
 										type="text" id="form-field-1" placeholder="descripcion"
 										class="col-xs-10 col-sm-5" />
 								</div>

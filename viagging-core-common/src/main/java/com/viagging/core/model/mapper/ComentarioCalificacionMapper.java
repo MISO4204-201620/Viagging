@@ -31,7 +31,7 @@ public class ComentarioCalificacionMapper {
 		if(comentarioDTO.getServicio() != null){
 			comentario.setServicio(servicioMapper.mapObject(comentarioDTO.getServicio()));
 		}
-		if(comentario.getPaquete() != null){
+		if(comentarioDTO.getPaquete() != null){
 			comentario.setPaquete(paqueteMapper.mapObject(comentarioDTO.getPaquete()));
 		}
 		return comentario;

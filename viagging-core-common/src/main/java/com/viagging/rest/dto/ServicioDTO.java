@@ -71,26 +71,6 @@ public class ServicioDTO {
 	public List<CaracteristicasDTO> getCaracteristicas() {
 		return caracteristicas;
 	}
-
-//	public void setCaracteristicas(String caracteristicas1) {
-//		try {
-//			JSONObject jsonObj = new JSONObject(caracteristicas1);		
-//			Iterator<String> keys = jsonObj.keys();		
-//			List<CaracteristicasDTO> caracteristicasDTO = new ArrayList<CaracteristicasDTO>();		
-//			while (keys.hasNext()) {
-//				String key = keys.next();		
-//				boolean isActive = jsonObj.getBoolean(key);		
-//				if (isActive) {	
-//					CaracteristicasDTO caracteristica = new CaracteristicasDTO();
-//					caracteristica.setCategoria(getIdCategoria());
-//					caracteristica.setValor(key);
-//					caracteristicasDTO.add(caracteristica);
-//				}		
-//			}
-//			this.caracteristicas = caracteristicasDTO;
-//		} catch (Exception e){e.printStackTrace();}
-//	}
-	
 	
 	public void setCaracteristicas(List<CaracteristicasDTO> caracteristicas) {
 		this.caracteristicas = caracteristicas;
@@ -221,29 +201,36 @@ public class ServicioDTO {
 		List<ServicioDTO> listServicioDTO = new ArrayList<>();
 		for (Servicio servicio : listServicio) {
 			ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(), servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones());
-
-			// TODO Mover esta l�gica a un m�todo
-			String idCategoria = "";
-			if (servicio.getAlimentacion() != null) {
-				idCategoria = CategoryEnum.ALIMENTACION.getId();
-			} else if (servicio.getTransporte() != null) {
-				idCategoria = CategoryEnum.TRANSPORTE.getId();
-			} else if (servicio.getAlojamiento() != null) {
-				idCategoria = CategoryEnum.ALOJAMIENTO.getId();
-			} else if (servicio.getPaseoEcologico() != null) {
-				idCategoria = CategoryEnum.PASEO_ECOLOGICO.getId();
-			}
-			servicioDTO.setIdCategoria(idCategoria);
-			servicioDTO.setCiudadFromCategoria(servicio);
-			if(servicio.getImagenprincipal() != null){
-				servicioDTO.setImagenPrincipal(new String(servicio.getImagenprincipal()));
-			}
-
+			servicioDTO =  ServicioDTO.setearDatosAdicionales(servicioDTO, servicio);
 			listServicioDTO.add(servicioDTO);
 		}
 		return listServicioDTO;
 	}
-
+    
+	private static ServicioDTO setearDatosAdicionales(ServicioDTO servicioDTO, Servicio servicio){
+		String idCategoria = "";
+		if (servicio.getAlimentacion() != null) {
+			idCategoria = CategoryEnum.ALIMENTACION.getId();
+			servicioDTO.setCategoria(CategoryEnum.ALIMENTACION);
+		} else if (servicio.getTransporte() != null) {
+			idCategoria = CategoryEnum.TRANSPORTE.getId();
+			servicioDTO.setCategoria(CategoryEnum.TRANSPORTE);
+		} else if (servicio.getAlojamiento() != null) {
+			idCategoria = CategoryEnum.ALOJAMIENTO.getId();
+			servicioDTO.setCategoria(CategoryEnum.ALOJAMIENTO);
+		} else if (servicio.getPaseoEcologico() != null) {
+			idCategoria = CategoryEnum.PASEO_ECOLOGICO.getId();
+			servicioDTO.setCategoria(CategoryEnum.PASEO_ECOLOGICO);
+		}
+		servicioDTO.setIdCategoria(idCategoria);
+		servicioDTO.setCiudadFromCategoria(servicio);
+		if(servicio.getImagenprincipal() != null){
+			servicioDTO.setImagenPrincipal(new String(servicio.getImagenprincipal()));
+		}
+		return servicioDTO;
+		
+	} 
+	
 	public static ServicioDTO buildObject(Servicio servicio) {
 		ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(), servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones());
 		servicioDTO.setCiudadFromCategoria(servicio);
@@ -278,7 +265,7 @@ public class ServicioDTO {
 		}
 		return listaServicioDTO;
 	}
-
+    
 	private PaqueteDTO buildPaquete(Servicio servicio) {
 		PaqueteDTO paquete = new PaqueteDTO();
 		String idCategoria = "";
