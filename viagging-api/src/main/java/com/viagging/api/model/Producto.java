@@ -7,6 +7,7 @@ import com.viagging.api.constants.ProductType;
 import com.viagging.rest.dto.ComentarioCalificacionDTO;
 import com.viagging.rest.dto.PreguntaDTO;
 import com.viagging.rest.dto.ServicioDTO;
+import com.viagging.rest.dto.UsuarioDTO;
 
 /**
  * The Class Producto.
@@ -22,6 +23,8 @@ public class Producto {
 	/** The descripcion. */
 	private String descripcion;
 
+	private UsuarioDTO proveedor;
+	
 	/** The precio. */
 	private BigDecimal precio;
 
@@ -96,6 +99,14 @@ public class Producto {
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	
+	public UsuarioDTO getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(UsuarioDTO proveedor) {
+		this.proveedor = proveedor;
 	}
 
 	/**

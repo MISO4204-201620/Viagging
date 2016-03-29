@@ -33,7 +33,7 @@ public class ProductoMapper {
 		producto.setServicios(paquete.getServicios());
 		producto.setPrecio(new BigDecimal(paquete.getPrecio()));
 		producto.setActivo(paquete.getActivo());
-		
+		producto.setProveedor(paquete.getUsuario());
 		producto.setImagenes(new ArrayList<String>());
 		//Imagenes
 		for(ServicioDTO servicio : paquete.getServicios()){
@@ -69,6 +69,7 @@ public class ProductoMapper {
 		producto.setPrecio(new BigDecimal(servicio.getPrecio()));
 		producto.setActivo(servicio.getActivo());
 		producto.setImagenPrincipal(servicio.getImagenPrincipal());
+		producto.setProveedor(servicio.getUsuario());
 		producto.setImagenes(servicio.getImagenes());
 		List<ServicioDTO> servicios = new ArrayList<>();
 		servicios.add(servicio);

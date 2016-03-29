@@ -3,8 +3,11 @@ package com.viagging.core.dao.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +17,8 @@ import com.viagging.core.model.ListaDeseos;
 @Transactional
 @Repository
 public class ListaDeseosDAOImpl implements ListaDeseosDAO{
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ListaDeseosDAOImpl.class);
 	
 	/** The entity manager. */
 	@PersistenceContext
@@ -27,7 +32,12 @@ public class ListaDeseosDAOImpl implements ListaDeseosDAO{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ListaDeseos> getAllListaDeseos() {
-		return (List<ListaDeseos>) entityManager.createNamedQuery("ListaDeseos.findAll").getResultList();
+		try{
+			return (List<ListaDeseos>) entityManager.createNamedQuery("ListaDeseos.findAll").getResultList();
+		} catch(NoResultException e){
+			LOGGER.error(e.getMessage());
+			return null;
+		}
 	}
 
 	@Override
