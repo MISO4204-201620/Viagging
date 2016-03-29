@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.viagging.core.constant.Profile;
 import com.viagging.core.model.CuentaAcceso;
 import com.viagging.core.model.Usuario;
 
@@ -239,9 +240,11 @@ public class UsuarioDTO {
 		List<UsuarioDTO> listUser = new ArrayList<>();
 		for (CuentaAcceso cuentaAcceso : listCuentaAcceso) {
 			UsuarioDTO usuarioDto = new UsuarioDTO();
-		    usuarioDto = UsuarioDTO.buildObject(cuentaAcceso.getUsuario());
-            usuarioDto.setPerfil(PerfilDTO.buildObject(cuentaAcceso.getPerfil()));
-		    listUser.add(usuarioDto);
+			if(!cuentaAcceso.getPerfil().getId().equals(Profile.USUARIO.getId())){
+			    usuarioDto = UsuarioDTO.buildObject(cuentaAcceso.getUsuario());
+	            usuarioDto.setPerfil(PerfilDTO.buildObject(cuentaAcceso.getPerfil()));
+			    listUser.add(usuarioDto);
+			}
 		}
 		return listUser;
 	}

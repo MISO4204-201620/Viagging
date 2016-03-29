@@ -40,7 +40,8 @@ body {
   }
 }
 .main-content {
-  margin-left: 0;
+  margin-left: 17%;
+  margin-right: 3%;
   min-height: 100%;
   padding: 0;
 }
