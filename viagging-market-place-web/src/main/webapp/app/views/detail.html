@@ -12,7 +12,7 @@
 
 	            	<div class="row">
 						<div class="col-lg-8 col-md-8 col-sm-8">
-			            	<!-- Main Image -->
+			            	<!-- Carousel -->
 			            	<div class="product-thumb-image">
 								<uib-carousel active="active" no-wrap="noWrapSlides">
 					        		<uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
@@ -20,30 +20,7 @@
 					        		</uib-slide>
 						      	</uib-carousel>
 					      	</div>
-							<!-- End Main Image -->
-
-							<!-- Thumbnail Image -->
-<!-- 							<div class="col-xs-3 product-thumb-image"> -->
-<!-- 								<a href="images/detail1.jpg" class="thumbnail"> -->
-<!-- 									<img src="../app/images/hotel_1.jpg" alt=""> -->
-<!-- 								</a> -->
-<!-- 							</div> -->
-<!-- 							<div class="col-xs-3 product-thumb-image"> -->
-<!-- 								<a href="images/detail2.jpg" class="thumbnail"> -->
-<!-- 									<img src="../app/images/hotel_2.jpg" alt=""> -->
-<!-- 								</a> -->
-<!-- 							</div> -->
-<!-- 							<div class="col-xs-3 product-thumb-image"> -->
-<!-- 								<a href="images/detail3.jpg" class="thumbnail"> -->
-<!-- 									<img src="../app/images/hotel_3.jpg" alt=""> -->
-<!-- 								</a> -->
-<!-- 							</div> -->
-<!-- 							<div class="col-xs-3 product-thumb-image"> -->
-<!-- 								<a href="images/detail1.jpg" class="thumbnail"> -->
-<!-- 									<img src="../app/images/hotel_4.jpg" alt=""> -->
-<!-- 								</a> -->
-<!-- 							</div> -->
-							<!-- End Thumbnail Image -->
+							<!-- End Carousel -->
 						</div>
 
 						<div class="visible-xs">
@@ -65,6 +42,9 @@
 										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 3, 'fa-star-o' : product.calificacion < 3}"></i>
 										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 4, 'fa-star-o' : product.calificacion < 4}"></i>
 										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 5, 'fa-star-o' : product.calificacion < 5}"></i>
+									</div>
+									<div class="the-list">
+										<h4 class="col-xs-12">Proveedor: {{product.proveedor.primerNombre}} {{product.proveedor.primerApellido}}</h4>
 									</div>
 									<div class="clearfix"></div>
 									<hr/>

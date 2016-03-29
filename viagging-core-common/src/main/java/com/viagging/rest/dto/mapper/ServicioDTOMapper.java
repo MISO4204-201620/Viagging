@@ -30,6 +30,9 @@ public class ServicioDTOMapper {
 	@Autowired
 	private CaracteristicaDTOMapper caracteristicaDTOMapper;
 	
+	@Autowired
+	private UsuarioDTOMapper usuarioDTOMapper;
+	
 	public ServicioDTO mapObject(Servicio servicio) {
 		ServicioDTO servicioDTO = new ServicioDTO();
 		servicioDTO.setId(servicio.getId());
@@ -39,6 +42,7 @@ public class ServicioDTOMapper {
 		servicioDTO.setCaracteristicas(caracteristicaDTOMapper.mapObjectListFromCaracteristicaServicio(servicio.getCaracteristicas()));
 		servicioDTO.setPrecio(String.valueOf(servicio.getPrecio()));
 		servicioDTO.setRestricciones(servicio.getRestricciones());
+		servicioDTO.setUsuario(usuarioDTOMapper.mapObject(servicio.getUsuario()));
 		if(servicio.getImagenprincipal() != null){
 			servicioDTO.setImagenPrincipal(new String(servicio.getImagenprincipal()));
 		}
