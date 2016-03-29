@@ -62,12 +62,12 @@ public class Paquete implements Serializable {
 	private List<Movimiento> movimientos;
 
 	//bi-directional many-to-one association to PaqueteServicio
-	@LazyCollection(LazyCollectionOption.EXTRA)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="paquete")
 	private List<PaqueteServicio> paqueteServicios;
 
 	//bi-directional many-to-one association to Pregunta
-	@LazyCollection(LazyCollectionOption.EXTRA)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="paquete")
 	private List<Pregunta> preguntas;
 
