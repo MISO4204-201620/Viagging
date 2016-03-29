@@ -13,35 +13,36 @@
 	            	<div class="row">
 						<div class="col-lg-8 col-md-8 col-sm-8">
 			            	<!-- Main Image -->
-							<div class="product-main-image-container">
-								<!--img src="../app/images/hotel1.jpg" alt="" class="product-loader"-->
-								<span class="thumbnail product-main-image">
-									<img src="../app/images/hotel_4.jpg" alt="">
-								</span>
-							</div>
+			            	<div class="product-thumb-image">
+								<uib-carousel active="active" no-wrap="noWrapSlides">
+					        		<uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+				          				<img class="carousel-image" ng-src="data:image/png;base64,{{slide.image}}">
+					        		</uib-slide>
+						      	</uib-carousel>
+					      	</div>
 							<!-- End Main Image -->
 
 							<!-- Thumbnail Image -->
-							<div class="col-xs-3 product-thumb-image">
-								<a href="images/detail1.jpg" class="thumbnail">
-									<img src="../app/images/hotel_1.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-xs-3 product-thumb-image">
-								<a href="images/detail2.jpg" class="thumbnail">
-									<img src="../app/images/hotel_2.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-xs-3 product-thumb-image">
-								<a href="images/detail3.jpg" class="thumbnail">
-									<img src="../app/images/hotel_3.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-xs-3 product-thumb-image">
-								<a href="images/detail1.jpg" class="thumbnail">
-									<img src="../app/images/hotel_4.jpg" alt="">
-								</a>
-							</div>
+<!-- 							<div class="col-xs-3 product-thumb-image"> -->
+<!-- 								<a href="images/detail1.jpg" class="thumbnail"> -->
+<!-- 									<img src="../app/images/hotel_1.jpg" alt=""> -->
+<!-- 								</a> -->
+<!-- 							</div> -->
+<!-- 							<div class="col-xs-3 product-thumb-image"> -->
+<!-- 								<a href="images/detail2.jpg" class="thumbnail"> -->
+<!-- 									<img src="../app/images/hotel_2.jpg" alt=""> -->
+<!-- 								</a> -->
+<!-- 							</div> -->
+<!-- 							<div class="col-xs-3 product-thumb-image"> -->
+<!-- 								<a href="images/detail3.jpg" class="thumbnail"> -->
+<!-- 									<img src="../app/images/hotel_3.jpg" alt=""> -->
+<!-- 								</a> -->
+<!-- 							</div> -->
+<!-- 							<div class="col-xs-3 product-thumb-image"> -->
+<!-- 								<a href="images/detail1.jpg" class="thumbnail"> -->
+<!-- 									<img src="../app/images/hotel_4.jpg" alt=""> -->
+<!-- 								</a> -->
+<!-- 							</div> -->
 							<!-- End Thumbnail Image -->
 						</div>
 

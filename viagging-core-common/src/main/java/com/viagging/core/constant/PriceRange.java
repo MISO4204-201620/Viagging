@@ -7,7 +7,7 @@ import com.viagging.util.Range;
 
 public enum PriceRange {
 
-	PRECIO_1(10000, 100000),
+	PRECIO_1(0, 100000),
 	
 	PRECIO_2(100000, 500000),
 	
