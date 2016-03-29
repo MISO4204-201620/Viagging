@@ -1,25 +1,26 @@
 'use strict';
 
-var providersApp = angular.module('providersapp', ['ui.router', 'ui.bootstrap','ngDialog']);
+var providersApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap','ngDialog', 'angularFileUpload']);
 
 providersApp.config(['$stateProvider', function($stateProvider){
-    		$stateProvider
-    			.state("login", {
-    				url: "/login",
-    				templateUrl: 'app/template/html/login.html',
-    				controller: 'LoginCtrl',
-    			})
-    			.state("content", {
-    				url: "/content",
-    				templateUrl: '/contenido.html',
-    			})
-    			.state("query", {
-    				url: "/query",
-    				templateUrl: 'app/templates/html/consulta.html'
-    			});
-    			
+	$stateProvider
+		.state("home", {
+			url: "/home",
+			templateUrl: 'template/html/login.html',
+			controller: 'LoginCtrl'
+		})
+		.state("consultar", {
+			url: "/consultar",
+			templateUrl: 'template/html/consultarusuario.html',
+			controller: 'UsuarioCtrl',
+		})
+		.state("crear", {
+			url: "/crear",
+			templateUrl: 'template/html/crearusuario.html',
+			controller: 'UsuarioCtrl',
+		});
 }]);
 
 providersApp.run(['$state', function run($state) {
-	$state.go("login");
+	$state.go("home");
 }]);

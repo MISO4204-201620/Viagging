@@ -47,16 +47,13 @@ public class LoginController {
 	@RequestMapping(value = "/loginProvAdmin", method = RequestMethod.POST)
 	public ResponseEntity<UsuarioDTO> login(@RequestBody final UserLoginDTO userLogin, HttpServletResponse response){
 		Usuario usuario = usuarioService.findUsuarioByLoginAndPassword(userLogin.getLogin(), userLogin.getPassword());
-
 		if(usuario == null){
 			return new ResponseEntity<UsuarioDTO>(HttpStatus.BAD_REQUEST);
 		}
-
 		CuentaAcceso cuentaAcceso = cuentaAccesoService.findCuentaAccesoByUsuarioAndProfile(usuario.getId(), Profile.getValue(userLogin.getProfile()));
 		if(cuentaAcceso == null){
 			return new ResponseEntity<UsuarioDTO>(HttpStatus.BAD_REQUEST);
 		}
-
 		UsuarioDTO usuarioDTO = UsuarioDTO.buildObject(usuario);
 		addAuthorizationCookie(response, usuario);
 

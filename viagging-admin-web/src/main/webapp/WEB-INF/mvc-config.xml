@@ -19,22 +19,10 @@
 		@Service, @Controller and also resolves @Autowired and @Qualifier -->
 	<context:component-scan base-package="com.viagging" />
 
-	<mvc:annotation-driven>
-		<mvc:message-converters>
-			<bean id="jacksonHttpMessageConverter"
-				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-				<property name="prettyPrint" value="true" />
-			</bean>
-		</mvc:message-converters>
-	</mvc:annotation-driven>
+    <mvc:annotation-driven />
 
 	<!-- activate @Transactional JPA annotation -->
 	<tx:annotation-driven />
-	<!-- ViewResolver bean config for mapping strings to html views -->
-	<mvc:view-controller path="/" view-name="/login"/>
-	<mvc:view-controller path="/crearusuario.html" view-name="/crearusuario"/>
-	<mvc:view-controller path="/consultarusuario.html" view-name="/consultarusuario"/>
-	<!-- ViewResolver bean config for mapping strings to jsp views -->
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -42,9 +30,11 @@
 		<property name="prefix" value="/app/template/html/" />
 		<property name="suffix" value=".html" />
 	</bean>
+	
+	<!-- ViewResolver bean config for mapping strings to html views -->
+	<mvc:view-controller path="/" view-name="redirect:/app/"/>
 
 	<!-- Static Resources Configuration (get access to static sources such as
 		CSS and JavaScript files) -->
 	<mvc:resources mapping="/app/**" location="/app/" />
-
 </beans>

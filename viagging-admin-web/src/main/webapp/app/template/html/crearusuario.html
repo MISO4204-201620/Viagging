@@ -1,512 +1,171 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta charset="utf-8" />
-		<title>Viagging Admin</title>
+<div ng-init="getProfile()" class="main-content">
+	<div class="row">
+		<div class="col-xs-12">
+			<!-- PAGE CONTENT BEGINS -->
+			<form class="form-horizontal" role="form" name="fService" novalidate
+				ng-submit="createUser()" ng-hide="saving">
+				<!-- #section:elements.form -->
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1"> Primer Nombre </label>
 
-		<meta name="description" content="Common form elements and layouts" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
-		<!-- bootstrap & fontawesome -->
-		<link rel="stylesheet" href="app/template/assets/css/bootstrap.css" />
-		<link rel="stylesheet" href="app/template/assets/css/font-awesome.css" />
-
-		<!-- page specific plugin styles -->
-		<link rel="stylesheet" href="app/template/assets/css/jquery-ui.custom.css" />
-		<link rel="stylesheet" href="app/template/assets/css/chosen.css" />
-		<link rel="stylesheet" href="app/template/assets/css/bootstrap-datepicker3.css" />
-		<link rel="stylesheet" href="app/template/assets/css/bootstrap-timepicker.css" />
-		<link rel="stylesheet" href="app/template/assets/css/daterangepicker.css" />
-		<link rel="stylesheet" href="app/template/assets/css/bootstrap-datetimepicker.css" />
-		<link rel="stylesheet" href="app/template/assets/css/colorpicker.css" />
-
-		<!-- text fonts -->
-		<link rel="stylesheet" href="app/template/assets/css/ace-fonts.css" />
-
-		<!-- ace styles -->
-		<link rel="stylesheet" href="app/template/assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
-		
-		<script src="app/vendor/angular/angular.js"></script>
-		<script src="app/js/controllers/UsuarioCtrl.js"></script>
-		 <script src="app/js/angular-file-upload.min.js"></script>
-		
-		<!-- concatenated flow.js + ng-flow libraries -->
-		<script src="app/js/ng-flow-standalone.js"></script>
-		<!-- or include the files separately -->
-		<script src="app/js/ng-flow.js"></script>
-
-		<script src="app/template/assets/js/ace-extra.js"></script>
-
-	</head>
-
-	<body class="no-skin">
-		<!-- #section:basics/navbar.layout -->
-		<div id="navbar" class="navbar navbar-default          ace-save-state">
-			<div class="navbar-container ace-save-state" id="navbar-container">
-				<!-- #section:basics/sidebar.mobile.toggle -->
-				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
-					<span class="sr-only">Toggle sidebar</span>
-
-					<span class="icon-bar"></span>
-
-					<span class="icon-bar"></span>
-
-					<span class="icon-bar"></span>
-				</button>
-
-				<!-- /section:basics/sidebar.mobile.toggle -->
-				<div class="navbar-header pull-left">
-					<!-- #section:basics/navbar.layout.brand -->
-					<a href="#" class="navbar-brand">
-						<small>
-							<i class="fa fa-leaf"></i>
-							Viagging Admin
-						</small>
-					</a>
-
-					<!-- /section:basics/navbar.layout.brand -->
-
-					<!-- #section:basics/navbar.toggle -->
-
-					<!-- /section:basics/navbar.toggle -->
+					<div class="col-sm-9">
+						<input type="text" id="form-field-1" placeholder="Primer Nombre"
+							class="col-xs-10 col-sm-5" ng-model="usuario.primerNombre" />
+					</div>
 				</div>
 
-				<!-- #section:basics/navbar.dropdown -->
-				<div class="navbar-buttons navbar-header pull-right" role="navigation">
-					<ul class="nav ace-nav">
-						<li class="grey">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="ace-icon fa fa-tasks"></i>
-								<span class="badge badge-grey">4</span>
-							</a>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1"> Segundo Nombre </label>
 
-							<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-								<li class="dropdown-header">
-									<i class="ace-icon fa fa-check"></i>
-									4 Tasks to complete
-								</li>
-
-								<li class="dropdown-content">
-									<ul class="dropdown-menu dropdown-navbar">
-										<li>
-											<a href="#">
-												<div class="clearfix">
-													<span class="pull-left">Task Name</span>
-													<span class="pull-right">65%</span>
-												</div>
-
-												<div class="progress progress-mini">
-													<div style="width:65%" class="progress-bar"></div>
-												</div>
-											</a>
-										</li>
-									</ul>
-								</li>
-
-								<li class="dropdown-footer">
-									<a href="#">
-										See tasks with details
-										<i class="ace-icon fa fa-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="purple">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="ace-icon fa fa-bell icon-animated-bell"></i>
-								<span class="badge badge-important">8</span>
-							</a>
-
-							<ul class="dropdown-menu-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">
-								<li class="dropdown-header">
-									<i class="ace-icon fa fa-exclamation-triangle"></i>
-									8 Notifications
-								</li>
-
-								<li class="dropdown-content">
-									<ul class="dropdown-menu dropdown-navbar navbar-pink">
-										<li>
-											<a href="#">
-												<div class="clearfix">
-													<span class="pull-left">
-														<i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
-														New Comments
-													</span>
-													<span class="pull-right badge badge-info">+12</span>
-												</div>
-											</a>
-										</li>
-									</ul>
-								</li>
-
-								<li class="dropdown-footer">
-									<a href="#">
-										See all notifications
-										<i class="ace-icon fa fa-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="green">
-							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
-								<span class="badge badge-success">5</span>
-							</a>
-
-							<ul class="dropdown-menu-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
-								<li class="dropdown-header">
-									<i class="ace-icon fa fa-envelope-o"></i>
-									5 Messages
-								</li>
-
-								<li class="dropdown-content">
-									<ul class="dropdown-menu dropdown-navbar">
-										<li>
-											<a href="#" class="clearfix">
-												<img src="app/template/assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
-												<span class="msg-body">
-													<span class="msg-title">
-														<span class="blue">Alex:</span>
-														Message Summary
-													</span>
-
-													<span class="msg-time">
-														<i class="ace-icon fa fa-clock-o"></i>
-														<span>Message Time</span>
-													</span>
-												</span>
-											</a>
-										</li>
-									</ul>
-								</li>
-
-								<li class="dropdown-footer">
-									<a href="inbox.html">
-										See all messages
-										<i class="ace-icon fa fa-arrow-right"></i>
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<!-- #section:basics/navbar.user_menu -->
-						<li class="light-blue">
-							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="app/template/assets/avatars/user.jpg" alt="Jason's Photo" />
-								<span class="user-info">
-									<small>Welcome,</small>
-									Jason
-								</span>
-
-								<i class="ace-icon fa fa-caret-down"></i>
-							</a>
-
-							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
-								<li>
-									<a href="#">
-										<i class="ace-icon fa fa-cog"></i>
-										Settings
-									</a>
-								</li>
-
-								<li class="divider"></li>
-
-								<li>
-									<a href="#">
-										<i class="ace-icon fa fa-power-off"></i>
-										Logout
-									</a>
-								</li>
-							</ul>
-						</li>
-
-						<!-- /section:basics/navbar.user_menu -->
-					</ul>
+					<div class="col-sm-9">
+						<input type="text" id="form-field-1" placeholder="Segundo Nombre"
+							class="col-xs-10 col-sm-5" ng-model="usuario.segundoNombre" />
+					</div>
 				</div>
 
-				<!-- /section:basics/navbar.dropdown -->
-			</div><!-- /.navbar-container -->
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1"> Primer Apellido </label>
+
+					<div class="col-sm-9">
+						<input type="text" id="form-field-1" placeholder="Primer Apellido"
+							class="col-xs-10 col-sm-5" ng-model="usuario.primerApellido" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1"> Segundo Apellido </label>
+
+					<div class="col-sm-9">
+						<input type="text" id="form-field-1"
+							placeholder="Segundo Apellido" class="col-xs-10 col-sm-5"
+							ng-model="usuario.segundoApellido" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1">Tipo Documento</label>
+
+					<div class="col-sm-9">
+						<select name="repeatSelect" id="repeatSelect"
+							ng-model="usuario.tipoDocumento">
+							<option ng-repeat="option in tipoDocumento"
+								value="{{option.key}}">{{option.value}}</option>
+						</select>
+					</div>
+
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1"> Numero Documento </label>
+
+					<div class="col-sm-9">
+						<input type="text" id="form-field-1"
+							placeholder="Numero Documento" class="col-xs-10 col-sm-5"
+							ng-model="usuario.numeroDocumento" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1"> Login </label>
+
+					<div class="col-sm-9">
+						<input type="text" id="form-field-1" placeholder="Login"
+							class="col-xs-10 col-sm-5" ng-model="usuario.login" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1"> Password </label>
+
+					<div class="col-sm-9">
+						<input type="text" id="form-field-1" placeholder="Password"
+							class="col-xs-10 col-sm-5" ng-model="usuario.password" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1"> Correo </label>
+
+					<div class="col-sm-9">
+						<input type="text" id="form-field-1" placeholder="Correo"
+							class="col-xs-10 col-sm-5" ng-model="usuario.correo" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1"> N&uacutemero de Celular </label>
+
+					<div class="col-sm-9">
+						<input type="text" id="form-field-1" placeholder="Numero Celular"
+							class="col-xs-10 col-sm-5" ng-model="usuario.numeroCelular" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1">Direcci&oacuten 1</label>
+
+					<div class="col-sm-9">
+						<input id="form-field-2" placeholder="Direccion"
+							class="autosize-transition form-control"
+							ng-model="usuario.direccion1"></input>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1">Pais</label>
+
+					<div class="col-sm-9">
+						<input id="form-field-2" placeholder="Pais"
+							class="autosize-transition form-control" ng-model="usuario.pais"></input>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1"> Ciudad </label>
+
+					<div class="col-sm-9">
+						<input type="text" id="form-field-1" placeholder="Ciudad"
+							class="col-xs-10 col-sm-5" ng-model="usuario.ciudad" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label no-padding-right"
+						for="form-field-1"> Perfil </label>
+					<div class="col-sm-9">
+						<select name="repeatSelect" id="repeatSelect"
+							ng-model="usuario.perfil.id">
+							<option ng-repeat="option in profile" value="{{option.key}}">{{option.value}}</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="clearfix form-actions">
+					<div class="col-md-offset-3 col-md-9">
+						<button class="btn btn-info" type="submit">
+							<i class="ace-icon fa fa-check bigger-110"></i> Crear
+						</button>
+
+						&nbsp; &nbsp; &nbsp;
+						<button class="btn" type="button" ng-click="cancel()">
+							<i class="ace-icon fa fa-undo bigger-110"></i> Reset
+						</button>
+					</div>
+				</div>
+				<hr/>
+			</form>
+			<div class="hr hr-18 dotted hr-double"></div>
+			<div class="hr hr-18 dotted hr-double"></div>
 		</div>
-
-		<!-- /section:basics/navbar.layout -->
-		<div class="main-container" id="main-container">
-			<!-- #section:basics/sidebar -->
-			<div id="sidebar" class="sidebar                  responsive                    ace-save-state">
-				<script type="text/javascript">
-					try{ace.settings.loadState('sidebar')}catch(e){}
-				</script>
-
-				<div class="sidebar-shortcuts" id="sidebar-shortcuts">
-					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-						<button class="btn btn-success">
-							<i class="ace-icon fa fa-signal"></i>
-						</button>
-
-						<button class="btn btn-info">
-							<i class="ace-icon fa fa-pencil"></i>
-						</button>
-
-						<!-- #section:basics/sidebar.layout.shortcuts -->
-						<button class="btn btn-warning">
-							<i class="ace-icon fa fa-users"></i>
-						</button>
-
-						<button class="btn btn-danger">
-							<i class="ace-icon fa fa-cogs"></i>
-						</button>
-
-						<!-- /section:basics/sidebar.layout.shortcuts -->
-					</div>
-
-					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-						<span class="btn btn-success"></span>
-
-						<span class="btn btn-info"></span>
-
-						<span class="btn btn-warning"></span>
-
-						<span class="btn btn-danger"></span>
-					</div>
-				</div><!-- /.sidebar-shortcuts -->
-
-				<ul class="nav nav-list">
-				<li class="active open"><a href="#" class="dropdown-toggle"> <i
-						class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-							Administrador  </span> <b class="arrow fa fa-angle-down"></b>
-				</a> <b class="arrow"></b>
-
-				<ul class="submenu">
-						<li class=""><a href="crearalojamiento.html"> <i
-								class="menu-icon fa fa-caret-right"></i> Creaci&oacuten
-						</a> <b class="arrow"></b></li>
-
-       			</ul></li>
-			</ul>
-
-				<!-- #section:basics/sidebar.layout.minimize -->
-				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-					<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
-				</div>
-
-				<!-- /section:basics/sidebar.layout.minimize -->
-			</div>
-
-			<!-- /section:basics/sidebar -->
-			<div class="main-content">
-				<div class="page-header">
-							<h1>
-								Administraci&oacuten <small> <i
-									class="ace-icon fa fa-angle-double-right"></i>Crear Proveedor / Administrador 
-								</small>
-							</h1>
-						</div>
-				<div ng-app="viaggingApp" ng-controller="UsuarioCtrl" ng-init="getProfile()" class="page-content">
-					<div class="row">
-						<div class="col-xs-12">
-								<!-- PAGE CONTENT BEGINS -->
-								<form class="form-horizontal" role="form" name="fService" novalidate ng-submit="createUser()" ng-hide="saving">
-									<!-- #section:elements.form -->
-									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Primer Nombre </label>
-
-										<div class="col-sm-9">
-											<input type="text" id="form-field-1" placeholder="Primer Nombre" class="col-xs-10 col-sm-5" ng-model="usuario.primerNombre" />
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Segundo Nombre </label>
-
-										<div class="col-sm-9">
-											<input type="text" id="form-field-1" placeholder="Segundo Nombre" class="col-xs-10 col-sm-5" ng-model="usuario.segundoNombre" />
-										</div>
-									</div>
-							                    			
-	                    			<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Primer Apellido </label>
-
-										<div class="col-sm-9">
-											<input type="text" id="form-field-1" placeholder="Primer Apellido" class="col-xs-10 col-sm-5" ng-model="usuario.primerApellido" />
-										</div>
-									</div>
-	                    				<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Segundo Apellido </label>
-
-										<div class="col-sm-9">
-											<input type="text" id="form-field-1" placeholder="Segundo Apellido" class="col-xs-10 col-sm-5" ng-model="usuario.segundoApellido" />
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Tipo Documento</label>
-										
-										<div class="col-sm-9">
-										    <select name="repeatSelect" id="repeatSelect" ng-model="usuario.tipoDocumento">
-									           <option ng-repeat="option in tipoDocumento" value="{{option.key}}">{{option.value}}</option>
-									       </select>
-								       </div>
-										
-									</div>
-							                    			
-	                    			<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Numero Documento </label>
-
-										<div class="col-sm-9">
-											<input type="text" id="form-field-1" placeholder="Numero Documento" class="col-xs-10 col-sm-5" ng-model="usuario.numeroDocumento" />
-										</div>
-									</div>
-	                
-	                                <div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Login </label>
-
-										<div class="col-sm-9">
-											<input type="text" id="form-field-1" placeholder="Login" class="col-xs-10 col-sm-5" ng-model="usuario.login" />
-										</div>
-									</div>
-																                    			
-	                    			<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Password </label>
-
-										<div class="col-sm-9">
-											<input type="text" id="form-field-1" placeholder="Password" class="col-xs-10 col-sm-5" ng-model="usuario.password" />
-										</div>
-									</div>
-	                    				<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Correo </label>
-
-										<div class="col-sm-9">
-											<input type="text" id="form-field-1" placeholder="Correo" class="col-xs-10 col-sm-5" ng-model="usuario.correo" />
-										</div>
-									</div>
-            				<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> N&uacutemero de Celular </label>
-
-										<div class="col-sm-9">
-											<input type="text" id="form-field-1" placeholder="Número Celular" class="col-xs-10 col-sm-5" ng-model="usuario.numeroCelular" />
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Direcci&oacuten 1</label>
-										
-										<div class="col-sm-9">
-											<input id="form-field-2" placeholder="Dirección" class="autosize-transition form-control" ng-model="usuario.direccion1"></input>
-										</div>
-									</div>
-							                    			
-									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">Pais</label>
-										
-										<div class="col-sm-9">
-											<input id="form-field-2" placeholder="Pais" class="autosize-transition form-control" ng-model="usuario.pais"></input>
-										</div>
-									</div>
-							                    			
-	                    			<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Ciudad </label>
-
-										<div class="col-sm-9">
-											<input type="text" id="form-field-1" placeholder="Ciudad" class="col-xs-10 col-sm-5" ng-model="usuario.ciudad" />
-										</div>
-									</div>
-
-	                    			<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Perfil </label>
-                                           <div class="col-sm-9">
-										    <select name="repeatSelect" id="repeatSelect" ng-model="usuario.perfil.id">
-									           <option ng-repeat="option in profile" value="{{option.key}}">{{option.value}}</option>
-									       </select>
-								       </div>
-									</div>
-									
-									<div class="clearfix form-actions">
-										<div class="col-md-offset-3 col-md-9">
-											<button class="btn btn-info" type="submit">
-												<i class="ace-icon fa fa-check bigger-110"></i>
-												Crear 
-											</button>
-
-											&nbsp; &nbsp; &nbsp;
-											<button class="btn" type="button" ng-click="cancel()" >
-												<i class="ace-icon fa fa-undo bigger-110"></i>
-												Reset
-											</button>
-										</div>
-									</div>
-
-									<hr />
-
-								</form>
-
-								<div class="hr hr-18 dotted hr-double"></div>
-
-								<div class="hr hr-18 dotted hr-double"></div>
-										</div>
-									</div>
-								</div><!-- PAGE CONTENT ENDS -->
-
-							<!-- PAGE CONTENT ENDS -->
-						</div><!-- /.col -->
-					</div><!-- /.row -->
-				</div><!-- /.page-content -->
-			</div><!-- /.main-content -->
-		</div><!-- /.main-container -->
-
-		<!-- basic scripts -->
-
-		<!--[if !IE]> -->
-		<script src="app/template/assets/js/jquery.js"></script>
-
-		<!-- <![endif]-->
-
-		<!--[if IE]>
-<script src="../assets/js/jquery1x.js"></script>
-<![endif]-->
-		<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.js'>"+"<"+"/script>");
-		</script>
-		<script src="app/template/assets/js/bootstrap.js"></script>
-
-		<!-- page specific plugin scripts -->
-
-		<!-- ace scripts -->
-		<script src="app/template/assets/js/ace/elements.scroller.js"></script>
-		<script src="app/template/assets/js/ace/elements.colorpicker.js"></script>
-		<script src="app/template/assets/js/ace/elements.fileinput.js"></script>
-		<script src="app/template/assets/js/ace/elements.typeahead.js"></script>
-		<script src="app/template/assets/js/ace/elements.wysiwyg.js"></script>
-		<script src="app/template/assets/js/ace/elements.spinner.js"></script>
-		<script src="app/template/assets/js/ace/elements.treeview.js"></script>
-		<script src="app/template/assets/js/ace/elements.wizard.js"></script>
-		<script src="app/template/assets/js/ace/elements.aside.js"></script>
-		<script src="app/template/assets/js/ace/ace.js"></script>
-		<script src="app/template/assets/js/ace/ace.ajax-content.js"></script>
-		<script src="app/template/assets/js/ace/ace.touch-drag.js"></script>
-		<script src="app/template/assets/js/ace/ace.sidebar.js"></script>
-		<script src="app/template/assets/js/ace/ace.sidebar-scroll-1.js"></script>
-		<script src="app/template/assets/js/ace/ace.submenu-hover.js"></script>
-		<script src="app/template/assets/js/ace/ace.widget-box.js"></script>
-		<script src="app/template/assets/js/ace/ace.settings.js"></script>
-		<script src="app/template/assets/js/ace/ace.settings-rtl.js"></script>
-		<script src="app/template/assets/js/ace/ace.settings-skin.js"></script>
-		<script src="app/template/assets/js/ace/ace.widget-on-reload.js"></script>
-		<script src="app/template/assets/js/ace/ace.searchbox-autocomplete.js"></script>
-
-		<!-- inline scripts related to this page -->
-
-		<!-- the following scripts are used in demo only for onpage help and you don't need them -->
-		<link rel="stylesheet" href="app/template/assets/css/ace.onpage-help.css" />
-		<link rel="stylesheet" href="app/template/docs/assets/js/themes/sunburst.css" />
-
-		<script type="text/javascript"> ace.vars['base'] = '..'; </script>
-		<script src="app/template/assets/js/ace/elements.onpage-help.js"></script>
-		<script src="app/template/assets/js/ace/ace.onpage-help.js"></script>
-		<script src="app/template/docs/assets/js/rainbow.js"></script>
-		<script src="app/template/docs/assets/js/language/generic.js"></script>
-		<script src="app/template/docs/assets/js/language/html.js"></script>
-		<script src="app/template/docs/assets/js/language/css.js"></script>
-		<script src="app/template/docs/assets/js/language/javascript.js"></script>
-	</body>
-</html>
+	</div>
+</div>
+<!-- PAGE CONTENT ENDS -->

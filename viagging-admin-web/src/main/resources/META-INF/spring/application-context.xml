@@ -8,12 +8,12 @@
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-	<mvc:annotation-driven />
+	<!-- mvc:annotation-driven /-->
 
 	<!-- JPA Persistence Context and EntityManager configuration -->
 	<context:component-scan base-package="com.viagging"></context:component-scan>
-
-	<!-- Properties config -->
+     
+     	<!-- Properties config -->
 	<bean id="propertyLocations" class="org.springframework.beans.factory.config.ListFactoryBean">
 		<property name="sourceList">
 			<list>
@@ -21,14 +21,14 @@
 			</list>
 		</property>
 	</bean>
-
+	
 	<bean id="projectProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="locations" ref="propertyLocations" />
 		<property name="ignoreResourceNotFound">
 			<value>true</value>
 		</property>
 	</bean>
-
+	
 	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="properties" ref="projectProperties" />
 		<property name="systemPropertiesMode">
@@ -49,8 +49,7 @@
 			</value>
 		</property>
 	</bean>
-	<!-- end Properties config -->
-
+	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${jdbc.driver}"/>
 		<property name="url" value="${jdbc.url}"/>
@@ -77,12 +76,14 @@
 			</props>
 		</property>
 	</bean>
-
+   
+   
+      
 	<!-- Automatic Transaction Participation -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-
+     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
 	<!-- bean post-processor for JPA annotations -->
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 	<tx:annotation-driven transaction-manager="transactionManager" />
