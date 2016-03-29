@@ -45,6 +45,7 @@ public class PaqueteServiceImpl implements PaqueteService{
 	public Paquete createPaquete(Paquete paquete,List<Servicio> listaServicio,String idUsuario) {
 		Usuario usuario = usuarioDAO.getUsuarioById(Integer.valueOf(idUsuario));  
 		paquete.setUsuario(usuario);
+		paquete.setId(null);
         Paquete paqueteCreado =	paqueteDAO.createPaquete(paquete);
         for (Servicio servicio : listaServicio) {
         	Servicio service = servicioDAO.getServicioById(servicio.getId());
