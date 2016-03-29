@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.viagging.core.model.ImagenServicio;
 import com.viagging.core.model.PaqueteServicio;
 import com.viagging.core.model.Servicio;
 import com.viagging.rest.dto.ServicioDTO;
@@ -40,6 +41,15 @@ public class ServicioDTOMapper {
 		servicioDTO.setRestricciones(servicio.getRestricciones());
 		if(servicio.getImagenprincipal() != null){
 			servicioDTO.setImagenPrincipal(new String(servicio.getImagenprincipal()));
+		}
+		if(servicio.getImagenes() != null && !servicio.getImagenes().isEmpty()){
+			List<String> imagenes = new ArrayList<>();
+			for(ImagenServicio imagenServicio : servicio.getImagenes()){
+				if(imagenServicio.getImagen() != null){
+					imagenes.add(new String(imagenServicio.getImagen()));
+				}
+			}
+			servicioDTO.setImagenes(imagenes);
 		}
 		CategoryEnum categoria = getCategoriaFromServicio(servicio);
 		servicioDTO.setCategoria(categoria);
