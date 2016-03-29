@@ -81,10 +81,13 @@
 										<div ng-repeat="servicio in product.servicios">
 											<span class="title" style="border-bottom:0px; margin-bottom:10px;">{{servicio.categoria}}</span>
 											<p>{{servicio.descripcionCorta}}</p>
+											<p ng-include src="'views/category.html'"></p>
 											<span class="title" style="border-bottom:0px; margin-bottom:10px;">Características</span>
 											<div ng-repeat="caracteristica in servicio.caracteristicas">
 												<p class="ng-binding"><i class="fa fa-check-circle"></i> {{caracteristica.valor}}</p>
 											</div>
+											<span ng-show="servicio.restricciones" class="title" style="border-bottom:0px; margin-bottom:10px;">Restricciones</span>
+											<p ng-show="servicio.restricciones">{{servicio.restricciones}}</p>
 										</div>
 									</div>
 								</div>

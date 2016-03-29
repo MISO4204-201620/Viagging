@@ -1,8 +1,7 @@
 package com.viagging.api.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.ws.rs.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,11 +34,7 @@ public class ListaDeseosController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Deseo> getListaDeseos(){
-		List<Deseo> deseos = deseoMapper.mapObjectList(listaDeseosService.getAllListaDeseos());
-		if(deseos.isEmpty()){
-			throw new NotFoundException(SERVICE_ERROR_MESSAGE_NOT_FOUND);
-		}
-		return deseos;
+		return deseoMapper.mapObjectList(listaDeseosService.getAllListaDeseos());
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
