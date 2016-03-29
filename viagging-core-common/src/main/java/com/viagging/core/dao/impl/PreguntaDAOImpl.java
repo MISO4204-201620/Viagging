@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.dao.PreguntaDAO;
 import com.viagging.core.model.Pregunta;
+import com.viagging.rest.dto.PreguntaDTO;
 
 @Transactional
 @Repository
@@ -41,6 +42,16 @@ public class PreguntaDAOImpl implements PreguntaDAO{
 	}
 	
 	@Override
+	public Pregunta updatePregunta(PreguntaDTO pregunta) {
+		Pregunta _pregunta = entityManager.find(Pregunta.class, pregunta.getId());
+		_pregunta.setRespuesta(pregunta.getRespuesta());
+		_pregunta.setPregunta(pregunta.getPregunta());
+		entityManager.persist(_pregunta);
+		return null;
+	}
+	
+	
+	@Override
 	public Pregunta deletePregunta(Integer idPregunta) {
 		Pregunta pregunta = entityManager.find(Pregunta.class, idPregunta);
 		if(pregunta != null){
@@ -68,6 +79,18 @@ public class PreguntaDAOImpl implements PreguntaDAO{
 			Query query = entityManager.createNamedQuery("Pregunta.findByIdServicio");
 			query.setParameter("idservicio", idServicio);
 			return (List<Pregunta>) query.getResultList();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Pregunta> findAllPreguntas() {
+		try {
+			Query query = entityManager.createNamedQuery("Pregunta.findAll");
+			List<Pregunta> preguntas = (List<Pregunta>) query.getResultList();
+			return preguntas;
 		} catch(NoResultException e){
 			return null;
 		}

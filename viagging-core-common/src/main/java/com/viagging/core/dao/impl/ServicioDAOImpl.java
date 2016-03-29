@@ -102,4 +102,13 @@ public class ServicioDAOImpl implements ServicioDAO {
 		return (List<Servicio>) query.getResultList();
 	}
 
+
+	@Override
+	public void activarServicio(Servicio servicio) {
+		System.out.println(servicio.getId()+ "id servicio");
+		Servicio _servicio = entityManager.find(Servicio.class, servicio.getId());
+		_servicio.setActivo(servicio.getActivo());
+		entityManager.persist(_servicio);
+	}
+
 }

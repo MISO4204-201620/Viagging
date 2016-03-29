@@ -74,9 +74,9 @@ public class ServicioServiceImpl implements ServicioService {
 	public Servicio buildServicio(ServicioDTO servicioDTO) {
 		Servicio servicio = new Servicio();
 		servicio.setRestricciones(servicioDTO.getRestricciones());
-		servicio.setActivo(true);
+		servicio.setActivo(servicioDTO.getActivo());
 		servicio.setPrecio(Integer.parseInt(servicioDTO.getPrecio()));
-		Usuario usuario = usuarioDAO.getUsuarioById(1);
+		Usuario usuario = usuarioDAO.getUsuarioById(Integer.parseInt(servicioDTO.getUsuario().getId()));
 		servicio.setUsuario(usuario);
 		servicio.setDescripcion(servicioDTO.getDescripcionCorta());
 		servicio.setNombre(servicioDTO.getNombre());
@@ -86,5 +86,11 @@ public class ServicioServiceImpl implements ServicioService {
 	@Override
 	public List<Servicio> findAllByCriteria(Servicio servicio) {
 		return servicioDAO.findAllByCriteria(servicio);
+	}
+
+	@Override
+	public void activarServicio(Servicio servicio) {
+		servicioDAO.activarServicio(servicio);
+		
 	}
 }

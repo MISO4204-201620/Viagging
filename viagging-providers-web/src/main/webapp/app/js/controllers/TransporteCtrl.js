@@ -1,5 +1,4 @@
-angular.module('viaggingApp', ['angularFileUpload'])
-.controller('TransporteCtrl', ['$scope', 'FileUploader', '$http', function($scope, FileUploader, $http) {
+providersApp.controller('TransporteCtrl', ['$scope', 'userService', 'FileUploader', '$http', function($scope, userService, FileUploader, $http) {
 
 	$scope.transporte = {
 			servicio:{ 
@@ -9,7 +8,10 @@ angular.module('viaggingApp', ['angularFileUpload'])
 				activo: true,
 				restricciones: "",
 				caracteristicas: "",
-				precio: ""
+				precio: "",
+				usuario: {
+					id: ""
+				}
 			},
 			tipoTransporte: "",
 			lugarOrigen: "",
@@ -42,7 +44,6 @@ angular.module('viaggingApp', ['angularFileUpload'])
 
 	$scope.guardarTransporte = function(ftransporte) {
 		var idService;
-
 		var caracteristicas = [];
 		for(valorCaracteristica in $scope.selection){
 			var caracteristica = {
@@ -51,13 +52,12 @@ angular.module('viaggingApp', ['angularFileUpload'])
 			caracteristicas.push(caracteristica);
 		}
 		$scope.transporte.servicio.caracteristicas = caracteristicas;
-		
+		$scope.transporte.servicio.usuario.id=$scope.userData.id;
 		console.log($scope.transporte.servicio.caracteristicas);
 		$http.post('/viagging-providers-web/saveTransport', angular.toJson($scope.transporte), {
 			headers: {"Content-Type": "application/json"},
 			transformRequest: angular.identity
 		}).success(function(data, status, headers, config) {
-			reset();
 			idService = data;
 			for (var i = 0; i < uploader.queue.length; i++) {
 				$http.put('/viagging-providers-web/saveImage', uploader.queue[i]._file, {

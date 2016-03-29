@@ -3,7 +3,6 @@ package com.viagging.rest.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.Document;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -22,7 +21,6 @@ import com.viagging.core.model.Caracteristica;
 import com.viagging.core.services.CaracteristicaService;
 import com.viagging.core.services.ImagenServicioService;
 import com.viagging.rest.dto.NombreValorDTO;
-import com.viagging.util.CategoryEnum;
 import com.viagging.util.TransportEnum;
 
 @RestController
@@ -54,9 +52,7 @@ public class GeneralController {
 	@RequestMapping(value = "/saveImage", method = RequestMethod.PUT)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ResponseStatus(value = HttpStatus.OK)
-	public void saveImage(@RequestBody String file, @QueryParam("idServicio") String idServicio) {
-		System.out.println(idServicio + "ids");
-		System.out.println(file + "file");
+	public void saveImage(@RequestBody byte[] file, @QueryParam("idServicio") String idServicio) {
 		imageService.createImagenServicio(file, idServicio);
 	}
 	
@@ -77,6 +73,4 @@ public class GeneralController {
 
 		return listDocument;
 	}
-
-
 }
