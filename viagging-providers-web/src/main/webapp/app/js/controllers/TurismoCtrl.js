@@ -1,5 +1,4 @@
-angular.module('viaggingApp', ['angularFileUpload'])
-.controller('TurismoCtrl', ['$scope', 'FileUploader', '$http', function($scope, FileUploader, $http) {
+providersApp.controller('TurismoCtrl', ['$scope', 'userService', 'FileUploader', '$http', function($scope, userService, FileUploader, $http) {
 
 	$scope.turismo = {
 			servicio:{ 
@@ -9,7 +8,10 @@ angular.module('viaggingApp', ['angularFileUpload'])
 				activo: true,
 				restricciones: "",
 				caracteristicas: "",
-				precio: ""
+				precio: "",
+				usuario: {
+					id: ""
+				}
 			},
 			ciudad: "",
 			tiempoDeRecorrido: "",
@@ -30,7 +32,6 @@ angular.module('viaggingApp', ['angularFileUpload'])
 
 	$scope.guardarTurismo = function(fturismo) {
 		var idService;
-
 		var caracteristicas = [];
 		for(valorCaracteristica in $scope.selection){
 			var caracteristica = {
@@ -39,12 +40,11 @@ angular.module('viaggingApp', ['angularFileUpload'])
 			caracteristicas.push(caracteristica);
 		}
 		$scope.turismo.servicio.caracteristicas = caracteristicas;
-		
+		$scope.turismo.servicio.usuario.id=$scope.userData.id;
 		$http.post('/viagging-providers-web/saveTravel', angular.toJson($scope.turismo), {
 			headers: {"Content-Type": "application/json"},
 			transformRequest: angular.identity
 		}).success(function(data, status, headers, config) {
-			reset();
 			idService = data;
 			for (var i = 0; i < uploader.queue.length; i++) {
 				$http.put('/viagging-providers-web/saveImage', uploader.queue[i]._file, {

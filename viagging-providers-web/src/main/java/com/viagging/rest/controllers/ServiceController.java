@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.viagging.core.model.Paquete;
+import com.viagging.core.model.Servicio;
 import com.viagging.core.services.ServicioService;
 import com.viagging.rest.dto.AlimentacionDTO;
 import com.viagging.rest.dto.AlojamientoDTO;
+import com.viagging.rest.dto.PaqueteDTO;
 import com.viagging.rest.dto.PaseoEcologicoDTO;
 import com.viagging.rest.dto.ServicioDTO;
 import com.viagging.rest.dto.TransporteDTO;
@@ -97,5 +101,14 @@ public class ServiceController {
 		System.out.println("ingreso a deleteService");
 		// servicioService.createServicio(servicio);
 	}
+	
+	@RequestMapping(value = "/activeService", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void activeService(@RequestBody ServicioDTO servicioDTO) {
+    	System.out.println(servicioDTO.getId() + "id1");
+		Servicio service = servicioService.buildServicio(servicioDTO);
+    	service.setId(servicioDTO.getId());
+		servicioService.activarServicio(service);
+    }
 
 }

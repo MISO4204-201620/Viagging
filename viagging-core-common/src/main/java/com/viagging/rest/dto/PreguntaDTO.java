@@ -17,6 +17,17 @@ public class PreguntaDTO {
 
 	private UsuarioDTO usuario;
 	
+	public PreguntaDTO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public PreguntaDTO(Integer id, String pregunta, String respuesta, UsuarioDTO usuario) {
+		this.id = id;
+		this.pregunta = pregunta;
+		this.respuesta = respuesta;
+		this.usuario = usuario;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

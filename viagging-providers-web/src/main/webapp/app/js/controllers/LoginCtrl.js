@@ -1,26 +1,26 @@
-providersApp.controller('LoginCtrl', ['$scope', '$http','ngDialog','$rootScope','$location','$state', function($scope, $http,ngDialog, $rootScope,$location,$state) {
+providersApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'loginService',
+    function($scope, $rootScope, $state, loginService){
 	
-	   $scope.login = function() { 
-		   console.log('loginb ingreso');
-		   $location.path( '/contenido.html' );
-		   
-
-				     
-				   
-		   //$stateProvider.run("homwe");
-		//  $location.path('/contenido');
-			/* $http.get('/viagging-providers-web/register').
-			    success(function(data, status, headers, config) {
-			    	console.log(status);
-			      $scope.listaServicios = data;
-			      console.log(data);
-			    }).
-			    error(function(data, status, headers, config) {
-			      // log error
-			    });*/
-			    console.log('despues de llamar Packages');
-	     }
-	   $scope.ActiveChange =   function (activeTab) {
-		   $state.go('content');
-	    }
+	'use strict';
+	
+	$scope.userLogin = {
+		login: "",
+		password: "",
+		profile:"Proveedor"
+	};
+	
+	var successCallback = function(userData){
+		alert("Bienvenido de nuevo " + userData.primerNombre + " " + userData.primerApellido);
+		$rootScope.$broadcast('USER_LOGGED_IN', userData);	
+		$state.go("alimentacion");
+	};
+	
+	var errorCallback = function(){
+		alert("Las credenciales que ha ingresado no son válidas!");
+		$scope.user.password = "";
+	};
+	
+	$scope.loginUser = function(){
+		loginService.loginUser($scope.userLogin, successCallback, errorCallback);
+	};
 }]);

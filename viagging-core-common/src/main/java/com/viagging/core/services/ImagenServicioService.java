@@ -10,5 +10,5 @@ public interface ImagenServicioService {
 	
 	ImagenServicio deleteImagenServicio(Integer idImagenServicio);
 	
-	void createImagenServicio(String imageService, String idService);
+	void createImagenServicio(byte[] imageService, String idService);
 }
