@@ -73,7 +73,10 @@ providersApp.controller('TransporteCtrl', ['$scope', 'userService', 'FileUploade
 	    		});
 			}
 			reset();
-		}).error(function(data, status, headers, config) {}); 
+			alert("El servicio fue creado!");
+		}).error(function(data, status, headers, config) {
+			alert("Error en la creación");
+		}); 
 	} 
 
 	function reset() {
