@@ -87,4 +87,10 @@ public class ServicioServiceImpl implements ServicioService {
 	public List<Servicio> findAllByCriteria(Servicio servicio) {
 		return servicioDAO.findAllByCriteria(servicio);
 	}
+
+	@Override
+	public void activarServicio(Servicio servicio) {
+		servicioDAO.activarServicio(servicio);
+		
+	}
 }

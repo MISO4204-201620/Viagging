@@ -3,7 +3,6 @@ package com.viagging.core.services;
 import java.util.List;
 
 import com.viagging.core.model.Pregunta;
-import com.viagging.rest.dto.PaqueteDTO;
 import com.viagging.rest.dto.PreguntaDTO;
 
 public interface PreguntaService {
@@ -21,5 +20,7 @@ public interface PreguntaService {
 	List<Pregunta> findPreguntasByServicio(Integer idServicio);
 	
 	List<PreguntaDTO> findAllPreguntas();
+
+	void responderPregunta(PreguntaDTO question);
 
 }

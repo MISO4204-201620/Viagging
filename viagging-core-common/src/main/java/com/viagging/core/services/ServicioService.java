@@ -22,4 +22,6 @@ public interface ServicioService {
 	List<Servicio> buildListServices(List<ServicioDTO> listServiceDTO);
 	
 	List<Servicio> findAllByCriteria(Servicio servicio);
+
+	void activarServicio(Servicio servicio);
 }

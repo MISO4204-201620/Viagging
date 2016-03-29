@@ -31,4 +31,6 @@ public interface ServicioDAO {
 	Servicio servicioDTOToModel(ServicioDTO servicio);
 	
 	List<Servicio> findAllByCriteria(Servicio servicio);
+
+	void activarServicio(Servicio servicio);
 }

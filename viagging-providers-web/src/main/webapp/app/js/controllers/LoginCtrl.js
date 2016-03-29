@@ -6,6 +6,7 @@ providersApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'loginSe
 	$scope.userLogin = {
 		login: "",
 		password: "",
+		profile:"Proveedor"
 	};
 	
 	var successCallback = function(userData){

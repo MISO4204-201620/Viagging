@@ -30,14 +30,20 @@ public class Pregunta implements Serializable {
 	private String respuesta;
 
 	//bi-directional many-to-one association to Paquete
+	@JsonIgnore
+	@ManyToOne()
 	@JoinColumn(name="idpaquete")
 	private Paquete paquete;
-	
+
 	//bi-directional many-to-one association to Servicio
+	@JsonIgnore
+	@ManyToOne()
 	@JoinColumn(name="idservicio")
 	private Servicio servicio;
 
 	//bi-directional many-to-one association to Usuario
+	@JsonIgnore
+	@ManyToOne()
 	@JoinColumn(name="idusuario")
 	private Usuario usuario;
 

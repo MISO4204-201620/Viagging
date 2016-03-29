@@ -39,7 +39,7 @@
 											<td>{{ question.pregunta }}</td>
 											<td>{{ question.respuesta }}</td>
 											<td><a ng-click="getPregunta(question.id);"
-												href="responderPregunta.html"
+												ui-sref="responderpregunta"
 												ng-show="question.respuesta == null"
 												class="btn btn-danger btn-sm"> <i
 													class="ace-icon fa fa-reply icon-only"></i></a></td>

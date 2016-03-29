@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.dao.PreguntaDAO;
 import com.viagging.core.model.Pregunta;
+import com.viagging.rest.dto.PreguntaDTO;
 
 @Transactional
 @Repository
@@ -39,6 +40,16 @@ public class PreguntaDAOImpl implements PreguntaDAO{
 		entityManager.persist(_pregunta);
 		return null;
 	}
+	
+	@Override
+	public Pregunta updatePregunta(PreguntaDTO pregunta) {
+		Pregunta _pregunta = entityManager.find(Pregunta.class, pregunta.getId());
+		_pregunta.setRespuesta(pregunta.getRespuesta());
+		_pregunta.setPregunta(pregunta.getPregunta());
+		entityManager.persist(_pregunta);
+		return null;
+	}
+	
 	
 	@Override
 	public Pregunta deletePregunta(Integer idPregunta) {

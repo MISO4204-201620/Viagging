@@ -20,8 +20,6 @@ import com.viagging.core.constant.Profile;
 import com.viagging.core.model.Caracteristica;
 import com.viagging.core.services.CaracteristicaService;
 import com.viagging.core.services.ImagenServicioService;
-import com.viagging.core.services.PreguntaService;
-import com.viagging.rest.dto.PreguntaDTO;
 import com.viagging.rest.dto.NombreValorDTO;
 import com.viagging.util.TransportEnum;
 
@@ -34,9 +32,6 @@ public class GeneralController {
 	@Autowired
 	private ImagenServicioService imageService;
 	
-	@Autowired
-	private PreguntaService preguntaService;
-	
 	@RequestMapping(value = "/getFeatures", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<String> getFeatures(@QueryParam("categoria") String categoria) {
@@ -46,14 +41,6 @@ public class GeneralController {
 			fts.add(feature.getValor());
 		}
 		return fts;
-	}
-	
-	@RequestMapping(value = "/getQuestions", method = RequestMethod.GET)
-	@ResponseStatus(value = HttpStatus.OK)
-	public List<PreguntaDTO> getQuestions() {
-		System.out.println("por lo menos ingresa");
-		List<PreguntaDTO> preguntas = preguntaService.findAllPreguntas();
-		return preguntas;
 	}
 	
 	@RequestMapping(value = "/getTransportTypes", method = RequestMethod.GET)

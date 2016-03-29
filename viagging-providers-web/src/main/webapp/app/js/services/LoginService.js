@@ -7,7 +7,7 @@ providersApp.service('loginService', ['$http', 'userService', function($http, us
 		loginUser : function(userLogin, successCallback, errorCallback){
 			
 			return $http({
-	            url: "/viagging-api/login",
+	            url: "/viagging-providers-web/loginProvAdmin",
 	            method: "POST",
 	            data: userLogin,
 	            cache: false

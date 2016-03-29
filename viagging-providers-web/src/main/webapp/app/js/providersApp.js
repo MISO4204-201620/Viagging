@@ -12,7 +12,7 @@ providersApp.config(['$stateProvider', function($stateProvider){
 		.state("consultar", {
 			url: "/consultar",
 			templateUrl: 'template/html/consultarservicios.html',
-			controller: 'samplecontroller',
+			controller: 'SearchCtrl',
 		})
 		.state("alojamiento", {
 			url: "/alojamiento",
@@ -39,6 +39,11 @@ providersApp.config(['$stateProvider', function($stateProvider){
 			templateUrl: 'template/html/consultaPaquete.html',
 			controller: 'samplecontroller',
 		})
+		.state("activarpaquete", {
+			url: "/activarpaquete",
+			templateUrl: 'template/html/activarPaquete.html',
+			controller: 'samplecontroller',
+		})
 		.state("paquete", {
 			url: "/paquete",
 			templateUrl: 'template/html/crearPaquete.html',
@@ -47,7 +52,12 @@ providersApp.config(['$stateProvider', function($stateProvider){
 		.state("pregunta", {
 			url: "/pregunta",
 			templateUrl: 'template/html/consultarpreguntas.html',
-			controller: 'samplecontroller',
+			controller: 'PreguntasCtrl',
+		})
+		.state("responderpregunta", {
+			url: "/responderpregunta",
+			templateUrl: 'template/html/responderPregunta.html',
+			controller: 'PreguntasCtrl',
 		});
 }]);
 

@@ -1,4 +1,4 @@
-providersApp.controller('SearchCtrl', ['$scope', '$http','ngDialog','$rootScope', function($scope, $http,ngDialog, $rootScope) {
+providersApp.controller('SearchCtrl', ['$scope', '$http','ngDialog','$rootScope', 'userService', function($scope, $http,ngDialog, $rootScope, userService) {
 	$scope.idEspecifico = '1';
 	$scope.name;
 	$scope.lastName;
@@ -7,6 +7,14 @@ providersApp.controller('SearchCtrl', ['$scope', '$http','ngDialog','$rootScope'
 	$scope.chooseservices=[];
 	$scope.ocultarSeccionAdicionarPaquete = true;
 	$scope.onlyNumbers = /^\d+$/;
+	$scope.servicio = {
+		activo: false,
+		id : 0,
+		precio:0,
+		usuario: {
+			id: ""
+		}
+	}
 
 	$scope.getCategory = function() { 
 		console.log("ingreso a categoria");
@@ -48,16 +56,14 @@ providersApp.controller('SearchCtrl', ['$scope', '$http','ngDialog','$rootScope'
 
 	$scope.especifico = function(id,idCategoria) { 	
 		$rootScope.idEspecifico = id;
-		console.log('especifico'+id + "---"+idCategoria); 
-
 		if(idCategoria == "01"){
-			ngDialog.open({ template: 'transporte.html', className: 'ngdialog-theme-default' });
+			ngDialog.open({ template: 'template/html/transporte.html', className: 'ngdialog-theme-default' });
 		}else if(idCategoria == "02"){
-			ngDialog.open({ template: 'alojamiento.html', className: 'ngdialog-theme-default' });
+			ngDialog.open({ template: 'template/html/alojamiento.html', className: 'ngdialog-theme-default' });
 		}else if(idCategoria == "03"){
-			ngDialog.open({ template: 'paseoecologico.html', className: 'ngdialog-theme-default' });
+			ngDialog.open({ template: 'template/html/paseoecologico.html', className: 'ngdialog-theme-default' });
 		}else if(idCategoria == "04"){
-			ngDialog.open({ template: 'alimentacion.html', className: 'ngdialog-theme-default' });
+			ngDialog.open({ template: 'template/html/alimentacion.html', className: 'ngdialog-theme-default' });
 		}
 	}
 
@@ -216,20 +222,46 @@ providersApp.controller('SearchCtrl', ['$scope', '$http','ngDialog','$rootScope'
 		}); 
 		console.log('despues de llamar Packages');
 	}
+	
+	$scope.activarServicio = function(idServicio,estado) { 
+		console.log("id"+idServicio);
+		console.log("estado"+estado);
+		$scope.servicio.id = idServicio;
+		$scope.servicio.activo = estado;
+		$scope.servicio.usuario.id=$scope.userData.id;
+		$http.post('/viagging-providers-web/activeService', angular.toJson($scope.servicio), {
+			headers: {"Content-Type": "application/json"},
+			transformRequest: angular.identity
+		}).success(function(data, status, headers, config) {
+			alert("Transacción exitosa");
+			for (var i=0;i<$scope.listservices.length;i++){
+  	    	  if($scope.listservices[i].id == idServicio){
+  	    		  $scope.listservices[i].activo = estado;
+  	    		  break;
+  	    	  }	    	    	  
+  	      }   	    	  
+		}).error(function(data, status, headers, config) {}); 
+    }
+	
+	$scope.activatePackage = function(id,estado) { 
+		   $scope.paquete.id = id;
+		   $scope.paquete.activo = estado;
+		   console.log("id"+id);
+		   console.log("estado"+estado);
+			 $http.post('/viagging-providers-web/activatePackage',$scope.paquete).
+			 success(function(data, status, headers, config) {
+	    	      console.log(status);
+	    	      alert("Transacción exitosa");
+	    	      for (var i=0;i<$scope.listservices.length;i++){
+	    	    	  if($scope.listservices[i].id == id){
+	    	    		  $scope.listservices[i].activo = estado;
+	    	    		  break;
+	    	    	  }	    	    	  
+	    	      }
+         }).
+       error(function(data, status, headers, config) {
+     	  alert("Error al activar/desactivar");
+         });
+	     }
 
-	$scope.login = function() { 
-		console.log('login');
-		$http.get('/viagging-providers-web/getPackage',{
-			params: { idPackage: idPaquete }
-		}).
-		success(function(data, status, headers, config) {
-			console.log(status);
-			$scope.listaServicios = data;
-			console.log(data);
-		}).
-		error(function(data, status, headers, config) {
-			// log error
-		}); 
-		console.log('despues de llamar Packages');
-	}
 }]);

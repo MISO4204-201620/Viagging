@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viagging.core.dao.PreguntaDAO;
-import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Pregunta;
 import com.viagging.core.services.PreguntaService;
 import com.viagging.rest.dto.PaqueteDTO;
@@ -69,6 +68,12 @@ public class PreguntaServiceImpl implements PreguntaService{
 			newPreguntas.add(preguntaDTO);
 		}
 		return newPreguntas;
+	}
+
+	@Override
+	public void responderPregunta(PreguntaDTO question) {
+		preguntaDAO.updatePregunta(question);
+		
 	}
 
 }
