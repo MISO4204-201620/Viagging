@@ -1,6 +1,9 @@
 marketPlaceApp.controller('SearchCtrl', ['$scope', '$state', 'configService', 'products', '$filter',
     function($scope, $state, configService, products, $filter){
 	
+	//Pagination controls
+	$scope.entryLimit = 6;
+	
 	//Filter products
 	$scope.filterProducts = function(){
 		$scope.filteredProducts = $filter('productsFilter')($scope.products, $scope.busqueda, $scope.selectedCategories);
@@ -42,7 +45,4 @@ marketPlaceApp.controller('SearchCtrl', ['$scope', '$state', 'configService', 'p
 		$scope.totalItems = $scope.filteredProducts.length;
 		$scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
 	}
-
-	//Pagination controls
-	$scope.entryLimit = 9;
 }]);

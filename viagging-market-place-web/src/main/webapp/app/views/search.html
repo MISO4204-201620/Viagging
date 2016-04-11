@@ -41,7 +41,7 @@
 				<span class="title">Mostrando {{totalItems}} resultado(s) para "{{busqueda}}"</span>
 			</div>
 			<!-- Products -->
-			<div ng-repeat="product in filteredProducts | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit" class="col-lg-4 col-sm-6 hero-feature text-center">
+			<div ng-repeat="product in filteredProducts | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit" class="col-lg-6 col-sm-6 hero-feature text-center">
 				<div class="thumbnail">
 					<a ui-sref="detail({productId: product.id})" class="link-p"
 						style="overflow: hidden; position: relative;">
