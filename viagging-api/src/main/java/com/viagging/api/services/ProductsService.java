@@ -164,13 +164,13 @@ public class ProductsService {
 		List<Producto> productos = new ArrayList<>();
 		for(PaqueteDTO paquete : paquetes){
 			Producto productoPaquete = productoMapper.buildProductoFromPaquete(paquete);
-			if(productoPaquete != null){
+			if(productoPaquete != null && productoPaquete.getActivo()){
 				productos.add(productoPaquete);
 			}
 		}
 		for(ServicioDTO servicio : servicios){
 			Producto productoServicio = productoMapper.buildProductoFromServicio(servicio);
-			if(productoServicio != null){
+			if(productoServicio != null && productoServicio.getActivo()){
 				productos.add(productoServicio);
 			}
 		}
