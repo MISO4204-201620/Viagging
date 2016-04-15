@@ -20,10 +20,10 @@ public class PaqueteDTO {
 	
 	private String descripcion;
 	
-	private List<ServicioDTO>servicios;
-	
 	private UsuarioDTO usuario;
 	
+	private List<ServicioDTO>servicios;
+		
 	public PaqueteDTO(){}
 	
 	public PaqueteDTO(Integer id, String nombre, String precio,String descripcion) {
@@ -88,7 +88,7 @@ public class PaqueteDTO {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
 	public UsuarioDTO getUsuario() {
 		return usuario;
 	}
@@ -97,7 +97,6 @@ public class PaqueteDTO {
 		this.usuario = usuario;
 	}
 
-	
 	public static List<PaqueteDTO> buildListObject(List<Paquete> listaPaquete){
 		List<PaqueteDTO> listaPaqueteDTO = new ArrayList<>();
 		for (Paquete paquete : listaPaquete) {

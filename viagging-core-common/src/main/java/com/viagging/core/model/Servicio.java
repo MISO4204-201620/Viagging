@@ -116,6 +116,10 @@ public class Servicio implements Serializable {
 	@OneToMany(mappedBy="servicio", fetch=FetchType.EAGER)
 	private List<CaracteristicaServicio> caracteristicas;
 
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="servicio")
+	private List<ImagenServicio> imagenes;
+	
 	public Servicio() {
 	}
 	
@@ -341,4 +345,12 @@ public class Servicio implements Serializable {
 		this.caracteristicas = caracteristicas;
 	}
 
+	public List<ImagenServicio> getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(List<ImagenServicio> imagenes) {
+		this.imagenes = imagenes;
+	}
+	
 }

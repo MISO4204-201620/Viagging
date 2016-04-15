@@ -138,9 +138,6 @@ pre { border-radius: 0 }
     box-shadow: none
 }
 .popover-title { border-radius: 0 }
-.carousel-control { text-shadow: none }
-.carousel-indicators li { border-radius: 0 }
-.carousel-caption { text-shadow: none }
 
 .btn:active,.btn:focus,a:active,a:focus{outline: 0}
 .no-border-right{border-right: 0!important}

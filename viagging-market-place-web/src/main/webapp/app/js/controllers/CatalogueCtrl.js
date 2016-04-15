@@ -2,5 +2,7 @@ marketPlaceApp.controller('CatalogueCtrl', ['$scope', '$state', 'configService',
     function($scope, $state, configService, products, userService){
 
 	$scope.products = products;
+	
+	$scope.busqueda = null;
 
 }]);

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.viagging.core.model.ImagenServicio;
 import com.viagging.core.model.PaqueteServicio;
 import com.viagging.core.model.Servicio;
 import com.viagging.rest.dto.ServicioDTO;
@@ -29,6 +30,9 @@ public class ServicioDTOMapper {
 	@Autowired
 	private CaracteristicaDTOMapper caracteristicaDTOMapper;
 	
+	@Autowired
+	private UsuarioDTOMapper usuarioDTOMapper;
+	
 	public ServicioDTO mapObject(Servicio servicio) {
 		ServicioDTO servicioDTO = new ServicioDTO();
 		servicioDTO.setId(servicio.getId());
@@ -38,8 +42,18 @@ public class ServicioDTOMapper {
 		servicioDTO.setCaracteristicas(caracteristicaDTOMapper.mapObjectListFromCaracteristicaServicio(servicio.getCaracteristicas()));
 		servicioDTO.setPrecio(String.valueOf(servicio.getPrecio()));
 		servicioDTO.setRestricciones(servicio.getRestricciones());
+		servicioDTO.setUsuario(usuarioDTOMapper.mapObject(servicio.getUsuario()));
 		if(servicio.getImagenprincipal() != null){
 			servicioDTO.setImagenPrincipal(new String(servicio.getImagenprincipal()));
+		}
+		if(servicio.getImagenes() != null && !servicio.getImagenes().isEmpty()){
+			List<String> imagenes = new ArrayList<>();
+			for(ImagenServicio imagenServicio : servicio.getImagenes()){
+				if(imagenServicio.getImagen() != null){
+					imagenes.add(new String(imagenServicio.getImagen()));
+				}
+			}
+			servicioDTO.setImagenes(imagenes);
 		}
 		CategoryEnum categoria = getCategoriaFromServicio(servicio);
 		servicioDTO.setCategoria(categoria);

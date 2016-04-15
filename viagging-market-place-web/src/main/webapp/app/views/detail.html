@@ -12,37 +12,15 @@
 
 	            	<div class="row">
 						<div class="col-lg-8 col-md-8 col-sm-8">
-			            	<!-- Main Image -->
-							<div class="product-main-image-container">
-								<!--img src="../app/images/hotel1.jpg" alt="" class="product-loader"-->
-								<span class="thumbnail product-main-image">
-									<img src="../app/images/hotel_4.jpg" alt="">
-								</span>
-							</div>
-							<!-- End Main Image -->
-
-							<!-- Thumbnail Image -->
-							<div class="col-xs-3 product-thumb-image">
-								<a href="images/detail1.jpg" class="thumbnail">
-									<img src="../app/images/hotel_1.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-xs-3 product-thumb-image">
-								<a href="images/detail2.jpg" class="thumbnail">
-									<img src="../app/images/hotel_2.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-xs-3 product-thumb-image">
-								<a href="images/detail3.jpg" class="thumbnail">
-									<img src="../app/images/hotel_3.jpg" alt="">
-								</a>
-							</div>
-							<div class="col-xs-3 product-thumb-image">
-								<a href="images/detail1.jpg" class="thumbnail">
-									<img src="../app/images/hotel_4.jpg" alt="">
-								</a>
-							</div>
-							<!-- End Thumbnail Image -->
+			            	<!-- Carousel -->
+			            	<div class="thumbnail">
+								<uib-carousel active="active" no-wrap="noWrapSlides">
+					        		<uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+				          				<img class="carousel-image" ng-src="data:image/png;base64,{{slide.image}}">
+					        		</uib-slide>
+						      	</uib-carousel>
+					      	</div>
+							<!-- End Carousel -->
 						</div>
 
 						<div class="visible-xs">
@@ -64,6 +42,9 @@
 										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 3, 'fa-star-o' : product.calificacion < 3}"></i>
 										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 4, 'fa-star-o' : product.calificacion < 4}"></i>
 										<i class="fa" ng-class="{'fa-star' : product.calificacion >= 5, 'fa-star-o' : product.calificacion < 5}"></i>
+									</div>
+									<div class="the-list">
+										<h4 class="col-xs-12">Proveedor: {{product.proveedor.primerNombre}} {{product.proveedor.primerApellido}}</h4>
 									</div>
 									<div class="clearfix"></div>
 									<hr/>
@@ -100,10 +81,13 @@
 										<div ng-repeat="servicio in product.servicios">
 											<span class="title" style="border-bottom:0px; margin-bottom:10px;">{{servicio.categoria}}</span>
 											<p>{{servicio.descripcionCorta}}</p>
+											<p ng-include src="'views/category.html'"></p>
 											<span class="title" style="border-bottom:0px; margin-bottom:10px;">Características</span>
 											<div ng-repeat="caracteristica in servicio.caracteristicas">
 												<p class="ng-binding"><i class="fa fa-check-circle"></i> {{caracteristica.valor}}</p>
 											</div>
+											<span ng-show="servicio.restricciones" class="title" style="border-bottom:0px; margin-bottom:10px;">Restricciones</span>
+											<p ng-show="servicio.restricciones">{{servicio.restricciones}}</p>
 										</div>
 									</div>
 								</div>
