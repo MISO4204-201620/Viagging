@@ -31,7 +31,12 @@ import org.hibernate.annotations.LazyCollectionOption;
 	@NamedQuery(name = "Servicio.findAllAlimentacion", query = "SELECT t FROM Servicio t where t.alimentacion != null"),
 	@NamedQuery(name = "Servicio.findAllPaseoEcologico", query = "SELECT t FROM Servicio t where t.paseoEcologico != null"),
 	@NamedQuery(name = "Servicio.findAll", query = "SELECT t FROM Servicio t"),
-	@NamedQuery(name = "Servicio.findAllByCriteria", query = "SELECT t FROM Servicio t WHERE t.nombre LIKE :nombre OR t.descripcion LIKE :descripcion")
+	@NamedQuery(name = "Servicio.findAllByCriteria", query = "SELECT t FROM Servicio t WHERE t.nombre LIKE :nombre OR t.descripcion LIKE :descripcion"),
+	@NamedQuery(name = "Servicio.findAllTransporteByProveedor", query = "SELECT t FROM Servicio t where t.transporte != null and t.estado != :estado and t.usuario.id = :idUsuario"),
+	@NamedQuery(name = "Servicio.findAllAlojamientoByProveedor", query = "SELECT t FROM Servicio t where t.alojamiento != null and t.estado != :estado and t.usuario.id = :idUsuario"),
+	@NamedQuery(name = "Servicio.findAllAlimentacionByProveedor", query = "SELECT t FROM Servicio t where t.alimentacion != null and t.estado != :estado and t.usuario.id = :idUsuario"),
+	@NamedQuery(name = "Servicio.findAllPaseoEcologicoByProveedor", query = "SELECT t FROM Servicio t where t.paseoEcologico != null and t.estado != :estado and t.usuario.id = :idUsuario"),
+	@NamedQuery(name = "Servicio.findAllByProveedor", query = "SELECT t FROM Servicio t where t.estado != :estado and t.usuario.id = :idUsuario")
 })
 public class Servicio implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -48,9 +53,18 @@ public class Servicio implements Serializable {
 
 	private Integer precio;
     
-	private byte[] imagenprincipal;	
+	@Override
+	public String toString() {
+		return "Servicio [id=" + id + ", activo=" + activo + ", nombre="
+				+ nombre + ", descripcion=" + descripcion + ", precio="
+				+ precio + ", estado=" + estado + "";
+	}
+
+	private byte[] imagenprincipal;
 	
 	private String restricciones;
+	
+	private String estado;
 	
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -107,6 +121,14 @@ public class Servicio implements Serializable {
 	private List<ImagenServicio> imagenes;
 	
 	public Servicio() {
+	}
+	
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
     
 	public String getRestricciones() {

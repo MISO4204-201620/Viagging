@@ -42,6 +42,8 @@ public class Paquete implements Serializable {
 	
 	private String descripcion;
 	
+	private String estado;
+	
 	private Integer precio;
 
 	//bi-directional many-to-one association to Usuario
@@ -74,14 +76,21 @@ public class Paquete implements Serializable {
 	public Paquete() {
 	}
 	
-	public Paquete( int id, Boolean activo, String nombrePaquete,
+	public Paquete( int id,  String nombrePaquete,
 			Integer precio,String descripcion) {
 		super();
-		this.activo = activo;
 		this.nombrePaquete = nombrePaquete;
 		this.precio = precio;
 		this.descripcion = descripcion;
 		this.id = id;
+	}
+	
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 	public String getDescripcion() {

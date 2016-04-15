@@ -17,4 +17,8 @@ public interface UsuarioService {
 	
 	Usuario buildUsuario(UsuarioDTO usuarioDTO);
 	
+	Usuario findUsuarioByNumber(String numeroDocumento);
+	
+	void deleteUser(Integer idUser);
+	
 }

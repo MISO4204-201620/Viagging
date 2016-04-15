@@ -58,7 +58,7 @@ public class PreguntaServiceImpl implements PreguntaService{
 			UsuarioDTO user = UsuarioDTO.buildObject(pregunta.getUsuario());
 			PreguntaDTO preguntaDTO = new PreguntaDTO(pregunta.getId(), pregunta.getPregunta(), pregunta.getRespuesta(), user);
 			if (pregunta.getPaquete()!= null) {
-				PaqueteDTO paquete = new PaqueteDTO(pregunta.getPaquete().getId(), pregunta.getPaquete().getActivo(), pregunta.getPaquete().getNombrePaquete(), String.valueOf(pregunta.getPaquete().getPrecio()), pregunta.getPaquete().getDescripcion());
+				PaqueteDTO paquete = new PaqueteDTO(pregunta.getPaquete().getId(),  pregunta.getPaquete().getNombrePaquete(), String.valueOf(pregunta.getPaquete().getPrecio()), pregunta.getPaquete().getDescripcion());
 				preguntaDTO.setPaquete(paquete);
 			}
 			if (pregunta.getServicio() != null) {

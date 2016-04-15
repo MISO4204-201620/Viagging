@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.viagging.core.constant.EstadoItem;
 import com.viagging.core.dao.PaqueteDAO;
 import com.viagging.core.model.Paquete;
 
@@ -43,29 +44,32 @@ public class PaqueteDAOImpl implements PaqueteDAO {
 	public Paquete updatePaquete(Paquete paquete) {
 		Paquete _paquete = entityManager.find(Paquete.class, paquete.getId());
 		_paquete.setNombrePaquete(paquete.getNombrePaquete());
+		_paquete.setDescripcion(paquete.getDescripcion());
+		_paquete.setPrecio(paquete.getPrecio());
 		entityManager.persist(_paquete);
 		return _paquete;
 	}
 
 	@Override
-	public Paquete deletePaquete(Integer idPaquete){
-		Paquete paquete = entityManager.find(Paquete.class, idPaquete);
-		if (paquete != null) {
-			entityManager.remove(paquete);
+	public void deletePaquete(Integer idPaquete){
+		Paquete _paquete = entityManager.find(Paquete.class, idPaquete);
+		if (_paquete != null) {
+			_paquete.setEstado(EstadoItem.ELIMINADO.getId());
+			entityManager.persist(_paquete);
 		}
-		return paquete;
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Paquete> getAllPaquetesByFiltro(String filtro){
+	public List<Paquete> getAllPaquetesByFiltro(String filtro,int idUsuario){
 		if(filtro == null){
 			filtro = "";
 		}
 		 Query query = entityManager
-		            .createQuery("SELECT t from Paquete t where t.nombrePaquete LIKE :filtro");
+		            .createQuery("SELECT t from Paquete t where t.nombrePaquete LIKE :filtro and t.estado != :estado and t.usuario.id = :idUsuario");
 		        query.setParameter("filtro", "%"+filtro+"%");
-		        
+		        query.setParameter("estado",EstadoItem.ELIMINADO.getId());
+		        query.setParameter("idUsuario",idUsuario);
 				List<Paquete> listaPaquete =  query.getResultList(); 
 		return listaPaquete;
 	}
@@ -85,6 +89,5 @@ public class PaqueteDAOImpl implements PaqueteDAO {
 		entityManager.persist(_paquete);
 		return _paquete;
 	}
-
 
 }

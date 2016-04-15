@@ -15,8 +15,10 @@ import java.util.List;
 	@NamedQuery(name="Usuario.findAll", query="SELECT t FROM Usuario t"),
 	@NamedQuery(name="Usuario.findByPasswordAndLogin", 
 		query="SELECT t FROM Usuario t WHERE t.login = :login AND t.password = :password"),
-   @NamedQuery(name="Usuario.findLogin", 
-		query="SELECT t FROM Usuario t WHERE t.login = :login")	
+    @NamedQuery(name="Usuario.findLogin", 
+		query="SELECT t FROM Usuario t WHERE t.login = :login"),
+    @NamedQuery(name="Usuario.findNumberDocument", 
+			query="SELECT t FROM Usuario t WHERE t.numeroDocumento = :numeroDocumento")
 })
 
 public class Usuario implements Serializable {

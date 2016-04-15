@@ -28,7 +28,7 @@ public class PackageController {
 
 	public static final String USUARIO_ERROR_MESSAGE_NOT_FOUND = "usuario no encontrado";
 	public static final String SERVICES_ERROR_MESSAGE_NOT_FOUND = "servicios no encontrados";
-	public static final String SERVICE_ERROR_MESSAGE_NOT_FOUND = "servicios no encontrados";
+	public static final String SERVICE_ERROR_MESSAGE_NOT_FOUND = "servicio no encontrado";
 	public static final String PACKAGE_ERROR_MESSAGE_NOT_FOUND = "No existen paquetes";
 	
 	@Autowired
@@ -45,33 +45,28 @@ public class PackageController {
 	
     @RequestMapping(value = "/addPackage", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void savePost(@RequestBody PaqueteDTO paqueteDTO) {
+    public void addPackage( @RequestBody PaqueteDTO paqueteDTO) {
     	System.out.println(paqueteDTO);
     	Paquete paquete = paqueteService.buildPaquete(paqueteDTO);
     	List<Servicio> listaServicio = servicioService.buildListServices(paqueteDTO.getServicios()); 
-    	paqueteService.createPaquete(paquete, listaServicio, "1");
+    	paqueteService.createPaquete(paquete, listaServicio, paqueteDTO.getUsuario().getId());
     }
 	  
     @RequestMapping(value = "/deletePackage", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    public List<ServicioDTO> deletePackage(@RequestBody String idPackage) {
+    public void deletePackage(@RequestBody String idPackage) {
+    	System.out.println("idPackage"+idPackage);
     	System.out.println("deletePackage");	
-    	List<ServicioDTO> listServicioDTO = ServicioDTO.buildListObject(servicioService.getAllServicio());
-    	if(listServicioDTO.isEmpty()){
-    		throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);
-    	}
-    	return listServicioDTO;
+    	paqueteService.deletePaquete(Integer.valueOf(idPackage));
     }
 	  
-    @RequestMapping(value = "/editPackage", method = RequestMethod.POST)
+    @RequestMapping(value = "/editPackage", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
-    public List<ServicioDTO> editPackage(@RequestBody PaqueteDTO packateEdit) {
-    	System.out.println("deletePackage");
-    	List<ServicioDTO> listServicioDTO = ServicioDTO.buildListObject(servicioService.getAllServicio());
-    	if(listServicioDTO.isEmpty()){
-    		throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);
-    	}
-    	return listServicioDTO;
+    public void editPackage(@RequestBody PaqueteDTO paqueteDTO) {
+      	System.out.println(paqueteDTO);
+    	Paquete paquete = paqueteService.buildPaquete(paqueteDTO);
+    	paqueteService.updatePaquete(paquete);
+    	
 	}
 	  
     @RequestMapping(value = "/getPackage", method = RequestMethod.GET)
@@ -86,9 +81,9 @@ public class PackageController {
 	  
     @RequestMapping(value = "/getPackages", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
-    public List<PaqueteDTO> getPackages(@QueryParam("filtro") String filtro) {
+    public List<PaqueteDTO> getPackages(@QueryParam("filtro") String filtro,@QueryParam("idUsuario") String idUsuario) {
     	System.out.println("getPackages"+filtro);
-    	List<Paquete> listPackages = paqueteService.getAllPaquetesByFiltro(filtro);
+    	List<Paquete> listPackages = paqueteService.getAllPaquetesByFiltro(filtro, Integer.valueOf(idUsuario));
     	List<PaqueteDTO> listPaquete = PaqueteDTO.buildListObject(listPackages);
     	if(listPaquete.isEmpty()){
     		throw new NotFoundException(PACKAGE_ERROR_MESSAGE_NOT_FOUND);
@@ -104,4 +99,5 @@ public class PackageController {
     	Paquete paquete = paqueteService.buildPaquete(paqueteDTO);
     	paqueteService.activatePaquete(paquete);
     }
+    
 }

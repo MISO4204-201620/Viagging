@@ -18,10 +18,12 @@ public interface PaqueteService {
 	
 	Paquete buildPaquete(PaqueteDTO paqueteDTO);
 	
-	List<Paquete> getAllPaquetesByFiltro(String filtro);
+	List<Paquete> getAllPaquetesByFiltro(String filtro,int idUsuario);
 	
 	List<Paquete> findAllByCriteria(Paquete paquete);
 	
 	Paquete activatePaquete(Paquete paquete);
+	
+	void deletePaquete(Integer idPaquete);
 
 }

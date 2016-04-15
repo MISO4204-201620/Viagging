@@ -5,12 +5,16 @@ $scope.lastName;
 $scope.filtrarnombre = "";
 $scope.chooseservices=[];
 $scope.ocultarSeccionAdicionarPaquete = true;
+$scope.ocultarSeccionActualizarPaquete = true;
 $scope.paquete = {
 		precio: 0,
 		nombre: "",
 		descripcion: "",
 		activo: false,
-		id : 0
+		id : 0,
+		usuario: {
+			id: ""
+		}
 }
 
 
@@ -31,8 +35,11 @@ $scope.paquete = {
 
 	$scope.getServices = function(idCategoria) { 	
 	    console.log('getServices'+idCategoria); 
-	    $http.get('/viagging-providers-web/getServices',{
-	        params: { idCategory: idCategoria }
+	    $http.get('/viagging-providers-web/getServicesByProveedor',{
+	        params: { 
+	        	idCategory: idCategoria,
+	        	idProveedor :  $scope.userData.id
+	        	}
 	    }).success(function(data, status, headers, config) {
 	    	console.log(status);
 	    	console.log(data);
@@ -59,7 +66,7 @@ $scope.paquete = {
 	    }else if(idCategoria == "02"){
 	    	ngDialog.open({ template: 'template/html/alojamiento.html', className: 'ngdialog-theme-default' });
 	    }else if(idCategoria == "03"){
-	    	ngDialog.open({ template: 'template/html/paseoecologico.html', className: 'ngdialog-theme-default' });
+	    	ngDialog.open({ template: 'template/html/paseoEcologico.html', className: 'ngdialog-theme-default' });
 	    }else if(idCategoria == "04"){
 	    	ngDialog.open({ template: 'template/html/alimentacion.html', className: 'ngdialog-theme-default' });
 	    }
@@ -148,9 +155,11 @@ $scope.paquete = {
 	
 	
 	$scope.createPackage = function() { 
+		console.log($scope.paquete);
+		console.log("idUsuario"+$scope.userData.id);
+		$scope.paquete.usuario.id = $scope.userData.id;
 		if($scope.paquete.precio > 2147483647){
 			alert("Precio debe ser menor a 2147483648");
-	    	//ngDialog.open({ template: 'popup.html', className: 'ngdialog-theme-popup' });
 		}else{
 		
 			$scope.paquete.servicios = $scope.chooseservices;
@@ -166,7 +175,6 @@ $scope.paquete = {
 	        }).
 	          error(function(data, status, headers, config) {
 	        	  alert("Error al crear paquete");
-	        	  ngDialog.open({ template: 'popup.html', className: 'ngdialog-theme-popup' });
 	        }); 
 		}
     	 
@@ -187,8 +195,9 @@ $scope.paquete = {
      
 	   $scope.getPackages = function(filtro) { 
 		   console.log("filtro"+filtro);
+		   console.log("idUsuario"+$scope.userData.id);
 			 $http.get('/viagging-providers-web/getPackages',{
-			    	params: { filtro: filtro }
+			    	params: { filtro: filtro, idUsuario : $scope.userData.id }
 			    }).success(function(data, status, headers, config) {
 			    	console.log(status);
 			      $scope.listPackages = data;
@@ -203,7 +212,17 @@ $scope.paquete = {
 	     }
 	   
 
-	   $scope.getPackage = function(idPaquete) { 
+	   $scope.getPackage = function(idPaquete) {
+		   
+		   for (var i=0;i<$scope.listPackages.length;i++){
+ 	    	  if($scope.listPackages[i].id == idPaquete){
+ 	    		 $scope.paquete.nombre = $scope.listPackages[i].nombre;
+ 	    		 $scope.paquete.descripcion = $scope.listPackages[i].descripcion;
+ 	    		 $scope.paquete.precio = $scope.listPackages[i].precio;
+ 	    		 $scope.paquete.id = $scope.listPackages[i].id;
+ 	    		  break;
+ 	    	  }	    	    	  
+ 	      }
 			 $http.get('/viagging-providers-web/getPackage',{
 			    	params: { idPackage: idPaquete }
 			    }).
@@ -211,6 +230,8 @@ $scope.paquete = {
 			    	console.log(status);
 			      $scope.listaServicios = data;
 			      console.log(data);
+			      $scope.ocultarSeccionActualizarPaquete = false;
+			      console.log($scope.ocultarSeccionActualizarPaquete);
 			    }).
 			    error(function(data, status, headers, config) {
 
@@ -254,4 +275,62 @@ $scope.paquete = {
         	  alert("Error al activar/desactivar");
             });
 	     }
+	   
+	   $scope.eliminatePackage = function(idPaquete) { 
+		   console.log("idPaquete"+idPaquete)
+		   $http({ url: '/viagging-providers-web/deletePackage', 
+               method: 'DELETE', 
+               data: idPaquete, 
+               headers: {"Content-Type": "application/json;charset=utf-8"}
+	       }).then(function(res) {
+	    	   console.log(res); 
+	    	   for (var i=0;i<$scope.listPackages.length;i++){
+	    	    	  if($scope.listPackages[i].id == idPaquete){
+	    	    		  $scope.listPackages.splice(i, 1);	
+	    	    		  break;
+	    	    	  }	    	    	  
+	    	      }
+	    	      alert("Transacción exitosa");
+	       }, function(error) {
+	    	   alert("Error al eliminar");
+	       });
+		   
+	     }
+	   
+		$scope.updatePackage = function() { 
+			console.log($scope.paquete);
+			console.log("idUsuario"+$scope.userData.id);
+			$scope.paquete.usuario.id = $scope.userData.id;
+			if($scope.paquete.precio > 2147483647){
+				alert("Precio debe ser menor a 2147483648");
+			}else{
+			
+				$scope.paquete.servicios = $scope.chooseservices;
+				 $http.put('/viagging-providers-web/editPackage',$scope.paquete).
+					success(function(data, status, headers, config) {
+				    	console.log(status);
+				    	console.log(data);
+				    	alert("Paquete actualizado");
+
+				    	 for (var i=0;i<$scope.listPackages.length;i++){
+				 	    	  if($scope.listPackages[i].id == $scope.paquete.id){
+							    	$scope.listPackages[i].nombre = $scope.paquete.nombre;
+							    	$scope.listPackages[i].descripcion = $scope.paquete.descripcion;
+							    	$scope.listPackages[i].precio = $scope.paquete.precio;
+							    	console.log($rootScope.respuestaCreacion);
+							    	$scope.paquete.precio = "";
+							    	$scope.paquete.nombre = "";
+							    	$scope.paquete.descripcion = "";
+							    	break;
+				 	         }
+				 	   }
+				    	 $scope.ocultarSeccionActualizarPaquete = true;
+		        }).
+		          error(function(data, status, headers, config) {
+		        	  alert("Error al actualizar paquete");
+		        }); 
+			}
+	    	 
+		}
+   
 }]);
