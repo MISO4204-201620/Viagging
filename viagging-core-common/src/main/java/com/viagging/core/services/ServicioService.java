@@ -24,4 +24,6 @@ public interface ServicioService {
 	List<Servicio> findAllByCriteria(Servicio servicio);
 
 	void activarServicio(Servicio servicio);
+	
+	List<Servicio> getServiciosByCategoriaProveedor(String idCategoria,String idProveedor);
 }

@@ -2,7 +2,9 @@ package com.viagging.rest.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.viagging.core.constant.EstadoItem;
 import com.viagging.core.model.PaqueteServicio;
 import com.viagging.core.model.Servicio;
 import com.viagging.util.CategoryEnum;
@@ -53,11 +55,11 @@ public class ServicioDTO {
 			String descripcionCorta, String precio, String restricciones) {
 		super();
 		this.id = id;
-		this.activo = activo;
 		this.nombre = nombre;
 		this.descripcionCorta = descripcionCorta;
 		this.precio = precio;
 		this.restricciones = restricciones;
+		this.activo = activo;
 	}
 
 	public String getRestricciones() {
@@ -200,8 +202,12 @@ public class ServicioDTO {
 	public static List<ServicioDTO> buildListObject(List<Servicio> listServicio) {
 		List<ServicioDTO> listServicioDTO = new ArrayList<>();
 		for (Servicio servicio : listServicio) {
-			ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(), servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones());
+			System.out.println("servicio"+servicio);
+			ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), true,servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones());
 			servicioDTO =  ServicioDTO.setearDatosAdicionales(servicioDTO, servicio);
+			if(servicio.getEstado() != null){
+			      servicioDTO.setActivo(servicio.getEstado().equals(EstadoItem.ACTIVO.getId()) ? true : false );
+			}
 			listServicioDTO.add(servicioDTO);
 		}
 		return listServicioDTO;
@@ -232,8 +238,9 @@ public class ServicioDTO {
 	} 
 	
 	public static ServicioDTO buildObject(Servicio servicio) {
-		ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), servicio.getActivo(), servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones());
+		ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(),servicio.getActivo(),  servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones());
 		servicioDTO.setCiudadFromCategoria(servicio);
+		servicioDTO.setActivo(servicio.getEstado().equals(EstadoItem.ACTIVO.getId()) ? true : false );
 		if(servicio.getImagenprincipal() != null){
 			servicioDTO.setImagenPrincipal(new String(servicio.getImagenprincipal()));
 		}

@@ -93,4 +93,20 @@ public class ServicioServiceImpl implements ServicioService {
 		servicioDAO.activarServicio(servicio);
 		
 	}
+	
+	@Override
+	public List<Servicio> getServiciosByCategoriaProveedor(String idCategoria,String idProveedor) {
+		
+		if(CategoryEnum.ALIMENTACION.getId().equals(idCategoria)){
+			return servicioDAO.getServiciosAlimentacionByProveedor(Integer.valueOf(idProveedor));		
+		} else if(CategoryEnum.ALOJAMIENTO.getId().equals(idCategoria)){
+			return servicioDAO.getServiciosAlojamientoByProveedor(Integer.valueOf(idProveedor));
+		} else if(CategoryEnum.PASEO_ECOLOGICO.getId().equals(idCategoria)){
+			return servicioDAO.getServiciosPaseoEcologicoByProveedor(Integer.valueOf(idProveedor));
+		} else if(CategoryEnum.TRANSPORTE.getId().equals(idCategoria)){
+			return servicioDAO.getServiciosTransporteByProveedor(Integer.valueOf(idProveedor));
+		} else {
+			return servicioDAO.getAllServiciosByProveedor(Integer.valueOf(idProveedor));
+		}
+	}
 }

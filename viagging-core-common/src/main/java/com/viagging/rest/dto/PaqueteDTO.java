@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.viagging.core.constant.EstadoItem;
 import com.viagging.core.model.Paquete;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -11,7 +12,7 @@ public class PaqueteDTO {
 	
 	private Integer id;
 
-	private Boolean activo;
+	private boolean activo;
 	
 	private String nombre;
 	
@@ -21,12 +22,13 @@ public class PaqueteDTO {
 	
 	private List<ServicioDTO>servicios;
 	
+	private UsuarioDTO usuario;
+	
 	public PaqueteDTO(){}
 	
-	public PaqueteDTO(Integer id, Boolean activo, String nombre, String precio,String descripcion) {
+	public PaqueteDTO(Integer id, String nombre, String precio,String descripcion) {
 		super();
 		this.id = id;
-		this.activo = activo;
 		this.nombre = nombre;
 		this.precio = precio;
 		this.descripcion = descripcion;
@@ -87,11 +89,21 @@ public class PaqueteDTO {
 		this.descripcion = descripcion;
 	}
 	
+	public UsuarioDTO getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(UsuarioDTO usuario) {
+		this.usuario = usuario;
+	}
+
+	
 	public static List<PaqueteDTO> buildListObject(List<Paquete> listaPaquete){
 		List<PaqueteDTO> listaPaqueteDTO = new ArrayList<>();
 		for (Paquete paquete : listaPaquete) {
-			PaqueteDTO paqueteDTO = new PaqueteDTO(paquete.getId(), paquete.getActivo(), paquete.getNombrePaquete(), String.valueOf(paquete.getPrecio()),paquete.getDescripcion());
-		    listaPaqueteDTO.add(paqueteDTO);
+			PaqueteDTO paqueteDTO = new PaqueteDTO(paquete.getId(), paquete.getNombrePaquete(), String.valueOf(paquete.getPrecio()),paquete.getDescripcion());
+		    paqueteDTO.setActivo(paquete.getEstado().equals(EstadoItem.ACTIVO.getId()) ? true : false);
+			listaPaqueteDTO.add(paqueteDTO);
 		}
 		return listaPaqueteDTO;
 	}

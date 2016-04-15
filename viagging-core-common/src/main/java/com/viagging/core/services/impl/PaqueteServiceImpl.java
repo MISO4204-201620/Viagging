@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.viagging.core.constant.EstadoItem;
 import com.viagging.core.dao.PaqueteDAO;
 import com.viagging.core.dao.PaqueteServicioDAO;
 import com.viagging.core.dao.ServicioDAO;
@@ -65,13 +66,14 @@ public class PaqueteServiceImpl implements PaqueteService{
 	
 	@Override
 	public Paquete buildPaquete(PaqueteDTO paqueteDTO) {
-		Paquete paquete = new Paquete(paqueteDTO.getId(), paqueteDTO.getActivo(), paqueteDTO.getNombre(), Integer.valueOf(paqueteDTO.getPrecio()),paqueteDTO.getDescripcion());		
+		Paquete paquete = new Paquete(paqueteDTO.getId(),  paqueteDTO.getNombre(), Integer.valueOf(paqueteDTO.getPrecio()),paqueteDTO.getDescripcion());		
+		paquete.setEstado(paqueteDTO.getActivo() ? EstadoItem.ACTIVO.getId() : EstadoItem.INACTIVO.getId() );
 		return paquete;
 	}
 	
 	@Override
-	public List<Paquete> getAllPaquetesByFiltro(String filtro){
-		return paqueteDAO.getAllPaquetesByFiltro(filtro);		
+	public List<Paquete> getAllPaquetesByFiltro(String filtro,int idUsuario){
+		return paqueteDAO.getAllPaquetesByFiltro(filtro, idUsuario);
 	}
 
 	@Override
@@ -84,5 +86,9 @@ public class PaqueteServiceImpl implements PaqueteService{
 		  return paqueteDAO.activatePaquete(paquete);
 	}
 	
+	@Override
+	public void deletePaquete(Integer idPaquete){
+		paqueteDAO.deletePaquete(idPaquete);
+	}
 }
 

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.viagging.core.dao.UsuarioDAO;
 import com.viagging.core.model.CuentaAcceso;
@@ -90,6 +91,7 @@ public class UsuarioServiceImpl implements  UsuarioService  {
 	@Override
 	public Usuario buildUsuario(UsuarioDTO usuarioDTO){
 		Usuario usuario = new Usuario();
+		usuario.setId( usuarioDTO.getId() != null ? Integer.valueOf(usuarioDTO.getId()) :  null);
 		usuario.setLogin(usuarioDTO.getLogin());
 		usuario.setPassword(usuarioDTO.getPassword());
 		usuario.setNumeroCelular(usuarioDTO.getNumeroCelular());
@@ -105,6 +107,15 @@ public class UsuarioServiceImpl implements  UsuarioService  {
 		usuario.setCiudad(usuarioDTO.getCiudad());
 		usuario.setPais(usuarioDTO.getPais());
 		return usuario;
+	}
+	
+	@Override
+	public Usuario findUsuarioByNumber(String numeroDocumento){
+		return usuarioDAO.findUsuarioByNumber(numeroDocumento);
+	}
+	
+	public void deleteUser(Integer idUser){
+		 usuarioDAO.deleteUser(idUser);
 	}
 	
 }
