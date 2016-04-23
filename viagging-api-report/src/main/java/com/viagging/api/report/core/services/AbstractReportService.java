@@ -36,15 +36,15 @@ public abstract class AbstractReportService {
          return print;
      }
 
-    public void createReport( ReporteDTO reporteDTO ){		
-		try {
+    public byte[] createReport( ReporteDTO reporteDTO ){		
+    	byte[] output = null;
+    	try {
 			Map<String, Object> map = new HashMap<String,Object>();
 			List<Object[]> listDatos = getInfo(reporteDTO);
 	        DefaultTableModel dataReport = fillDataReport(listDatos);
 	        JasperReport report = getFileReport();
 		    JasperPrint print = fillReport(map, report,dataReport);
-		    byte[] output = JasperExportManager.exportReportToPdf(print);
-		    System.out.println(output.toString()+"df");
+		    output = JasperExportManager.exportReportToPdf(print);
 		    JasperExportManager.exportReportToPdfFile(print, "D:\\ANDES\\Fabricas_Software\\reportes\\InformePaisesMySQ1L.pdf");
 		    JasperViewer.viewReport(print, false);
 		} catch (JRException e) {
@@ -52,6 +52,7 @@ public abstract class AbstractReportService {
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());	
 		}	
+		return output;
 	}
     
     abstract public DefaultTableModel  fillDataReport(List<Object[]> listData);
@@ -59,18 +60,18 @@ public abstract class AbstractReportService {
     abstract public List<Object[]> getInfo(ReporteDTO reporteDTO); 
     
     public static String buildList(List<?> listItems){
-    	StringBuilder concatenadoServicios = new StringBuilder();  
-    	   for (int i = 0; i < listItems.size(); i++) {
-    		   if(listItems.get(i) instanceof ServicioDTO){
-    		      concatenadoServicios.append(((ServicioDTO)listItems.get(i)).getId());
-    		   }else if (listItems.get(i) instanceof PaqueteDTO){
-    			   concatenadoServicios.append(((PaqueteDTO)listItems.get(i)).getId());
-    		   }
-    		     
-    		   if( i != listItems.size()-1){
-    			   concatenadoServicios.append(",");   
-    		   }
-		   }	
-    	return concatenadoServicios.toString();
+       StringBuilder concatenadoServicios = new StringBuilder();  
+	   for (int i = 0; i < listItems.size(); i++) {
+		   if(listItems.get(i) instanceof ServicioDTO){
+		      concatenadoServicios.append(((ServicioDTO)listItems.get(i)).getId());
+		   }else if (listItems.get(i) instanceof PaqueteDTO){
+			   concatenadoServicios.append(((PaqueteDTO)listItems.get(i)).getId());
+		   }
+		     
+		   if( i != listItems.size()-1){
+			   concatenadoServicios.append(",");   
+		   }
+	   }	
+       return concatenadoServicios.toString();
     }
 }

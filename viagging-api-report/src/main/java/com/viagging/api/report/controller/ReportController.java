@@ -29,18 +29,19 @@ public class ReportController {
 	
 	    @RequestMapping(value = "/createReport", method = RequestMethod.POST)
 		@ResponseStatus(value = HttpStatus.OK)
-		public void createReport(@RequestBody ReporteDTO reporteDTO) {
-	    	System.out.println("fff");
-	        if(reporteDTO.getTipo().equals(ReportType.QUERY.toString())){
-	        	System.out.println("ffff");
-	        	queryReport.createReport(reporteDTO);
+		public String createReport(@RequestBody ReporteDTO reporteDTO) {
+	    	byte[] outputReport = null;
+	    	if(reporteDTO.getTipo().equals(ReportType.QUERY.toString())){
+	        	 outputReport = queryReport.createReport(reporteDTO);
 		    }else if(reporteDTO.getTipo().equals(ReportType.SALE.toString())){
 
 		    }else if(reporteDTO.getTipo().equals(ReportType.SEARCH.toString())){
-		    	searchReport.createReport(reporteDTO);
+		    	 outputReport = searchReport.createReport(reporteDTO);
 		    }else {
 		    	throw new NotFoundException(ERROR_REPORT_NOT_FOUND);
 		    }
+	        
+	        return outputReport.toString();
 		}
 	    
 }

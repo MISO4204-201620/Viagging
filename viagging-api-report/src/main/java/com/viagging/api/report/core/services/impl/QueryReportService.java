@@ -25,12 +25,7 @@ public class QueryReportService extends AbstractReportService {
 	  
 	@Override
 	public JasperReport getFileReport() throws JRException{
-		System.out.println("ingreso getFileReport ");
-		System.out.println("rutaReportes "+rutaReportes);
-		System.out.println("reporteQuery "+reporteQuery);
-		JasperReport	report = JasperCompileManager.compileReport(rutaReportes+reporteQuery);	
-		System.out.println("ingreso getFileReport fin");
-		return report;
+		return JasperCompileManager.compileReport(rutaReportes+reporteQuery);
      }
 	
     @Override
@@ -41,33 +36,26 @@ public class QueryReportService extends AbstractReportService {
         Object [][] data = new Object [listData.size()][4];
      
         for (Object[] objectData : listData) {
-			System.out.println(objectData[0]);
-			System.out.println(objectData[1]);
-			System.out.println(objectData[2]);
-			System.out.println(objectData[3]);
       	    data[i][0] = objectData[0];
      	    data[i][1] = objectData[1];
      	    data[i][2] = objectData[2].toString();
-     	    data[i][3] = objectData[3];
+     	    data[i][3] = objectData[3] + " " + objectData[4];
         	i++;
 		}
-        System.out.println("da");  
         DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
-        System.out.println("daeefef");
         return tableModel;        
     }
     
     @Override
     public  List<Object[]> getInfo(ReporteDTO reporteDTO){  	
-    	List<Object[]> listData =   movimientoService.findInfoReportSearch(buildQuery(reporteDTO));
-    	return listData;
+    	return  movimientoService.findInfoReportSearch(buildQuery(reporteDTO));
     }
     
     public String buildQuery(ReporteDTO datosConsulta){
     	StringBuilder queryString = new StringBuilder();
 		queryString.append("select case when mov.idservicio IS NULL then 'Paquete' else 'Servicio' END as tipo, ");
 		queryString.append("case when mov.idservicio IS NULL then paq.nombrepaquete else ser.nombre END as nombre, ");
-		queryString.append("mov.fecha as fecha, mov.accion from tr_movimiento as mov ");
+		queryString.append("mov.fecha as fecha, us.primernombre as primernombre, us.primerapellido as primerapellido  from tr_movimiento as mov ");
 		queryString.append("INNER JOIN tp_usuario as us ");
 		queryString.append("ON mov.idusuario = us.id ");
 		queryString.append("LEFT JOIN tp_servicio ser ");
