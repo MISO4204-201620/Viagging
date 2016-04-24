@@ -81,9 +81,9 @@ public class ServicioDAOImpl implements ServicioDAO {
 	@Override
 	public Servicio deleteServicio(Integer idServicio){
 		Servicio servicio = entityManager.find(Servicio.class, idServicio);
-		if (servicio != null) {
-			entityManager.remove(servicio);
-		}
+//		if (servicio != null) {
+//			entityManager.remove(servicio);
+//		}
 		return servicio;
 	}
 

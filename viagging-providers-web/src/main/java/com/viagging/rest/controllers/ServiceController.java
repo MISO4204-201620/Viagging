@@ -95,11 +95,11 @@ public class ServiceController {
 		// servicioService.createServicio(servicio);
 	}
 
-	@RequestMapping(value = "/deleteService", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/deleteService", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void deleteService(@RequestBody String idService) {
 		System.out.println("ingreso a deleteService");
-		// servicioService.createServicio(servicio);
+		servicioService.deleteServicio(Integer.parseInt(idService));
 	}
 	
 	@RequestMapping(value = "/activeService", method = RequestMethod.POST)

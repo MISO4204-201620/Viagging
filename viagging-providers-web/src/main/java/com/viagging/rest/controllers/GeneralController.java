@@ -49,6 +49,28 @@ public class GeneralController {
 		return TransportEnum.getValues();
 	}
 	
+	@RequestMapping(value = "/getReportTypes", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public List<String> getReportTypes() {
+		List<String> reportTypes = new ArrayList<>();
+		reportTypes.add("Busquedas");
+		reportTypes.add("Consultas");
+		reportTypes.add("Ventas");
+		return reportTypes;
+	}
+	
+	
+	@RequestMapping(value = "/getServicesByProvider", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public List<String> getServicesByProvider() {
+		List<String> reportTypes = new ArrayList<>();
+		reportTypes.add("Busquedas");
+		reportTypes.add("Consultas");
+		reportTypes.add("Ventas");
+		return reportTypes;
+	}
+	
+	
 	@RequestMapping(value = "/saveImage", method = RequestMethod.PUT)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ResponseStatus(value = HttpStatus.OK)

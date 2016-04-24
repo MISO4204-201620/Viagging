@@ -1,6 +1,6 @@
 'use strict';
 
-var providersApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap','ngDialog', 'angularFileUpload']);
+var providersApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap','ngDialog', 'angularFileUpload', 'ngAnimate']);
 
 providersApp.config(['$stateProvider', function($stateProvider){
 	$stateProvider
@@ -58,6 +58,16 @@ providersApp.config(['$stateProvider', function($stateProvider){
 			url: "/responderpregunta",
 			templateUrl: 'template/html/responderPregunta.html',
 			controller: 'PreguntasCtrl',
+		})
+		.state("profile", {
+			url: "/profile",
+			templateUrl: 'template/html/perfil.html',
+			controller: 'UsuarioCtrl',
+		})
+		.state("busqueda", {
+			url: "/busqueda",
+			templateUrl: 'template/html/reporte.html',
+			controller: 'ReporteCtrl',
 		});
 }]);
 

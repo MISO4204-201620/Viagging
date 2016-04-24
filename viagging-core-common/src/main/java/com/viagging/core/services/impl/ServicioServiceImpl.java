@@ -93,4 +93,9 @@ public class ServicioServiceImpl implements ServicioService {
 		servicioDAO.activarServicio(servicio);
 		
 	}
+
+	@Override
+	public void deleteServicio(Integer idServicio) {
+		servicioDAO.deleteServicio(idServicio);
+	}
 }

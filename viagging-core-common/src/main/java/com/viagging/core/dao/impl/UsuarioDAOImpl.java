@@ -56,7 +56,21 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	@Override
 	public Usuario updateUsuario(Usuario usuario) {
 		Usuario _usuario = entityManager.find(Usuario.class, usuario.getId());
-		_usuario.setCorreo(_usuario.getCorreo());
+		_usuario.setCiudad(usuario.getCiudad());
+		_usuario.setCorreo(usuario.getCorreo());
+		_usuario.setDireccion1(usuario.getDireccion1());
+		_usuario.setDireccion2(usuario.getDireccion2());
+		_usuario.setLogin(usuario.getLogin());
+		_usuario.setNumeroCelular(usuario.getNumeroCelular());
+		_usuario.setNumeroDocumento(usuario.getNumeroDocumento());
+		_usuario.setPais(usuario.getPais());
+		_usuario.setPassword(usuario.getPassword());
+		_usuario.setPrimerApellido(usuario.getPrimerApellido());
+		_usuario.setPrimerNombre(usuario.getPrimerNombre());
+		_usuario.setSegundoApellido(usuario.getSegundoApellido());
+		_usuario.setSegundoNombre(usuario.getSegundoNombre());
+		_usuario.setTipoDocumento(usuario.getTipoDocumento());
+		_usuario.setZipcode(usuario.getZipcode());
 		entityManager.persist(_usuario);
 		return _usuario;
 	}
