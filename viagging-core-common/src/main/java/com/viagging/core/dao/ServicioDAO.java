@@ -33,4 +33,16 @@ public interface ServicioDAO {
 	List<Servicio> findAllByCriteria(Servicio servicio);
 
 	void activarServicio(Servicio servicio);
+	
+	List<Servicio> getServiciosTransporteByProveedor(int idUsuario);
+	
+	List<Servicio> getServiciosAlimentacionByProveedor(int idUsuario);
+	
+	List<Servicio> getServiciosAlojamientoByProveedor(int idUsuario);
+	
+	List<Servicio> getServiciosPaseoEcologicoByProveedor(int idUsuario);
+	
+	List<Servicio> getAllServiciosByProveedor(int idUsuario);
+	
+	
 }

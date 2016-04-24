@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.viagging.core.constant.EstadoItem;
 import com.viagging.core.dao.UsuarioDAO;
 import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Usuario;
@@ -53,26 +54,9 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		return usuario;
 	}
 
-	@Override
 	public Usuario updateUsuario(Usuario usuario) {
-		Usuario _usuario = entityManager.find(Usuario.class, usuario.getId());
-		_usuario.setCiudad(usuario.getCiudad());
-		_usuario.setCorreo(usuario.getCorreo());
-		_usuario.setDireccion1(usuario.getDireccion1());
-		_usuario.setDireccion2(usuario.getDireccion2());
-		_usuario.setLogin(usuario.getLogin());
-		_usuario.setNumeroCelular(usuario.getNumeroCelular());
-		_usuario.setNumeroDocumento(usuario.getNumeroDocumento());
-		_usuario.setPais(usuario.getPais());
-		_usuario.setPassword(usuario.getPassword());
-		_usuario.setPrimerApellido(usuario.getPrimerApellido());
-		_usuario.setPrimerNombre(usuario.getPrimerNombre());
-		_usuario.setSegundoApellido(usuario.getSegundoApellido());
-		_usuario.setSegundoNombre(usuario.getSegundoNombre());
-		_usuario.setTipoDocumento(usuario.getTipoDocumento());
-		_usuario.setZipcode(usuario.getZipcode());
-		entityManager.persist(_usuario);
-		return _usuario;
+		entityManager.merge(usuario);
+		return usuario;
 	}
 	
 	@Override
@@ -85,5 +69,27 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			return null;
 		}
 	}
+	
+	@Override
+	public Usuario findUsuarioByNumber(String numeroDocumento) {
+		try {
+			Query query = entityManager.createNamedQuery("Usuario.findNumberDocument");
+			query.setParameter("numeroDocumento", numeroDocumento);
+			return (Usuario) query.getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
+	
+	@Override
+	public void deleteUser(Integer idUser){
+		Usuario _user = entityManager.find(Usuario.class, idUser);
+		if (_user != null) {
+			_user.setEstado(EstadoItem.ELIMINADO.getId());
+			entityManager.persist(_user);
+		}
+	}
+	
+
 	
 }

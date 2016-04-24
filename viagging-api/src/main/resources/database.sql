@@ -150,6 +150,7 @@ CREATE TABLE TP_Servicio (
   activo BOOL NULL,
   imagenPrincipal BYTEA NULL,
   restricciones TEXT NULL,
+  estado VARCHAR(5) NULL,
   PRIMARY KEY(id),
   FOREIGN KEY (idUsuario) REFERENCES TP_Usuario(id),
   FOREIGN KEY (idAlojamiento) REFERENCES TR_Alojamiento(id),
@@ -173,6 +174,7 @@ CREATE TABLE TP_Paquete (
   descripcion text NULL,
   activo boolean NULL,
   precio INTEGER  NULL,
+  estado VARCHAR(5) NULL,
   PRIMARY KEY(id),
   FOREIGN KEY (idUsuario) REFERENCES TP_Usuario(id)
 );

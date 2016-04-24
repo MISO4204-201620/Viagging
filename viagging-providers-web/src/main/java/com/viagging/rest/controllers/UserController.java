@@ -1,6 +1,7 @@
 package com.viagging.rest.controllers;
 
 import java.util.List;
+
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.QueryParam;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.viagging.core.constant.Profile;
 import com.viagging.core.model.CuentaAcceso;
 import com.viagging.core.model.Usuario;
@@ -23,6 +25,7 @@ import com.viagging.rest.dto.UsuarioDTO;
 public class UserController {
     
 	public static final String USER_ERROR_MESSAGE_ADD = "Error creando el usuario";
+	public static final String USER_ERROR_MESSAGE_UPDATE = "Error actualizando el usuario";
 	public static final String USER_ERROR_MESSAGE_LOGIN_EXIST = "Login ya existe, por favor cambiar de login";
 	
 	@Autowired
@@ -70,14 +73,6 @@ public class UserController {
 		return listUserDTO;
 	}
 	
-	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
-	@ResponseStatus(value = HttpStatus.OK)
-	public UsuarioDTO getUser(@QueryParam("userId") Integer userId) {
-		Usuario usuario = usuarioService.getUsuarioById(userId);
-		UsuarioDTO usuarioDTO = UsuarioDTO.buildObject(usuario);
-		return usuarioDTO;
-	}
-	
 	@RequestMapping(value = "/updateProvider", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void updateProvider(@RequestBody UsuarioDTO usuarioDTO) {
@@ -86,4 +81,31 @@ public class UserController {
 		usuarioService.updateUsuario(usuario);
 	}
 	
+	@RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void updateUser(@RequestBody UsuarioDTO usuarioDTO) {
+		System.out.println("updateUser"+usuarioDTO);
+		try {
+			usuarioService.updateUsuario(usuarioService.buildUsuario(usuarioDTO));
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+			throw new NotFoundException(USER_ERROR_MESSAGE_UPDATE);		
+	     }
+	}
+	
+   @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
+   @ResponseStatus(value = HttpStatus.OK)
+    public void deleteUser(@RequestBody String idUser) {
+    	System.out.println("deleteUser");	
+    	usuarioService.deleteUser(Integer.valueOf(idUser));
+    }
+   
+    @RequestMapping(value = "/getUser", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public UsuarioDTO getUser(@QueryParam("numeroDocumento") String numeroDocumento) {
+		System.out.println("getUser");
+		Usuario usuario = usuarioService.findUsuarioByNumber(numeroDocumento);
+        UsuarioDTO userDTO = UsuarioDTO.buildObject(usuario);
+		return userDTO;
+	}
 }

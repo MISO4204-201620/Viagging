@@ -110,5 +110,16 @@ public class ServiceController {
     	service.setId(servicioDTO.getId());
 		servicioService.activarServicio(service);
     }
+	
+	@RequestMapping(value = "/getServicesByProveedor", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public List<ServicioDTO> getServicesByProveedor(@QueryParam("idCategory") String idCategory,@QueryParam("idProveedor") String idProveedor) {
+		System.out.println("getServicesByProveedor");
+		List<ServicioDTO> listServicioDTO = ServicioDTO.buildListObject(servicioService.getServiciosByCategoriaProveedor(idCategory, idProveedor));
+		if (listServicioDTO.isEmpty()) {
+			throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);
+		}
+		return listServicioDTO;
+	}
 
 }

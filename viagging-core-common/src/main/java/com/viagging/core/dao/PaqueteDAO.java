@@ -17,12 +17,12 @@ public interface PaqueteDAO {
 
 	Paquete updatePaquete(Paquete paquete);
 
-	Paquete deletePaquete(Integer idPaquete);
+	void deletePaquete(Integer idPaquete);
 	
-	List<Paquete> getAllPaquetesByFiltro(String filtro);
+	List<Paquete> getAllPaquetesByFiltro(String filtro,int idUsuario);
 
 	List<Paquete> findAllByCriteria(Paquete paquete);
 	
 	Paquete activatePaquete(Paquete paquete);
-	
+		
 }

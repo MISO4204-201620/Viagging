@@ -99,6 +99,52 @@ providersApp.controller('UsuarioCtrl', ['$scope', 'FileUploader', '$http', funct
 		reset();
 	}
 
-
-
+	$scope.eliminateUser = function(idUser) { 
+		   console.log("idUser"+idUser)
+		   $http({ url: '/viagging-providers-web/deleteUser', 
+            method: 'DELETE', 
+            data: idUser, 
+            headers: {"Content-Type": "application/json;charset=utf-8"}
+	       }).then(function(res) {
+	    	   console.log(res); 
+	    	   for (var i=0;i<$scope.listUsers.length;i++){
+	    	    	  if($scope.listUsers[i].id == idUser){
+	    	    		  $scope.listUsers.splice(i, 1);	
+	    	    		  break;
+	    	    	  }	    	    	  
+	    	      }
+	    	      alert("Transacción exitosa");
+	       }, function(error) {
+	    	   alert("Error al eliminar");
+	       });
+		   
+	     }
+    
+	$scope.getUser = function(idUser) { 
+		console.log(idUser);
+		$http.get('/viagging-providers-web/getUser',
+				{params: { numeroDocumento: idUser }
+		}).
+		success(function(data, status, headers, config) {
+			console.log(status);
+			console.log(data);
+			$scope.usuario = data;
+		}).
+		error(function(data, status, headers, config) {
+		}); 
+		console.log('despues de llamar');
+	}
+	
+	$scope.updateUser = function() { 
+	    console.log($scope.usuario);
+		 $http.put('/viagging-providers-web/updateUser',$scope.usuario).
+			success(function(data, status, headers, config) {
+		    	console.log(status);
+		    	alert("Paquete actualizado");
+		    	 //$scope.ocultarSeccionActualizarPaquete = true;
+        }).
+          error(function(data, status, headers, config) {
+        	  alert("Error al actualizar usuario");
+        }); 	 
+    }
 }]);

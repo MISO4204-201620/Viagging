@@ -44,6 +44,16 @@ providersApp.config(['$stateProvider', function($stateProvider){
 			templateUrl: 'template/html/activarPaquete.html',
 			controller: 'samplecontroller',
 		})
+		.state("eliminarpaquete", {
+			url: "/eliminarpaquete",
+			templateUrl: 'template/html/eliminarPaquete.html',
+			controller: 'samplecontroller',
+		})
+		.state("actualizarpaquete", {
+			url: "/actualizarpaquete",
+			templateUrl: 'template/html/actualizarPaquete.html',
+			controller: 'samplecontroller',
+		})
 		.state("paquete", {
 			url: "/paquete",
 			templateUrl: 'template/html/crearPaquete.html',

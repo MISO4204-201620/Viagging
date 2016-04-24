@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.viagging.core.constant.EstadoItem;
 import com.viagging.core.dao.ServicioDAO;
 import com.viagging.core.model.Servicio;
 import com.viagging.rest.dto.ServicioDTO;
@@ -109,6 +110,51 @@ public class ServicioDAOImpl implements ServicioDAO {
 		Servicio _servicio = entityManager.find(Servicio.class, servicio.getId());
 		_servicio.setActivo(servicio.getActivo());
 		entityManager.persist(_servicio);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Servicio> getServiciosTransporteByProveedor(int idUsuario){
+		Query query = entityManager.createNamedQuery("Servicio.findAllTransporteByProveedor");
+		query.setParameter("estado", EstadoItem.ELIMINADO.getId());
+		query.setParameter("idUsuario", idUsuario);
+		return (List<Servicio>) query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Servicio> getServiciosAlimentacionByProveedor(int idUsuario){
+		Query query = entityManager.createNamedQuery("Servicio.findAllAlimentacionByProveedor");
+		query.setParameter("estado", EstadoItem.ELIMINADO.getId());
+		query.setParameter("idUsuario", idUsuario);
+		return (List<Servicio>) query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Servicio> getServiciosAlojamientoByProveedor(int idUsuario){
+		Query query = entityManager.createNamedQuery("Servicio.findAllAlojamientoByProveedor");
+		query.setParameter("estado", EstadoItem.ELIMINADO.getId());
+		query.setParameter("idUsuario", idUsuario);
+		return (List<Servicio>) query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Servicio> getServiciosPaseoEcologicoByProveedor(int idUsuario){
+		Query query = entityManager.createNamedQuery("Servicio.findAllPaseoEcologicoByProveedor");
+		query.setParameter("estado", EstadoItem.ELIMINADO.getId());
+		query.setParameter("idUsuario", idUsuario);
+		return (List<Servicio>) query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Servicio> getAllServiciosByProveedor(int idUsuario){
+		Query query = entityManager.createNamedQuery("Servicio.findAllByProveedor");
+		query.setParameter("estado", EstadoItem.ELIMINADO.getId());
+		query.setParameter("idUsuario", idUsuario);
+		return (List<Servicio>) query.getResultList();
 	}
 
 }

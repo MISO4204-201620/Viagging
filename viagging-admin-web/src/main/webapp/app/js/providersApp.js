@@ -14,6 +14,16 @@ providersApp.config(['$stateProvider', function($stateProvider){
 			templateUrl: 'template/html/consultarusuario.html',
 			controller: 'UsuarioCtrl',
 		})
+		.state("actualizar", {
+			url: "/actualizar",
+			templateUrl: 'template/html/actualizarusuario.html',
+			controller: 'UsuarioCtrl',
+		})
+		.state("eliminar", {
+			url: "/eliminar",
+			templateUrl: 'template/html/eliminarusuario.html',
+			controller: 'UsuarioCtrl',
+		})
 		.state("crear", {
 			url: "/crear",
 			templateUrl: 'template/html/crearusuario.html',

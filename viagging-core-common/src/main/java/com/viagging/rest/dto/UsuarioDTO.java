@@ -6,7 +6,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.viagging.core.constant.Profile;
 import com.viagging.core.model.CuentaAcceso;
 import com.viagging.core.model.Usuario;
 
@@ -232,6 +231,7 @@ public class UsuarioDTO {
 		usuarioDto.setPais(usuario.getPais());
 		usuarioDto.setEstado(usuario.getEstado());
 		usuarioDto.setZipcode(usuario.getZipcode());
+		usuarioDto.setPassword(usuario.getPassword());
 		return usuarioDto;
 	}
 	
