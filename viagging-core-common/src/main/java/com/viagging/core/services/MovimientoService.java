@@ -1,12 +1,10 @@
-package com.viagging.api.report.core.services;
+package com.viagging.core.services;
 
 import java.util.List;
-import java.util.concurrent.Future;
-
 import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Servicio;
 
-public interface IMovimientoService {
+public interface MovimientoService {
      
 	List<Object[]> findInfoReportSearch(String query);
     

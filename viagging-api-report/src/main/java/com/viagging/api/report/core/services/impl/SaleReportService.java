@@ -7,16 +7,18 @@ import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.viagging.api.report.core.services.AbstractReportService;
-import com.viagging.api.report.core.services.IMovimientoService;
 import com.viagging.api.report.rest.dto.ReporteDTO;
+import com.viagging.core.services.MovimientoService;
 
 
 public class SaleReportService extends AbstractReportService {
     
 	@Autowired
-	private IMovimientoService movimientoService; 
+	private MovimientoService movimientoService; 
 	
 	@Override
 	public JasperReport getFileReport() throws JRException{

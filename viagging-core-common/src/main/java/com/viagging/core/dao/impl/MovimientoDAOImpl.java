@@ -1,4 +1,4 @@
-package com.viagging.api.report.core.dao.impl;
+package com.viagging.core.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.viagging.api.report.core.dao.MovimientoDAO;
+import com.viagging.core.dao.MovimientoDAO;
 import com.viagging.core.model.Movimiento;
 
 import javax.persistence.NoResultException;

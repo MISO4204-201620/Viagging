@@ -1,4 +1,4 @@
-package com.viagging.api.report.core.model.mapper;
+package com.viagging.core.model.mapper;
 
 import java.util.Date;
 import org.springframework.stereotype.Component;

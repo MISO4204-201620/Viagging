@@ -1,4 +1,4 @@
-package com.viagging.api.report.core.dao;
+package com.viagging.core.dao;
 
 import java.util.List;
 

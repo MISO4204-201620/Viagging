@@ -1,4 +1,4 @@
-package com.viagging.api.report.core.services.impl;
+package com.viagging.core.services.impl;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -6,19 +6,22 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.viagging.api.report.core.dao.MovimientoDAO;
-import com.viagging.api.report.core.model.mapper.MovimientoMapper;
-import com.viagging.api.report.core.services.IMovimientoService;
+
+import com.viagging.core.services.MovimientoService;
+import com.viagging.core.dao.MovimientoDAO;
 import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Servicio;
 import com.viagging.core.model.Usuario;
+import com.viagging.core.model.mapper.MovimientoMapper;
 import com.viagging.core.services.UsuarioService;
 
 @Service
-public class MovimientoService implements  IMovimientoService  {
+public class MovimientoServiceImpl implements  MovimientoService  {
 	
 	@Autowired
 	private MovimientoMapper<Serializable> movimientoMapper;

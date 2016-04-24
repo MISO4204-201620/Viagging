@@ -1,17 +1,8 @@
 package com.viagging.api.report.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import javax.ws.rs.NotFoundException;
-
-
-
-
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
@@ -23,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.viagging.api.report.core.constant.ReportType;
 import com.viagging.api.report.core.services.AbstractReportService;
-import com.viagging.api.report.core.services.IMovimientoService;
+import com.viagging.core.services.MovimientoService;
 import com.viagging.api.report.rest.dto.ReporteDTO;
 import com.viagging.core.model.Servicio;
 import com.viagging.core.services.ServicioService;
@@ -44,7 +34,7 @@ public class ReportController {
 	   private AbstractReportService queryReport; 
 	   
 	   @Autowired
-	   private IMovimientoService movimientoService;
+	   private MovimientoService movimientoService;
 	   
 	   @Autowired
 	   private ServicioService servicioService;
