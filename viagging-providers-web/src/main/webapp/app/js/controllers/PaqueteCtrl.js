@@ -1,4 +1,4 @@
-providersApp.controller('samplecontroller', ['$scope', '$http','ngDialog','$rootScope', function($scope, $http,ngDialog, $rootScope) {
+providersApp.controller('samplecontroller', ['$scope', '$http','ngDialog','$rootScope','$sce', function($scope, $http,ngDialog, $rootScope,$sce) {
 $scope.idEspecifico = '1';
 $scope.name;
 $scope.lastName;
@@ -16,7 +16,19 @@ $scope.paquete = {
 			id: ""
 		}
 }
-
+$scope.reporte = {
+		tipo: "QUERY",
+		fechaInical: "2015-01-08",
+		fechaFinal: "2016-05-10",
+		 "listaServicios":[
+		                   {"id":1}, 
+		                   {"id":2}, 
+		                   {"id":3}
+		                  ],
+        "listaPaquetes":[
+        {"id":325}
+        ]
+}
 
 
    $scope.getCategory = function() { 
@@ -331,6 +343,18 @@ $scope.paquete = {
 		        }); 
 			}
 	    	 
+		}
+		
+		
+		$scope.generarReporte = function(filtro) { 
+			console.log($scope.reporte);		
+			$http.post('/viagging-api-report/createReport',$scope.reporte, {responseType: 'arraybuffer'})
+			   .success(function (data) {
+				   console.log(data);
+			       var file = new Blob([data], {type: 'application/pdf'});
+			       var fileURL = URL.createObjectURL(file);
+			       window.open(fileURL);
+			});
 		}
    
 }]);

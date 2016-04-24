@@ -7,6 +7,7 @@ import com.viagging.core.model.Movimiento;
 public interface MovimientoDAO {
 	
 	List<Object[]> findInfoReportSearch(String query);
-
+    
+	Movimiento createMovimiento(Movimiento movimiento);
 }
 
