@@ -1,14 +1,21 @@
-package com.viagging.api.report.core.dao.impl;
+package com.viagging.core.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.viagging.api.report.core.dao.MovimientoDAO;
+
+import com.viagging.core.dao.MovimientoDAO;
+import com.viagging.core.model.Movimiento;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +29,7 @@ public class MovimientoDAOImpl implements MovimientoDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
     
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object[]> findInfoReportSearch(String queryString) {
 		List<Object[]> list = new ArrayList<>();
@@ -35,4 +43,9 @@ public class MovimientoDAOImpl implements MovimientoDAO {
 		}
 	}
 	
+	@Override
+	public Movimiento createMovimiento(Movimiento movimiento){
+		entityManager.merge(movimiento);
+		return movimiento;
+	}
 }

@@ -3,15 +3,18 @@ package com.viagging.api.report.core.services.impl;
 import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
 import com.viagging.api.report.core.services.AbstractReportService;
-import com.viagging.api.report.core.services.IMovimientoService;
 import com.viagging.api.report.rest.dto.ReporteDTO;
+import com.viagging.core.services.MovimientoService;
 
 @Component("SearchReportService")
 public class SearchReportService extends AbstractReportService {
@@ -23,7 +26,7 @@ public class SearchReportService extends AbstractReportService {
 	private String reporteSearch;
 	
 	@Autowired
-	private IMovimientoService movimientoService; 
+	private MovimientoService movimientoService; 
 	
 	@Override
 	public JasperReport getFileReport() throws JRException{

@@ -3,27 +3,19 @@ package com.viagging.api.report.core.services;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.table.DefaultTableModel;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
-import com.viagging.api.report.core.dao.impl.MovimientoDAOImpl;
 import com.viagging.api.report.rest.dto.ReporteDTO;
 import com.viagging.rest.dto.PaqueteDTO;
 import com.viagging.rest.dto.ServicioDTO;
-
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRTableModelDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-
 
 public abstract class AbstractReportService {
    	
