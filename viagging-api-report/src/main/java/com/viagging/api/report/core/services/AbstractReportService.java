@@ -19,19 +19,20 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public abstract class AbstractReportService {
    	
-	abstract public JasperReport getFileReport() throws JRException;
+	 public abstract JasperReport getFileReport() throws JRException;
     
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractReportService.class);
 	
+	private static final String USUARIO_NO_REGISTRADO = "Usuario sin registro";
+	
     private JasperPrint fillReport(Map<String, Object> map,JasperReport report,DefaultTableModel tableModel ) throws JRException{
-	     JasperPrint print = JasperFillManager.fillReport(report, map, new JRTableModelDataSource(tableModel));
-         return print;
+    	return JasperFillManager.fillReport(report, map, new JRTableModelDataSource(tableModel));
      }
 
     public byte[] createReport( ReporteDTO reporteDTO ){		
     	byte[] output = null;
     	try {
-			Map<String, Object> map = new HashMap<String,Object>();
+			Map<String, Object> map = new HashMap<>();
 			List<Object[]> listDatos = getInfo(reporteDTO);
 	        DefaultTableModel dataReport = fillDataReport(listDatos);
 	        JasperReport report = getFileReport();
@@ -66,4 +67,20 @@ public abstract class AbstractReportService {
 	   }	
        return concatenadoServicios.toString();
     }
+    
+    public String buildName(Object firstName, Object lastName ){
+    	String name = "";
+    	if(firstName != null && lastName != null){
+    		name = firstName.toString() + " " + lastName.toString();
+    	}else if(firstName != null && lastName == null){
+    		name = firstName.toString();
+    	}else if(firstName == null && lastName != null){
+    		name = lastName.toString();
+    	}else{
+    		name = USUARIO_NO_REGISTRADO;
+    	}
+    	
+    	return name;
+    }
+    
 }

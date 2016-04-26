@@ -6,7 +6,7 @@ import com.viagging.core.model.Servicio;
 
 public interface MovimientoService {
      
-	List<Object[]> findInfoReportSearch(String query);
+	List<Object[]> findInfoReport(String query);
     
 	void createMovimientos(List<Servicio> listServicios,List<Paquete> listPaquetes, String idUsuario,String tipo );
 	

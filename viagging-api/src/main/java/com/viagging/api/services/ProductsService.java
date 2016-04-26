@@ -7,12 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.viagging.api.model.Busqueda;
 import com.viagging.api.model.Producto;
 import com.viagging.api.model.mapper.ProductoMapper;
 import com.viagging.api.util.ProductsUtil;
+import com.viagging.core.constant.ReportType;
 import com.viagging.core.model.ComentarioCalificacion;
 import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Pregunta;
@@ -66,7 +72,7 @@ public class ProductsService {
 
 	@Autowired
 	private ProductsUtil productsUtil;
-
+    	
 	/**
 	 * Gets the all products.
 	 *
@@ -184,6 +190,7 @@ public class ProductsService {
 		servicio.setDescripcion(busqueda.getTexto());
 
 		List<Servicio> servicios = servicioService.findAllByCriteria(servicio);
+
 		List<ServicioDTO> serviciosDTO = servicioDTOMapper.mapObjectList(servicios);
 
 		//Find paquetes
@@ -198,5 +205,7 @@ public class ProductsService {
 
 		return productos;
 	}
+	
+
 
 }

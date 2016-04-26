@@ -44,16 +44,15 @@ public class QueryReportService extends AbstractReportService {
       	    data[i][0] = objectData[0];
      	    data[i][1] = objectData[1];
      	    data[i][2] = objectData[2].toString();
-     	    data[i][3] = objectData[3] + " " + objectData[4];
+     	    data[i][3] = buildName(objectData[3], objectData[4]);
         	i++;
 		}
-        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
-        return tableModel;        
+        return new DefaultTableModel(data, columnNames);       
     }
     
     @Override
     public  List<Object[]> getInfo(ReporteDTO reporteDTO){  	
-    	return  movimientoService.findInfoReportSearch(buildQuery(reporteDTO));
+    	return  movimientoService.findInfoReport(buildQuery(reporteDTO));
     }
     
     public String buildQuery(ReporteDTO datosConsulta){
@@ -61,7 +60,7 @@ public class QueryReportService extends AbstractReportService {
 		queryString.append("select case when mov.idservicio IS NULL then 'Paquete' else 'Servicio' END as tipo, ");
 		queryString.append("case when mov.idservicio IS NULL then paq.nombrepaquete else ser.nombre END as nombre, ");
 		queryString.append("mov.fecha as fecha, us.primernombre as primernombre, us.primerapellido as primerapellido  from tr_movimiento as mov ");
-		queryString.append("INNER JOIN tp_usuario as us ");
+		queryString.append("LEFT JOIN tp_usuario as us ");
 		queryString.append("ON mov.idusuario = us.id ");
 		queryString.append("LEFT JOIN tp_servicio ser ");
 		queryString.append("ON mov.idservicio = ser.id ");			

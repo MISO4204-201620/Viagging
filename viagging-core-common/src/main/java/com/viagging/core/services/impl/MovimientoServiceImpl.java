@@ -1,17 +1,13 @@
 package com.viagging.core.services.impl;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.viagging.core.services.MovimientoService;
 import com.viagging.core.dao.MovimientoDAO;
 import com.viagging.core.model.Paquete;
@@ -21,7 +17,7 @@ import com.viagging.core.model.mapper.MovimientoMapper;
 import com.viagging.core.services.UsuarioService;
 
 @Service
-public class MovimientoServiceImpl implements  MovimientoService  {
+public class MovimientoServiceImpl implements  MovimientoService{
 	
 	@Autowired
 	private MovimientoMapper<Serializable> movimientoMapper;
@@ -40,14 +36,13 @@ public class MovimientoServiceImpl implements  MovimientoService  {
     }
 	
 	@Override
-	public List<Object[]> findInfoReportSearch(String query){
-		List<Object[]> list = movimientoDAO.findInfoReportSearch(query);
-		return list;
+	public List<Object[]> findInfoReport(String query){
+		return movimientoDAO.findInfoReport(query);
 	}
 	
 	@Override
 	public void createMovimientos(final List<Servicio> listServicios,final List<Paquete> listPaquetes,final String idUsuario,final String tipo ){
-	        executorService.submit(new Callable<Object>() {
+		executorService.submit(new Callable<Object>() {
                 public Object call() throws Exception {
                 	ejecutarProceso(listServicios, listPaquetes, idUsuario, tipo);
                     return null;
@@ -56,7 +51,10 @@ public class MovimientoServiceImpl implements  MovimientoService  {
 	}
     	
 	private void ejecutarProceso(final List<Servicio> listServicios,final List<Paquete> listPaquetes,final String idUsuario,final String tipo){
-		Usuario usuario = usuarioService.getUsuarioById(Integer.valueOf(idUsuario));
+		Usuario usuario = null;
+		if(idUsuario != null && !idUsuario.equals("")){
+			usuario = usuarioService.getUsuarioById(Integer.valueOf(idUsuario));
+		}
 		if(listPaquetes  != null){
 			for (Paquete paquete : listPaquetes) {
 				movimientoDAO.createMovimiento(movimientoMapper.mapObject(paquete, usuario, tipo));
