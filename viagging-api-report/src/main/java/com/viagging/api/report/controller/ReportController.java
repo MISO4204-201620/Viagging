@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import com.viagging.api.report.core.constant.ReportType;
+import com.viagging.core.constant.ReportType;
 import com.viagging.api.report.core.services.AbstractReportService;
 import com.viagging.core.services.MovimientoService;
 import com.viagging.api.report.rest.dto.ReporteDTO;
@@ -34,6 +34,11 @@ public class ReportController {
 	   private AbstractReportService queryReport; 
 	   
 	   @Autowired
+	   @Qualifier("SaleReportService")
+	   private AbstractReportService saleReport; 
+	   
+	   
+	   @Autowired
 	   private MovimientoService movimientoService;
 	   
 	   @Autowired
@@ -44,7 +49,7 @@ public class ReportController {
 	    @RequestMapping(value = "/createReport", method = RequestMethod.POST,produces="application/pdf")
 		@ResponseStatus(value = HttpStatus.OK)
 		public ResponseEntity<byte[]> createReport(@RequestBody ReporteDTO reporteDTO) {
-	    	byte[] outputReport = null;
+	    	byte[] outputReport;
 	    	HttpHeaders headers = new HttpHeaders();
 	        headers.setContentType(MediaType.parseMediaType("application/pdf"));
 	        headers.setContentDispositionFormData("inline", "archivo.pdf");
@@ -53,25 +58,24 @@ public class ReportController {
 	    	if(reporteDTO.getTipo().equals(ReportType.QUERY.toString())){
 	        	 outputReport = queryReport.createReport(reporteDTO);
 		    }else if(reporteDTO.getTipo().equals(ReportType.SALE.toString())){
-
+		    	 outputReport = saleReport.createReport(reporteDTO);
 		    }else if(reporteDTO.getTipo().equals(ReportType.SEARCH.toString())){
 		    	 outputReport = searchReport.createReport(reporteDTO);
 		    }else {
 		    	throw new NotFoundException(ERROR_REPORT_NOT_FOUND);
 		    }
-	    	ResponseEntity<byte[]> response = new ResponseEntity<byte[]>(outputReport, headers, HttpStatus.OK);
-	        return response;
+	    	return new ResponseEntity<byte[]>(outputReport, headers, HttpStatus.OK);
 		}
 	    
 	    @RequestMapping(value = "/createMovimiento", method = RequestMethod.GET)
 		@ResponseStatus(value = HttpStatus.OK)
 		public void createMovimiento() {
-	    	List<Servicio> listSe = new ArrayList<Servicio>();
+	    	List<Servicio> listSe = new ArrayList<>();
 	    	Servicio serv = servicioService.getServicioById(1);
 	    	listSe.add(serv);
 	    	serv = servicioService.getServicioById(2);
 	    	listSe.add(serv);
-	    	movimientoService.createMovimientos(listSe, null, "1",ReportType.QUERY.toString());
+	    	movimientoService.createMovimientos(listSe, null, null,ReportType.QUERY.toString());
 		}
 	    
 	    

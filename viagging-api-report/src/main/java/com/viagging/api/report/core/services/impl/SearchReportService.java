@@ -44,16 +44,15 @@ public class SearchReportService extends AbstractReportService {
       	    data[i][0] = objectData[0];
      	    data[i][1] = objectData[1];
      	    data[i][2] = objectData[2].toString();
-     	    data[i][3] = objectData[3] + " " + objectData[4];
+     	    data[i][3] = buildName(objectData[3], objectData[4]);
         	i++;
 		}
-        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames);
-        return tableModel;        
+        return new DefaultTableModel(data, columnNames);   
     }
     
     @Override
     public  List<Object[]> getInfo(ReporteDTO reporteDTO){  	
-    	return   movimientoService.findInfoReportSearch(buildQuery(reporteDTO));
+    	return   movimientoService.findInfoReport(buildQuery(reporteDTO));
     }
     
     public String buildQuery(ReporteDTO datosConsulta){

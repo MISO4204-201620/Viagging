@@ -1,4 +1,4 @@
-package com.viagging.api.report.core.constant;
+package com.viagging.core.constant;
 
 public enum ReportType {
 
