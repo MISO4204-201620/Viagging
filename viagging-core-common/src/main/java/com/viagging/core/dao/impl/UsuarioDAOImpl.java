@@ -54,7 +54,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		return usuario;
 	}
 
-	@Override
 	public Usuario updateUsuario(Usuario usuario) {
 		entityManager.merge(usuario);
 		return usuario;

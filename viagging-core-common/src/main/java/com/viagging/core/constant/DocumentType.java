@@ -6,8 +6,8 @@ import com.viagging.rest.dto.NombreValorDTO;
 
 public enum DocumentType {
 
-	CEDULA("Cédula", "Cédula"), 
-	CEDULA_EXTRANJERIA("Cédula extranjeria", "Cédula extranjeria"), 
+	CEDULA("CÃ©dula", "CÃ©dula"), 
+	CEDULA_EXTRANJERIA("CÃ©dula extranjeria", "CÃ©dula extranjeria"), 
 	TARJETA_IDENTIDAD("Tarjeta de identidad", "Tarjeta de identidad");
 
 	private String id;

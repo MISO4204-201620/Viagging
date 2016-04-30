@@ -62,8 +62,8 @@
 										</button>
 
 										<ul class="dropdown-menu dropdown-danger">
-											<li><a href="#">Eliminar</a></li>
-											<li><a href="#">Modificar</a></li>
+											<li><a href="#" ng-click="eliminarServicio(listservices.id)">Eliminar</a></li>
+											<li><a href="#" ng-click="modificarServicio(listservices.id)">Modificar</a></li>
 											<li ng-show="listservices.activo"><a href="#" ng-click="activarServicio(listservices.id, false)">Inactivar</a>
 											</li>
 											<li ng-show="!listservices.activo"><a href="#" ng-click="activarServicio(listservices.id, true)">Activar</a>
