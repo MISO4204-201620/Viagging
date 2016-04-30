@@ -89,10 +89,10 @@ public class ServiceController {
 		//TODO developing
 	}
 
-	@RequestMapping(value = "/deleteService", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/deleteService", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void deleteService(@RequestBody String idService) {
-		//TODO developing
+		servicioService.deleteServicio(Integer.parseInt(idService));
 	}
 	
 	@RequestMapping(value = "/activeService", method = RequestMethod.POST)

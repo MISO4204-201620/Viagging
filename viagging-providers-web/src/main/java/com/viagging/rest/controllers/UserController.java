@@ -69,6 +69,14 @@ public class UserController {
 		return UsuarioDTO.buildListObject(cuentasAcceso); 
 	}
 	
+	@RequestMapping(value = "/updateProvider", method = RequestMethod.POST)
+	@ResponseStatus(value = HttpStatus.OK)
+	public void updateProvider(@RequestBody UsuarioDTO usuarioDTO) {
+		Usuario usuario = usuarioService.buildUsuario(usuarioDTO);
+		usuario.setId(Integer.parseInt(usuarioDTO.getId()));
+		usuarioService.updateUsuario(usuario);
+	}
+	
 	@RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void updateUser(@RequestBody UsuarioDTO usuarioDTO) {
@@ -85,10 +93,18 @@ public class UserController {
     	usuarioService.deleteUser(Integer.valueOf(idUser));
     }
    
-    @RequestMapping(value = "/getUser", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/getUserByDocument", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public UsuarioDTO getUser(@QueryParam("numeroDocumento") String numeroDocumento) {
 		Usuario usuario = usuarioService.findUsuarioByNumber(numeroDocumento);
+		return UsuarioDTO.buildObject(usuario);
+    }
+    
+    @RequestMapping(value = "/getUser", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public UsuarioDTO getUser(@QueryParam("userId") Integer userId) {
+		Usuario usuario = usuarioService.getUsuarioById(userId);
 		return UsuarioDTO.buildObject(usuario);
 	}
 }

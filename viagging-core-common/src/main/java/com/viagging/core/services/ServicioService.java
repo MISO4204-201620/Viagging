@@ -14,6 +14,8 @@ public interface ServicioService {
 	Servicio createServicio(Servicio servicio);
 
 	Servicio updateServicio(Servicio servicio);
+	
+	void deleteServicio(Integer idServicio);
     
 	Servicio buildServicio(ServicioDTO servicio);
 	

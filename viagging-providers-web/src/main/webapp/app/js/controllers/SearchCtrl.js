@@ -243,6 +243,23 @@ providersApp.controller('SearchCtrl', ['$scope', '$http','ngDialog','$rootScope'
 		}).error(function(data, status, headers, config) {}); 
     }
 	
+	$scope.eliminarServicio = function(idServicio) { 
+		$http.post('/viagging-providers-web/deleteService', idServicio, {
+			headers: {"Content-Type": "application/json"},
+			transformRequest: angular.identity
+		}).success(function(data, status, headers, config) {
+			alert("Transacción exitosa");
+			var index = 0;
+			for (var i=0;i<$scope.listservices.length;i++){
+  	    	  if($scope.listservices[i].id == idServicio){
+  	    		 index = i;
+  	    		  break;
+  	    	  }	    	    	  
+  	      	}
+			$scope.listservices.splice(index, 1);
+		}).error(function(data, status, headers, config) {}); 
+    }
+	
 	$scope.activatePackage = function(id,estado) { 
 		   $scope.paquete.id = id;
 		   $scope.paquete.activo = estado;
