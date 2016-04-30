@@ -27,8 +27,11 @@ providersApp.controller('ReporteCtrl', ['$scope', '$http', 'userService', functi
 		}).
 		error(function(data, status, headers, config) {
 		});
-		$http.get('/viagging-providers-web/getServices',{
-	        params: { idCategory: $scope.idCategoria }
+		$http.get('/viagging-providers-web/getServicesByProveedor',{
+	        params: { 
+	        	idCategory: $scope.idCategoria,
+	        	idProveedor :  $scope.userData.id
+	        	}
 	    }).success(function(data, status, headers, config) {
 	        $scope.servicios = data;
 	    }).
@@ -36,7 +39,7 @@ providersApp.controller('ReporteCtrl', ['$scope', '$http', 'userService', functi
 	    	 $scope.servicios = [];
 	    }); 
 		$http.get('/viagging-providers-web/getPackages',{
-	    	params: { filtro: $scope.filtro }
+			params: { filtro: $scope.filtro, idUsuario : $scope.userData.id }
 	    }).success(function(data, status, headers, config) {
 	      $scope.paquetes = data;
 	    }).

@@ -100,12 +100,20 @@ public class UserController {
     	usuarioService.deleteUser(Integer.valueOf(idUser));
     }
    
+//    @RequestMapping(value = "/getUser", method = RequestMethod.GET)
+//	@ResponseStatus(value = HttpStatus.OK)
+//	public UsuarioDTO getUser(@QueryParam("numeroDocumento") String numeroDocumento) {
+//		System.out.println("getUser");
+//		Usuario usuario = usuarioService.findUsuarioByNumber(numeroDocumento);
+//        UsuarioDTO userDTO = UsuarioDTO.buildObject(usuario);
+//		return userDTO;
+//	}
+    
     @RequestMapping(value = "/getUser", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
-	public UsuarioDTO getUser(@QueryParam("numeroDocumento") String numeroDocumento) {
-		System.out.println("getUser");
-		Usuario usuario = usuarioService.findUsuarioByNumber(numeroDocumento);
-        UsuarioDTO userDTO = UsuarioDTO.buildObject(usuario);
-		return userDTO;
+	public UsuarioDTO getUser(@QueryParam("userId") Integer userId) {
+		Usuario usuario = usuarioService.getUsuarioById(userId);
+		UsuarioDTO usuarioDTO = UsuarioDTO.buildObject(usuario);
+		return usuarioDTO;
 	}
 }
