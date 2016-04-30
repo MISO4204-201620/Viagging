@@ -104,6 +104,8 @@ CREATE TABLE TR_PaseoEcologico (
   tiempoDeRecorrido TEXT NULL,
   horario TEXT NULL,
   fecha DATE NULL,
+  horarioInicio TEXT  NULL,
+  horarioFin  NULL,
   PRIMARY KEY(id)
 );
 
@@ -134,6 +136,8 @@ CREATE TABLE TR_Alojamiento (
   id SERIAL,
   ciudad TEXT NULL,
   valorPorNoche INTEGER NULL,
+  tipo TEXT  NULL,
+  numeroPersonas INTEGER  NULL,
   PRIMARY KEY(id)
 );
 
@@ -151,6 +155,10 @@ CREATE TABLE TP_Servicio (
   imagenPrincipal BYTEA NULL,
   restricciones TEXT NULL,
   estado VARCHAR(5) NULL,
+  fechaInicio DATE  NULL,
+  fechaVigencia DATE  NULL,
+  capacidad INTEGER  NULL,
+  numeroAdquiridos INTEGER  NULL,
   PRIMARY KEY(id),
   FOREIGN KEY (idUsuario) REFERENCES TP_Usuario(id),
   FOREIGN KEY (idAlojamiento) REFERENCES TR_Alojamiento(id),
@@ -236,6 +244,8 @@ CREATE TABLE TP_Compra (
 	idPaquete INTEGER NULL,
 	idOrden INTEGER NOT NULL,
 	cantidad INTEGER NOT NULL,
+	hora TEXT  NULL,
+    fecha DATE NULL,
 	PRIMARY KEY(id),
 	FOREIGN KEY (idPaquete) REFERENCES TP_Paquete(id),
 	FOREIGN KEY (idServicio) REFERENCES TP_Servicio(id),

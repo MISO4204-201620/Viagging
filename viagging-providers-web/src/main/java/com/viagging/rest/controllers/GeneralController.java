@@ -36,7 +36,7 @@ public class GeneralController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<String> getFeatures(@QueryParam("categoria") String categoria) {
 		List<Caracteristica> features = featureService.getCaracteristicaByCategoria(categoria);
-		List<String> fts = new ArrayList<String>();
+		List<String> fts = new ArrayList<>();
 		for (Caracteristica feature : features) {
 			fts.add(feature.getValor());
 		}
@@ -81,18 +81,12 @@ public class GeneralController {
 	@RequestMapping(value = "/getProfiles", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<NombreValorDTO> getProfiles() {
-		System.out.println("ingreso perfil ");
-		List<NombreValorDTO> listProfile = Profile.getKeyValuesWithoutUser();
-
-		return listProfile;
+		return Profile.getKeyValuesWithoutUser();
 	}
 	
 	@RequestMapping(value = "/getTypeDocuments", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<NombreValorDTO> getTypeDocuments() {
-		System.out.println("ingreso getTypeDocuments ");
-		List<NombreValorDTO> listDocument = DocumentType.getKeyValues();
-
-		return listDocument;
+		return DocumentType.getKeyValues();
 	}
 }

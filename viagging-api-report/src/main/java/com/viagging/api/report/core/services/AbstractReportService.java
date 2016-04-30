@@ -15,11 +15,11 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRTableModelDataSource;
-import net.sf.jasperreports.view.JasperViewer;
+
 
 public abstract class AbstractReportService {
    	
-	 public abstract JasperReport getFileReport() throws JRException;
+	public abstract JasperReport getFileReport() throws JRException;
     
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractReportService.class);
 	
@@ -39,7 +39,7 @@ public abstract class AbstractReportService {
 		    JasperPrint print = fillReport(map, report,dataReport);
 		    output = JasperExportManager.exportReportToPdf(print);
 		    JasperExportManager.exportReportToPdfFile(print, "D:\\ANDES\\Fabricas_Software\\reportes\\InformePaisesMySQ1L.pdf");
-		    JasperViewer.viewReport(print, false);
+		    //JasperViewer.viewReport(print, false);
 		} catch (JRException e) {
 			LOGGER.error(e.getMessage());	
 		} catch (Exception e) {
@@ -48,9 +48,9 @@ public abstract class AbstractReportService {
 		return output;
 	}
     
-    abstract public DefaultTableModel  fillDataReport(List<Object[]> listData);
+    public abstract  DefaultTableModel  fillDataReport(List<Object[]> listData);
 
-    abstract public List<Object[]> getInfo(ReporteDTO reporteDTO); 
+    public abstract  List<Object[]> getInfo(ReporteDTO reporteDTO); 
     
     public static String buildList(List<?> listItems){
        StringBuilder concatenadoServicios = new StringBuilder();  
@@ -71,7 +71,7 @@ public abstract class AbstractReportService {
     public String buildName(Object firstName, Object lastName ){
     	String name = "";
     	if(firstName != null && lastName != null){
-    		name = firstName.toString() + " " + lastName.toString();
+    		return  firstName.toString() + " " + lastName.toString();
     	}else if(firstName != null && lastName == null){
     		name = firstName.toString();
     	}else if(firstName == null && lastName != null){

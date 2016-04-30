@@ -40,7 +40,6 @@ public class ModuloServiceImpl implements ModuloService{
 	 */
 	@Override
 	public Modulo createModulo(Modulo modulo) {
-		System.out.println("lleggooooo");
 		return moduloDAO.createModulo(modulo);
 	}
 

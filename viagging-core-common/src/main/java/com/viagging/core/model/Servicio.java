@@ -1,6 +1,7 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -14,6 +15,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -52,14 +55,17 @@ public class Servicio implements Serializable {
 	private String descripcion;
 
 	private Integer precio;
+	
+	@Temporal(TemporalType.DATE)
+	private Date fechaInicio;
     
-	@Override
-	public String toString() {
-		return "Servicio [id=" + id + ", activo=" + activo + ", nombre="
-				+ nombre + ", descripcion=" + descripcion + ", precio="
-				+ precio + ", estado=" + estado + "";
-	}
-
+	@Temporal(TemporalType.DATE)
+	private Date fechaVigencia;
+	
+	private Integer capacidad;
+	
+	private Integer numeroAdquiridos;
+    
 	private byte[] imagenprincipal;
 	
 	private String restricciones;
@@ -352,5 +358,38 @@ public class Servicio implements Serializable {
 	public void setImagenes(List<ImagenServicio> imagenes) {
 		this.imagenes = imagenes;
 	}
+	
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public Date getFechaVigencia() {
+		return fechaVigencia;
+	}
+
+	public void setFechaVigencia(Date fechaVigencia) {
+		this.fechaVigencia = fechaVigencia;
+	}
+
+	public Integer getCapacidad() {
+		return capacidad;
+	}
+
+	public void setCapacidad(Integer capacidad) {
+		this.capacidad = capacidad;
+	}
+
+	public Integer getNumeroAdquiridos() {
+		return numeroAdquiridos;
+	}
+
+	public void setNumeroAdquiridos(Integer numeroAdquiridos) {
+		this.numeroAdquiridos = numeroAdquiridos;
+	}
+
 	
 }

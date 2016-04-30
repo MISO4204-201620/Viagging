@@ -37,7 +37,6 @@ public class UserController {
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void addUser(@RequestBody UsuarioDTO usuarioDTO) {
-		System.out.println("addUser"+usuarioDTO);
 		try {
 			usuarioService.createUsuario(usuarioService.buildUsuario(usuarioDTO),Profile.getValue(usuarioDTO.getPerfil().getNombre()));
 		}catch (LoginExistExeption e) {
@@ -52,7 +51,6 @@ public class UserController {
 	@RequestMapping(value = "/addProveedorAdministrador", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void addProveedorAdministrador(@RequestBody UsuarioDTO usuarioDTO) {
-		System.out.println("addUser"+usuarioDTO);
 		try {
 			usuarioService.createUsuario(usuarioService.buildUsuario(usuarioDTO),usuarioDTO.getPerfil().getId());
 		}catch (LoginExistExeption e) {
@@ -67,10 +65,8 @@ public class UserController {
 	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<UsuarioDTO> getUsers() {
-		System.out.println("ingreso getCategory ");
 		List<CuentaAcceso> cuentasAcceso = cuentaAccesoService.getAllCuentaAcceso();
-        List<UsuarioDTO> listUserDTO = UsuarioDTO.buildListObject(cuentasAcceso); 
-		return listUserDTO;
+		return UsuarioDTO.buildListObject(cuentasAcceso); 
 	}
 	
 	@RequestMapping(value = "/updateProvider", method = RequestMethod.POST)
@@ -84,36 +80,31 @@ public class UserController {
 	@RequestMapping(value = "/updateUser", method = RequestMethod.PUT)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void updateUser(@RequestBody UsuarioDTO usuarioDTO) {
-		System.out.println("updateUser"+usuarioDTO);
 		try {
 			usuarioService.updateUsuario(usuarioService.buildUsuario(usuarioDTO));
 		}catch (Exception e) {
-			System.out.println(e.getMessage());
 			throw new NotFoundException(USER_ERROR_MESSAGE_UPDATE);		
 	     }
 	}
 	
    @RequestMapping(value = "/deleteUser", method = RequestMethod.DELETE)
    @ResponseStatus(value = HttpStatus.OK)
-    public void deleteUser(@RequestBody String idUser) {
-    	System.out.println("deleteUser");	
+    public void deleteUser(@RequestBody String idUser) {	
     	usuarioService.deleteUser(Integer.valueOf(idUser));
     }
    
-//    @RequestMapping(value = "/getUser", method = RequestMethod.GET)
-//	@ResponseStatus(value = HttpStatus.OK)
-//	public UsuarioDTO getUser(@QueryParam("numeroDocumento") String numeroDocumento) {
-//		System.out.println("getUser");
-//		Usuario usuario = usuarioService.findUsuarioByNumber(numeroDocumento);
-//        UsuarioDTO userDTO = UsuarioDTO.buildObject(usuario);
-//		return userDTO;
-//	}
+
+    @RequestMapping(value = "/getUserByDocument", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public UsuarioDTO getUser(@QueryParam("numeroDocumento") String numeroDocumento) {
+		Usuario usuario = usuarioService.findUsuarioByNumber(numeroDocumento);
+		return UsuarioDTO.buildObject(usuario);
+    }
     
     @RequestMapping(value = "/getUser", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public UsuarioDTO getUser(@QueryParam("userId") Integer userId) {
 		Usuario usuario = usuarioService.getUsuarioById(userId);
-		UsuarioDTO usuarioDTO = UsuarioDTO.buildObject(usuario);
-		return usuarioDTO;
+		return UsuarioDTO.buildObject(usuario);
 	}
 }

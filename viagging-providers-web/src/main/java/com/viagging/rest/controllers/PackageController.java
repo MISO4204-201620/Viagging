@@ -46,7 +46,6 @@ public class PackageController {
     @RequestMapping(value = "/addPackage", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void addPackage( @RequestBody PaqueteDTO paqueteDTO) {
-    	System.out.println(paqueteDTO);
     	Paquete paquete = paqueteService.buildPaquete(paqueteDTO);
     	List<Servicio> listaServicio = servicioService.buildListServices(paqueteDTO.getServicios()); 
     	paqueteService.createPaquete(paquete, listaServicio, paqueteDTO.getUsuario().getId());
@@ -55,15 +54,12 @@ public class PackageController {
     @RequestMapping(value = "/deletePackage", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deletePackage(@RequestBody String idPackage) {
-    	System.out.println("idPackage"+idPackage);
-    	System.out.println("deletePackage");	
     	paqueteService.deletePaquete(Integer.valueOf(idPackage));
     }
 	  
     @RequestMapping(value = "/editPackage", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void editPackage(@RequestBody PaqueteDTO paqueteDTO) {
-      	System.out.println(paqueteDTO);
     	Paquete paquete = paqueteService.buildPaquete(paqueteDTO);
     	paqueteService.updatePaquete(paquete);
     	
@@ -72,17 +68,13 @@ public class PackageController {
     @RequestMapping(value = "/getPackage", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<ServicioDTO> getPackage(@QueryParam("idPackage") String idPackage) {
-    	System.out.println("getPackage"+idPackage);	  
     	List<PaqueteServicio> listPaqueteServicio = paqueteServicioService.getPaqueteServicioByIdPaquete(idPackage);
-    	List<ServicioDTO> listaServicios = ServicioDTO.buildListServicioDTO(listPaqueteServicio);
-
-    	return listaServicios;
+    	return ServicioDTO.buildListServicioDTO(listPaqueteServicio);
     }
 	  
     @RequestMapping(value = "/getPackages", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<PaqueteDTO> getPackages(@QueryParam("filtro") String filtro,@QueryParam("idUsuario") String idUsuario) {
-    	System.out.println("getPackages"+filtro);
     	List<Paquete> listPackages = paqueteService.getAllPaquetesByFiltro(filtro, Integer.valueOf(idUsuario));
     	List<PaqueteDTO> listPaquete = PaqueteDTO.buildListObject(listPackages);
     	if(listPaquete.isEmpty()){
@@ -95,7 +87,6 @@ public class PackageController {
     @RequestMapping(value = "/activatePackage", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void activatePackage(@RequestBody PaqueteDTO paqueteDTO) {
-    	System.out.println(paqueteDTO);
     	Paquete paquete = paqueteService.buildPaquete(paqueteDTO);
     	paqueteService.activatePaquete(paquete);
     }

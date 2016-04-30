@@ -85,12 +85,11 @@ public class AlimentacionDTO {
 		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.ALIMENTACION.getId());
 		Alimentacion alimentacion = servicio.getAlimentacion();
-		AlimentacionDTO alimentacionDTO = new AlimentacionDTO(
+		return new AlimentacionDTO(
 				alimentacion.getCiudad(), alimentacion.getHorarioapertura(),
 				String.valueOf(alimentacion.getPreciomenor()),
 				String.valueOf(alimentacion.getPreciomayor()), parserServicio,
 				alimentacion.getHorariocierre());
 
-		return alimentacionDTO;
 	}
 }

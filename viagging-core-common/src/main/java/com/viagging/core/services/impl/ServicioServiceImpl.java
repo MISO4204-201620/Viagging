@@ -61,7 +61,7 @@ public class ServicioServiceImpl implements ServicioService {
 	
 	@Override
 	public List<Servicio> buildListServices(List<ServicioDTO> listServiceDTO) {
-		List<Servicio> listServicio = new ArrayList<Servicio>();
+		List<Servicio> listServicio = new ArrayList<>();
 		for (ServicioDTO servicioDTO : listServiceDTO) {
 			Servicio servicio = new Servicio();
 			servicio.setId(servicioDTO.getId());

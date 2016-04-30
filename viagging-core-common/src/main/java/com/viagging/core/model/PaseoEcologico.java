@@ -1,7 +1,9 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -27,7 +29,11 @@ public class PaseoEcologico implements Serializable {
 	private String horario;
 
 	private String tiempoderecorrido;
-
+    
+	private String horarioInicio;
+	
+	private String horarioFin;
+	
 	public PaseoEcologico() {
 	}
 
@@ -71,4 +77,19 @@ public class PaseoEcologico implements Serializable {
 		this.tiempoderecorrido = tiempoderecorrido;
 	}
 
+	public String getHorarioInicio() {
+		return horarioInicio;
+	}
+
+	public void setHorarioInicio(String horarioInicio) {
+		this.horarioInicio = horarioInicio;
+	}
+
+	public String getHorarioFin() {
+		return horarioFin;
+	}
+
+	public void setHorarioFin(String horarioFin) {
+		this.horarioFin = horarioFin;
+	}
 }

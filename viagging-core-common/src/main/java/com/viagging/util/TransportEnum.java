@@ -7,8 +7,10 @@ public enum TransportEnum {
 
 	AIRPLANE("Avión"), 
 	BUS("Bus"), 
-	VANS("Van"); 
-
+	VANS("Van"),
+	CRUCERO("Crucero"),
+	BARCO("Barco"),
+	HELICOPTERO("Helicoptero");
 	private String name;
 
 	private TransportEnum(String name) {

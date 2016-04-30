@@ -73,12 +73,11 @@ public class PaseoEcologicoDTO {
 		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.PASEO_ECOLOGICO.getId());
 		PaseoEcologico paseoEcologico = servicio.getPaseoEcologico();	
-		PaseoEcologicoDTO paseoEcologicoDTO = new PaseoEcologicoDTO(
+		return  new PaseoEcologicoDTO(
 				paseoEcologico.getFecha() != null ? paseoEcologico.getFecha().toString() : "",
 				paseoEcologico.getCiudad(),
 				paseoEcologico.getTiempoderecorrido(),
 				paseoEcologico.getHorario(), parserServicio);
-		return paseoEcologicoDTO;
 		
 	}
 }

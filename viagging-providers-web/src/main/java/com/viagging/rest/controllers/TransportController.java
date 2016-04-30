@@ -20,7 +20,6 @@ public class TransportController {
 	@RequestMapping(value = "/saveTransport", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public Integer saveTransport(@RequestBody TransporteDTO transporte) {
-		Integer idService = transportService.createTransporte(transporte);
-		return idService;
+		return transportService.createTransporte(transporte);
 	}
 }
