@@ -30,7 +30,6 @@ public class CaracteristicaDAOImpl implements CaracteristicaDAO {
 
 	@Override
 	public Caracteristica getCaracteristicaByCtgAndCars(String categoria, String caracteristica) {
-		System.out.println(categoria + " -- " + caracteristica);
 		return (Caracteristica) entityManager.createNamedQuery("Caracteristica.findByCategoriaAndCaracteristica").setParameter("categoria", categoria)
 				.setParameter("valor", caracteristica).getSingleResult();
 	}

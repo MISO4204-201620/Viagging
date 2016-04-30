@@ -20,8 +20,7 @@ public class LodgingController {
 	@RequestMapping(value = "/saveLodging", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public Integer saveLodging(@RequestBody AlojamientoDTO alojamiento) {
-		Integer idService = lodgingService.createAlojamiento(alojamiento);
-		return idService;
+		return lodgingService.createAlojamiento(alojamiento);
 	}
 
 }

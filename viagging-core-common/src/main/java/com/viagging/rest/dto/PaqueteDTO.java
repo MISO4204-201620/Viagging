@@ -42,13 +42,6 @@ public class PaqueteDTO {
 		this.servicios = servicios;
 	}
 
-	@Override
-	public String toString() {
-		return "PaqueteDTO [id=" + id + ", activo=" + activo + ", nombre="
-				+ nombre + ", precio=" + precio + ", servicios=" + servicios
-				+ "]";
-	}
-
 	public String getNombre() {
 		return nombre;
 	}

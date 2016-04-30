@@ -1,6 +1,5 @@
 package com.viagging.rest.controllers;
 
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +20,6 @@ public class TravelController {
 	@RequestMapping(value = "/saveTravel", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public Integer saveTravel(@RequestBody PaseoEcologicoDTO paseo) {
-		Integer idService = travelService.createPaseoEcologico(paseo);
-		return idService;
+		return travelService.createPaseoEcologico(paseo);
 	}
 }

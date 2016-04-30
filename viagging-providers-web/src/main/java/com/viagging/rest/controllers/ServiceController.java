@@ -34,7 +34,6 @@ public class ServiceController {
 	@RequestMapping(value = "/getServiceTransport", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public TransporteDTO getServiceTransporte(@QueryParam("idService") String idService) {
-		System.out.println("getServiceTransporte" + idService);
 		TransporteDTO transporteDTO = TransporteDTO.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
 		if (transporteDTO == null) {
 			throw new NotFoundException(SERVICE_ERROR_MESSAGE_NOT_FOUND);
@@ -46,7 +45,6 @@ public class ServiceController {
 	@RequestMapping(value = "/getServiceAlimentacion", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public AlimentacionDTO getServiceAlimentacion(@QueryParam("idService") String idService) {
-		System.out.println("getServiceTransporte" + idService);
 		AlimentacionDTO alimentacionDTO = AlimentacionDTO.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
 		if (alimentacionDTO == null) {
 			throw new NotFoundException(SERVICE_ERROR_MESSAGE_NOT_FOUND);
@@ -58,7 +56,6 @@ public class ServiceController {
 	@RequestMapping(value = "/getServiceAlojamiento", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public AlojamientoDTO getServiceAlojamiento(@QueryParam("idService") String idService) {
-		System.out.println("getServiceAlojamiento" + idService);
 		AlojamientoDTO alojamientoDTO = AlojamientoDTO.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
 		if (alojamientoDTO == null) {
 			throw new NotFoundException(SERVICE_ERROR_MESSAGE_NOT_FOUND);
@@ -69,7 +66,6 @@ public class ServiceController {
 	@RequestMapping(value = "/getServicePaseoEcologico", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public PaseoEcologicoDTO getServicePaseoEcologico(@QueryParam("idService") String idService) {
-		System.out.println("getServiceAlojamiento" + idService);
 		PaseoEcologicoDTO paseoEcologicoDTO = PaseoEcologicoDTO.buildObject(servicioService.getServicioById(Integer.valueOf(idService)));
 		if (paseoEcologicoDTO == null) {
 			throw new NotFoundException(SERVICE_ERROR_MESSAGE_NOT_FOUND);
@@ -80,7 +76,6 @@ public class ServiceController {
 	@RequestMapping(value = "/getServices", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<ServicioDTO> getServices(@QueryParam("idCategory") String idCategory) {
-		System.out.println("ingreso a getServices");
 		List<ServicioDTO> listServicioDTO = ServicioDTO.buildListObject(servicioService.getAllServiciosByCategoria(idCategory));
 		if (listServicioDTO.isEmpty()) {
 			throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);
@@ -91,21 +86,18 @@ public class ServiceController {
 	@RequestMapping(value = "/addService", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void addService(@RequestBody ServicioDTO servicio) {
-		System.out.println("ingreso a addService");
-		// servicioService.createServicio(servicio);
+		//TODO developing
 	}
 
 	@RequestMapping(value = "/deleteService", method = RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK)
 	public void deleteService(@RequestBody String idService) {
-		System.out.println("ingreso a deleteService");
-		// servicioService.createServicio(servicio);
+		//TODO developing
 	}
 	
 	@RequestMapping(value = "/activeService", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void activeService(@RequestBody ServicioDTO servicioDTO) {
-    	System.out.println(servicioDTO.getId() + "id1");
 		Servicio service = servicioService.buildServicio(servicioDTO);
     	service.setId(servicioDTO.getId());
 		servicioService.activarServicio(service);
@@ -114,7 +106,6 @@ public class ServiceController {
 	@RequestMapping(value = "/getServicesByProveedor", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<ServicioDTO> getServicesByProveedor(@QueryParam("idCategory") String idCategory,@QueryParam("idProveedor") String idProveedor) {
-		System.out.println("getServicesByProveedor");
 		List<ServicioDTO> listServicioDTO = ServicioDTO.buildListObject(servicioService.getServiciosByCategoriaProveedor(idCategory, idProveedor));
 		if (listServicioDTO.isEmpty()) {
 			throw new NotFoundException(SERVICES_ERROR_MESSAGE_NOT_FOUND);

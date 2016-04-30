@@ -50,7 +50,6 @@ public class AlojamientoServiceImpl implements AlojamientoService {
 	public Integer createAlojamiento(AlojamientoDTO alojamientoDTO) {
 		Alojamiento alojamiento = buildAlojamiento(alojamientoDTO);
 		alojamiento = createAlojamiento(alojamiento);
-		System.out.println(alojamientoDTO.getServicio().getPrecio() + " .. precio");
 		Servicio servicio = servicioService.buildServicio(alojamientoDTO.getServicio());
 		servicio.setAlojamiento(alojamiento);
 		servicioService.createServicio(servicio);

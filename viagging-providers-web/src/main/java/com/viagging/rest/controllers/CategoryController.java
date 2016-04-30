@@ -17,9 +17,6 @@ public class CategoryController {
 	@RequestMapping(value = "/getCategory", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<NombreValorDTO> getCategory() {
-		System.out.println("ingreso getCategory ");
-		List<NombreValorDTO> listCategory = CategoryEnum.getKeyValues();
-
-		return listCategory;
+		return CategoryEnum.getKeyValues();
 	}
 }

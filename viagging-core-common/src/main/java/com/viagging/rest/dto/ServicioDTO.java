@@ -202,7 +202,6 @@ public class ServicioDTO {
 	public static List<ServicioDTO> buildListObject(List<Servicio> listServicio) {
 		List<ServicioDTO> listServicioDTO = new ArrayList<>();
 		for (Servicio servicio : listServicio) {
-			System.out.println("servicio"+servicio);
 			ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), true,servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones());
 			servicioDTO =  ServicioDTO.setearDatosAdicionales(servicioDTO, servicio);
 			if(servicio.getEstado() != null){
@@ -263,9 +262,7 @@ public class ServicioDTO {
 
 	public static List<ServicioDTO> buildListServicioDTO(List<PaqueteServicio> listaPaqueteServicio) {
 		List<ServicioDTO> listaServicioDTO = new ArrayList<>();
-		System.out.println("buildListServicioDTO");
 		for (PaqueteServicio paqueteServicio : listaPaqueteServicio) {
-			System.out.println(paqueteServicio.getServicio().getNombre());
 			ServicioDTO servicioDTO = ServicioDTO.buildObject(paqueteServicio.getServicio());
 			servicioDTO.setPaquete(servicioDTO.buildPaquete(paqueteServicio.getServicio()));
 			listaServicioDTO.add(servicioDTO);

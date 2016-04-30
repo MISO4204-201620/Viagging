@@ -1,18 +1,12 @@
 package com.viagging.rest.dto;
 
 import com.viagging.core.model.Perfil;
-import com.viagging.core.model.Usuario;
 
 public class PerfilDTO {
 	
 	private String id;
 
 	private String nombre;
-
-	@Override
-	public String toString() {
-		return "PerfilDTO [id=" + id + ", nombre=" + nombre + "]";
-	}
 
 	public String getNombre() {
 		return nombre;

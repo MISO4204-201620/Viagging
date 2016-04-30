@@ -88,13 +88,6 @@ public class ServicioDAOImpl implements ServicioDAO {
 		return servicio;
 	}
 
-
-	@Override
-	public Servicio servicioDTOToModel(ServicioDTO servicio) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	@Override
 	public List<Servicio> findAllByCriteria(Servicio servicio){
 		Query query = entityManager.createNamedQuery("Servicio.findAllByCriteria");
@@ -106,7 +99,6 @@ public class ServicioDAOImpl implements ServicioDAO {
 
 	@Override
 	public void activarServicio(Servicio servicio) {
-		System.out.println(servicio.getId()+ "id servicio");
 		Servicio _servicio = entityManager.find(Servicio.class, servicio.getId());
 		_servicio.setActivo(servicio.getActivo());
 		entityManager.persist(_servicio);
@@ -155,6 +147,13 @@ public class ServicioDAOImpl implements ServicioDAO {
 		query.setParameter("estado", EstadoItem.ELIMINADO.getId());
 		query.setParameter("idUsuario", idUsuario);
 		return (List<Servicio>) query.getResultList();
+	}
+
+
+	@Override
+	public Servicio servicioDTOToModel(ServicioDTO servicio) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

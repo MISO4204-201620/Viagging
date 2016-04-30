@@ -20,7 +20,6 @@ public class FoodController {
 	@RequestMapping(value = "/saveFood", method = RequestMethod.POST)
 	@ResponseStatus(value = HttpStatus.OK)
 	public Integer saveFood(@RequestBody AlimentacionDTO alimentacion) {
-		Integer idService = foodService.createAlimentacion(alimentacion);
-		return idService;
+		return foodService.createAlimentacion(alimentacion);
 	}
 }

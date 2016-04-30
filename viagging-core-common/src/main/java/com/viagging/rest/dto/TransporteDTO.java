@@ -120,11 +120,10 @@ public class TransporteDTO {
 		ServicioDTO parserServicio = ServicioDTO.buildObject(servicio);
 		parserServicio.setIdCategoria(CategoryEnum.TRANSPORTE.getId());
 		Transporte transporte = servicio.getTransporte();
-		TransporteDTO transporteDTO = new TransporteDTO(parserServicio,
+		return new TransporteDTO(parserServicio,
 				transporte.getTipotransporte(), transporte.getLugarorigen(),
 				transporte.getLugardestino(), transporte.getTiempoestimado(),
 				transporte.getHorarioinicio(), transporte.getHorariofin(),
 				transporte.getFrecuenciasalida(), String.valueOf(transporte.getNumeropasajeros()));
-		return transporteDTO;
 	}
 }

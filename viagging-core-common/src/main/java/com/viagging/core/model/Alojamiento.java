@@ -21,6 +21,10 @@ public class Alojamiento implements Serializable {
 	private String ciudad;
 
 	private Integer valorpornoche;
+	
+	private String tipo;
+	
+	private Integer numeroPersonas;
 
 	public Alojamiento() {
 	}
@@ -47,6 +51,22 @@ public class Alojamiento implements Serializable {
 
 	public void setValorpornoche(Integer valorpornoche) {
 		this.valorpornoche = valorpornoche;
+	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public Integer getNumeroPersonas() {
+		return numeroPersonas;
+	}
+
+	public void setNumeroPersonas(Integer numeroPersonas) {
+		this.numeroPersonas = numeroPersonas;
 	}
 	
 }

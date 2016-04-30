@@ -22,8 +22,7 @@ public class QuestionController {
 	@RequestMapping(value = "/getQuestions", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<PreguntaDTO> getQuestions() {
-		List<PreguntaDTO> preguntas = preguntaService.findAllPreguntas();
-		return preguntas;
+		return preguntaService.findAllPreguntas();
 	}
 	
 	@RequestMapping(value = "/answerQuestion", method = RequestMethod.POST)

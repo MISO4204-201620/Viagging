@@ -72,7 +72,7 @@ public class SaleReportService extends AbstractReportService {
 			}else{
 				queryString.append("where");
 			}
-			
+
 			if(datosConsulta.getListaServicios() != null && !datosConsulta.getListaServicios().isEmpty()){
 				queryString.append("(serv.id IN (" + buildList(datosConsulta.getListaServicios()) + ")" );
 			}else{
