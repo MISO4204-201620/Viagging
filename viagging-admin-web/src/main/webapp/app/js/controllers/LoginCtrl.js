@@ -2,6 +2,25 @@ providersApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'loginSe
     function($scope, $rootScope, $state, loginService){
 	
 	'use strict';
+	$scope.userData = {
+			id: "",
+			login: "",
+			password: "",
+			correo: "",
+			numeroCelular : "",
+			numeroDocumento: "",
+			primerApellido: "",
+			primerNombre: "",
+			segundoApellido: "",
+			segundoNombre : "",
+			tipoDocumento: "",
+			direccion1: "",
+			direccion2: "",
+			ciudad: "",
+			pais : "",
+			estado: "",
+			zipcode: ""
+	}
 	
 	$scope.userLogin = {
 		login: "",
@@ -9,9 +28,11 @@ providersApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'loginSe
 		profile:"Administrador"
 	};
 	
-	var successCallback = function(userData){
-		alert("Bienvenido de nuevo " + userData.primerNombre + " " + userData.primerApellido);
-		$rootScope.$broadcast('USER_LOGGED_IN', userData);	
+	var successCallback = function(map){
+		console.log(map["usuario"]);
+		$scope.userData = map["usuario"];
+		alert("Bienvenido de nuevo " + $scope.userData.primerNombre + " " + $scope.userData.primerApellido);
+		$rootScope.$broadcast('USER_LOGGED_IN', $scope.userData);	
 		$state.go("crear");
 	};
 	

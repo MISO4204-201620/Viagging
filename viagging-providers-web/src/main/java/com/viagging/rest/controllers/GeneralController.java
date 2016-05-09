@@ -20,6 +20,8 @@ import com.viagging.core.constant.Profile;
 import com.viagging.core.model.Caracteristica;
 import com.viagging.core.services.CaracteristicaService;
 import com.viagging.core.services.ImagenServicioService;
+import com.viagging.core.services.MovimientoService;
+import com.viagging.rest.dto.DatosMonitoreoDTO;
 import com.viagging.rest.dto.NombreValorDTO;
 import com.viagging.util.TransportEnum;
 
@@ -31,6 +33,9 @@ public class GeneralController {
 	
 	@Autowired
 	private ImagenServicioService imageService;
+	
+	@Autowired
+	private MovimientoService movimientoService;
 	
 	@RequestMapping(value = "/getFeatures", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
@@ -88,5 +93,11 @@ public class GeneralController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<NombreValorDTO> getTypeDocuments() {
 		return DocumentType.getKeyValues();
+	}
+	
+	@RequestMapping(value = "/getRendimiento", method = RequestMethod.GET)
+	@ResponseStatus(value = HttpStatus.OK)
+	public List<DatosMonitoreoDTO> getMonitoreoRendimiento(@QueryParam("fechaInicial") String fechaInicial,@QueryParam("fechaFinal") String fechaFinal) {
+		return movimientoService.findInfoMonitorero(fechaInicial, fechaFinal);
 	}
 }

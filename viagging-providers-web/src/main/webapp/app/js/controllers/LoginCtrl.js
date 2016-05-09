@@ -1,5 +1,26 @@
 providersApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'loginService',
     function($scope, $rootScope, $state, loginService){
+	$scope.ocultarMensaje = false;
+
+	$scope.userData = {
+			id: "",
+			login: "",
+			password: "",
+			correo: "",
+			numeroCelular : "",
+			numeroDocumento: "",
+			primerApellido: "",
+			primerNombre: "",
+			segundoApellido: "",
+			segundoNombre : "",
+			tipoDocumento: "",
+			direccion1: "",
+			direccion2: "",
+			ciudad: "",
+			pais : "",
+			estado: "",
+			zipcode: ""
+	}
 	
 	'use strict';
 	
@@ -9,9 +30,13 @@ providersApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'loginSe
 		profile:"Proveedor"
 	};
 	
-	var successCallback = function(userData){
-		alert("Bienvenido de nuevo " + userData.primerNombre + " " + userData.primerApellido);
-		$rootScope.$broadcast('USER_LOGGED_IN', userData);	
+	var successCallback = function(map){
+		$scope.userData = map["usuario"];
+		alert("Bienvenido de nuevo " + $scope.userData.primerNombre + " " + $scope.userData.primerApellido);
+		console.log(map["derivador"]);
+		console.log("finaliza");
+		$scope.ocultarMensaje = false;
+		$rootScope.$broadcast('USER_LOGGED_IN', $scope.userData);	
 		$state.go("alimentacion");
 	};
 	
