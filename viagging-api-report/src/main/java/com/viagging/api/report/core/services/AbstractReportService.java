@@ -38,7 +38,7 @@ public abstract class AbstractReportService {
 	        JasperReport report = getFileReport();
 		    JasperPrint print = fillReport(map, report,dataReport);
 		    output = JasperExportManager.exportReportToPdf(print);
-		    JasperExportManager.exportReportToPdfFile(print, "D:\\ANDES\\Fabricas_Software\\reportes\\InformePaisesMySQ1L.pdf");
+		    //JasperExportManager.exportReportToPdfFile(print, "D:\\ANDES\\Fabricas_Software\\reportes\\InformePaisesMySQ1L.pdf");
 		    //JasperViewer.viewReport(print, false);
 		} catch (JRException e) {
 			LOGGER.error(e.getMessage());	

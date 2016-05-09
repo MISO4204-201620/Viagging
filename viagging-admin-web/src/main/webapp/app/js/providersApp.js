@@ -28,6 +28,11 @@ providersApp.config(['$stateProvider', function($stateProvider){
 			url: "/crear",
 			templateUrl: 'template/html/crearusuario.html',
 			controller: 'UsuarioCtrl',
+		})
+		.state("transacciones", {
+			url: "/transacciones",
+			templateUrl: 'template/html/transaccion.html',
+			controller: 'TransaccionCtrl',
 		});
 }]);
 

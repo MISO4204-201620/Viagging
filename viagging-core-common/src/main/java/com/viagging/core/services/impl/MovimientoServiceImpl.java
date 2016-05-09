@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.viagging.core.services.MovimientoService;
 import com.viagging.core.dao.MovimientoDAO;
 import com.viagging.core.model.Paquete;
@@ -15,6 +18,8 @@ import com.viagging.core.model.Servicio;
 import com.viagging.core.model.Usuario;
 import com.viagging.core.model.mapper.MovimientoMapper;
 import com.viagging.core.services.UsuarioService;
+import com.viagging.rest.dto.DatosMonitoreoDTO;
+import com.viagging.rest.dto.mapper.DatosMonitoreoDTOMapper;
 
 @Service
 public class MovimientoServiceImpl implements  MovimientoService{
@@ -28,8 +33,12 @@ public class MovimientoServiceImpl implements  MovimientoService{
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	@Autowired
+	private DatosMonitoreoDTOMapper datosMonitoreoDTOMapper;
+	
 	private ExecutorService executorService;
-		
+	
+	
 	@PostConstruct
     public void init() {
         executorService = Executors.newCachedThreadPool();
@@ -67,4 +76,28 @@ public class MovimientoServiceImpl implements  MovimientoService{
 		}
 	}
 	
+	@Override
+	public List<DatosMonitoreoDTO> findInfoMonitorero(String fechaInicial, String fechaFinal){
+		List<Object[]> listObject = movimientoDAO.findInfoReport(buildQuery(fechaInicial, fechaFinal));
+		return datosMonitoreoDTOMapper.mapObject(listObject);
+	}
+	
+    private String buildQuery(String fechaInicial, String fechaFinal){
+    	StringBuilder queryString = new StringBuilder();
+		queryString.append("select case when com.idservicio IS NULL then 'Paquete' else 'Servicio' END as tipo, ");
+		queryString.append("case when com.idservicio IS NULL then paq.nombrepaquete else serv.nombre END as nombre, ");
+		queryString.append("ord.fechacompra as fechacompra,  ");
+		queryString.append("com.cantidad as cantidad  ");
+		queryString.append(" from tp_compra as com ");
+		queryString.append("INNER JOIN tp_orden as ord ON com.idorden = ord.id ");
+		queryString.append("LEFT JOIN tp_servicio as serv ON com.idservicio = serv.id ");			
+		queryString.append("LEFT JOIN tp_paquete as paq ON com.idpaquete = paq.id ");
+		if(fechaInicial != null && !fechaInicial.equals("")){
+			queryString.append("where (ord.fechacompra BETWEEN '" +fechaInicial + "' and '" + fechaFinal + "')  ");
+		}
+		
+		queryString.append("ORDER BY ord.fechacompra ASC ");
+		
+		return queryString.toString();
+    }
 }

@@ -1,8 +1,10 @@
 package com.viagging.core.services;
 
 import java.util.List;
+
 import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Servicio;
+import com.viagging.rest.dto.DatosMonitoreoDTO;
 
 public interface MovimientoService {
      
@@ -10,4 +12,5 @@ public interface MovimientoService {
     
 	void createMovimientos(List<Servicio> listServicios,List<Paquete> listPaquetes, String idUsuario,String tipo );
 	
+	List<DatosMonitoreoDTO> findInfoMonitorero(String fechaInicial, String fechaFinal);
 }
