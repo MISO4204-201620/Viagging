@@ -137,10 +137,9 @@ providersApp.controller('ReporteCtrl', ['$scope', '$http', 'userService', functi
 	};
 	
 	$scope.generarReporte = function(reporte) {
-		$http.post('/viagging-providers-web/createReport', angular.toJson($scope.reporte), {
-			headers: {"Content-Type": "application/json"},
-			transformRequest: angular.identity
-		}).success(function(data, status, headers, config) {
+		console.log($scope.reporte);
+		$http.post('/viagging-api-report/createReport', $scope.reporte)
+		   .success(function(data, status, headers, config) {
 		}).error(function(data, status, headers, config) {
 			alert("El reporte no pudo ser generado");
 		}); 

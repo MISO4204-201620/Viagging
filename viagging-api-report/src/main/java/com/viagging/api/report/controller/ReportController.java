@@ -62,12 +62,14 @@ public class ReportController {
 	    @RequestMapping(value = "/createMovimiento", method = RequestMethod.GET)
 		@ResponseStatus(value = HttpStatus.OK)
 		public void createMovimiento() {
-	    	List<Servicio> listSe = new ArrayList<>();
-	    	Servicio serv = servicioService.getServicioById(1);
-	    	listSe.add(serv);
-	    	serv = servicioService.getServicioById(2);
-	    	listSe.add(serv);
-	    	movimientoService.createMovimientos(listSe, null, null,ReportType.QUERY.toString());
+	    	List<String> listSe = new ArrayList<>();
+	    	listSe.add("1");
+	    	listSe.add("2");
+	    	listSe.add("4");
+	    	
+	    	List<String> listPa = new ArrayList<>();
+	    	listPa.add("325");
+	    	movimientoService.createMovimientos(listSe, listPa, null,ReportType.QUERY.toString());
 		}
 	    
 	    
