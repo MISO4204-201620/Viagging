@@ -21,6 +21,9 @@ providersApp.controller('ReporteCtrl', ['$scope', '$http', 'userService', functi
 	$scope.idCategoria;
 
 	$scope.$watch("ajaxURL", function (newValue, oldValue) {
+//		$scope.filtro = "";
+//		$scope.idCategoria = "";
+		console.log("actualizando..." + $scope.idCategoria + "..." + $scope.filtro) 
 		$http.get('/viagging-providers-web/getReportTypes').
 		success(function(data, status, headers, config) {
 			$scope.tipos = data;
@@ -48,9 +51,9 @@ providersApp.controller('ReporteCtrl', ['$scope', '$http', 'userService', functi
 	    }); 
 	});
 	
-	$scope.generarReporte = function() {
-		console.log("Generando reporte" + angular.toJson($scope.reporte));
-	};
+//	$scope.generarReporte = function() {
+//		console.log("Generando reporte" + angular.toJson($scope.reporte));
+//	};
 	
 	$scope.statusInitial
 	
@@ -132,4 +135,14 @@ providersApp.controller('ReporteCtrl', ['$scope', '$http', 'userService', functi
 
 		return '';
 	};
+	
+	$scope.generarReporte = function(reporte) {
+		$http.post('/viagging-providers-web/createReport', angular.toJson($scope.reporte), {
+			headers: {"Content-Type": "application/json"},
+			transformRequest: angular.identity
+		}).success(function(data, status, headers, config) {
+		}).error(function(data, status, headers, config) {
+			alert("El reporte no pudo ser generado");
+		}); 
+	} 
 }]);
