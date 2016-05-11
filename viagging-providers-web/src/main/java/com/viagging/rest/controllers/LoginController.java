@@ -2,9 +2,14 @@ package com.viagging.rest.controllers;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.viagging.core.constant.Profile;
 import com.viagging.core.model.CuentaAcceso;
 import com.viagging.core.model.Usuario;
@@ -45,7 +51,7 @@ public class LoginController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/loginProvAdmin", method = RequestMethod.POST)
-	public ResponseEntity<UsuarioDTO> login(@RequestBody final UserLoginDTO userLogin, HttpServletResponse response){
+	public ResponseEntity<Map<String, Object>> login(@RequestBody final UserLoginDTO userLogin, HttpServletResponse response){
 		Usuario usuario = usuarioService.findUsuarioByLoginAndPassword(userLogin.getLogin(), userLogin.getPassword());
 		if(usuario == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -56,8 +62,11 @@ public class LoginController {
 		}
 		UsuarioDTO usuarioDTO = UsuarioDTO.buildObject(usuario);
 		addAuthorizationCookie(response, usuario);
-
-		return new ResponseEntity<>(usuarioDTO, HttpStatus.OK);
+        Map<String, Object> map = new HashMap<>();
+        map.put("usuario", usuarioDTO);
+        map.put("derivadorReportes", "true");
+		
+		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
 

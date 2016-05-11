@@ -78,6 +78,11 @@ providersApp.config(['$stateProvider', function($stateProvider){
 			url: "/busqueda",
 			templateUrl: 'template/html/reporte.html',
 			controller: 'ReporteCtrl',
+		})
+		.state("mensajes", {
+			url: "/mensajes",
+			templateUrl: 'template/html/mensajes.html',
+			controller: 'MensajesCtrl',
 		});
 }]);
 
