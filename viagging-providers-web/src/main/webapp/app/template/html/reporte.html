@@ -40,7 +40,7 @@
 						<label class="col-sm-1 control-label no-padding-right" for="repeatSelect"> Servicios </label> 
 						<div class="col-sm-11">
 							<select
-								name="repeatSelect" id="repeatSelect" ng-model="reporte.listaServicios" class="col-xs-10 col-sm-7">
+								name="repeatSelect" id="repeatSelect" ng-model="reporte.listaServicios.id" class="col-xs-10 col-sm-7">
 								<option ng-repeat="option in servicios" value="{{option.id}}">{{option.nombre}}</option>
 							</select>
 						</div>
@@ -50,7 +50,7 @@
 						<label class="col-sm-1 control-label no-padding-right" for="repeatSelect"> Paquete </label>
 						<div class="col-sm-11">
 							<select
-								name="repeatSelect" id="repeatSelect" ng-model="reporte.listaPaquetes" class="col-xs-10 col-sm-7">
+								name="repeatSelect" id="repeatSelect" ng-model="reporte.listaPaquetes.id" class="col-xs-10 col-sm-7">
 								<option ng-repeat="option in paquetes" value="{{option.id}}">{{option.nombre}}</option>
 							</select>
 						</div>

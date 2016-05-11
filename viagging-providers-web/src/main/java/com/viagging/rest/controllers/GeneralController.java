@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.viagging.core.constant.DocumentType;
 import com.viagging.core.constant.Profile;
+import com.viagging.core.constant.ReportType;
 import com.viagging.core.model.Caracteristica;
 import com.viagging.core.services.CaracteristicaService;
 import com.viagging.core.services.ImagenServicioService;
@@ -58,9 +59,9 @@ public class GeneralController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public List<String> getReportTypes() {
 		List<String> reportTypes = new ArrayList<>();
-		reportTypes.add("Busquedas");
-		reportTypes.add("Consultas");
-		reportTypes.add("Ventas");
+		reportTypes.add(ReportType.QUERY.toString());
+		reportTypes.add(ReportType.SALE.toString());
+		reportTypes.add(ReportType.SEARCH.toString());
 		return reportTypes;
 	}
 	
