@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viagging.core.services.MovimientoService;
+import com.viagging.core.services.PaqueteService;
+import com.viagging.core.services.ServicioService;
 import com.viagging.core.dao.MovimientoDAO;
 import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Servicio;
@@ -36,6 +38,12 @@ public class MovimientoServiceImpl implements  MovimientoService{
 	@Autowired
 	private DatosMonitoreoDTOMapper datosMonitoreoDTOMapper;
 	
+	@Autowired
+	private PaqueteService paqueteService;
+	
+	@Autowired
+	private ServicioService servicioService;
+	
 	private ExecutorService executorService;
 	
 	
@@ -50,7 +58,7 @@ public class MovimientoServiceImpl implements  MovimientoService{
 	}
 	
 	@Override
-	public void createMovimientos(final List<Servicio> listServicios,final List<Paquete> listPaquetes,final String idUsuario,final String tipo ){
+	public void createMovimientos(final List<String> listServicios,final List<String> listPaquetes,final String idUsuario,final String tipo ){
 		executorService.submit(new Callable<Object>() {
                 public Object call() throws Exception {
                 	ejecutarProceso(listServicios, listPaquetes, idUsuario, tipo);
@@ -59,19 +67,19 @@ public class MovimientoServiceImpl implements  MovimientoService{
 	        });			
 	}
     	
-	private void ejecutarProceso(final List<Servicio> listServicios,final List<Paquete> listPaquetes,final String idUsuario,final String tipo){
+	private void ejecutarProceso(final List<String> listServicios,final List<String> listPaquetes,final String idUsuario,final String tipo){
 		Usuario usuario = null;
 		if(idUsuario != null && !idUsuario.equals("")){
 			usuario = usuarioService.getUsuarioById(Integer.valueOf(idUsuario));
 		}
 		if(listPaquetes  != null){
-			for (Paquete paquete : listPaquetes) {
-				movimientoDAO.createMovimiento(movimientoMapper.mapObject(paquete, usuario, tipo));
+			for (String idPaquete : listPaquetes) {				
+				movimientoDAO.createMovimiento(movimientoMapper.mapObject(paqueteService.getPaqueteById(Integer.valueOf(idPaquete)), usuario, tipo));
 			}
 		}
 		if(listServicios != null){
-			for (Servicio servicio : listServicios) {
-				movimientoDAO.createMovimiento(movimientoMapper.mapObject(servicio, usuario, tipo));
+			for (String idServicio : listServicios) {
+				movimientoDAO.createMovimiento(movimientoMapper.mapObject(servicioService.getServicioById(Integer.valueOf(idServicio)) , usuario, tipo));
 			}
 		}
 	}

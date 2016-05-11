@@ -10,7 +10,7 @@ public interface MovimientoService {
      
 	List<Object[]> findInfoReport(String query);
     
-	void createMovimientos(List<Servicio> listServicios,List<Paquete> listPaquetes, String idUsuario,String tipo );
+	void createMovimientos(List<String> listServicios,List<String> listPaquetes, String idUsuario,String tipo );
 	
 	List<DatosMonitoreoDTO> findInfoMonitorero(String fechaInicial, String fechaFinal);
 }
