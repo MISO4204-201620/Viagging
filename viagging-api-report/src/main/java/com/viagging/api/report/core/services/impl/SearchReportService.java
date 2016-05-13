@@ -8,6 +8,8 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -66,29 +68,30 @@ public class SearchReportService extends AbstractReportService {
 		queryString.append("ON mov.idservicio = ser.id ");			
 		queryString.append("LEFT JOIN tp_paquete as paq ");
 		queryString.append("ON mov.idpaquete = paq.id ");
-		if(datosConsulta.getFechaInical() != null && !datosConsulta.getFechaInical().equals("")){
+		
+		if(StringUtils.isNotEmpty(datosConsulta.getFechaInical())) {
 			queryString.append("where (mov.fecha BETWEEN '" +datosConsulta.getFechaInical() + "' and '" + datosConsulta.getFechaFinal() + "') and ");
 		}else{
 			queryString.append("where");
 		}
 		
-		if(datosConsulta.getListaServicios() != null && !datosConsulta.getListaServicios().isEmpty()){
+		if(CollectionUtils.isNotEmpty(datosConsulta.getListaServicios())){
 			queryString.append("(ser.id IN (" + buildList(datosConsulta.getListaServicios()) + ")" );
 		}else{
-			queryString.append("(ser.id IN (0)" );
+			queryString.append("(ser.id IN (select id from tp_servicio)" );
 		}
 		
-		if(datosConsulta.getListaPaquetes() != null && !datosConsulta.getListaPaquetes().isEmpty()){
-		   queryString.append(" or  paq.id IN (" + buildList(datosConsulta.getListaPaquetes()) + "))");
+		if(CollectionUtils.isNotEmpty(datosConsulta.getListaPaquetes())){
+		   queryString.append(" or  paq.id IN (" + buildList(datosConsulta.getListaPaquetes()) + ")) and ");
 		}else{
-		   queryString.append(" or  paq.id IN (0) )");
+		   queryString.append(" or  paq.id IN (select id from tp_paquete) ) and ");
 		}
-		queryString.append(" and mov.accion = '" + datosConsulta.getTipo() + "' ");
+		
+		queryString.append("  mov.accion = '" + datosConsulta.getTipo() + "' ");
 		
 		queryString.append("ORDER BY mov.fecha ASC ");
 		
 		return queryString.toString();
     }
-    
-    
+       
 }

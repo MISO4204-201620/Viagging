@@ -53,8 +53,6 @@ $scope.reporte = {
 	        	idProveedor :  $scope.userData.id
 	        	}
 	    }).success(function(data, status, headers, config) {
-	    	console.log(status);
-	    	console.log(data);
 	        $scope.listservices = data;
 	        for (var i=0;i<$scope.chooseservices.length;i++){
 	    	     for (var j=0;j<$scope.listservices.length;j++){

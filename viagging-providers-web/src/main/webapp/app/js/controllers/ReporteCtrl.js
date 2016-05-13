@@ -5,12 +5,8 @@ providersApp.controller('ReporteCtrl', ['$scope', '$http', 'userService', functi
 		fechaInical: "",
 		fechaFinal: "",
 		listaServicios:[
-		                {"id":1}, 
-			            {"id":2}, 
-			            {"id":3}
 		],
 		listaPaquetes:[
-			            {"id":325}
 		]
 	};
 
@@ -19,7 +15,7 @@ providersApp.controller('ReporteCtrl', ['$scope', '$http', 'userService', functi
 	$scope.paquetes=[];
 	$scope.filtro;
 	$scope.idCategoria;
-
+	$scope.content;
 	$scope.$watch("ajaxURL", function (newValue, oldValue) {
 //		$scope.filtro = "";
 //		$scope.idCategoria = "";
@@ -140,6 +136,7 @@ providersApp.controller('ReporteCtrl', ['$scope', '$http', 'userService', functi
 		console.log($scope.reporte);
 		$http.post('/viagging-api-report/createReport', $scope.reporte)
 		   .success(function(data, status, headers, config) {
+			   window.open("data:application/pdf;base64, " + data);
 		}).error(function(data, status, headers, config) {
 			alert("El reporte no pudo ser generado");
 		}); 
