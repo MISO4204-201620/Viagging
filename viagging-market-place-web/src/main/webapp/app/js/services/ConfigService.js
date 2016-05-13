@@ -28,7 +28,7 @@ marketPlaceApp.service('configService', ['$http', '$q', 'storageService', functi
 		        		var marketPlaceConfig = response.data;
 		        		//Set application config data
 		        		initApplicationConfig(marketPlaceConfig);
-		        		storageService.put('marketPlaceConfig', marketPlaceConfig);
+		        		//storageService.put('marketPlaceConfig', marketPlaceConfig);
 		        		return $q.resolve(response.data);
 		        	} else {
 		        		return $q.reject(response.data);

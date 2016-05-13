@@ -9,6 +9,9 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 			url: "/home",
 			templateUrl: 'views/catalogue.html',
 			resolve: {
+				config : ['configService', function(configService){
+					return configService.initMarketPlaceConfig();
+				}],
 				products : ['productsService', function(productsService){
 					return productsService.getAllProducts();
 				}]

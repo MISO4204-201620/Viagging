@@ -44,8 +44,8 @@ public class MarketPlaceController {
 		Components components = new Components();
 		components.setTwitter(true);
 		components.setFacebook(true);
-		components.setComments(false);
-		components.setMessages(false);
+		components.setComments(true);
+		components.setMessages(true);
 		return components;
 	}
 
