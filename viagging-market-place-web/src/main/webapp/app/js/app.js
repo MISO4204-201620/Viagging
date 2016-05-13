@@ -1,6 +1,6 @@
 'use strict';
 
-var marketPlaceApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap', 'ngCart']);
+var marketPlaceApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap', 'ngCart', 'ngHello']);
 
 marketPlaceApp.config(['$stateProvider', function($stateProvider){
 
@@ -43,7 +43,12 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 		.state("login", {
 			url: "/login",
 			templateUrl: '../app/views/login.html',
-			controller: 'LoginCtrl'
+			controller: 'LoginCtrl',
+			resolve: {
+				config : ['configService', function(configService){
+					return configService.initMarketPlaceConfig();
+				}]
+			}
 		})
 		.state("register", {
 			url: "/register",

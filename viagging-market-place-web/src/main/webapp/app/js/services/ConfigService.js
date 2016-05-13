@@ -1,18 +1,19 @@
 marketPlaceApp.service('configService', ['$http', '$q', 'storageService', function($http, $q, storageService){
-	
+
 	'use strict';
-	
+
 	var applicationConfig = {};
-	
+
 	var initApplicationConfig = function(config){
 		applicationConfig.categories = config.categories;
 		applicationConfig.prices = config.prices;
+		applicationConfig.components = config.components;
 	};
-	
+
 	var configService = {
-	
+
 		initMarketPlaceConfig : function(){
-			
+
 			var marketPlaceConfig = storageService.get('marketPlaceConfig');
 			if(marketPlaceConfig != null){
 				initApplicationConfig(marketPlaceConfig);
@@ -37,15 +38,19 @@ marketPlaceApp.service('configService', ['$http', '$q', 'storageService', functi
 		        });
 			}
 		},
-			
+
 		getCategories : function(){
 			return applicationConfig.categories;
 		},
-		
+
 		getPrices : function(){
 			return applicationConfig.prices;
+		},
+
+		getComponents : function(){
+			return applicationConfig.components;
 		}
 	};
-	
+
 	return configService;
 }]);

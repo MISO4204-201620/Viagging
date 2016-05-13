@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.viagging.core.constant.PriceRange;
 import com.viagging.rest.dto.NombreValorDTO;
+import com.viagging.rest.model.Components;
 import com.viagging.rest.model.MarketPlaceConfig;
 import com.viagging.util.CategoryEnum;
 
@@ -24,6 +25,7 @@ public class MarketPlaceController {
 		MarketPlaceConfig marketPlaceConfig = new MarketPlaceConfig();
 		marketPlaceConfig.setCategories(buildCategories());
 		marketPlaceConfig.setPrices(PriceRange.getKeyValues());
+		marketPlaceConfig.setComponents(getEnabledComponents());
 		return marketPlaceConfig;
 	}
 
@@ -36,6 +38,15 @@ public class MarketPlaceController {
 			nombreValorDTO.add(nombre);
 		}
 		return nombreValorDTO;
+	}
+
+	private Components getEnabledComponents(){
+		Components components = new Components();
+		components.setTwitter(true);
+		components.setFacebook(true);
+		components.setComments(false);
+		components.setMessages(false);
+		return components;
 	}
 
 }
