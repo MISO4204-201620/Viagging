@@ -22,7 +22,7 @@
 					<div class="form-group col-sm-12">
 						<label class="col-sm-1 control-label no-padding-right" for="form-field-1">Desde </label>
 						<div class="col-sm-3">
-				        	<input type="text" uib-datepicker-popup ng-model="reporte.fechaInicial" is-open="statusInitial.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+				        	<input type="text" uib-datepicker-popup ng-model="reporte.fechaInical" is-open="statusInitial.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
 				            <button type="button" ng-click="openInitial($event)">
 				            	<i class="glyphicon glyphicon-calendar"></i>
 				            </button>
@@ -40,7 +40,7 @@
 						<label class="col-sm-1 control-label no-padding-right" for="repeatSelect"> Servicios </label> 
 						<div class="col-sm-11">
 							<select
-								name="repeatSelect" id="repeatSelect" ng-model="reporte.listaServicios.id" class="col-xs-10 col-sm-7">
+								name="repeatSelect" id="repeatSelect" ng-model="reporte.listaServicios[0].id" class="col-xs-10 col-sm-7">
 								<option ng-repeat="option in servicios" value="{{option.id}}">{{option.nombre}}</option>
 							</select>
 						</div>
@@ -50,7 +50,7 @@
 						<label class="col-sm-1 control-label no-padding-right" for="repeatSelect"> Paquete </label>
 						<div class="col-sm-11">
 							<select
-								name="repeatSelect" id="repeatSelect" ng-model="reporte.listaPaquetes.id" class="col-xs-10 col-sm-7">
+								name="repeatSelect" id="repeatSelect" ng-model="reporte.listaPaquetes[0].id" class="col-xs-10 col-sm-7">
 								<option ng-repeat="option in paquetes" value="{{option.id}}">{{option.nombre}}</option>
 							</select>
 						</div>

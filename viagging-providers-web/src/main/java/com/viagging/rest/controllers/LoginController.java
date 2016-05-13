@@ -11,6 +11,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +40,12 @@ public class LoginController {
 
 	@Autowired
 	private CuentaAccesoService cuentaAccesoService;
+	
+	@Value("${derivador.reportes}")
+	private String derivadorReportes;
+	
+	@Value("${derivador.mensajes}")
+	private String derivadorMensajes;
 
 	/** The Constant AUTHORIZATION_TOKEN_COOKIE. */
 	private static final String AUTHORIZATION_TOKEN_COOKIE = "Authorization";
@@ -64,7 +71,8 @@ public class LoginController {
 		addAuthorizationCookie(response, usuario);
         Map<String, Object> map = new HashMap<>();
         map.put("usuario", usuarioDTO);
-        map.put("derivadorReportes", "true");
+        map.put("derivadorReportes", derivadorReportes);
+        map.put("derivadorMensajes", derivadorMensajes);
 		
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}

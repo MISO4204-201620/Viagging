@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.QueryParam;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -75,7 +76,7 @@ public class PackageController {
     @RequestMapping(value = "/getPackages", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     public List<PaqueteDTO> getPackages(@QueryParam("filtro") String filtro,@QueryParam("idUsuario") String idUsuario) {
-    	List<Paquete> listPackages = paqueteService.getAllPaquetesByFiltro(filtro, Integer.valueOf(idUsuario));
+    	List<Paquete> listPackages = paqueteService.getAllPaquetesByFiltro(filtro,NumberUtils.toInt(idUsuario));
     	List<PaqueteDTO> listPaquete = PaqueteDTO.buildListObject(listPackages);
     	if(listPaquete.isEmpty()){
     		throw new NotFoundException(PACKAGE_ERROR_MESSAGE_NOT_FOUND);

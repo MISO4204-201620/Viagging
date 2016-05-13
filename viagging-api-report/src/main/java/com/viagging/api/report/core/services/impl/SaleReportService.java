@@ -8,6 +8,8 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -37,8 +39,8 @@ public class SaleReportService extends AbstractReportService {
 	public DefaultTableModel  fillDataReport(List<Object[]> listData ) {
     	
         int i = 0;
-    	String[] columnNames = {"Tipo", "Producto", "Fecha", "Usuario","Cantidad"};
-        Object [][] data = new Object [listData.size()][5];
+    	String[] columnNames = {"Tipo", "Producto", "Fecha", "Usuario","Cantidad","Precio"};
+        Object [][] data = new Object [listData.size()][6];
      
         for (Object[] objectData : listData) {
       	    data[i][0] = objectData[0];
@@ -46,6 +48,7 @@ public class SaleReportService extends AbstractReportService {
      	    data[i][2] = objectData[2].toString();
      	    data[i][3] = buildName(objectData[3], objectData[4]);
      	    data[i][4] = objectData[5].toString();
+     	    data[i][5] = objectData[6].toString();
         	i++;
 		}
         return new DefaultTableModel(data, columnNames);       
@@ -61,32 +64,35 @@ public class SaleReportService extends AbstractReportService {
 			queryString.append("select case when com.idservicio IS NULL then 'Paquete' else 'Servicio' END as tipo, ");
 			queryString.append("case when com.idservicio IS NULL then paq.nombrepaquete else serv.nombre END as nombre, ");
 			queryString.append("ord.fechacompra as fechacompra, usr.primernombre as primernombre, usr.primerapellido as primerapellido, ");
-			queryString.append("com.cantidad as cantidad  ");
+			queryString.append("com.cantidad as cantidad, ");
+			queryString.append("case when com.idservicio IS NULL then paq.precio * com.cantidad else serv.precio * com.cantidad END as precio ");
 			queryString.append(" from tp_compra as com ");
 			queryString.append("INNER JOIN tp_orden as ord ON com.idorden = ord.id ");
 			queryString.append("LEFT JOIN tp_servicio as serv ON com.idservicio = serv.id ");			
 			queryString.append("LEFT JOIN tp_paquete as paq ON com.idpaquete = paq.id ");
 			queryString.append("INNER JOIN tp_usuario as usr ON ord.idusuario = usr.id ");
-			if(datosConsulta.getFechaInical() != null && !datosConsulta.getFechaInical().equals("")){
+			
+			if(StringUtils.isNotEmpty(datosConsulta.getFechaInical())) {
 				queryString.append("where (ord.fechacompra BETWEEN '" +datosConsulta.getFechaInical() + "' and '" + datosConsulta.getFechaFinal() + "') and ");
 			}else{
 				queryString.append("where");
 			}
 
-			if(datosConsulta.getListaServicios() != null && !datosConsulta.getListaServicios().isEmpty()){
+			if(CollectionUtils.isNotEmpty(datosConsulta.getListaServicios())) {
 				queryString.append("(serv.id IN (" + buildList(datosConsulta.getListaServicios()) + ")" );
 			}else{
-				queryString.append("(serv.id IN (0)" );
+				queryString.append("(serv.id IN (select id from tp_servicio)" );
 			}
 			
-			if(datosConsulta.getListaPaquetes() != null && !datosConsulta.getListaPaquetes().isEmpty()){
+			if(CollectionUtils.isNotEmpty(datosConsulta.getListaPaquetes())) {
 			   queryString.append(" or  paq.id IN (" + buildList(datosConsulta.getListaPaquetes()) + "))");
 			}else{
-			   queryString.append(" or  paq.id IN (0) ) ");
+			   queryString.append(" or  paq.id IN (select id from tp_paquete) ) ");
 			}
-			
+
 			queryString.append("ORDER BY ord.fechacompra ASC ");
 			
 			return queryString.toString();
+			
 	    }
 }
