@@ -1,5 +1,5 @@
-marketPlaceApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'loginService', 'configService', 'hello',
-    function($scope, $rootScope, $state, loginService, configService, hello){
+marketPlaceApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'loginService', 'configService',
+    function($scope, $rootScope, $state, loginService, configService){
 
 	'use strict';
 
@@ -24,16 +24,12 @@ marketPlaceApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'login
 	};
 
 	$scope.loginTwitterUser = function(){
-		hello('twitter').login();
+		loginService.loginTwitterUser();
 	};
 
 	$scope.loginFacebookUser = function(){
-		hello('facebook').login();
+		loginService.loginFacebookUser();
 	};
-
-	hello.on("auth.login", function(r){
-		console.log(r.authresponse);
-	});
 
 	$scope.initLoginCtrl = function(){
 		$scope.components = configService.getComponents();

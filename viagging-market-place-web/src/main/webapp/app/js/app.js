@@ -34,6 +34,9 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 			url: "/detail/:productId",
 			templateUrl: 'views/detail.html',
 			resolve: {
+				config : ['configService', function(configService){
+					return configService.initMarketPlaceConfig();
+				}],
 				product : ['productsService', '$stateParams', function(productsService, $stateParams){
 					return productsService.getProductById($stateParams.productId);
 				}]
@@ -43,16 +46,21 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 		.state("login", {
 			url: "/login",
 			templateUrl: '../app/views/login.html',
-			controller: 'LoginCtrl',
 			resolve: {
 				config : ['configService', function(configService){
 					return configService.initMarketPlaceConfig();
 				}]
-			}
+			},
+			controller: 'LoginCtrl'
 		})
 		.state("register", {
 			url: "/register",
 			templateUrl: '../app/views/register.html',
+			resolve: {
+				config : ['configService', function(configService){
+					return configService.initMarketPlaceConfig();
+				}]
+			},
 			controller: 'RegisterCtrl'
 		})
 		.state("cart", {

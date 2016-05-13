@@ -1,6 +1,10 @@
-marketPlaceApp.service('loginService', ['$http', 'userService', function($http, userService){
+marketPlaceApp.service('loginService', ['$http', 'userService', 'hello', function($http, userService, hello){
 
 	'use strict';
+
+	hello.on("auth.login", function(r){
+		console.log(r.authresponse);
+	});
 
 	var loginService = {
 
@@ -42,6 +46,14 @@ marketPlaceApp.service('loginService', ['$http', 'userService', function($http, 
 	        	}
 
 	        }).error(errorCallback);
+		},
+
+		loginFacebookUser : function(){
+			hello('facebook').login();
+		},
+
+		loginTwitterUser : function(){
+			hello('twitter').login();
 		}
 
 	};
