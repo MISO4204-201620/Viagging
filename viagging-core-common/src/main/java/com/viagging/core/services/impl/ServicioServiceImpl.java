@@ -3,6 +3,7 @@ package com.viagging.core.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -103,15 +104,15 @@ public class ServicioServiceImpl implements ServicioService {
 	public List<Servicio> getServiciosByCategoriaProveedor(String idCategoria,String idProveedor) {
 		
 		if(CategoryEnum.ALIMENTACION.getId().equals(idCategoria)){
-			return servicioDAO.getServiciosAlimentacionByProveedor(Integer.valueOf(idProveedor));		
+			return servicioDAO.getServiciosAlimentacionByProveedor(NumberUtils.toInt(idProveedor));		
 		} else if(CategoryEnum.ALOJAMIENTO.getId().equals(idCategoria)){
-			return servicioDAO.getServiciosAlojamientoByProveedor(Integer.valueOf(idProveedor));
+			return servicioDAO.getServiciosAlojamientoByProveedor(NumberUtils.toInt(idProveedor));
 		} else if(CategoryEnum.PASEO_ECOLOGICO.getId().equals(idCategoria)){
-			return servicioDAO.getServiciosPaseoEcologicoByProveedor(Integer.valueOf(idProveedor));
+			return servicioDAO.getServiciosPaseoEcologicoByProveedor(NumberUtils.toInt(idProveedor));
 		} else if(CategoryEnum.TRANSPORTE.getId().equals(idCategoria)){
-			return servicioDAO.getServiciosTransporteByProveedor(Integer.valueOf(idProveedor));
+			return servicioDAO.getServiciosTransporteByProveedor(NumberUtils.toInt(idProveedor));
 		} else {
-			return servicioDAO.getAllServiciosByProveedor(Integer.valueOf(idProveedor));
+			return servicioDAO.getAllServiciosByProveedor(NumberUtils.toInt(idProveedor));
 		}
 	}
 }
