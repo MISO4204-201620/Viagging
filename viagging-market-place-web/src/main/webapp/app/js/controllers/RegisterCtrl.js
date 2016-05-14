@@ -67,6 +67,18 @@ marketPlaceApp.controller('RegisterCtrl', ['$scope', '$rootScope', '$state', 'lo
 	$scope.loginFacebookUser = function(){
 		loginService.loginFacebookUser();
 	};
+	
+	$rootScope.$on("USER_LOGGED_IN_BY_SOCIAL_NETWORK", function(event, userData){
+		loginSuccessCallback(userData);
+	});
+	
+	$rootScope.$on("USER_REGISTERED_IN_BY_SOCIAL_NETWORK", function(event, userData){
+		registerSuccessCallback(userData);
+	});
+	
+	$rootScope.$on("ERROR_REGISTERING_SOCIAL_NETWORK_USER", function(){
+		registerErrorCallback();
+	});
 
 	$scope.initRegisterCtrl = function(){
 		$scope.components = configService.getComponents();

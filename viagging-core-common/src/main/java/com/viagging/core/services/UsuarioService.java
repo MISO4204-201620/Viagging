@@ -10,6 +10,8 @@ public interface UsuarioService {
 	Usuario findUsuarioByLogin(String login);
 	
 	Usuario getUsuarioById(Integer idUsuario);
+	
+	Usuario getUsuarioByEmail(String email);
 
 	Usuario createUsuario(Usuario usuario,String idPerfil)throws Exception;
 

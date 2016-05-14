@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import com.viagging.core.dao.UsuarioDAO;
 import com.viagging.core.model.CuentaAcceso;
@@ -115,6 +114,11 @@ public class UsuarioServiceImpl implements  UsuarioService  {
 	
 	public void deleteUser(Integer idUser){
 		 usuarioDAO.deleteUser(idUser);
+	}
+
+	@Override
+	public Usuario getUsuarioByEmail(String email) {
+		return usuarioDAO.findUsuarioByEmail(email);
 	}
 	
 }

@@ -17,6 +17,8 @@ public interface UsuarioDAO {
 	
 	Usuario findUsuarioByNumber(String numeroDocumento);
 	
+	Usuario findUsuarioByEmail(String email);
+	
 	void deleteUser(Integer idUser);
 	
 }

@@ -3301,7 +3301,7 @@ if (typeof chrome === 'object' && typeof chrome.identity === 'object' && chrome.
 
 			// Map GET requests
 			get: {
-				me: 'me',
+				me: 'me?fields=email,first_name,last_name,name,timezone,verified',
 				'me/friends': 'me/friends',
 				'me/following': 'me/friends',
 				'me/followers': 'me/friends',

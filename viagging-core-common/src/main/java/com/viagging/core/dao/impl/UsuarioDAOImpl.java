@@ -1,23 +1,18 @@
 package com.viagging.core.dao.impl;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.constant.EstadoItem;
 import com.viagging.core.dao.UsuarioDAO;
-import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Usuario;
-
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Transactional
 @Repository
@@ -90,6 +85,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 	}
 	
-
+	@Override
+	public Usuario findUsuarioByEmail(String email) {
+		try {
+			Query query = entityManager.createNamedQuery("Usuario.findByEmail");
+			query.setParameter("email", email);
+			return (Usuario) query.getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
 	
 }

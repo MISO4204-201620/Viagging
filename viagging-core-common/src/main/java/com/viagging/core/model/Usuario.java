@@ -17,6 +17,8 @@ import java.util.List;
 		query="SELECT t FROM Usuario t WHERE t.login = :login AND t.password = :password"),
     @NamedQuery(name="Usuario.findLogin", 
 		query="SELECT t FROM Usuario t WHERE t.login = :login"),
+	@NamedQuery(name="Usuario.findByEmail",
+		query="SELECT t FROM Usuario t WHERE t.correo = :email"),
     @NamedQuery(name="Usuario.findNumberDocument", 
 			query="SELECT t FROM Usuario t WHERE t.numeroDocumento = :numeroDocumento")
 })

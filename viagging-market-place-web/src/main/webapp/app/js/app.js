@@ -2,8 +2,15 @@
 
 var marketPlaceApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap', 'ngCart', 'ngHello']);
 
-marketPlaceApp.config(['$stateProvider', function($stateProvider){
+marketPlaceApp.config(['$stateProvider', 'helloProvider', function($stateProvider, helloProvider){
 
+	helloProvider.init({
+        twitter: 'myTwitterToken',
+        facebook: '1528185660824408'
+    },{
+    	scope : 'email'
+    });
+	
 	$stateProvider
 		.state("home", {
 			url: "/home",
