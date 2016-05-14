@@ -14,7 +14,9 @@
         <module>viagging-market-place-web</module>
         <module>viagging-admin-web</module>
 		<module>viagging-providers-web</module>
-	    <module>viagging-api-report</module></modules>
+	    <module>viagging-api-report</module>
+	    <module>viagging-api-message</module>
+    </modules>
 
 	<properties>
 		<!-- Spring -->
