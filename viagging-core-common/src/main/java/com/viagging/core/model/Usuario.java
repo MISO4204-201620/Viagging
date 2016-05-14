@@ -68,10 +68,6 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="usuario2")
 	private List<Conversacion> conversacion2;
 
-	//bi-directional many-to-one association to Mensaje
-	@OneToMany(mappedBy="usuario")
-	private List<Mensaje> mensajes;
-
 	//bi-directional many-to-one association to Paquete
 	@OneToMany(mappedBy="usuario")
 	private List<Paquete> paquetes;
@@ -281,28 +277,6 @@ public class Usuario implements Serializable {
 		conversacion2.setUsuario2(null);
 
 		return conversacion2;
-	}
-
-	public List<Mensaje> getMensajes() {
-		return this.mensajes;
-	}
-
-	public void setMensajes(List<Mensaje> mensajes) {
-		this.mensajes = mensajes;
-	}
-
-	public Mensaje addMensaje(Mensaje mensaje) {
-		getMensajes().add(mensaje);
-		mensaje.setUsuario(this);
-
-		return mensaje;
-	}
-
-	public Mensaje removeMensaje(Mensaje mensaje) {
-		getMensajes().remove(mensaje);
-		mensaje.setUsuario(null);
-
-		return mensaje;
 	}
 
 	public List<Paquete> getPaquetes() {

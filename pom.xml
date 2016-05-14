@@ -14,7 +14,9 @@
         <module>viagging-market-place-web</module>
         <module>viagging-admin-web</module>
 		<module>viagging-providers-web</module>
-	    <module>viagging-api-report</module></modules>
+	    <module>viagging-api-report</module>
+	    <module>viagging-api-message</module>
+    </modules>
 
 	<properties>
 		<!-- Spring -->
@@ -203,7 +205,7 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
 			<version>4.1</version>
-        </dependency>  
+        </dependency>
 	</dependencies>
 
 	<build>
