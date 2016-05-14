@@ -15,6 +15,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.orange.viagging.builder.utils.Utils;
+
 /**
  * Implementación de la variabilidad con maven
  * @author karenvega
@@ -28,9 +30,9 @@ public class MavenVariability {
 	 * @param path ruta de la carpeta raiz de los proyectos viagging
 	 */
 	public void modifyPom(String fileName, String path) {
-		ResourceBundle rb = ResourceBundle.getBundle(fileName);
-		String file = rb.getString(path);
-		System.out.println(rb.getString(path) + "Ruta");
+
+		String file = Utils.getAttributeConfiguration(fileName, path);
+		System.out.println(file + "Ruta");
 		try {
 			File fXmlFile = new File(file);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
