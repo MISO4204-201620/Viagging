@@ -1,7 +1,6 @@
 package com.orange.viagging.builder.impl;
 
 import java.io.File;
-import java.util.ResourceBundle;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
