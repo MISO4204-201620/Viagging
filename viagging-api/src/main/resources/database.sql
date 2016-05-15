@@ -348,3 +348,6 @@ ALTER TABLE tp_mensaje DROP COLUMN IF EXISTS idmensajepadre;
 ALTER TABLE tp_mensaje ADD idusuario INTEGER;
 
 ALTER TABLE tp_conversacion ADD UNIQUE (idusuariouno, idusuariodos);
+
+ALTER TABLE tp_usuario ADD faceboook_id VARCHAR(50) NULL;
+ALTER TABLE tp_usuario ADD twitter_id VARCHAR(50) NULL;

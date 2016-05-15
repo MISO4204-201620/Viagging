@@ -20,7 +20,9 @@
 
 	<!-- context:component-scan This tag will scan @Component, @Repository,
 		@Service, @Controller and also resolves @Autowired and @Qualifier -->
-	<context:component-scan base-package="com.viagging" />
+	<context:component-scan base-package="com.viagging.api">
+		<!-- context:exclude-filter type="regex" expression="com.viagging.api.controllers.*ComentarioCalificacionController"/ -->
+	</context:component-scan>
 
 	<mvc:annotation-driven>
 		<mvc:message-converters>
@@ -33,7 +35,7 @@
 
 	<!-- activate @Transactional JPA annotation -->
 	<tx:annotation-driven />
-	
+
 	<aop:aspectj-autoproxy />
 	<bean id="ReportAspect" class="com.viagging.api.aspects.ReportAspect"/>
 

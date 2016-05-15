@@ -1,10 +1,14 @@
-marketPlaceApp.controller('MenuCtrl', ['$scope', '$location', '$state', 'loginService',
-    function($scope, $location, $state, loginService){
-	
+marketPlaceApp.controller('MenuCtrl', ['$scope', '$location', '$state', 'loginService', 'configService',
+    function($scope, $location, $state, loginService, configService){
+
 	$scope.logoutUser = function(){
 		loginService.logoutUser();
 		$scope.isUserLoggedIn = false;
 		$state.go("home");
 	};
-	
+
+	initMenuCtrl = function(){
+		$scope.components = configService.getComponents();
+	}();
+
 }]);

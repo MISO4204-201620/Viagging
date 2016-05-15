@@ -14,11 +14,11 @@
                                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                                 <input type="password" ng-model="userLogin.password" class="form-control" placeholder="Contraseña" required>
                             </div>
-                            <div class="checkbox"></div>
+                            <br>
                             <button type="submit" class="btn btn-sm btn-primary pull-right"><i class="fa fa-long-arrow-right"></i> Login</button>
-                            <button type="button" class="btn btn-xs btn-primary btn-login-social"><i class="fa fa-facebook"></i></button>
-                            <button type="button" class="btn btn-xs btn-info btn-login-social"><i class="fa fa-twitter"></i></button>
-                            <button type="button" class="btn btn-xs btn-danger btn-login-social"><i class="fa fa-google-plus"></i></button>
+                            <button ng-if="components.facebook" type="button" class="btn btn-xs btn-primary btn-login-social" ng-click="loginFacebookUser()"><i class="fa fa-facebook"></i></button>
+                            <button ng-if="components.twitter" type="button" class="btn btn-xs btn-info btn-login-social" ng-click="loginTwitterUser()"><i class="fa fa-twitter"></i></button>
+                            <br ng-if="!components.twitter && !components.facebook">
                             <hr>
                             <a ui-sref="register" class="btn btn-success btn-sm pull-right">Registro</a>
                             <a class="btn btn-warning btn-sm">Recordar contraseña</a>
