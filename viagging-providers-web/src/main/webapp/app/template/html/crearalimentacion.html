@@ -4,7 +4,7 @@
 		<div class="page-header">
 				<h1>
 					Servicios <small> <i
-						class="ace-icon fa fa-angle-double-right"></i> Crear Alojamiento
+						class="ace-icon fa fa-angle-double-right"></i> Crear Alimentación
 					</small>
 				</h1>
 		</div>
@@ -93,6 +93,35 @@
 								class="col-xs-10 col-sm-5"
 								ng-model="alimentacion.servicio.precio" />
 						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-3 control-label no-padding-right"
+							for="form-field-1"> Capacidad </label>
+
+						<div class="col-sm-9">
+							<input type="text" id="form-field-1" placeholder="50000"
+								class="col-xs-10 col-sm-5"
+								ng-model="alimentacion.servicio.capacidad" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-3 control-label no-padding-right"
+							for="form-field-3">Desde</label>
+						<div class="col-sm-3">
+				        	<input type="text" uib-datepicker-popup ng-model="alimentacion.servicio.fechaInicial" is-open="statusInitial.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+				            <button type="button" ng-click="openInitial($event)">
+				            	<i class="glyphicon glyphicon-calendar"></i>
+				            </button>
+				        </div>
+				        <label class="col-sm-1" for="form-field-1">Hasta </label>
+				        <div class="col-sm-3">
+				             <input type="text"  uib-datepicker-popup ng-model="alimentacion.servicio.fechaFinal" is-open="statusFinal.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+				             <button type="button"  ng-click="openFinal($event)">
+				             	<i class="glyphicon glyphicon-calendar"></i>
+				             </button>
+				        </div>
 					</div>
 
 					<div class="form-group">

@@ -68,6 +68,8 @@ public class AlojamientoServiceImpl implements AlojamientoService {
 	private Alojamiento buildAlojamiento(AlojamientoDTO alojamientoDTO) {
 		Alojamiento alojamiento = new Alojamiento();
 		alojamiento.setCiudad(alojamientoDTO.getCiudad());
+		alojamiento.setNumeroPersonas(Integer.parseInt(alojamientoDTO.getNumeroPersonas()));
+		alojamiento.setTipo(alojamientoDTO.getTipo());
 		return alojamiento;
 	}
 }
