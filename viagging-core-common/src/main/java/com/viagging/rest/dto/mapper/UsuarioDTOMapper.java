@@ -13,6 +13,7 @@ public class UsuarioDTOMapper {
 	
 	public UsuarioDTO mapObject(Usuario usuario){
 		UsuarioDTO usuarioDTO = new UsuarioDTO();
+		usuarioDTO.setId(usuario.getId().toString());
 		usuarioDTO.setPrimerNombre(usuario.getPrimerNombre());
 		usuarioDTO.setSegundoNombre(usuario.getSegundoNombre());
 		usuarioDTO.setPrimerApellido(usuario.getPrimerApellido());

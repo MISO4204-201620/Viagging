@@ -329,3 +329,22 @@ INSERT INTO tr_caracteristica (id,categoria,valor) VALUES ('9','PASEOECOLOGICO',
 INSERT INTO tp_preguntasfrecuentes (id,titulo,descripcion) VALUES ('1','¿Cómo me registro en Viagging?','Registrarse es muy fácil, solo hay que ingresar al módulo Registro ubicado en la parte superior y diligenciar la información solicitada.');
 INSERT INTO tp_preguntasfrecuentes (id,titulo,descripcion) VALUES ('2','¿Cómo actualizo mis datos?','Para actualizar los datos debe ingresar por Login. Debe digitar su usuario y clave. Luego, en el menú principal encontrará su nombre con una lista desplegable, allí debe seleccionar Perfil. Haga clic y verá allí sus datos para actualizarlos.');
 INSERT INTO tp_preguntasfrecuentes (id,titulo,descripcion) VALUES ('3','¿Cómo puedo calificar los servicios que compro?','Para calificar los servicios que ha comprado, Viagging ofrece un medio que permite comunicar su experiencia con el producto. Solo debe dirigirse al producto y en la parte inferior izquierda clic en la pestaña Calificación. En este módulo puede ver las demás opiniones.');
+
+ALTER TABLE tp_servicio ADD fechaInicio DATE  NULL;
+ALTER TABLE tp_servicio ADD fechaVigencia DATE  NULL;
+ALTER TABLE tp_servicio ADD capacidad INTEGER  NULL;
+ALTER TABLE tp_servicio ADD numeroAdquiridos INTEGER  NULL;
+ALTER TABLE tr_alojamiento ADD tipo TEXT  NULL;
+ALTER TABLE tr_alojamiento ADD numeroPersonas INTEGER  NULL;
+ALTER TABLE tr_paseoecologico ADD horarioInicio TEXT  NULL;
+ALTER TABLE tr_paseoecologico ADD horarioFin TEXT NULL;
+ALTER TABLE tp_compra ADD  hora TEXT  NULL;
+ALTER TABLE tp_compra ADD  fecha DATE NULL;
+
+ALTER TABLE tp_mensaje DROP CONSTRAINT tp_mensaje_idconversacion_fkey;
+ALTER TABLE tp_mensaje ADD FOREIGN KEY (idConversacion) REFERENCES tp_conversacion(id);
+ALTER TABLE tp_mensaje DROP COLUMN IF EXISTS texto;
+ALTER TABLE tp_mensaje DROP COLUMN IF EXISTS idmensajepadre;
+ALTER TABLE tp_mensaje ADD idusuario INTEGER;
+
+ALTER TABLE tp_conversacion ADD UNIQUE (idusuariouno, idusuariodos);
