@@ -5,7 +5,7 @@ var marketPlaceApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap',
 marketPlaceApp.config(['$stateProvider', 'helloProvider', function($stateProvider, helloProvider){
 
 	helloProvider.init({
-        twitter: 'myTwitterToken',
+        twitter: 'MBctR7IG53Xp0p2vdlg4whr6L',
         facebook: '1528185660824408'
     },{
     	scope : 'email'

@@ -17,8 +17,8 @@ import java.util.List;
 		query="SELECT t FROM Usuario t WHERE t.login = :login AND t.password = :password"),
     @NamedQuery(name="Usuario.findLogin", 
 		query="SELECT t FROM Usuario t WHERE t.login = :login"),
-	@NamedQuery(name="Usuario.findByEmail",
-		query="SELECT t FROM Usuario t WHERE t.correo = :email"),
+	@NamedQuery(name="Usuario.findByEmailOrSocialNetwork",
+		query="SELECT t FROM Usuario t WHERE t.correo = :email OR t.facebookId = :facebookId OR t.twitterId = :twitterId"),
     @NamedQuery(name="Usuario.findNumberDocument", 
 			query="SELECT t FROM Usuario t WHERE t.numeroDocumento = :numeroDocumento")
 })
@@ -61,6 +61,10 @@ public class Usuario implements Serializable {
 	private String estado;
 	
 	private String zipcode;
+	
+	private String facebookId;
+	
+	private String twitterId;
 
 	//bi-directional many-to-one association to Conversacion
 	@OneToMany(mappedBy="usuario1")
@@ -439,4 +443,22 @@ public class Usuario implements Serializable {
 		return pregunta;
 	}
 
+	@Column(name="facebook_id", length=50, nullable=true)
+	public String getFacebookId() {
+		return facebookId;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
+	}
+
+	@Column(name="twitter_id", length=50, nullable=true)
+	public String getTwitterId() {
+		return twitterId;
+	}
+
+	public void setTwitterId(String twitterId) {
+		this.twitterId = twitterId;
+	}
+	
 }

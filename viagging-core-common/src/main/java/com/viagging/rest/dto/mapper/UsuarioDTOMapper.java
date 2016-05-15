@@ -19,6 +19,8 @@ public class UsuarioDTOMapper {
 		usuarioDTO.setSegundoApellido(usuario.getSegundoApellido());
 		usuarioDTO.setCorreo(usuario.getCorreo());
 		usuarioDTO.setNumeroDocumento(usuario.getNumeroDocumento());
+		usuarioDTO.setFacebookId(usuario.getFacebookId());
+		usuarioDTO.setTwitterId(usuario.getTwitterId());
 		
 		return usuarioDTO;
 	}

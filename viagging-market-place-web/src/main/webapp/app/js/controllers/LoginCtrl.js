@@ -27,8 +27,6 @@ marketPlaceApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'login
 
 	var socialRegisterErrorCallback = function(){
 		alert("Ha ocurrido un error durante el registro.");
-		$scope.user.password = "";
-		$scope.user.passwordCopy = "";
 	};
 	
 	var loginByEmailErrorCallback = function(){
@@ -47,15 +45,15 @@ marketPlaceApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'login
 		loginService.loginFacebookUser();
 	};
 	
-	$rootScope.$on("USER_LOGGED_IN_BY_SOCIAL_NETWORK", function(event, userData){
+	$scope.$on("USER_LOGGED_IN_BY_SOCIAL_NETWORK", function(event, userData){
 		successCallback(userData);
 	});
 	
-	$rootScope.$on("USER_REGISTERED_IN_BY_SOCIAL_NETWORK", function(event, userData){
+	$scope.$on("USER_REGISTERED_IN_BY_SOCIAL_NETWORK", function(event, userData){
 		socialRegisterSuccessCallback(userData);
 	});
 	
-	$rootScope.$on("ERROR_REGISTERING_SOCIAL_NETWORK_USER", function(){
+	$scope.$on("ERROR_REGISTERING_SOCIAL_NETWORK_USER", function(){
 		socialRegisterErrorCallback();
 	});
 

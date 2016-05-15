@@ -7,7 +7,6 @@ import java.util.Date;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.QueryParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +15,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viagging.core.constant.Profile;
@@ -93,7 +93,8 @@ public class LoginController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<UsuarioDTO> register(@RequestBody final UsuarioDTO usuarioDTO, HttpServletResponse response){
 		
-		Usuario usuario = usuarioService.getUsuarioByEmail(usuarioDTO.getCorreo());
+		Usuario usuario = usuarioService.findUsuarioByEmailOrSocialNetwork(
+				usuarioDTO.getCorreo(), usuarioDTO.getFacebookId(), usuarioDTO.getTwitterId());
 		if(usuario == null){
 			//Usuario nuevo
 			try {
@@ -127,8 +128,12 @@ public class LoginController {
 	 * @return the usuario by email
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<UsuarioDTO> getUsuarioByEmail(@QueryParam("email") String email, HttpServletResponse response){
-		Usuario usuario = usuarioService.getUsuarioByEmail(email);
+	public ResponseEntity<UsuarioDTO> getUsuarioByEmailOrSocialNetwork(@RequestParam(value = "email", required = false) String email, 
+			@RequestParam(value = "facebookId", required = false) String facebookId, 
+			@RequestParam(value = "twitterId", required = false) String twitterId, 
+			HttpServletResponse response){
+		Usuario usuario = usuarioService.findUsuarioByEmailOrSocialNetwork(
+				email, facebookId, twitterId);
 		
 		if(usuario == null){
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

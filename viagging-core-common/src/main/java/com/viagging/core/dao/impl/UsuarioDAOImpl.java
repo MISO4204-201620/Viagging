@@ -86,10 +86,12 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	}
 	
 	@Override
-	public Usuario findUsuarioByEmail(String email) {
+	public Usuario findUsuarioByEmailOrSocialNetwork(String email, String facebookId, String twitterId) {
 		try {
-			Query query = entityManager.createNamedQuery("Usuario.findByEmail");
+			Query query = entityManager.createNamedQuery("Usuario.findByEmailOrSocialNetwork");
 			query.setParameter("email", email);
+			query.setParameter("facebookId", facebookId);
+			query.setParameter("twitterId", twitterId);
 			return (Usuario) query.getSingleResult();
 		} catch(NoResultException e){
 			return null;

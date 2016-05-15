@@ -11,7 +11,7 @@ public interface UsuarioService {
 	
 	Usuario getUsuarioById(Integer idUsuario);
 	
-	Usuario getUsuarioByEmail(String email);
+	Usuario findUsuarioByEmailOrSocialNetwork(String email, String facebookId, String twitterId);
 
 	Usuario createUsuario(Usuario usuario,String idPerfil)throws Exception;
 

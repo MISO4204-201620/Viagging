@@ -17,7 +17,7 @@ public interface UsuarioDAO {
 	
 	Usuario findUsuarioByNumber(String numeroDocumento);
 	
-	Usuario findUsuarioByEmail(String email);
+	Usuario findUsuarioByEmailOrSocialNetwork(String email, String facebookId, String twitterId);
 	
 	void deleteUser(Integer idUser);
 	

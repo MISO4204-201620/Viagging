@@ -3,18 +3,33 @@ marketPlaceApp.service('loginService', ['$http', '$rootScope', 'userService', 'h
 
 	'use strict';
 
+	var setSocialNetworkId = function(user, network, response){
+		if(network === "facebook"){
+			user.facebookId = response.id;
+		} else if (network === "twitter"){
+			user.twitterId = response.id_str;
+		}
+	};
+	
 	hello.on("auth.login", function(r){
 		console.log(r.authResponse);
+		
+		if(userService.getUserData()){
+			return;
+		}
 		
 		hello(r.network).api('/me').then(function(p) {
 			var user = {
 				primerNombre: p.first_name,
 				primerApellido: p.last_name,
-				correo: p.email
+				correo: p.email,
+				facebookId: null,
+				twitterId: null
 			};
-			
-			loginService.loginUserByEmail(user);
+			setSocialNetworkId(user, r.network, p);
+			loginService.loginUserByEmailOrSocialNetwork(user);
 		});
+		
 	});
 	
 	var loginService = {
@@ -37,11 +52,19 @@ marketPlaceApp.service('loginService', ['$http', '$rootScope', 'userService', 'h
 	        }).error(errorCallback);
 		},
 		
-		loginUserByEmail : function(user){
+		loginUserByEmailOrSocialNetwork : function(user){
+			
+			var params = {
+				email: user.correo,
+				facebookId : user.facebookId,
+				twitterId : user.twitterId
+			};
+			
 			return $http({
-	            url: "/viagging-market-place-web/user?email=" + user.correo,
+	            url: "/viagging-market-place-web/user",
 	            method: "GET",
-	            cache: false
+	            cache: false,
+	            params: params
 	        }).success(function(response){
 	        	if(angular.isObject(response)){
 	        		userService.setUserData(response);
@@ -79,7 +102,7 @@ marketPlaceApp.service('loginService', ['$http', '$rootScope', 'userService', 'h
 	        	}
 
 	        }).error(function(){
-	        	$rootScope.broadcast("ERROR_REGISTERING_SOCIAL_NETWORK_USER");
+	        	$rootScope.$broadcast("ERROR_REGISTERING_SOCIAL_NETWORK_USER");
 	        });
 		},
 		

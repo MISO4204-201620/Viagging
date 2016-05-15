@@ -117,8 +117,8 @@ public class UsuarioServiceImpl implements  UsuarioService  {
 	}
 
 	@Override
-	public Usuario getUsuarioByEmail(String email) {
-		return usuarioDAO.findUsuarioByEmail(email);
+	public Usuario findUsuarioByEmailOrSocialNetwork(String email, String facebookId, String twitterId) {
+		return usuarioDAO.findUsuarioByEmailOrSocialNetwork(email, facebookId, twitterId);
 	}
 	
 }
