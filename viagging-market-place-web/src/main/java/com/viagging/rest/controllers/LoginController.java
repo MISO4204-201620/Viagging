@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viagging.core.constant.Profile;
@@ -31,26 +33,30 @@ import com.viagging.util.CookieUtil;
  * The Class LoginController.
  */
 @RestController
+@RequestMapping("/user")
 public class LoginController {
 
-	/** The usuario service. */
-	@Autowired
-	private UsuarioService usuarioService;
-
-	@Autowired
-	private CuentaAccesoService cuentaAccesoService;
-
+	/** The Constant SECRET_KEY. */
+	private static final String SECRET_KEY = "secretKey";
+	
 	/** The Constant AUTHORIZATION_TOKEN_COOKIE. */
 	private static final String AUTHORIZATION_TOKEN_COOKIE = "Authorization";
+	
+	/** The usuario service. */
+	@Autowired
+	protected UsuarioService usuarioService;
+
+	@Autowired
+	protected CuentaAccesoService cuentaAccesoService;
 
 	/** The usuario mapper. */
 	@Autowired
-	private UsuarioMapper usuarioMapper;
+	protected UsuarioMapper usuarioMapper;
 
 	/** The usuario dto mapper. */
 	@Autowired
-	private UsuarioDTOMapper usuarioDTOMapper;
-
+	protected UsuarioDTOMapper usuarioDTOMapper;
+	
 	/**
 	 * Login.
 	 *
@@ -86,19 +92,62 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<UsuarioDTO> register(@RequestBody final UsuarioDTO usuarioDTO, HttpServletResponse response){
-		Usuario usuarioNuevo;
-		try {
-			usuarioNuevo = usuarioService.createUsuario(usuarioMapper.mapObject(usuarioDTO), Profile.USUARIO.getId());
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		
+		Usuario usuario = usuarioService.findUsuarioByEmailOrSocialNetwork(
+				usuarioDTO.getCorreo(), usuarioDTO.getFacebookId(), usuarioDTO.getTwitterId());
+		if(usuario == null){
+			//Usuario nuevo
+			try {
+				usuario = usuarioService.createUsuario(usuarioMapper.mapObject(usuarioDTO), Profile.USUARIO.getId());
+			} catch (Exception e) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		} else {
+			if(StringUtils.isEmpty(usuario.getPassword()) && StringUtils.isEmpty(usuario.getLogin()) &&
+				!StringUtils.isEmpty(usuarioDTO.getPassword()) && !StringUtils.isEmpty(usuarioDTO.getLogin())){
+				//Usuario registrado por red social
+				usuario.setLogin(usuarioDTO.getLogin());
+				usuario.setPassword(usuarioDTO.getPassword());
+				usuarioService.updateUsuario(usuarioMapper.mapObject(usuarioDTO));
+			} else {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
 		}
-
-		if(usuarioNuevo != null){
-			addAuthorizationCookie(response, usuarioNuevo);
-		}
-
-		UsuarioDTO usuarioDTONuevo = usuarioDTOMapper.mapObject(usuarioNuevo);
+			
+		addAuthorizationCookie(response, usuario);
+		UsuarioDTO usuarioDTONuevo = usuarioDTOMapper.mapObject(usuario);
+		
 		return new ResponseEntity<>(usuarioDTONuevo, HttpStatus.OK);
+	}
+	
+	/**
+	 * Gets the usuario by email.
+	 *
+	 * @param email the email
+	 * @param response the response
+	 * @return the usuario by email
+	 */
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<UsuarioDTO> getUsuarioByEmailOrSocialNetwork(@RequestParam(value = "email", required = false) String email, 
+			@RequestParam(value = "facebookId", required = false) String facebookId, 
+			@RequestParam(value = "twitterId", required = false) String twitterId, 
+			HttpServletResponse response){
+		Usuario usuario = usuarioService.findUsuarioByEmailOrSocialNetwork(
+				email, facebookId, twitterId);
+		
+		if(usuario == null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		CuentaAcceso cuentaAcceso = cuentaAccesoService.findCuentaAccesoByUsuarioAndProfile(usuario.getId(), Profile.USUARIO.getId());
+		if(cuentaAcceso == null){
+			return new ResponseEntity<UsuarioDTO>(HttpStatus.BAD_REQUEST);
+		}
+
+		UsuarioDTO usuarioDTO = UsuarioDTO.buildObject(usuario);
+		addAuthorizationCookie(response, usuario);
+
+		return new ResponseEntity<UsuarioDTO>(usuarioDTO, HttpStatus.OK);
 	}
 
 	/**
@@ -107,15 +156,15 @@ public class LoginController {
 	 * @param response the response
 	 * @param usuario the usuario
 	 */
-	private void addAuthorizationCookie(HttpServletResponse response, Usuario usuario){
+	protected void addAuthorizationCookie(HttpServletResponse response, Usuario usuario){
 		String token = Jwts.builder().setSubject(usuario.getLogin())
 				.claim("usuarioId", usuario.getId())
+				.claim("app", "marketplace")
 				.setIssuedAt(new Date())
-				.signWith(SignatureAlgorithm.HS256, "secretKey")
+				.signWith(SignatureAlgorithm.HS256, SECRET_KEY)
 				.compact();
 
 		Cookie authCookie = CookieUtil.createCookie(AUTHORIZATION_TOKEN_COOKIE, token);
 		response.addCookie(authCookie);
 	}
-
 }

@@ -31,5 +31,22 @@ public class ReportAspect {
 			movimientoService.createMovimientos(null, products, null, ReportType.QUERY.toString());
 		}
 	}
+    
+    @AfterReturning(pointcut = "execution(* com.viagging.api.services.ProductsService.findProducts(..))",
+    		returning= "result")
+	public void afterSearch(JoinPoint joinPoint, Object result) {
+		@SuppressWarnings("unchecked")
+		List<Producto> products =  (List<Producto>) result;
+		List<String> packages =  new ArrayList<>();
+		List<String> services =  new ArrayList<>();
+		for (Producto producto : products) {
+			if (producto.getTipoProducto() == ProductType.SERVICIO) {
+				services.add(producto.getId().substring(1));
+			} else{
+				packages.add(producto.getId().substring(1));
+			}
+		}
+		movimientoService.createMovimientos(services, packages, null, ReportType.SEARCH.toString());
+	}
 
 }

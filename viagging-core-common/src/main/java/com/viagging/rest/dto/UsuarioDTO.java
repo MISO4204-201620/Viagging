@@ -49,6 +49,10 @@ public class UsuarioDTO {
 	private String estado;
 	
 	private String zipcode;
+	
+	private String facebookId;
+	
+	private String twitterId;
 
     private PerfilDTO perfil;
 
@@ -205,6 +209,22 @@ public class UsuarioDTO {
 
 	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
+	}
+
+	public String getFacebookId() {
+		return facebookId;
+	}
+
+	public void setFacebookId(String facebookId) {
+		this.facebookId = facebookId;
+	}
+
+	public String getTwitterId() {
+		return twitterId;
+	}
+
+	public void setTwitterId(String twitterId) {
+		this.twitterId = twitterId;
 	}
 
 	/**

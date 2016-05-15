@@ -1,4 +1,7 @@
-marketPlaceApp.controller('ProfileCtrl', ['$scope', function($scope){
+marketPlaceApp.controller('MessagesCtrl', ['$scope', 'conversations', function($scope, conversations){
 
-
+	initMessagesCtrl = function(){
+		$scope.conversations = conversations;
+	}();
+	
 }]);

@@ -1,7 +1,7 @@
 marketPlaceApp.controller('CheckoutCtrl', ['$scope', 'ngCart', 'userService', '$state', 'paymentsService',
     function($scope, ngCart, userService, $state, paymentsService){
 	
-	
+	'use strict';
 	
 	$scope.showGeneralData = function(){
 		$scope.isGeneralDataVisible = true;
@@ -49,6 +49,9 @@ marketPlaceApp.controller('CheckoutCtrl', ['$scope', 'ngCart', 'userService', '$
 		
 		if($scope.userData == null){
 			$state.go("login");
+		} else if($scope.userData.direccion1 == null){
+			alert("Debes completar tus datos de facturación para proceder con el pago");
+			$state.go("profile");
 		}
 	}();
 	
