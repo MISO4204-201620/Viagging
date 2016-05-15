@@ -48,8 +48,13 @@ marketPlaceApp.service('messagesService', ['$http', '$q', 'userService', 'messag
 	        }).success(successCallback).error(errorCallback);
 		},
 		
-		createConversation : function(){
-			
+		createConversation : function(conversacion, successCallback, errorCallback){
+			return $http({
+	            url: "/viagging-api-message/conversations/",
+	            method: "POST",
+	            cache: false,
+	            data: conversacion
+	        }).success(successCallback).error(errorCallback);
 		}
 	};
 	

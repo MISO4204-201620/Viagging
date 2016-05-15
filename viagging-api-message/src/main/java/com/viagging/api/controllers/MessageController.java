@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.viagging.core.model.Conversacion;
 import com.viagging.core.model.Mensaje;
 import com.viagging.core.model.mapper.ConversacionMapper;
 import com.viagging.core.model.mapper.MensajeMapper;
@@ -56,8 +57,22 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value = "/conversations", method = RequestMethod.POST)
-	public void addConversacion(@RequestBody ConversacionDTO conversacionDTO){
-		conversacionService.createConversacion(conversacionMapper.mapObject(conversacionDTO));
+	public ResponseEntity<ConversacionDTO> addConversacion(@RequestBody ConversacionDTO conversacionDTO){
+		Conversacion existingConversacion = conversacionService
+				.getConversacionByUsuarios(Integer.parseInt(conversacionDTO.getUsuario1().getId()), Integer.parseInt(conversacionDTO.getUsuario2().getId()));
+		
+		if(existingConversacion != null){
+			ConversacionDTO existingConversacionDTO = conversacionDTOMapper.mapObject(existingConversacion);
+			return new ResponseEntity<ConversacionDTO>(existingConversacionDTO, HttpStatus.OK);
+		}
+		
+		Conversacion newConversacion = conversacionService.createConversacion(conversacionMapper.mapObject(conversacionDTO));
+		if(newConversacion == null){
+			return new ResponseEntity<ConversacionDTO>(HttpStatus.BAD_REQUEST);
+		}
+		
+		ConversacionDTO newConversacionDTO = conversacionDTOMapper.mapObject(newConversacion);
+		return new ResponseEntity<ConversacionDTO>(newConversacionDTO, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/conversations/{idConversacion}", method = RequestMethod.GET)
