@@ -1,5 +1,6 @@
 package com.viagging.core.services.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class PreguntaServiceImpl implements PreguntaService{
 
 	@Override
 	public List<PreguntaDTO> findAllPreguntas() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		List<Pregunta> preguntas = preguntaDAO.findAllPreguntas();
 		List<PreguntaDTO> newPreguntas = new ArrayList<>();
 		for (Pregunta pregunta : preguntas) {
@@ -62,7 +64,7 @@ public class PreguntaServiceImpl implements PreguntaService{
 				preguntaDTO.setPaquete(paquete);
 			}
 			if (pregunta.getServicio() != null) {
-				ServicioDTO servicio = new ServicioDTO(pregunta.getServicio().getId(), pregunta.getServicio().getActivo(), pregunta.getServicio().getNombre(), pregunta.getServicio().getDescripcion(), String.valueOf(pregunta.getServicio().getPrecio()), pregunta.getServicio().getRestricciones());
+				ServicioDTO servicio = new ServicioDTO(pregunta.getServicio().getId(), pregunta.getServicio().getActivo(), pregunta.getServicio().getNombre(), pregunta.getServicio().getDescripcion(), String.valueOf(pregunta.getServicio().getPrecio()), pregunta.getServicio().getRestricciones(), sdf.format(pregunta.getServicio().getFechaInicio()), sdf.format(pregunta.getServicio().getFechaVigencia()), String.valueOf(pregunta.getServicio().getCapacidad()));
 				preguntaDTO.setServicio(servicio);
 			}
 			newPreguntas.add(preguntaDTO);

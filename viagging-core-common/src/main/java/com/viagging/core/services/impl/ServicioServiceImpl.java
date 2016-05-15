@@ -1,5 +1,7 @@
 package com.viagging.core.services.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.viagging.core.constant.EstadoItem;
 import com.viagging.core.dao.ServicioDAO;
 import com.viagging.core.dao.UsuarioDAO;
 import com.viagging.core.model.Servicio;
@@ -73,10 +76,23 @@ public class ServicioServiceImpl implements ServicioService {
 	
 	@Override
 	public Servicio buildServicio(ServicioDTO servicioDTO) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Servicio servicio = new Servicio();
 		servicio.setRestricciones(servicioDTO.getRestricciones());
 		servicio.setActivo(servicioDTO.getActivo());
 		servicio.setPrecio(Integer.parseInt(servicioDTO.getPrecio()));
+		if (servicioDTO.getActivo()) {
+			servicio.setEstado(EstadoItem.ACTIVO.getId());
+		} else {
+			servicio.setEstado(EstadoItem.INACTIVO.getId());
+		}
+		try {
+			servicio.setFechaInicio(sdf.parse(servicioDTO.getFechaInicial()));
+			servicio.setFechaVigencia(sdf.parse(servicioDTO.getFechaFinal()));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		servicio.setCapacidad(Integer.parseInt(servicioDTO.getCapacidad()));
 		Usuario usuario = usuarioDAO.getUsuarioById(Integer.parseInt(servicioDTO.getUsuario().getId()));
 		servicio.setUsuario(usuario);
 		servicio.setDescripcion(servicioDTO.getDescripcionCorta());

@@ -1,5 +1,6 @@
 package com.viagging.rest.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,12 +48,18 @@ public class ServicioDTO {
 	private TransporteDTO transporte;
 	
 	private UsuarioDTO usuario;
+	
+	private String fechaInicial;
+	
+	private String fechaFinal;
+	
+	private String capacidad;
 
 	public ServicioDTO() {
 	}
 
 	public ServicioDTO(Integer id, Boolean activo, String nombre,
-			String descripcionCorta, String precio, String restricciones) {
+			String descripcionCorta, String precio, String restricciones, String fechaInicial, String fechaFinal, String capacidad) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -60,6 +67,8 @@ public class ServicioDTO {
 		this.precio = precio;
 		this.restricciones = restricciones;
 		this.activo = activo;
+		this.fechaInicial = fechaInicial;
+		this.fechaFinal = fechaFinal;
 	}
 
 	public String getRestricciones() {
@@ -201,8 +210,10 @@ public class ServicioDTO {
 
 	public static List<ServicioDTO> buildListObject(List<Servicio> listServicio) {
 		List<ServicioDTO> listServicioDTO = new ArrayList<>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		for (Servicio servicio : listServicio) {
-			ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), true,servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones());
+			ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), true,servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones(),
+					sdf.format(servicio.getFechaInicio()), sdf.format(servicio.getFechaVigencia()), String.valueOf(servicio.getCapacidad()));
 			servicioDTO =  ServicioDTO.setearDatosAdicionales(servicioDTO, servicio);
 			if(servicio.getEstado() != null){
 			      servicioDTO.setActivo(servicio.getEstado().equals(EstadoItem.ACTIVO.getId()) ? true : false );
@@ -237,7 +248,9 @@ public class ServicioDTO {
 	} 
 	
 	public static ServicioDTO buildObject(Servicio servicio) {
-		ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(),servicio.getActivo(),  servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(),servicio.getActivo(),  servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones(),
+				sdf.format(servicio.getFechaInicio()), sdf.format(servicio.getFechaVigencia()), String.valueOf(servicio.getCapacidad()));
 		servicioDTO.setCiudadFromCategoria(servicio);
 		servicioDTO.setActivo(servicio.getEstado().equals(EstadoItem.ACTIVO.getId()) ? true : false );
 		if(servicio.getImagenprincipal() != null){
@@ -296,6 +309,30 @@ public class ServicioDTO {
 
 	public void setUsuario(UsuarioDTO usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getCapacidad() {
+		return capacidad;
+	}
+
+	public void setCapacidad(String capacidad) {
+		this.capacidad = capacidad;
+	}
+
+	public String getFechaInicial() {
+		return fechaInicial;
+	}
+
+	public void setFechaInicial(String fechaInicial) {
+		this.fechaInicial = fechaInicial;
+	}
+
+	public String getFechaFinal() {
+		return fechaFinal;
+	}
+
+	public void setFechaFinal(String fechaFinal) {
+		this.fechaFinal = fechaFinal;
 	}
 
 }
