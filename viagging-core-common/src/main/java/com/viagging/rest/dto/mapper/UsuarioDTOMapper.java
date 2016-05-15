@@ -13,12 +13,15 @@ public class UsuarioDTOMapper {
 	
 	public UsuarioDTO mapObject(Usuario usuario){
 		UsuarioDTO usuarioDTO = new UsuarioDTO();
+		usuarioDTO.setId(usuario.getId().toString());
 		usuarioDTO.setPrimerNombre(usuario.getPrimerNombre());
 		usuarioDTO.setSegundoNombre(usuario.getSegundoNombre());
 		usuarioDTO.setPrimerApellido(usuario.getPrimerApellido());
 		usuarioDTO.setSegundoApellido(usuario.getSegundoApellido());
 		usuarioDTO.setCorreo(usuario.getCorreo());
 		usuarioDTO.setNumeroDocumento(usuario.getNumeroDocumento());
+		usuarioDTO.setFacebookId(usuario.getFacebookId());
+		usuarioDTO.setTwitterId(usuario.getTwitterId());
 		
 		return usuarioDTO;
 	}

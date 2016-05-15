@@ -1,14 +1,24 @@
 'use strict';
 
-var marketPlaceApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap', 'ngCart']);
+var marketPlaceApp = angular.module('viaggingApp', ['ui.router', 'ui.bootstrap', 'ngCart', 'ngHello']);
 
-marketPlaceApp.config(['$stateProvider', function($stateProvider){
+marketPlaceApp.config(['$stateProvider', 'helloProvider', function($stateProvider, helloProvider){
 
+	helloProvider.init({
+        twitter: 'MBctR7IG53Xp0p2vdlg4whr6L',
+        facebook: '1528185660824408'
+    },{
+    	scope : 'email'
+    });
+	
 	$stateProvider
 		.state("home", {
 			url: "/home",
 			templateUrl: 'views/catalogue.html',
 			resolve: {
+				config : ['configService', function(configService){
+					return configService.initMarketPlaceConfig();
+				}],
 				products : ['productsService', function(productsService){
 					return productsService.getAllProducts();
 				}]
@@ -34,6 +44,9 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 			url: "/detail/:productId",
 			templateUrl: 'views/detail.html',
 			resolve: {
+				config : ['configService', function(configService){
+					return configService.initMarketPlaceConfig();
+				}],
 				product : ['productsService', '$stateParams', function(productsService, $stateParams){
 					return productsService.getProductById($stateParams.productId);
 				}]
@@ -43,11 +56,21 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 		.state("login", {
 			url: "/login",
 			templateUrl: '../app/views/login.html',
+			resolve: {
+				config : ['configService', function(configService){
+					return configService.initMarketPlaceConfig();
+				}]
+			},
 			controller: 'LoginCtrl'
 		})
 		.state("register", {
 			url: "/register",
 			templateUrl: '../app/views/register.html',
+			resolve: {
+				config : ['configService', function(configService){
+					return configService.initMarketPlaceConfig();
+				}]
+			},
 			controller: 'RegisterCtrl'
 		})
 		.state("cart", {

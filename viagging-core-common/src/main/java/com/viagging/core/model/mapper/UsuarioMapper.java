@@ -22,6 +22,8 @@ public class UsuarioMapper {
 		usuario.setPrimerApellido(usuarioDTO.getPrimerApellido());
 		usuario.setLogin(usuarioDTO.getLogin());
 		usuario.setPassword(usuarioDTO.getPassword());
+		usuario.setFacebookId(usuarioDTO.getFacebookId());
+		usuario.setTwitterId(usuarioDTO.getTwitterId());
 		return usuario;
 	}
 	

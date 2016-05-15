@@ -1,9 +1,18 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -23,21 +32,17 @@ public class Mensaje implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 
-	private String texto;
-
-	//bi-directional many-to-one association to Mensaje
+	private String mensaje;
+	
+	//bi-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="idmensajepadre")
-	private Mensaje mensaje;
-
-	//bi-directional many-to-one association to Mensaje
-	@OneToMany(mappedBy="mensaje")
-	private List<Mensaje> mensajes;
+	@JoinColumn(name="idusuario")
+	private Usuario usuario;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
 	@JoinColumn(name="idconversacion")
-	private Usuario usuario;
+	private Conversacion conversacion;
 
 	public Mensaje() {
 	}
@@ -58,50 +63,28 @@ public class Mensaje implements Serializable {
 		this.fecha = fecha;
 	}
 
-	public String getTexto() {
-		return this.texto;
+	public String getMensaje() {
+		return mensaje;
 	}
 
-	public void setTexto(String texto) {
-		this.texto = texto;
-	}
-
-	public Mensaje getMensaje() {
-		return this.mensaje;
-	}
-
-	public void setMensaje(Mensaje mensaje) {
+	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
 
-	public List<Mensaje> getMensajes() {
-		return this.mensajes;
+	public Conversacion getConversacion() {
+		return conversacion;
 	}
 
-	public void setMensajes(List<Mensaje> mensajes) {
-		this.mensajes = mensajes;
-	}
-
-	public Mensaje addMensaje(Mensaje mensaje) {
-		getMensajes().add(mensaje);
-		mensaje.setMensaje(this);
-
-		return mensaje;
-	}
-
-	public Mensaje removeMensaje(Mensaje mensaje) {
-		getMensajes().remove(mensaje);
-		mensaje.setMensaje(null);
-
-		return mensaje;
+	public void setConversacion(Conversacion conversacion) {
+		this.conversacion = conversacion;
 	}
 
 	public Usuario getUsuario() {
-		return this.usuario;
+		return usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
+	
 }
