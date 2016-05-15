@@ -77,7 +77,23 @@ marketPlaceApp.config(['$stateProvider', function($stateProvider){
 		.state("messages", {
 			url: "/user/messages",
 			templateUrl: '../app/views/messages.html',
+			resolve: {
+				conversations : ['messagesService', function(messagesService){
+					return messagesService.getConversationsByUserId();
+				}]
+			},
 			controller: 'MessagesCtrl'
+		})
+		.state("message-detail", {
+			url: "/user/messages/:conversationId",
+			templateUrl: '../app/views/message-detail.html',
+			resolve: {
+				conversation : ['messagesService', '$stateParams', function(messagesService, $stateParams){
+					return messagesService.getConversationById($stateParams.conversationId);
+				}]
+			},
+			controller: 'MessageDetailCtrl'
+			
 		})
 		.state("purchases", {
 			url: "/user/purchases",
