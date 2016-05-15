@@ -1,4 +1,5 @@
-marketPlaceApp.service('messagesService', ['$http', '$q', 'userService', function($http, $q, userService){
+marketPlaceApp.service('messagesService', ['$http', '$q', 'userService', 'messageHelper', 
+    function($http, $q, userService, messageHelper){
 	
 	var userData = userService.getUserData();
 	
@@ -11,7 +12,8 @@ marketPlaceApp.service('messagesService', ['$http', '$q', 'userService', functio
 	            cache: false
 	        }).then(function successCallback(response) {
 	        	if(angular.isArray(response.data)){
-	        		return $q.resolve(response.data);
+	        		var conversations = messageHelper.buildConversationListFromResponse(response.data);
+	        		return $q.resolve(conversations);
 	        	} else {
 	        		return $q.reject(response.data);
 	        	}
@@ -27,7 +29,8 @@ marketPlaceApp.service('messagesService', ['$http', '$q', 'userService', functio
 	            cache: false
 	        }).then(function successCallback(response) {
 	        	if(angular.isObject(response.data)){
-	        		return $q.resolve(response.data);
+	        		var conversation = messageHelper.buildConversationFromResponse(response.data);
+	        		return $q.resolve(conversation);
 	        	} else {
 	        		return $q.reject(response.data);
 	        	}

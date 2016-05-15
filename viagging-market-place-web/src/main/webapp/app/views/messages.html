@@ -13,9 +13,9 @@
 				<div class="message-item" ng-repeat="conversation in conversations">
 					<a ui-sref="message-detail({conversationId: conversation.id})">
 						<span style="float: left;"><i class="fa fa-envelope" style="color: #16BB2A;"></i></span>
-						<span class="sender">{{conversation.usuario1.primerNombre + " " + conversation.usuario1.primerApellido}}</span>
-						<span class="summary">Mensaje al proveedor de este servicio</span>
-						<span class="time">11/03/2015</span>				
+						<span class="sender">{{conversation.userNameWith}}</span>
+						<span class="summary">{{conversation.lastMessage}}</span>
+						<span class="time">{{conversation.lastMessageDate}}</span>
 					</a>
 				</div>
 			</div>

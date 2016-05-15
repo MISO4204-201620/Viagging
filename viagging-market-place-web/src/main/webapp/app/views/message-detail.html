@@ -5,17 +5,18 @@
 <div class="container main-container">
 	<div class="row">
 		<div class="col-lg-12 col-sm-12">
-			<span class="title">Conversacion con:</span>
+			<span class="title">Conversación con {{conversation.userNameWith}}</span>
 		</div>
 
-		<div class="col-xs-12 product-detail-tab" ng-repeat="message in conversation.mensajes">
+		<div class="col-xs-12 product-detail-tab" ng-repeat="message in conversation.messages">
 			<div class="media">
 				<a class="pull-left" href="#">
 					<img class="media-object thumbnail" src="../app/images/user.png" style="width: 60px; height: 60px;">
 				</a>
 				<div class="media-body">
-					<h5 class="media-heading"><strong>Carlos Fernando Ruiz</strong></h5>
-					{{message.mensaje}}
+					<h5 class="media-heading"><strong>{{message.userName}}</strong></h5>
+					<div><i class="fa fa-clock-o"></i> {{message.date}}</div>
+					<div>{{message.message}}</div>
 				</div>
 			</div>
 		</div>

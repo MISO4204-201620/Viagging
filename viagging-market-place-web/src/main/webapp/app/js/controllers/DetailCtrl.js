@@ -47,6 +47,10 @@ marketPlaceApp.controller('DetailCtrl', ['$scope', 'product','ngCart', 'wishList
 
     	wishListService.addWishToList(listaDeseo);
     };
+    
+    $scope.sendMessage = function(proveedorId){
+    	//alert(proveedorId);
+    };
 
     var initDetailCtrl = function(){
     	$scope.components = configService.getComponents();

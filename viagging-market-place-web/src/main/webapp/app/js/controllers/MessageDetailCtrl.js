@@ -4,10 +4,14 @@ marketPlaceApp.controller('MessageDetailCtrl', ['$scope', 'conversation', 'messa
 	$scope.sendMessage = function(){
 		$scope.message.idUsuario = userService.getUserData().id;
 		messagesService.sendMessageToConversation($scope.message, $scope.conversation.id,
-			function(){
+			function(newMessage){
 				alert("Tu mensaje ha sido enviado con éxito!");
-				
-				$scope.conversation.mensajes.push(angular.copy($scope.message));
+				var message = {
+					userName: userService.getUserData().primerNombre + " " + userService.getUserData().primerApellido,
+					message: angular.copy(newMessage.mensaje),
+					date: newMessage.date
+				};
+				$scope.conversation.messages.push(message);
 				$scope.message.mensaje = "";
 			},
 			function(){
