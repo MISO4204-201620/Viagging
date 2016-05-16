@@ -71,7 +71,7 @@ marketPlaceApp.controller('DetailCtrl', ['$scope', '$state', 'product','ngCart',
     };
 
     var initDetailCtrl = function(){
-    	$scope.components = configService.getComponents();
+    	$scope.variability = configService.getVariability();
     	$scope.ngCart = ngCart;
     	$scope.product = product;
     	$scope.comentarioCalificacion = {};

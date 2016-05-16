@@ -7,7 +7,7 @@ marketPlaceApp.service('configService', ['$http', '$q', 'storageService', functi
 	var initApplicationConfig = function(config){
 		applicationConfig.categories = config.categories;
 		applicationConfig.prices = config.prices;
-		applicationConfig.components = config.components;
+		applicationConfig.variability = config.variabilidad;
 	};
 
 	var configService = {
@@ -47,8 +47,8 @@ marketPlaceApp.service('configService', ['$http', '$q', 'storageService', functi
 			return applicationConfig.prices;
 		},
 
-		getComponents : function(){
-			return applicationConfig.components;
+		getVariability : function(){
+			return applicationConfig.variability;
 		}
 	};
 

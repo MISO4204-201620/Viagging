@@ -8,7 +8,7 @@ marketPlaceApp.controller('MenuCtrl', ['$scope', '$location', '$state', 'loginSe
 	};
 
 	initMenuCtrl = function(){
-		$scope.components = configService.getComponents();
+		$scope.variability = configService.getVariability();
 	}();
 
 }]);

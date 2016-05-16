@@ -3,19 +3,23 @@ package com.viagging.rest.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viagging.core.constant.PriceRange;
+import com.viagging.core.services.VariabilidadService;
 import com.viagging.rest.dto.NombreValorDTO;
-import com.viagging.rest.model.Components;
 import com.viagging.rest.model.MarketPlaceConfig;
 import com.viagging.util.CategoryEnum;
 
 @RestController
 public class MarketPlaceController {
 
+	@Autowired
+	private VariabilidadService variabilidadService; 
+	
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
 	public MarketPlaceConfig getMarketPlaceConfig(){
 		return initMarketPlaceConfig();
@@ -25,7 +29,7 @@ public class MarketPlaceController {
 		MarketPlaceConfig marketPlaceConfig = new MarketPlaceConfig();
 		marketPlaceConfig.setCategories(buildCategories());
 		marketPlaceConfig.setPrices(PriceRange.getKeyValues());
-		marketPlaceConfig.setComponents(getEnabledComponents());
+		marketPlaceConfig.setVariabilidad(variabilidadService.getVariabilidad());
 		return marketPlaceConfig;
 	}
 
@@ -38,15 +42,6 @@ public class MarketPlaceController {
 			nombreValorDTO.add(nombre);
 		}
 		return nombreValorDTO;
-	}
-
-	private Components getEnabledComponents(){
-		Components components = new Components();
-		components.setTwitter(true);
-		components.setFacebook(true);
-		components.setComments(true);
-		components.setMessages(true);
-		return components;
 	}
 
 }
