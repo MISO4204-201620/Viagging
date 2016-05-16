@@ -58,4 +58,17 @@ public class ConversacionDAOImpl implements ConversacionDAO{
 			return null;
 		}
 	}
+
+	@Override
+	public Conversacion getConversacionByUsuarios(Integer idUsuario1, Integer idUsuario2) {
+
+		try {
+			Query query = entityManager.createNamedQuery("Conversacion.findByUsuarios");
+			query.setParameter("idusuario1", idUsuario1);
+			query.setParameter("idusuario2", idUsuario2);
+			return (Conversacion) query.getSingleResult();
+		} catch(NoResultException e){
+			return null;
+		}
+	}
 }

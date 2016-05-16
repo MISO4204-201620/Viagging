@@ -16,4 +16,6 @@ public interface ConversacionDAO {
 
 	Conversacion deleteConversacion(Integer idConversacion);
 	
+	Conversacion getConversacionByUsuarios(Integer idUsuario1, Integer idUsuario2);
+	
 }

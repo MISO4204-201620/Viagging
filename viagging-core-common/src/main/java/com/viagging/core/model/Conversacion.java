@@ -29,6 +29,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 @NamedQueries({
 	@NamedQuery(name="Conversacion.findAll", query="SELECT t FROM Conversacion t"),
 	@NamedQuery(name="Conversacion.findByIdUsuario", query="SELECT t FROM Conversacion t WHERE t.usuario1.id = :idusuario OR t.usuario2.id = :idusuario"),
+	@NamedQuery(name="Conversacion.findByUsuarios", query="SELECT t FROM Conversacion t"
+		+ " WHERE (t.usuario1.id = :idusuario1 AND t.usuario2.id = :idusuario2) OR (t.usuario1.id = :idusuario2 AND t.usuario2.id = :idusuario1)"),
 	@NamedQuery(name="Conversacion.findByIdConversacion", query="SELECT t FROM Conversacion t WHERE t.id = :idconversacion")
 })
 

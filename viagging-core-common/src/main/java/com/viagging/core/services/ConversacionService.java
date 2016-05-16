@@ -15,5 +15,7 @@ public interface ConversacionService {
 	Conversacion createConversacion(Conversacion conversacion);
 
 	Conversacion deleteConversacion(Integer idConversacion);
+	
+	Conversacion getConversacionByUsuarios(Integer idUsuario1, Integer idUsuario2);
 
 }

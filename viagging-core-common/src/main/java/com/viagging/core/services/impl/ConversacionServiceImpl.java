@@ -40,4 +40,9 @@ public class ConversacionServiceImpl implements ConversacionService{
 		return conversacionDAO.getAllConversacionesByUsuario(idUsuario);
 	}
 
+	@Override
+	public Conversacion getConversacionByUsuarios(Integer idUsuario1, Integer idUsuario2) {
+		return conversacionDAO.getConversacionByUsuarios(idUsuario1, idUsuario2);
+	}
+
 }

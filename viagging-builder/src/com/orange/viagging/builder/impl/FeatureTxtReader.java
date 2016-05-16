@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.orange.viagging.builder.IFeatureReader;
+import com.orange.viagging.builder.utils.Utils;
 
 import java.io.FileReader;
 

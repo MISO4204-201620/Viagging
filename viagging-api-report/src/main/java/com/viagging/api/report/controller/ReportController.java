@@ -20,6 +20,7 @@ import com.viagging.core.constant.ReportType;
 import com.viagging.api.report.core.services.AbstractReportService;
 import com.viagging.api.report.factory.ReportServiceFactory;
 import com.viagging.core.services.MovimientoService;
+import com.viagging.core.services.VariabilidadService;
 import com.viagging.api.report.rest.dto.ReporteDTO;
 import com.viagging.core.services.ServicioService;
 
@@ -35,6 +36,9 @@ public class ReportController {
 	   
 	   @Autowired
 	   private ServicioService servicioService;
+	   
+	   @Autowired
+	   private VariabilidadService variabilidadService;
 	   
 	   public static final String ERROR_REPORT_NOT_FOUND = "Error reporte no válido";
 		
@@ -59,6 +63,8 @@ public class ReportController {
 	    @RequestMapping(value = "/createMovimiento", method = RequestMethod.GET)
 		@ResponseStatus(value = HttpStatus.OK)
 		public void createMovimiento() {
+	    	System.out.println("ingreso");
+	    	variabilidadService.getVariabilidad();
 	    	List<String> listSe = new ArrayList<>();
 	    	listSe.add("1");
 	    	listSe.add("2");
@@ -68,6 +74,6 @@ public class ReportController {
 	    	listPa.add("325");
 	    	movimientoService.createMovimientos(listSe, listPa, null,ReportType.QUERY.toString());
 		}
-	    
+	   
 	    
 }

@@ -23,7 +23,9 @@ public class ConversacionDTOMapper {
 		conversacionDTO.setId(conversacion.getId());
 		conversacionDTO.setUsuario1(usuarioDTOMapper.mapObject(conversacion.getUsuario1()));
 		conversacionDTO.setUsuario2(usuarioDTOMapper.mapObject(conversacion.getUsuario2()));
-		conversacionDTO.setMensajes(mensajeDTOMapper.mapObjectList(conversacion.getMensajes()));
+		if(conversacion.getMensajes() != null){
+			conversacionDTO.setMensajes(mensajeDTOMapper.mapObjectList(conversacion.getMensajes()));
+		}
 		return conversacionDTO;
 	}
 	

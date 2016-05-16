@@ -1,5 +1,5 @@
-marketPlaceApp.controller('DetailCtrl', ['$scope', 'product','ngCart', 'wishListService', 'userService', 'productsService', 'configService',
-     function($scope, product, ngCart, wishListService, userService, productsService, configService){
+marketPlaceApp.controller('DetailCtrl', ['$scope', '$state', 'product','ngCart', 'wishListService', 'userService', 'productsService', 'configService', 'messagesService',
+     function($scope, $state, product, ngCart, wishListService, userService, productsService, configService, messagesService){
 
 	'use strict';
 
@@ -46,6 +46,28 @@ marketPlaceApp.controller('DetailCtrl', ['$scope', 'product','ngCart', 'wishList
     	};
 
     	wishListService.addWishToList(listaDeseo);
+    };
+    
+    var createConversationSuccessCallback = function(conversacion){
+    	$state.go("message-detail", {"conversationId" : conversacion.id});
+    };
+    
+    var createConversationErrorCallback = function(){
+    	alert("Ha ocurrido un error, intenta de nuevo.");
+    };
+    
+    $scope.createConversation = function(proveedorId){
+    	//alert(proveedorId);
+    	var conversacion = {
+			usuario1: {
+				id: userService.getUserData().id
+			},
+			usuario2 : {
+				id: proveedorId
+			}
+    	};
+    	
+    	messagesService.createConversation(conversacion, createConversationSuccessCallback, createConversationErrorCallback);
     };
 
     var initDetailCtrl = function(){
