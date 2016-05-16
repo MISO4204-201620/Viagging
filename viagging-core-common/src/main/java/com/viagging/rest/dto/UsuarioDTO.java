@@ -55,6 +55,8 @@ public class UsuarioDTO {
 	private String twitterId;
 
     private PerfilDTO perfil;
+    
+    private String jwtToken;
 
 	@Override
 	public String toString() {
@@ -265,5 +267,13 @@ public class UsuarioDTO {
 		    listUser.add(usuarioDto);
 		}
 		return listUser;
+	}
+
+	public String getJwtToken() {
+		return jwtToken;
+	}
+
+	public void setJwtToken(String jwtToken) {
+		this.jwtToken = jwtToken;
 	}
 }

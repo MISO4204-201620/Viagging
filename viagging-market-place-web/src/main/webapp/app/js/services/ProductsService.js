@@ -1,7 +1,7 @@
-marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
+marketPlaceApp.service('productsService', ['$http', '$q', 'userService', function($http, $q, userService){
 
 	var products = [];
-
+	
 	var productsService = {
 
 		getAllProducts : function(){
@@ -26,10 +26,17 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 		},
 
 		getProductById : function(productId){
+			var headers = {};
+			var userData = userService.getUserData();
+			if(userData != null){
+				headers.token = userData.jwtToken;
+			}
+			
 			return $http({
 				url: "/viagging-api/products/" + productId,
 				method: "GET",
-	            cache: false
+	            cache: false,
+	            headers: headers
 	        }).then(function successCallback(response) {
 	        	if(angular.isObject(response.data)){
 	        		currentProduct = response.data;
@@ -43,7 +50,12 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 		},
 
 		findProducts : function(busqueda){
-
+			var headers = {};
+			var userData = userService.getUserData();
+			if(userData != null){
+				headers.token = userData.jwtToken;
+			}
+			
 			if(busqueda == null){
 				busqueda = { texto : "" };
 			}
@@ -53,6 +65,7 @@ marketPlaceApp.service('productsService', ['$http', '$q', function($http, $q){
 	            method: "POST",
 	            cache: false,
 	            data: busqueda,
+	            headeres: headers
 	        }).then(function successCallback(response) {
 	        	if(angular.isArray(response.data)){
 	        		products = response.data;
