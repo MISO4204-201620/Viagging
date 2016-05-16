@@ -6,12 +6,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.constant.EstadoItem;
 import com.viagging.core.dao.ServicioDAO;
 import com.viagging.core.model.Servicio;
+import com.viagging.exception.ProductCapabiltyException;
 import com.viagging.rest.dto.ServicioDTO;
 
 /**
@@ -72,8 +74,24 @@ public class ServicioDAOImpl implements ServicioDAO {
 	@Override
 	public Servicio updateServicio(Servicio servicio) {
 		Servicio _servicio = entityManager.find(Servicio.class, servicio.getId());
-		_servicio.setNombre(servicio.getNombre());
-		_servicio.setImagenprincipal(servicio.getImagenprincipal());
+		if(StringUtils.isNotEmpty(servicio.getNombre())){
+			_servicio.setNombre(servicio.getNombre());
+		}
+		if(servicio.getImagenprincipal() != null){
+			_servicio.setImagenprincipal(servicio.getImagenprincipal());
+		}
+		if(servicio.getNumeroAdquiridos() != null){
+			if(_servicio.getNumeroAdquiridos() != null){
+				int numeroAdquiridosTotal = _servicio.getNumeroAdquiridos() + servicio.getNumeroAdquiridos();
+				if(numeroAdquiridosTotal > _servicio.getCapacidad()){
+					throw new ProductCapabiltyException("No hay suficiente disponibilidad de este servicio");
+				}
+				_servicio.setNumeroAdquiridos(numeroAdquiridosTotal);
+			}else{
+				_servicio.setNumeroAdquiridos(servicio.getNumeroAdquiridos());
+			}
+		}
+		
 		entityManager.persist(_servicio);
 		return _servicio;
 	}
@@ -88,6 +106,7 @@ public class ServicioDAOImpl implements ServicioDAO {
 		return servicio;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Servicio> findAllByCriteria(Servicio servicio){
 		Query query = entityManager.createNamedQuery("Servicio.findAllByCriteria");

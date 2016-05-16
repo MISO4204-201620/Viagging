@@ -19,8 +19,12 @@ marketPlaceApp.controller('CheckoutCtrl', ['$scope', 'ngCart', 'userService', '$
 		$state.go("home");
 	};
 	
-	var errorCallback = function(){
-		alert("Ha ocurrido un error durante el procesamiento de tu pago. Intenta de nuevo.");
+	var errorCallback = function(data, status, header, config){
+		if(status == 507){
+			alert("Ha excedido la capacidad de compra del servicio");
+		}else{
+			alert("Ha ocurrido un error durante el procesamiento de tu pago. Intenta de nuevo.");
+		}
 	};
 	
 	$scope.submitPayment = function(){
