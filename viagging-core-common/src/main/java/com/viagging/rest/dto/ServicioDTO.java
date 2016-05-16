@@ -54,6 +54,8 @@ public class ServicioDTO {
 	private String fechaFinal;
 	
 	private String capacidad;
+	
+	private Integer numeroAdquiridos;
 
 	public ServicioDTO() {
 	}
@@ -206,6 +208,14 @@ public class ServicioDTO {
 
 	public void setTransporte(TransporteDTO transporte) {
 		this.transporte = transporte;
+	}
+	
+	public Integer getNumeroAdquiridos() {
+		return numeroAdquiridos;
+	}
+
+	public void setNumeroAdquiridos(Integer numeroAdquiridos) {
+		this.numeroAdquiridos = numeroAdquiridos;
 	}
 
 	public static List<ServicioDTO> buildListObject(List<Servicio> listServicio) {

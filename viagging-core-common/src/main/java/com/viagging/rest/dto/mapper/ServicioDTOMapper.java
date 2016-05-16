@@ -41,6 +41,8 @@ public class ServicioDTOMapper {
 		servicioDTO.setDescripcionCorta(servicio.getDescripcion());
 		servicioDTO.setCaracteristicas(caracteristicaDTOMapper.mapObjectListFromCaracteristicaServicio(servicio.getCaracteristicas()));
 		servicioDTO.setPrecio(String.valueOf(servicio.getPrecio()));
+		servicioDTO.setCapacidad(servicio.getCapacidad().toString());
+		servicioDTO.setNumeroAdquiridos(servicio.getNumeroAdquiridos());
 		servicioDTO.setRestricciones(servicio.getRestricciones());
 		servicioDTO.setUsuario(usuarioDTOMapper.mapObject(servicio.getUsuario()));
 		if(servicio.getImagenprincipal() != null){

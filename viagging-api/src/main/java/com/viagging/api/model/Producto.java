@@ -37,6 +37,10 @@ public class Producto {
 	private List<String> imagenes;
 
 	private Double calificacion;
+	
+	private Integer capacidad;
+	
+	private Integer numeroAdquiridos;
 
 	/** The servicios. */
 	private List<ServicioDTO> servicios;
@@ -221,4 +225,20 @@ public class Producto {
 		this.calificacion = calificacion;
 	}
 
+	public Integer getCapacidad() {
+		return capacidad;
+	}
+
+	public void setCapacidad(Integer capacidad) {
+		this.capacidad = capacidad;
+	}
+
+	public Integer getNumeroAdquiridos() {
+		return numeroAdquiridos;
+	}
+
+	public void setNumeroAdquiridos(Integer numeroAdquiridos) {
+		this.numeroAdquiridos = numeroAdquiridos;
+	}
+	
 }
