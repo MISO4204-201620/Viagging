@@ -21,13 +21,13 @@
 									<ul id="inbox-tabs"
 										class="inbox-tabs nav nav-tabs padding-16 tab-size-bigger tab-space-1">
 										<!-- #section:pages/inbox.compose-btn -->
-										<li ng-hide="ocultarNewConversation"
+										<li ng-hide="ocultarBotonNewConversation"
 											class="li-new-mail pull-right"><a data-toggle="tab"
 											href="#write" data-target="write" class="btn-new-mail"> <span
 												class="btn btn-purple no-border"> <i
 													class="ace-icon fa fa-envelope bigger-130"></i> <span
-													ng-click="newConveration()" class="bigger-110"> Nueva
-														Conversaci&oacuten </span>
+													ng-click="newConveration()" class="bigger-110">
+														Nueva Conversaci&oacuten </span>
 											</span>
 										</a></li>
 										<li ng-hide="ocultarSeccionMensajes"
@@ -103,7 +103,7 @@
 													<div class="message-list" id="message-list">
 														<!-- #section:pages/inbox.message-list.item -->
 														<div class="message-item message-unread"
-															ng-repeat="message in listMessage track by $index | orderBy:id:reverse">
+															ng-repeat="message in listMessage track by $index | orderBy:'id':false">
 															<span class="sender" title="Alex John Red Smith">{{
 																message.primerNombre }} </span> <span class="time">{{
 																message.fecha }}</span> <span class="summary"> <span
@@ -111,6 +111,14 @@
 																	{{ message.mensaje }} </span>
 															</span>
 														</div>
+													</div>
+													<div class="hr hr-18 dotted"></div>
+													<div ng-hide="ocultarBotonAtras" class="align-right">
+														<button ng-click="beforeConversation()"
+															id="id-add-attachment" type="button"
+															class="btn btn-sm btn-danger">
+															<i class="ace-icon  bigger-140"></i> Atras
+														</button>
 													</div>
 												</div>
 
@@ -265,16 +273,18 @@
 							</form>
 						</div>
 
-						<div>
+						<div ng-hide="ocultarNewConversation">
 							<form name="myForm">
 								<label for="repeatSelect"> Usuarios</label> <select
 									name="repeatSelect" id="repeatSelect" ng-model="valor">
-									<option ng-repeat="option in listUsers" value="{{option.id}}">{{option.primerNombre}} {{option.primerApellido}}</option>
+									<option ng-repeat="option in listUsers" value="{{option.id}}">{{option.primerNombre}}
+										{{option.primerApellido}}</option>
 								</select>
 								<div class="col-md-offset-3 col-md-9">
 									<button ng-click="crearConversacion(valor)"
 										class="btn btn-sm btn-primary" type="button">
-										<i class="ace-icon fa fa-check bigger-110"></i> Crear conversaci&oacuten
+										<i class="ace-icon fa fa-check bigger-110"></i> Crear
+										conversaci&oacuten
 									</button>
 								</div>
 							</form>
