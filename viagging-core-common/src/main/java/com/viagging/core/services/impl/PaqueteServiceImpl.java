@@ -1,5 +1,7 @@
 package com.viagging.core.services.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,8 +68,17 @@ public class PaqueteServiceImpl implements PaqueteService{
 	
 	@Override
 	public Paquete buildPaquete(PaqueteDTO paqueteDTO) {
-		Paquete paquete = new Paquete(paqueteDTO.getId(),  paqueteDTO.getNombre(), Integer.valueOf(paqueteDTO.getPrecio()),paqueteDTO.getDescripcion());		
-		paquete.setEstado(paqueteDTO.getActivo() ? EstadoItem.ACTIVO.getId() : EstadoItem.INACTIVO.getId() );
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Paquete paquete = null;
+		try {
+			paquete = new Paquete(paqueteDTO.getId(),  paqueteDTO.getNombre(), Integer.valueOf(paqueteDTO.getPrecio()),
+					paqueteDTO.getDescripcion(),sdf.parse(paqueteDTO.getFechaInicial()), sdf.parse(paqueteDTO.getFechaInicial()), Integer.valueOf(paqueteDTO.getCapacidad()));
+			paquete.setEstado(paqueteDTO.getActivo() ? EstadoItem.ACTIVO.getId() : EstadoItem.INACTIVO.getId() );
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}		
 		return paquete;
 	}
 	

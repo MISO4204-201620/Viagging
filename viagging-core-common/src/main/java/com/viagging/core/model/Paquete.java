@@ -1,6 +1,7 @@
 package com.viagging.core.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -13,6 +14,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -45,6 +48,16 @@ public class Paquete implements Serializable {
 	private String estado;
 	
 	private Integer precio;
+	
+	@Temporal(TemporalType.DATE)
+	private Date fechaInicio;
+    
+	@Temporal(TemporalType.DATE)
+	private Date fechaVigencia;
+	
+	private Integer capacidad;
+	
+	private Integer numeroAdquiridos;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -76,13 +89,15 @@ public class Paquete implements Serializable {
 	public Paquete() {
 	}
 	
-	public Paquete( int id,  String nombrePaquete,
-			Integer precio,String descripcion) {
+	public Paquete( int id,  String nombrePaquete, Integer precio, String descripcion, Date fechaInicio, Date fechaVigencia, Integer capacidad) {
 		super();
 		this.nombrePaquete = nombrePaquete;
 		this.precio = precio;
 		this.descripcion = descripcion;
 		this.id = id;
+		this.fechaInicio = fechaInicio;
+		this.fechaVigencia = fechaVigencia;
+		this.capacidad = capacidad;
 	}
 	
 	public String getEstado() {
@@ -245,5 +260,38 @@ public class Paquete implements Serializable {
 		pregunta.setPaquete(null);
 		return pregunta;
 	}
+	
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public Date getFechaVigencia() {
+		return fechaVigencia;
+	}
+
+	public void setFechaVigencia(Date fechaVigencia) {
+		this.fechaVigencia = fechaVigencia;
+	}
+
+	public Integer getCapacidad() {
+		return capacidad;
+	}
+
+	public void setCapacidad(Integer capacidad) {
+		this.capacidad = capacidad;
+	}
+
+	public Integer getNumeroAdquiridos() {
+		return numeroAdquiridos;
+	}
+
+	public void setNumeroAdquiridos(Integer numeroAdquiridos) {
+		this.numeroAdquiridos = numeroAdquiridos;
+	}
+
 
 }

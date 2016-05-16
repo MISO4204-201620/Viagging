@@ -112,7 +112,7 @@ providersApp.controller('AlimentacionCtrl', ['$scope', 'userService', 'FileUploa
 
 	console.info('uploader', uploader);
 	
-$scope.statusInitial
+	$scope.statusInitial
 	
 	$scope.statusInitial={opened:false};
 	$scope.statusFinal={opened:false};
