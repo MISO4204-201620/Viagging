@@ -123,6 +123,10 @@
 	min-height: 200px;
 }
 
+.message-list .message-detail-link{
+	display: block;
+}
+
 .message-item {
 	border: 1px solid #EAEDF1;
 	padding: 12px 12px 14px;
@@ -164,4 +168,8 @@
 	overflow: hidden;
 	white-space: nowrap;
 	color: #666;
+}
+
+.pointer {
+	cursor: pointer;
 }
