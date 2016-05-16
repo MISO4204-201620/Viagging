@@ -28,10 +28,9 @@ public class MavenVariability {
 	 * @param fileName nombre del archivo de configuración del proyecto
 	 * @param path ruta de la carpeta raiz de los proyectos viagging
 	 */
-	public void modifyPom(String fileName, String path) {
+	public void modifyPom(String fileName, String path, String moduleName, boolean active) {
 
 		String file = Utils.getAttributeConfiguration(fileName, path);
-		System.out.println(file + "Ruta");
 		try {
 			File fXmlFile = new File(file);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -39,11 +38,28 @@ public class MavenVariability {
 			Document doc = dBuilder.parse(fXmlFile);
 			doc.getDocumentElement().normalize();
 			NodeList nList = doc.getElementsByTagName("modules");
-			for (int temp = 0; temp < nList.getLength(); temp++) {
-				Node nNode = nList.item(temp);
-				Element reporte = doc.createElement("module");
-				reporte.appendChild(doc.createTextNode("viagging-api-report"));
-				nNode.appendChild(reporte);
+			
+			for (int i = 0; i < nList.getLength(); i++) {
+				Node modulesElement = nList.item(i);
+				
+				boolean moduleExists = false;
+				Node moduleNode = null;
+				for(int j = 0; j < modulesElement.getChildNodes().getLength(); j++){
+					Node moduleElement = modulesElement.getChildNodes().item(j);
+					String nodeContent = moduleElement.getTextContent();
+					if(nodeContent.equals(moduleName)){
+						moduleExists = true;
+						moduleNode = moduleElement;
+					}
+				}
+				
+				if(moduleExists && !active){
+					modulesElement.removeChild(moduleNode);
+				} else if(!moduleExists && active) {
+					Element reporte = doc.createElement("module");
+					reporte.appendChild(doc.createTextNode(moduleName));
+					modulesElement.appendChild(reporte);
+				}
 			}
 			
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();

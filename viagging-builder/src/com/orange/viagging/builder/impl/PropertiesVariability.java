@@ -14,30 +14,28 @@ import com.orange.viagging.builder.IPropertiesVariability;
 
 public class PropertiesVariability implements IPropertiesVariability {
     
-	public static final  String SEPARATOR = "=";
-	public static final  String TRUE = "true";
+	public static final String SEPARATOR = "=";
 	
 	@Override 
-	public void changeProperties(String path, String key) {
+	public void changeProperties(String path, String key, boolean value) {
 	    IFeatureReader reader = new FeatureTxtReader();   
 	    List<String> lines = reader.readFeatures(path);
-	    writeFile(path, updateListProperties(lines,key));
+	    writeFile(path, updateListProperties(lines, key, value));
 	}
 	
 	@Override
-	public List<String> updateListProperties(List<String> lines, String key) {
+	public List<String> updateListProperties(List<String> lines, String key, boolean value) {
 		List<String> newList = new ArrayList<>();
 		
 		for (String line : lines) {
 			 if (line.substring(0, line.indexOf(SEPARATOR)).equals(key)) {
-				 newList.add(line.substring(0, line.indexOf(SEPARATOR)+1)+TRUE);
+				 newList.add(line.substring(0, line.indexOf(SEPARATOR)+1) + value);
 			 } else {
 				 newList.add(line);
 			 } 
 		}
 		
 		return newList;
-		
 	}
 	
 	@Override

@@ -1,13 +1,11 @@
 package com.orange.viagging.builder.impl;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.orange.viagging.builder.IFeatureReader;
-import com.orange.viagging.builder.utils.Utils;
-
-import java.io.FileReader;
 
 /**
  * Lee las caracteristicas en un archivo plano
