@@ -18,6 +18,7 @@ public class MensajeDTOMapper {
 		mensajeDTO.setIdUsuario(mensaje.getUsuario().getId());
 		mensajeDTO.setMensaje(mensaje.getMensaje());
 		mensajeDTO.setFecha(mensaje.getFecha());
+		mensajeDTO.setPrimerNombre(mensaje.getUsuario().getPrimerNombre());
 		return mensajeDTO;
 	}
 	
