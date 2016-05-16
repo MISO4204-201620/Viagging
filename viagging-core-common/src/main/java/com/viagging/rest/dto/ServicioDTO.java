@@ -213,7 +213,7 @@ public class ServicioDTO {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		for (Servicio servicio : listServicio) {
 			ServicioDTO servicioDTO = new ServicioDTO(servicio.getId(), true,servicio.getNombre(), servicio.getDescripcion(), String.valueOf(servicio.getPrecio()), servicio.getRestricciones(),
-					sdf.format(servicio.getFechaInicio()), sdf.format(servicio.getFechaVigencia()), String.valueOf(servicio.getCapacidad()));
+					servicio.getFechaInicio() != null ? sdf.format(servicio.getFechaInicio()) : "", servicio.getFechaVigencia() != null ? sdf.format(servicio.getFechaVigencia()) : "", String.valueOf(servicio.getCapacidad()));
 			servicioDTO =  ServicioDTO.setearDatosAdicionales(servicioDTO, servicio);
 			if(servicio.getEstado() != null){
 			      servicioDTO.setActivo(servicio.getEstado().equals(EstadoItem.ACTIVO.getId()) ? true : false );
