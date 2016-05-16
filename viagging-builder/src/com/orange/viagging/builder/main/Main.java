@@ -41,7 +41,6 @@ public class Main {
 	public static final String PUBLISH_TWITTER_FRONT = "derivador.ptwitter";
 	public static final String WEATHER_FRONT = "derivador.clima";
 	
-	
 	public static void main(String[] args) {
 		Main m = new Main();
 		m.run();
