@@ -18,7 +18,8 @@ public class Main {
 
 	public static final String CONFIG_FILE_NAME = "config";
 	public static final String VIAGGING_PATH = "VIAGGING_PATH";
-	public static final String FEATURES_PATH = "resources/features.txt";
+	//public static final String FEATURES_PATH = "resources/features.txt";
+	public static final String FEATURES_PATH = "../viagging-feature/configs/default.config";
 	public static final String REPORT_FEATURE = "Reportes";
 	public static final String MESSAGING_FEATURE = "Mensajeria";
 	public static final String FACEBOOK_FEATURE = "Facebook";
