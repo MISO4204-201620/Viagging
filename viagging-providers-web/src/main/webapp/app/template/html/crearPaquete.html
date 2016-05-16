@@ -160,6 +160,36 @@
 										placeholder="Precio" class="col-xs-10 col-sm-5" />
 								</div>
 							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-1"> Cantidad Disponible </label>
+		
+								<div class="col-sm-9">
+									<input type="text" id="form-field-1" placeholder="100"
+										class="col-xs-10 col-sm-5"
+										ng-model="paquete.capacidad" />
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 control-label no-padding-right"
+									for="form-field-3">Desde</label>
+								<div class="col-sm-3">
+						        	<input type="text" uib-datepicker-popup ng-model="paquete.fechaInicial" is-open="statusInitial.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+						            <button type="button" ng-click="openInitial($event)">
+						            	<i class="glyphicon glyphicon-calendar"></i>
+						            </button>
+						        </div>
+						        <label class="col-sm-1" for="form-field-1">Hasta </label>
+						        <div class="col-sm-3">
+						             <input type="text"  uib-datepicker-popup ng-model="paquete.fechaFinal" is-open="statusFinal.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+						             <button type="button"  ng-click="openFinal($event)">
+						             	<i class="glyphicon glyphicon-calendar"></i>
+						             </button>
+						        </div>
+							</div>
+							
                             <div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right"
 									for="form-field-1"> Activar </label>

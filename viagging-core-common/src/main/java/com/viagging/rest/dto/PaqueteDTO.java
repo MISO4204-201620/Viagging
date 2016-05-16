@@ -20,6 +20,12 @@ public class PaqueteDTO {
 	
 	private String descripcion;
 	
+	private String fechaInicial;
+	
+	private String fechaFinal;
+	
+	private String capacidad;
+	
 	private UsuarioDTO usuario;
 	
 	private List<ServicioDTO>servicios;
@@ -88,6 +94,30 @@ public class PaqueteDTO {
 
 	public void setUsuario(UsuarioDTO usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getCapacidad() {
+		return capacidad;
+	}
+
+	public void setCapacidad(String capacidad) {
+		this.capacidad = capacidad;
+	}
+
+	public String getFechaInicial() {
+		return fechaInicial;
+	}
+
+	public void setFechaInicial(String fechaInicial) {
+		this.fechaInicial = fechaInicial;
+	}
+
+	public String getFechaFinal() {
+		return fechaFinal;
+	}
+
+	public void setFechaFinal(String fechaFinal) {
+		this.fechaFinal = fechaFinal;
 	}
 
 	public static List<PaqueteDTO> buildListObject(List<Paquete> listaPaquete){
