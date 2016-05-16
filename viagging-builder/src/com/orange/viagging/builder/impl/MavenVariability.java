@@ -54,8 +54,10 @@ public class MavenVariability {
 				}
 				
 				if(moduleExists && !active){
+					System.out.println("Removiendo dependencia " + moduleName);
 					modulesElement.removeChild(moduleNode);
 				} else if(!moduleExists && active) {
+					System.out.println("Agregando dependencia " + moduleName);
 					Element reporte = doc.createElement("module");
 					reporte.appendChild(doc.createTextNode(moduleName));
 					modulesElement.appendChild(reporte);

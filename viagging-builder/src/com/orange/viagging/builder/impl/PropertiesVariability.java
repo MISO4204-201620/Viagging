@@ -29,6 +29,7 @@ public class PropertiesVariability implements IPropertiesVariability {
 		
 		for (String line : lines) {
 			 if (line.substring(0, line.indexOf(SEPARATOR)).equals(key)) {
+				 System.out.println(key + SEPARATOR + value);
 				 newList.add(line.substring(0, line.indexOf(SEPARATOR)+1) + value);
 			 } else {
 				 newList.add(line);

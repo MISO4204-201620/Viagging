@@ -18,7 +18,8 @@ public class Main {
 
 	public static final String CONFIG_FILE_NAME = "config";
 	public static final String VIAGGING_PATH = "VIAGGING_PATH";
-	public static final String FEATURES_PATH = "../viagging-feature/configs/default.config";
+	public static final String FEATURES_PATH = "FEATURES_PATH";
+	public static final String VARIABILITY_PROPERTIES_PATH = "VARIABILITY_PROPERTIES_PATH";
 	
 	//FeatureIDE 
 	public static final String REPORT_FEATURE = "Reportes";
@@ -40,7 +41,6 @@ public class Main {
 	public static final String PUBLISH_TWITTER_FRONT = "derivador.ptwitter";
 	public static final String WEATHER_FRONT = "derivador.clima";
 	
-	public static final String VARIABILITY_PROPERTIES_PATH = "VARIABILITY_PROPERTIES_PATH";
 	
 	public static void main(String[] args) {
 		Main m = new Main();
@@ -48,12 +48,18 @@ public class Main {
 	}
 
 	public void run() {
+		System.out.println("--> INICIO PROCESO DE DERIVACIÓN DE PRODUCTO\n");
 		IFeatureReader reader = new FeatureTxtReader();
 		IPropertiesVariability propertiesVariability = new PropertiesVariability();
-		List<String> features = reader.readFeatures(FEATURES_PATH);
-		Processor processor = new Processor(features);
 		MavenVariability maven = new MavenVariability();
-
+		
+		System.out.println("Leyendo archivo de features\n");
+		String featuresPath = Utils.getAttributeConfiguration(CONFIG_FILE_NAME, FEATURES_PATH);
+		List<String> features = reader.readFeatures(featuresPath);
+		Processor processor = new Processor(features);
+		
+		System.out.println("Implementando variabilidad\n");
+		
 		String variabilityPropertiesPath = Utils.getAttributeConfiguration(CONFIG_FILE_NAME, VARIABILITY_PROPERTIES_PATH);
 		
 		boolean isReportFeature = processor.isFeature(REPORT_FEATURE);
@@ -83,6 +89,6 @@ public class Main {
 		propertiesVariability.changeProperties(variabilityPropertiesPath, WEATHER_FRONT, isWeatherFeature);
 		maven.modifyPom(CONFIG_FILE_NAME, VIAGGING_PATH, "viagging-api-weather", isWeatherFeature);
 		
-		
+		System.out.println("\n--> FIN PROCESO DE DERIVACIÓN DE PRODUCTO ");
 	}
 }
