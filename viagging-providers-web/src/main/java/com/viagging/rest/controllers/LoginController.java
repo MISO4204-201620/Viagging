@@ -24,8 +24,10 @@ import com.viagging.core.model.CuentaAcceso;
 import com.viagging.core.model.Usuario;
 import com.viagging.core.services.CuentaAccesoService;
 import com.viagging.core.services.UsuarioService;
+import com.viagging.core.services.VariabilidadService;
 import com.viagging.rest.dto.UserLoginDTO;
 import com.viagging.rest.dto.UsuarioDTO;
+import com.viagging.rest.dto.VariabilidadDTO;
 import com.viagging.util.CookieUtil;
 
 /**
@@ -41,12 +43,9 @@ public class LoginController {
 	@Autowired
 	private CuentaAccesoService cuentaAccesoService;
 	
-	@Value("${derivador.reportes}")
-	private String derivadorReportes;
+	@Autowired
+	private VariabilidadService variabilidadService;
 	
-	@Value("${derivador.mensajes}")
-	private String derivadorMensajes;
-
 	/** The Constant AUTHORIZATION_TOKEN_COOKIE. */
 	private static final String AUTHORIZATION_TOKEN_COOKIE = "Authorization";
 
@@ -60,6 +59,7 @@ public class LoginController {
 	@RequestMapping(value = "/loginProvAdmin", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> login(@RequestBody final UserLoginDTO userLogin, HttpServletResponse response){
 		Usuario usuario = usuarioService.findUsuarioByLoginAndPassword(userLogin.getLogin(), userLogin.getPassword());
+		VariabilidadDTO variabilidad = variabilidadService.getVariabilidad();
 		if(usuario == null){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -71,8 +71,8 @@ public class LoginController {
 		addAuthorizationCookie(response, usuario);
         Map<String, Object> map = new HashMap<>();
         map.put("usuario", usuarioDTO);
-        map.put("derivadorReportes", derivadorReportes);
-        map.put("derivadorMensajes", derivadorMensajes);
+        map.put("derivadorReportes", variabilidad.isHasReport());
+        map.put("derivadorMensajes", variabilidad.isHasMessage());
 		
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
