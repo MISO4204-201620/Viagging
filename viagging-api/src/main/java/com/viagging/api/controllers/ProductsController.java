@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,7 +59,8 @@ public class ProductsController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Producto> getProductByIdAndType(@PathVariable String id){
+	public ResponseEntity<Producto> getProductByIdAndType(@PathVariable String id,
+			@RequestHeader(value = "token", required = false) String token){
 		Producto producto = productsService.getProductById(id);
 		if(producto != null){
 			return new ResponseEntity<>(producto, HttpStatus.OK);
@@ -84,7 +86,8 @@ public class ProductsController {
 	}
 
 	@RequestMapping(value = "/find", method = RequestMethod.POST)
-	public ResponseEntity<List<Producto>> findProducts(@RequestBody Busqueda busqueda){
+	public ResponseEntity<List<Producto>> findProducts(@RequestBody Busqueda busqueda,
+			@RequestHeader(value = "token", required = false) String token){
 		List<Producto> productos = productsService.findProducts(busqueda);
 		if(productos != null){
 			return new ResponseEntity<>(productos, HttpStatus.OK);

@@ -5,9 +5,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.Date;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +24,6 @@ import com.viagging.core.services.UsuarioService;
 import com.viagging.rest.dto.UsuarioDTO;
 import com.viagging.rest.dto.mapper.UsuarioDTOMapper;
 import com.viagging.rest.model.UserLogin;
-import com.viagging.util.CookieUtil;
 
 /**
  * The Class LoginController.
@@ -38,9 +34,6 @@ public class LoginController {
 
 	/** The Constant SECRET_KEY. */
 	private static final String SECRET_KEY = "secretKey";
-	
-	/** The Constant AUTHORIZATION_TOKEN_COOKIE. */
-	private static final String AUTHORIZATION_TOKEN_COOKIE = "Authorization";
 	
 	/** The usuario service. */
 	@Autowired
@@ -65,7 +58,7 @@ public class LoginController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<UsuarioDTO> login(@RequestBody final UserLogin userLogin, HttpServletResponse response){
+	public ResponseEntity<UsuarioDTO> login(@RequestBody final UserLogin userLogin){
 		Usuario usuario = usuarioService.findUsuarioByLoginAndPassword(userLogin.getLogin(), userLogin.getPassword());
 
 		if(usuario == null){
@@ -78,7 +71,8 @@ public class LoginController {
 		}
 
 		UsuarioDTO usuarioDTO = UsuarioDTO.buildObject(usuario);
-		addAuthorizationCookie(response, usuario);
+		String authorizationToken = getAuthorizationToken(usuario);
+		usuarioDTO.setJwtToken(authorizationToken);
 
 		return new ResponseEntity<UsuarioDTO>(usuarioDTO, HttpStatus.OK);
 	}
@@ -91,7 +85,7 @@ public class LoginController {
 	 * @return the response entity
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<UsuarioDTO> register(@RequestBody final UsuarioDTO usuarioDTO, HttpServletResponse response){
+	public ResponseEntity<UsuarioDTO> register(@RequestBody final UsuarioDTO usuarioDTO){
 		
 		Usuario usuario = usuarioService.findUsuarioByEmailOrSocialNetwork(
 				usuarioDTO.getCorreo(), usuarioDTO.getFacebookId(), usuarioDTO.getTwitterId());
@@ -114,8 +108,9 @@ public class LoginController {
 			}
 		}
 			
-		addAuthorizationCookie(response, usuario);
+		String authorizationToken = getAuthorizationToken(usuario);
 		UsuarioDTO usuarioDTONuevo = usuarioDTOMapper.mapObject(usuario);
+		usuarioDTO.setJwtToken(authorizationToken);
 		
 		return new ResponseEntity<>(usuarioDTONuevo, HttpStatus.OK);
 	}
@@ -130,8 +125,7 @@ public class LoginController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<UsuarioDTO> getUsuarioByEmailOrSocialNetwork(@RequestParam(value = "email", required = false) String email, 
 			@RequestParam(value = "facebookId", required = false) String facebookId, 
-			@RequestParam(value = "twitterId", required = false) String twitterId, 
-			HttpServletResponse response){
+			@RequestParam(value = "twitterId", required = false) String twitterId){
 		Usuario usuario = usuarioService.findUsuarioByEmailOrSocialNetwork(
 				email, facebookId, twitterId);
 		
@@ -145,26 +139,24 @@ public class LoginController {
 		}
 
 		UsuarioDTO usuarioDTO = UsuarioDTO.buildObject(usuario);
-		addAuthorizationCookie(response, usuario);
-
+		String authorizationToken = getAuthorizationToken(usuario);
+		usuarioDTO.setJwtToken(authorizationToken);
+		
 		return new ResponseEntity<UsuarioDTO>(usuarioDTO, HttpStatus.OK);
 	}
 
 	/**
-	 * Adds the authorization cookie.
+	 * Gets the authorization token.
 	 *
-	 * @param response the response
 	 * @param usuario the usuario
+	 * @return the authorization cookie
 	 */
-	protected void addAuthorizationCookie(HttpServletResponse response, Usuario usuario){
-		String token = Jwts.builder().setSubject(usuario.getLogin())
-				.claim("usuarioId", usuario.getId())
-				.claim("app", "marketplace")
-				.setIssuedAt(new Date())
-				.signWith(SignatureAlgorithm.HS256, SECRET_KEY)
-				.compact();
-
-		Cookie authCookie = CookieUtil.createCookie(AUTHORIZATION_TOKEN_COOKIE, token);
-		response.addCookie(authCookie);
+	private String getAuthorizationToken(Usuario usuario){
+		return Jwts.builder().setSubject(usuario.getLogin())
+			.claim("usuarioId", usuario.getId())
+			.claim("app", "marketplace")
+			.setIssuedAt(new Date())
+			.signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+			.compact();
 	}
 }
