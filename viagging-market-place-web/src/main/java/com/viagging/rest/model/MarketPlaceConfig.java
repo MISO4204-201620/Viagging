@@ -3,6 +3,7 @@ package com.viagging.rest.model;
 import java.util.List;
 
 import com.viagging.rest.dto.NombreValorDTO;
+import com.viagging.rest.dto.VariabilidadDTO;
 import com.viagging.util.Range;
 
 public class MarketPlaceConfig {
@@ -11,7 +12,7 @@ public class MarketPlaceConfig {
 
 	private List<Range> prices;
 
-	private Components components;
+	private VariabilidadDTO variabilidad;
 
 	public List<NombreValorDTO> getCategories() {
 		return categories;
@@ -29,11 +30,12 @@ public class MarketPlaceConfig {
 		this.prices = precios;
 	}
 
-	public Components getComponents() {
-		return components;
+	public VariabilidadDTO getVariabilidad() {
+		return variabilidad;
 	}
 
-	public void setComponents(Components components) {
-		this.components = components;
+	public void setVariabilidad(VariabilidadDTO variabilidad) {
+		this.variabilidad = variabilidad;
 	}
+
 }

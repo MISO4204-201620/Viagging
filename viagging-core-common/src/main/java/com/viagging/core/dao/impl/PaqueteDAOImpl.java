@@ -6,12 +6,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.constant.EstadoItem;
 import com.viagging.core.dao.PaqueteDAO;
 import com.viagging.core.model.Paquete;
+import com.viagging.exception.ProductCapabiltyException;
 
 /**
  * The Class ModuloDAOImpl.
@@ -43,9 +45,26 @@ public class PaqueteDAOImpl implements PaqueteDAO {
 	@Override
 	public Paquete updatePaquete(Paquete paquete) {
 		Paquete _paquete = entityManager.find(Paquete.class, paquete.getId());
-		_paquete.setNombrePaquete(paquete.getNombrePaquete());
-		_paquete.setDescripcion(paquete.getDescripcion());
-		_paquete.setPrecio(paquete.getPrecio());
+		if(StringUtils.isNotEmpty(paquete.getNombrePaquete())){
+			_paquete.setNombrePaquete(paquete.getNombrePaquete());
+		}
+		if(paquete.getDescripcion() != null){
+			_paquete.setDescripcion(paquete.getDescripcion());
+		}
+		if(paquete.getPrecio() != null){
+			_paquete.setPrecio(paquete.getPrecio());
+		}
+		if(paquete.getNumeroAdquiridos() != null){
+			if(_paquete.getNumeroAdquiridos() != null){
+				int numeroAdquiridosTotal = _paquete.getNumeroAdquiridos() + paquete.getNumeroAdquiridos();
+				if(numeroAdquiridosTotal > _paquete.getCapacidad()){
+					throw new ProductCapabiltyException("No hay suficiente disponibilidad de este servicio");
+				}
+				_paquete.setNumeroAdquiridos(numeroAdquiridosTotal);
+			}else{
+				_paquete.setNumeroAdquiridos(paquete.getNumeroAdquiridos());
+			}
+		}
 		entityManager.persist(_paquete);
 		return _paquete;
 	}

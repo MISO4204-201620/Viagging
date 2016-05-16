@@ -19,6 +19,7 @@ import com.viagging.api.util.ProductsUtil;
 import com.viagging.core.model.Orden;
 import com.viagging.core.model.Paquete;
 import com.viagging.core.model.Servicio;
+import com.viagging.core.services.PaqueteService;
 import com.viagging.core.services.ServicioService;
 import com.viagging.exception.ProductCapabiltyException;
 
@@ -35,6 +36,9 @@ public class PaymentsController {
 	
 	@Autowired
 	private ServicioService servicioService;
+	
+	@Autowired
+	private PaqueteService paqueteService;
 	
 	@RequestMapping(value="/payments/submit", method = RequestMethod.POST)
 	public ResponseEntity<Orden> submitPayment(@RequestBody Payment payment){
@@ -65,8 +69,8 @@ public class PaymentsController {
 			} else if(productsUtil.isPaqueteProducto(producto.getId())){
 				Paquete paquete = new Paquete();
 				paquete.setId(productId);
-//				paquete.setNumeroAdquiridos(producto.getCantidad());
-//				paqueteService.updatePaquete(paquete);
+				paquete.setNumeroAdquiridos(producto.getCantidad());
+				paqueteService.updatePaquete(paquete);
 			}
 		}
 	}
