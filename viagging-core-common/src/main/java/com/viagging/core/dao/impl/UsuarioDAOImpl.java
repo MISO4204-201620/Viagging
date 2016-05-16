@@ -7,12 +7,14 @@ import javax.persistence.Query;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.viagging.core.constant.EstadoItem;
 import com.viagging.core.dao.UsuarioDAO;
 import com.viagging.core.model.Usuario;
+import com.viagging.core.model.mapper.UsuarioMapper;
 
 @Transactional
 @Repository
@@ -23,6 +25,9 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	/** The entity manager. */
 	@PersistenceContext
 	private EntityManager entityManager;
+	
+	@Autowired
+	private UsuarioMapper usuarioMapper;
     
 	@Override
 	public Usuario findUsuarioByLoginAndPassword(String login, String password) {
@@ -48,9 +53,12 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		entityManager.persist(usuario);
 		return usuario;
 	}
-
+	
+	@Override
 	public Usuario updateUsuario(Usuario usuario) {
-		entityManager.merge(usuario);
+		Usuario _usuario = entityManager.find(Usuario.class, usuario.getId());
+		usuarioMapper.updateObject(_usuario, usuario);
+		entityManager.persist(_usuario);
 		return usuario;
 	}
 	

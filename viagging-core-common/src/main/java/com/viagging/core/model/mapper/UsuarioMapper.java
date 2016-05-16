@@ -3,8 +3,8 @@ package com.viagging.core.model.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import com.viagging.core.model.Usuario;
 import com.viagging.rest.dto.UsuarioDTO;
@@ -33,6 +33,45 @@ public class UsuarioMapper {
 			usuarios.add(mapObject(usuarioDTO));
 		return usuarios;
 		
+	}
+	
+	public void updateObject(Usuario usuario, Usuario newUsuario){
+		if(StringUtils.isNotEmpty(newUsuario.getPrimerNombre())){
+			usuario.setPrimerNombre(newUsuario.getPrimerNombre());
+		}
+		if(StringUtils.isNotEmpty(newUsuario.getSegundoNombre())){
+			usuario.setSegundoNombre(newUsuario.getSegundoNombre());
+		}
+		if(StringUtils.isNotEmpty(newUsuario.getPrimerApellido())){
+			usuario.setPrimerApellido(newUsuario.getPrimerApellido());
+		}
+		if(StringUtils.isNotEmpty(newUsuario.getSegundoApellido())){
+			usuario.setSegundoApellido(newUsuario.getSegundoApellido());
+		}
+		if(StringUtils.isNotEmpty(newUsuario.getCorreo())){
+			usuario.setCorreo(newUsuario.getCorreo());
+		}
+		if(StringUtils.isNotEmpty(newUsuario.getNumeroCelular())){
+			usuario.setNumeroCelular(newUsuario.getNumeroCelular());
+		}
+		if(StringUtils.isNotEmpty(newUsuario.getDireccion1())){
+			usuario.setDireccion1(newUsuario.getDireccion1());
+		}
+		if(StringUtils.isNotEmpty(newUsuario.getDireccion2())){
+			usuario.setDireccion2(newUsuario.getDireccion2());
+		}
+		if(StringUtils.isNotEmpty(newUsuario.getCiudad())){
+			usuario.setCiudad(newUsuario.getCiudad());
+		}
+		if(StringUtils.isNotEmpty(newUsuario.getPais())){
+			usuario.setPais(newUsuario.getPais());
+		}
+		if(StringUtils.isNotEmpty(newUsuario.getEstado())){
+			usuario.setEstado(newUsuario.getEstado());
+		}
+		if(StringUtils.isNotEmpty(newUsuario.getZipcode())){
+			usuario.setZipcode(newUsuario.getZipcode());
+		}
 	}
 		
 }
