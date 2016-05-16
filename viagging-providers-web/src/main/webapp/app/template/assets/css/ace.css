@@ -13829,7 +13829,7 @@ li.item-default {
 }
 .message-item .time {
   float: right;
-  width: 60px;
+  width: 100px;
   height: 18px;
   text-overflow: ellipsis;
   overflow: hidden;

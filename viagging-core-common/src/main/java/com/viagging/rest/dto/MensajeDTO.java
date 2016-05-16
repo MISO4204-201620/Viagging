@@ -16,6 +16,16 @@ public class MensajeDTO {
 	private Integer idConversacion;
 	
 	private Integer idUsuario;
+	
+	private String primerNombre;
+	
+	public String getPrimerNombre() {
+		return primerNombre;
+	}
+
+	public void setPrimerNombre(String primerNombre) {
+		this.primerNombre = primerNombre;
+	}
 
 	public Integer getId() {
 		return id;
