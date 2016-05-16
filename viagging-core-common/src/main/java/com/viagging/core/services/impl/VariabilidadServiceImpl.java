@@ -27,8 +27,14 @@ public class VariabilidadServiceImpl implements VariabilidadService{
 	@Value("${derivador.twitter}")
 	private boolean hasTwitter;
 	
+	@Value("${derivador.pfacebook}")
+	private boolean hasPublishFacebook;
+	
+	@Value("${derivador.ptwitter}")
+	private boolean hasPublishTwitter;
+	
 	@Override
 	public VariabilidadDTO getVariabilidad() {
-		return new VariabilidadDTO(hasReport, hasMessage, hasComments, hasWeather, hasFacebook, hasTwitter);
+		return new VariabilidadDTO(hasReport, hasMessage, hasComments, hasWeather, hasFacebook, hasTwitter, hasPublishFacebook, hasPublishTwitter);
 	}
 }

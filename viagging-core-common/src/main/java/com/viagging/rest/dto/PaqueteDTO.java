@@ -26,6 +26,8 @@ public class PaqueteDTO {
 	
 	private String capacidad;
 	
+	private Integer numeroAdquiridos;
+	
 	private UsuarioDTO usuario;
 	
 	private List<ServicioDTO>servicios;
@@ -118,6 +120,14 @@ public class PaqueteDTO {
 
 	public void setFechaFinal(String fechaFinal) {
 		this.fechaFinal = fechaFinal;
+	}
+	
+	public Integer getNumeroAdquiridos() {
+		return numeroAdquiridos;
+	}
+
+	public void setNumeroAdquiridos(Integer numeroAdquiridos) {
+		this.numeroAdquiridos = numeroAdquiridos;
 	}
 
 	public static List<PaqueteDTO> buildListObject(List<Paquete> listaPaquete){

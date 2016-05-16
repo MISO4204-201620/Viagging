@@ -81,7 +81,7 @@ marketPlaceApp.controller('RegisterCtrl', ['$scope', '$rootScope', '$state', 'lo
 	});
 
 	$scope.initRegisterCtrl = function(){
-		$scope.components = configService.getComponents();
+		$scope.variability = configService.getVariability();
 	}();
 
 }]);

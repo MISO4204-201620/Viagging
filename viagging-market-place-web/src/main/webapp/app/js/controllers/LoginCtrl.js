@@ -58,6 +58,6 @@ marketPlaceApp.controller('LoginCtrl', ['$scope', '$rootScope', '$state', 'login
 	});
 
 	$scope.initLoginCtrl = function(){
-		$scope.components = configService.getComponents();
+		$scope.variability = configService.getVariability();
 	}();
 }]);

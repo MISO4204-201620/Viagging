@@ -25,6 +25,8 @@ public class PaqueteDTOMapper {
 		paqueteDTO.setNombre(paquete.getNombrePaquete());
 		paqueteDTO.setDescripcion(paquete.getDescripcion());
 		paqueteDTO.setPrecio(String.valueOf(paquete.getPrecio()));
+		paqueteDTO.setCapacidad(paquete.getCapacidad().toString());
+		paqueteDTO.setNumeroAdquiridos(paquete.getNumeroAdquiridos());
 		paqueteDTO.setServicios(servicioDTOMapper.mapObjectListFromPaqueteServicio(paquete.getPaqueteServicios()));
 		paqueteDTO.setUsuario(usuarioDTOMapper.mapObject(paquete.getUsuario()));
 		return paqueteDTO;
