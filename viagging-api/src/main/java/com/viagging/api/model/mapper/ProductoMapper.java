@@ -32,8 +32,8 @@ public class ProductoMapper {
 		producto.setTipoProducto(ProductType.PAQUETE);
 		producto.setServicios(paquete.getServicios());
 		producto.setPrecio(new BigDecimal(paquete.getPrecio()));
-		producto.setCapacidad(20);//TODO
-		producto.setNumeroAdquiridos(3);//TODO
+		producto.setCapacidad(Integer.parseInt(paquete.getCapacidad()));
+		producto.setNumeroAdquiridos(paquete.getNumeroAdquiridos());
 		producto.setActivo(paquete.getActivo());
 		producto.setProveedor(paquete.getUsuario());
 		producto.setImagenes(new ArrayList<String>());
