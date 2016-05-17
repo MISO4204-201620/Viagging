@@ -74,5 +74,57 @@ public class MavenVariability {
 			e.printStackTrace();
 		}
 	}
+	
+	public void modifyMvcConfig(String fileName, String path, String idBean, String classBean, boolean active) {
+
+		String file = Utils.getAttributeConfiguration(fileName, path);
+		try {
+			File fXmlFile = new File(file);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(fXmlFile);
+			doc.getDocumentElement().normalize();
+			NodeList nList = doc.getElementsByTagName("beans");
+			
+			for (int i = 0; i < nList.getLength(); i++) {
+				Node modulesElement = nList.item(i);
+				
+				boolean moduleExists = false;
+				Node moduleNode = null;
+				for(int j = 0; j < modulesElement.getChildNodes().getLength(); j++){
+					Node moduleElement = modulesElement.getChildNodes().item(j);
+					if(moduleElement.getNodeName().equals("bean") && moduleElement.getAttributes().getLength() > 1 ) {
+						String _class = moduleElement.getAttributes().item(0).getTextContent();
+						String id = moduleElement.getAttributes().item(1).getTextContent();
+						if (id.equals(idBean) && _class.equals(classBean)) {
+							moduleExists = true;
+							moduleNode = moduleElement;
+							break;
+						}
+					}
+				}
+				
+				if(moduleExists && !active){
+					System.out.println("Removiendo dependencia " + idBean);
+					modulesElement.removeChild(moduleNode);
+				} else if(!moduleExists && active) {
+					System.out.println("Agregando dependencia " + idBean);
+					Element bean = doc.createElement("bean");
+					bean.setAttribute("id", idBean);
+					bean.setAttribute("class", classBean);
+					modulesElement.appendChild(bean);
+				}
+			}
+			
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File(file));
+			transformer.transform(source, result);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
