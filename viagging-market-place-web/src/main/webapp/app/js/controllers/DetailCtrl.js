@@ -1,5 +1,5 @@
-marketPlaceApp.controller('DetailCtrl', ['$scope', '$state', 'product','ngCart', 'wishListService', 'userService', 'productsService', 'configService', 'messagesService',
-     function($scope, $state, product, ngCart, wishListService, userService, productsService, configService, messagesService){
+marketPlaceApp.controller('DetailCtrl', ['$scope', '$state', 'product','ngCart', 'wishListService', 'userService', 'productsService', 'configService', 'messagesService', 'weather',
+     function($scope, $state, product, ngCart, wishListService, userService, productsService, configService, messagesService, weather){
 
 	'use strict';
 
@@ -74,6 +74,7 @@ marketPlaceApp.controller('DetailCtrl', ['$scope', '$state', 'product','ngCart',
     	$scope.variability = configService.getVariability();
     	$scope.ngCart = ngCart;
     	$scope.product = product;
+    	$scope.weather = weather;
     	$scope.comentarioCalificacion = {};
     	$scope.preguntaProducto = {};
 

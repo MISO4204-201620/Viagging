@@ -2,6 +2,8 @@ marketPlaceApp.service('productsService', ['$http', '$q', 'userService', functio
 
 	var products = [];
 	
+	var currentProduct = {};
+	
 	var productsService = {
 
 		getAllProducts : function(){
@@ -94,6 +96,10 @@ marketPlaceApp.service('productsService', ['$http', '$q', 'userService', functio
 	            cache: false,
 	            data: question
 	        }).success(successCallback).error(errorCallback);
+		},
+		
+		getCurrentProduct: function(){
+			return currentProduct;
 		}
 	};
 
