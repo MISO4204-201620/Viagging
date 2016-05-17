@@ -4,6 +4,7 @@ java -jar viagging-builder.jar
 pause
 
 echo 2. Eliminando archivos desactualizados
+mkdir deploy
 del /s /q deploy\*.*
 cd..
 del /s /q viagging-admin-web\target\*.*
