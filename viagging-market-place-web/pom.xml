@@ -16,5 +16,7 @@
 			<version>1.0</version>
 		</dependency>
 	</dependencies>
-
+	<build>
+       <finalName>viagging-market-place-web</finalName>
+   </build>
 </project>
