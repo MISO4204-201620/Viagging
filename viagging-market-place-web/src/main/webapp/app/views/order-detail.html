@@ -22,7 +22,7 @@
 									<td>Precio (Persona)</td>
 								</tr>
 								<tr ng-repeat="compra in order.compras">
-									<td>{{compra.producto.nombre}}</td>
+									<td><a ui-sref="detail({productId:compra.producto.id})">{{compra.producto.nombre}}</td>
 									<td>{{compra.cantidad}}</td>
 									<td>{{compra.producto.precio | currency}}</td>
 								</tr>

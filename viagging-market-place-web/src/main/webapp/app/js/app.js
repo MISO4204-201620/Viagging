@@ -82,6 +82,16 @@ marketPlaceApp.config(['$stateProvider', 'helloProvider', function($stateProvide
 			templateUrl: '../app/views/checkout.html',
 			controller: 'CheckoutCtrl'
 		})
+		.state("order-response", {
+			url: "/checkout/order/:orderId",
+			templateUrl: '../app/views/order-response.html',
+			resolve: {
+				order : ['ordersService', '$stateParams', function(ordersService, $stateParams){
+					return ordersService.getOrderById($stateParams.orderId);
+				}]
+			},
+			controller: 'OrderResponseCtrl'
+		})
 		.state("wishlist", {
 			url: "/user/wishlist",
 			templateUrl: '../app/views/wishlist.html',
