@@ -4,7 +4,6 @@ java -jar viagging-builder.jar
 pause
 
 echo 2. Eliminando archivos desactualizados
-mkdir deploy
 del /s /q deploy\*.*
 cd..
 del /s /q viagging-admin-web\target\*.*
@@ -21,13 +20,13 @@ start mvn clean install
 pause
 
 echo 4. Copiando archivos de despliegue
-xcopy /s viagging-admin-web\target\viagging-admin-web.war viagging-derivador\deploy\
-xcopy /s viagging-providers-web\target\viagging-providers-web.war viagging-derivador\deploy\
-xcopy /s viagging-api\target\viagging-api.war viagging-derivador\deploy\
-xcopy /s viagging-api-report\target\viagging-api-report.war viagging-derivador\deploy\
-xcopy /s viagging-api-weather\target\viagging-api-weather.war viagging-derivador\deploy\
-xcopy /s viagging-api-message\target\viagging-api-message.war viagging-derivador\deploy\
-xcopy /s viagging-market-place-web\target\viagging-market-place-web.war viagging-derivador\deploy\
+xcopy /s viagging-admin-web\target\viagging-admin-web.war viagging-builder\deploy\
+xcopy /s viagging-providers-web\target\viagging-providers-web.war viagging-builder\deploy\
+xcopy /s viagging-api\target\viagging-api.war viagging-builder\deploy\
+xcopy /s viagging-api-report\target\viagging-api-report.war viagging-builder\deploy\
+xcopy /s viagging-api-weather\target\viagging-api-weather.war viagging-builderr\deploy\
+xcopy /s viagging-api-message\target\viagging-api-message.war viagging-builder\deploy\
+xcopy /s viagging-market-place-web\target\viagging-market-place-web.war viagging-builder\deploy\
 
 echo Proceso finalizado
 
