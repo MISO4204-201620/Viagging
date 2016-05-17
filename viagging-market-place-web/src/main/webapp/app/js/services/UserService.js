@@ -1,4 +1,4 @@
-marketPlaceApp.service('userService', [ 'storageService', function(storageService){
+marketPlaceApp.service('userService', [ 'storageService', '$http', '$q', function(storageService, $http, $q){
 
 	var userService = {
 		
@@ -12,6 +12,18 @@ marketPlaceApp.service('userService', [ 'storageService', function(storageServic
 		
 		removeUserData : function(){
 			storageService.remove('userData');
+		},
+		
+		updateUser : function(user, successCallback, errorCallback){
+			return $http({
+	            url: "/viagging-providers-web/updateUser",
+	            method: "PUT",
+	            cache: false,
+	            data: user
+	        }).success(function(){
+	        	storageService.put('userData', user);
+	        	successCallback();
+	        }).error(errorCallback);
 		}
 
 	};

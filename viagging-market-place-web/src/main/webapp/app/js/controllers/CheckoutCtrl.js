@@ -15,7 +15,7 @@ marketPlaceApp.controller('CheckoutCtrl', ['$scope', 'ngCart', 'userService', '$
 	
 	var successCallback = function (data){
 		$scope.ngCart.empty();
-		alert("Gracias!");
+		alert("Tu compra se ha realizado con éxito!");
 		$state.go("home");
 	};
 	
@@ -50,13 +50,6 @@ marketPlaceApp.controller('CheckoutCtrl', ['$scope', 'ngCart', 'userService', '$
 		$scope.ngCart = ngCart;
 		
 		$scope.userData = userService.getUserData();
-		
-		if($scope.userData == null){
-			$state.go("login");
-		} else if($scope.userData.direccion1 == null){
-			alert("Debes completar tus datos de facturación para proceder con el pago");
-			$state.go("profile");
-		}
 	}();
 	
 }]);

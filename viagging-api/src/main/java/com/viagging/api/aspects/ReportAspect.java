@@ -18,10 +18,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.viagging.api.constants.ProductType;
-import com.viagging.api.model.Producto;
 import com.viagging.core.constant.ReportType;
 import com.viagging.core.services.MovimientoService;
+import com.viagging.rest.dto.ProductoDTO;
+import com.viagging.util.ProductType;
 
 @Aspect
 public class ReportAspect {
@@ -39,7 +39,7 @@ public class ReportAspect {
 	public void afterQuery(JoinPoint joinPoint, Object result) {
     	String usuarioId = getUsuarioIdFromRequest();
     	
-    	Producto product = (Producto) result;
+    	ProductoDTO product = (ProductoDTO) result;
 		List<String> products = new ArrayList<>();
 		products.add(product.getId().substring(1));
 		if (product.getTipoProducto() == ProductType.SERVICIO) {
@@ -54,10 +54,10 @@ public class ReportAspect {
     		returning= "result")
 	public void afterSearch(JoinPoint joinPoint, Object result) {
     	String usuarioId = getUsuarioIdFromRequest();
-		List<Producto> products =  (List<Producto>) result;
+		List<ProductoDTO> products =  (List<ProductoDTO>) result;
 		List<String> packages =  new ArrayList<>();
 		List<String> services =  new ArrayList<>();
-		for (Producto producto : products) {
+		for (ProductoDTO producto : products) {
 			if (producto.getTipoProducto() == ProductType.SERVICIO) {
 				services.add(producto.getId().substring(1));
 			} else{

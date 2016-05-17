@@ -104,6 +104,8 @@ public class UsuarioServiceImpl implements  UsuarioService  {
 		usuario.setDireccion2(usuarioDTO.getDireccion2());
 		usuario.setCiudad(usuarioDTO.getCiudad());
 		usuario.setPais(usuarioDTO.getPais());
+		usuario.setEstado(usuarioDTO.getEstado());
+		usuario.setZipcode(usuarioDTO.getZipcode());
 		return usuario;
 	}
 	

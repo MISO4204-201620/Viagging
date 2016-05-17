@@ -1,4 +1,4 @@
-package com.viagging.api.model.mapper;
+package com.viagging.rest.dto.mapper;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -7,13 +7,13 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import com.viagging.api.constants.ProductType;
-import com.viagging.api.model.Producto;
 import com.viagging.rest.dto.PaqueteDTO;
+import com.viagging.rest.dto.ProductoDTO;
 import com.viagging.rest.dto.ServicioDTO;
+import com.viagging.util.ProductType;
 
 @Component
-public class ProductoMapper {
+public class ProductoDTOMapper {
 	
 	/**
 	 * Builds the producto from paquete.
@@ -21,11 +21,11 @@ public class ProductoMapper {
 	 * @param paquete the paquete
 	 * @return the producto
 	 */
-	public Producto buildProductoFromPaquete(PaqueteDTO paquete){
+	public ProductoDTO buildProductoFromPaquete(PaqueteDTO paquete){
 		if(paquete.getServicios() == null){
 			return null;
 		}
-		Producto producto = new Producto();
+		ProductoDTO producto = new ProductoDTO();
 		producto.setId(ProductType.PAQUETE.getPrefix() + paquete.getId());
 		producto.setNombre(paquete.getNombre());
 		producto.setDescripcion(paquete.getDescripcion());
@@ -62,8 +62,8 @@ public class ProductoMapper {
 	 * @param servicio the servicio
 	 * @return the producto
 	 */
-	public Producto buildProductoFromServicio(ServicioDTO servicio){
-		Producto producto = new Producto();
+	public ProductoDTO buildProductoFromServicio(ServicioDTO servicio){
+		ProductoDTO producto = new ProductoDTO();
 		producto.setId(ProductType.SERVICIO.getPrefix() + servicio.getId());
 		producto.setNombre(servicio.getNombre());
 		producto.setDescripcion(servicio.getDescripcionCorta());

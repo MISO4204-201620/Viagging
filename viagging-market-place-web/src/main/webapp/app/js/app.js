@@ -118,10 +118,25 @@ marketPlaceApp.config(['$stateProvider', 'helloProvider', function($stateProvide
 			controller: 'MessageDetailCtrl'
 			
 		})
-		.state("purchases", {
-			url: "/user/purchases",
-			templateUrl: '../app/views/purchases.html',
-			controller: 'PurchasesCtrl'
+		.state("orders", {
+			url: "/user/orders",
+			templateUrl: '../app/views/orders.html',
+			resolve: {
+				orders : ['ordersService', function(ordersService){
+					return ordersService.getOrdersByUsuarioId();
+				}]
+			},
+			controller: 'OrdersCtrl'
+		})
+		.state("order-detail", {
+			url: "/user/orders/detail/:orderId",
+			templateUrl: '../app/views/order-detail.html',
+			resolve: {
+				order : ['ordersService', '$stateParams', function(ordersService, $stateParams){
+					return ordersService.getOrderById($stateParams.orderId);
+				}]
+			},
+			controller: 'OrderDetailCtrl'
 		})
 		.state("faq", {
 			url: "/faq",

@@ -20,7 +20,7 @@ marketPlaceApp.service('configService', ['$http', '$q', 'storageService', functi
 				return $q.resolve(marketPlaceConfig);
 			} else {
 				return $http({
-		            url: "/viagging-market-place-web/config",
+		            url: "/viagging-market-place-web/marketplace/config",
 		            method: "GET",
 		            cache: false
 		        }).then(function successCallback(response) {

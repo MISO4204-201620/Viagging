@@ -3,7 +3,7 @@ package com.viagging.api.util;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import com.viagging.api.constants.ProductType;
+import com.viagging.util.ProductType;
 
 @Component
 public class ProductsUtil {

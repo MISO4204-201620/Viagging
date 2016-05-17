@@ -1,8 +1,7 @@
 package com.viagging.api.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.ws.rs.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,12 +48,11 @@ public class MessageController {
 	
 	@RequestMapping(value = "/user/{idUsuario}/conversations", method = RequestMethod.GET)
 	public List<ConversacionDTO> getConversaciones(@PathVariable Integer idUsuario){
-		System.out.println("idUsau"+idUsuario);
-		List<ConversacionDTO> conversacionDTO = conversacionDTOMapper.mapObjectList(conversacionService.getAllConversacionesByUsuario(idUsuario));
-		if(conversacionDTO.isEmpty()){
-			throw new NotFoundException(SERVICE_ERROR_MESSAGE_NOT_FOUND);
+		List<ConversacionDTO> conversacionesDTO = conversacionDTOMapper.mapObjectList(conversacionService.getAllConversacionesByUsuario(idUsuario));
+		if(conversacionesDTO == null){
+			conversacionesDTO = new ArrayList<>();
 		}
-		return conversacionDTO;
+		return conversacionesDTO;
 	}
 	
 	@RequestMapping(value = "/conversations", method = RequestMethod.POST)
