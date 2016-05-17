@@ -18,4 +18,7 @@
 			<version>1.0</version>
 		</dependency>
 	</dependencies>
+	<build>
+       <finalName>viagging-admin-web</finalName>
+   </build>
 </project>

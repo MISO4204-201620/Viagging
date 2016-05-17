@@ -16,4 +16,7 @@
 			<version>1.0</version>
 		</dependency>
 	</dependencies>
+	<build>
+       <finalName>viagging-api-message</finalName>
+   </build>
 </project>
