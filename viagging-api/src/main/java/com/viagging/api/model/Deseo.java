@@ -1,10 +1,12 @@
 package com.viagging.api.model;
 
+import com.viagging.rest.dto.ProductoDTO;
+
 public class Deseo {
 	
 	private Integer id;
 	
-	private Producto producto;
+	private ProductoDTO producto;
 
 	public Integer getId() {
 		return id;
@@ -14,11 +16,11 @@ public class Deseo {
 		this.id = id;
 	}
 
-	public Producto getProducto() {
+	public ProductoDTO getProducto() {
 		return producto;
 	}
 
-	public void setProducto(Producto producto) {
+	public void setProducto(ProductoDTO producto) {
 		this.producto = producto;
 	}
 }
