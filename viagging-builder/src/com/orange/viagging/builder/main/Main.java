@@ -18,6 +18,7 @@ public class Main {
 
 	public static final String CONFIG_FILE_NAME = "config";
 	public static final String VIAGGING_PATH = "VIAGGING_PATH";
+	public static final String VIAGGING_API_PATH = "VIAGGING_API_PATH";
 	public static final String FEATURES_PATH = "FEATURES_PATH";
 	public static final String VARIABILITY_PROPERTIES_PATH = "VARIABILITY_PROPERTIES_PATH";
 	
@@ -64,6 +65,7 @@ public class Main {
 		boolean isReportFeature = processor.isFeature(REPORT_FEATURE);
 		propertiesVariability.changeProperties(variabilityPropertiesPath, REPORTES_FRONT, isReportFeature);
 		maven.modifyPom(CONFIG_FILE_NAME, VIAGGING_PATH, "viagging-api-report", isReportFeature);
+		maven.modifyMvcConfig(CONFIG_FILE_NAME, VIAGGING_API_PATH, "ReportAspect", "com.viagging.api.aspects.ReportAspect", isReportFeature);
 		
 		boolean isMessagingFeature = processor.isFeature(MESSAGING_FEATURE);
 		propertiesVariability.changeProperties(variabilityPropertiesPath, MESSAGING_FRONT, isMessagingFeature);
