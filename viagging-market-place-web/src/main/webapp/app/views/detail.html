@@ -30,6 +30,19 @@
 						<div class="col-lg-4 col-md-4 col-sm-4">
 							<div class="well product-short-detail">
 								<div class="row">
+									<div ng-if="variability.hasWeather && weather" class="the-list" style="position: absolute; width: 90%; top:2px;">
+										<div class="col-xs-12" style="float:right;">
+											<span style="float: right;font-size: 21px; font-family: arial;color: #555;">{{product.servicios[0].ciudad}}</span>
+										</div>
+										<div class="col-xs-12" style="float:right;">
+											<div class="col-xs-3" style="float:right;">
+												<span style="float: right;font-size: 17px;font-family: arial;color: #555;">{{weather.temp}}°C</span>
+											</div>
+											<div class="col-xs-3" style="float:right;position: relative;left: 21px;top: -12px;">
+												<img data-ng-src="http://openweathermap.org/img/w/{{weather.icon}}.png" style="width: 60px;">
+											</div>
+										</div>
+									</div>
 									<div class="the-list">
 										<h3 class="col-xs-12">{{product.precio | currency}}</h3>
 									</div>

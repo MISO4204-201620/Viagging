@@ -49,6 +49,9 @@ marketPlaceApp.config(['$stateProvider', 'helloProvider', function($stateProvide
 				}],
 				product : ['productsService', '$stateParams', function(productsService, $stateParams){
 					return productsService.getProductById($stateParams.productId);
+				}],
+				weather : ['weatherService', function(weatherService){
+					return weatherService.getWeather();
 				}]
 			},
 			controller: 'DetailCtrl'
@@ -147,10 +150,6 @@ marketPlaceApp.config(['$stateProvider', 'helloProvider', function($stateProvide
 				}]
 			},
 			controller: 'FaqCtrl'
-		})
-		.state("compare", {
-			url: "/compare",
-			templateUrl: '../app/views/compare.html'
 		})
 		.state("contact", {
 			url: "/contact",
