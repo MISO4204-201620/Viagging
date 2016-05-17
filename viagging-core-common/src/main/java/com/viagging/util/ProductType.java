@@ -1,4 +1,4 @@
-package com.viagging.api.constants;
+package com.viagging.util;
 
 public enum ProductType {
 

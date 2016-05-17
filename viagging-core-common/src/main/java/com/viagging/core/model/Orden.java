@@ -27,7 +27,8 @@ import com.viagging.core.constant.EstadoOrden;
 @Entity
 @Table(name="tp_orden")
 @NamedQueries({
-	@NamedQuery(name="Orden.findByUsuario", query="SELECT t FROM Orden t WHERE t.usuario.id = :id")
+	@NamedQuery(name="Orden.findAll", query="SELECT t FROM Orden t"),
+	@NamedQuery(name="Orden.findByUsuario", query="SELECT t FROM Orden t WHERE t.usuario.id = :idusuario")
 })
 public class Orden implements Serializable{
 

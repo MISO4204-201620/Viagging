@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.viagging.api.model.Busqueda;
-import com.viagging.api.model.Producto;
-import com.viagging.api.model.mapper.ProductoMapper;
 import com.viagging.api.util.ProductsUtil;
 import com.viagging.core.model.ComentarioCalificacion;
 import com.viagging.core.model.Paquete;
@@ -23,10 +21,12 @@ import com.viagging.core.services.PreguntaService;
 import com.viagging.core.services.ServicioService;
 import com.viagging.rest.dto.ComentarioCalificacionDTO;
 import com.viagging.rest.dto.PaqueteDTO;
+import com.viagging.rest.dto.ProductoDTO;
 import com.viagging.rest.dto.ServicioDTO;
 import com.viagging.rest.dto.mapper.ComentarioCalificacionDTOMapper;
 import com.viagging.rest.dto.mapper.PaqueteDTOMapper;
 import com.viagging.rest.dto.mapper.PreguntaDTOMapper;
+import com.viagging.rest.dto.mapper.ProductoDTOMapper;
 import com.viagging.rest.dto.mapper.ServicioDTOMapper;
 
 /**
@@ -53,7 +53,7 @@ public class ProductsService {
 	private ServicioDTOMapper servicioDTOMapper;
 
 	@Autowired
-	private ProductoMapper productoMapper;
+	private ProductoDTOMapper productoMapper;
 
 	@Autowired
 	private PreguntaDTOMapper preguntaDTOMapper;
@@ -72,7 +72,7 @@ public class ProductsService {
 	 *
 	 * @return the all products
 	 */
-	public List<Producto> getAllProducts(){
+	public List<ProductoDTO> getAllProducts(){
 		List<PaqueteDTO> paquetes = paqueteDTOMapper.mapObjectList(paqueteService.getAllPaquete());
 		List<ServicioDTO> servicios = servicioDTOMapper.mapObjectList(servicioService.getAllServicio());
 		return buildProductosFromPaquetesAndServicios(paquetes, servicios);
@@ -84,9 +84,9 @@ public class ProductsService {
 	 * @param productId the product id
 	 * @return the product by id
 	 */
-	public Producto getProductById(String productId){
+	public ProductoDTO getProductById(String productId){
 		Integer id = productsUtil.getProductId(productId);
-		Producto producto = new Producto();
+		ProductoDTO producto = new ProductoDTO();
 		if(productsUtil.isPaqueteProducto(productId)){
 			PaqueteDTO paquete = paqueteDTOMapper.mapObject(paqueteService.getPaqueteById(id));
 			producto = buildProductoFromPaquete(paquete);
@@ -116,8 +116,8 @@ public class ProductsService {
 	 * @param paquete the paquete
 	 * @return the producto
 	 */
-	private Producto buildProductoFromPaquete(PaqueteDTO paquete) {
-		Producto producto = productoMapper.buildProductoFromPaquete(paquete);
+	private ProductoDTO buildProductoFromPaquete(PaqueteDTO paquete) {
+		ProductoDTO producto = productoMapper.buildProductoFromPaquete(paquete);
 
 		List<Pregunta> preguntas = preguntaService.findPreguntasByPaquete(paquete.getId());
 		if(preguntas != null){
@@ -137,8 +137,8 @@ public class ProductsService {
 	 * @param servicio the servicio
 	 * @return the producto
 	 */
-	private Producto buildProductoFromServicio(ServicioDTO servicio) {
-		Producto producto = productoMapper.buildProductoFromServicio(servicio);
+	private ProductoDTO buildProductoFromServicio(ServicioDTO servicio) {
+		ProductoDTO producto = productoMapper.buildProductoFromServicio(servicio);
 
 		List<Pregunta> preguntas = preguntaService.findPreguntasByServicio(servicio.getId());
 		if(preguntas != null){
@@ -159,16 +159,16 @@ public class ProductsService {
 	 * @param servicios the servicios
 	 * @return the list
 	 */
-	private List<Producto> buildProductosFromPaquetesAndServicios(List<PaqueteDTO> paquetes, List<ServicioDTO> servicios){
-		List<Producto> productos = new ArrayList<>();
+	private List<ProductoDTO> buildProductosFromPaquetesAndServicios(List<PaqueteDTO> paquetes, List<ServicioDTO> servicios){
+		List<ProductoDTO> productos = new ArrayList<>();
 		for(PaqueteDTO paquete : paquetes){
-			Producto productoPaquete = productoMapper.buildProductoFromPaquete(paquete);
+			ProductoDTO productoPaquete = productoMapper.buildProductoFromPaquete(paquete);
 			if(productoPaquete != null && productoPaquete.getActivo()){
 				productos.add(productoPaquete);
 			}
 		}
 		for(ServicioDTO servicio : servicios){
-			Producto productoServicio = productoMapper.buildProductoFromServicio(servicio);
+			ProductoDTO productoServicio = productoMapper.buildProductoFromServicio(servicio);
 			if(productoServicio != null && productoServicio.getActivo()){
 				productos.add(productoServicio);
 			}
@@ -176,7 +176,7 @@ public class ProductsService {
 		return productos;
 	}
 
-	public List<Producto> findProducts(Busqueda busqueda){
+	public List<ProductoDTO> findProducts(Busqueda busqueda){
 		//Find servicios
 		Servicio servicio = new Servicio();
 		servicio.setNombre(busqueda.getTexto());
@@ -194,7 +194,7 @@ public class ProductsService {
 		List<Paquete> paquetes = paqueteService.findAllByCriteria(paquete);
 		List<PaqueteDTO> paquetesDTO = paqueteDTOMapper.mapObjectList(paquetes);
 
-		List<Producto> productos = buildProductosFromPaquetesAndServicios(paquetesDTO, serviciosDTO);
+		List<ProductoDTO> productos = buildProductosFromPaquetesAndServicios(paquetesDTO, serviciosDTO);
 
 		return productos;
 	}

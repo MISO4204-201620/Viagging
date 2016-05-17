@@ -1,18 +1,14 @@
-package com.viagging.api.model;
+package com.viagging.rest.dto;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.viagging.api.constants.ProductType;
-import com.viagging.rest.dto.ComentarioCalificacionDTO;
-import com.viagging.rest.dto.PreguntaDTO;
-import com.viagging.rest.dto.ServicioDTO;
-import com.viagging.rest.dto.UsuarioDTO;
+import com.viagging.util.ProductType;
 
 /**
  * The Class Producto.
  */
-public class Producto {
+public class ProductoDTO {
 
 	/** The producto id. */
 	private String id;

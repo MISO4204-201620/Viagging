@@ -14,6 +14,7 @@ import com.viagging.rest.dto.NombreValorDTO;
 import com.viagging.rest.model.MarketPlaceConfig;
 import com.viagging.util.CategoryEnum;
 
+@RequestMapping("/marketplace")
 @RestController
 public class MarketPlaceController {
 
