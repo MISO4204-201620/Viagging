@@ -1,6 +1,6 @@
 marketPlaceApp.controller('OrderDetailCtrl', ['$scope', 'order', function($scope, order){
 
-	initOrdersCtrl = function(){
+	initOrderDetailCtrl = function(){
 		$scope.order = order;
 	}();
 	

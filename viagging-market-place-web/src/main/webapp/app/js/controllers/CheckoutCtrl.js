@@ -16,7 +16,7 @@ marketPlaceApp.controller('CheckoutCtrl', ['$scope', 'ngCart', 'userService', '$
 	var successCallback = function (data){
 		$scope.ngCart.empty();
 		alert("Tu compra se ha realizado con éxito!");
-		$state.go("home");
+		$state.go("order-response", { orderId : data.id });
 	};
 	
 	var errorCallback = function(data, status, header, config){
