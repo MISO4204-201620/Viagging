@@ -67,7 +67,7 @@ marketPlaceApp.service('productsService', ['$http', '$q', 'userService', functio
 	            method: "POST",
 	            cache: false,
 	            data: busqueda,
-	            headeres: headers
+	            headers: headers
 	        }).then(function successCallback(response) {
 	        	if(angular.isArray(response.data)){
 	        		products = response.data;
