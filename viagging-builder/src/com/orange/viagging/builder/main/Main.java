@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.orange.viagging.builder.IFeatureReader;
 import com.orange.viagging.builder.IPropertiesVariability;
+import com.orange.viagging.builder.impl.BeanVariability;
 import com.orange.viagging.builder.impl.ComponentScanVariability;
 import com.orange.viagging.builder.impl.FeatureTxtReader;
 import com.orange.viagging.builder.impl.MavenVariability;
@@ -52,11 +53,12 @@ public class Main {
 	}
 
 	public void run() {
-		System.out.println("--> INICIO PROCESO DE DERIVACIÓN DE PRODUCTO\n");
+		System.out.println("--> INICIO PROCESO DE DERIVACIï¿½N DE PRODUCTO\n");
 		IFeatureReader reader = new FeatureTxtReader();
 		IPropertiesVariability propertiesVariability = new PropertiesVariability();
-		MavenVariability maven = new MavenVariability();
-		ComponentScanVariability component = new ComponentScanVariability();
+		MavenVariability mavenVariability = new MavenVariability();
+		ComponentScanVariability componentVariability = new ComponentScanVariability();
+		BeanVariability beanVariability = new BeanVariability();
 		
 		System.out.println("Leyendo archivo de features\n");
 		String featuresPath = Utils.getAttributeConfiguration(CONFIG_FILE_NAME, FEATURES_PATH);
@@ -69,15 +71,16 @@ public class Main {
 		
 		boolean isReportFeature = processor.isFeature(REPORT_FEATURE);
 		propertiesVariability.changeProperties(variabilityPropertiesPath, REPORTES_FRONT, isReportFeature);
-		maven.modifyPom(CONFIG_FILE_NAME, VIAGGING_PATH, "viagging-api-report", isReportFeature);
+		beanVariability.modifyMvcConfig(CONFIG_FILE_NAME, VIAGGING_API_MVC_CONFIG_PATH, "ReportAspect", "com.viagging.api.aspects.ReportAspect", isReportFeature);
+		mavenVariability.modifyPom(CONFIG_FILE_NAME, VIAGGING_PATH, "viagging-api-report", isReportFeature);
 		
 		boolean isMessagingFeature = processor.isFeature(MESSAGING_FEATURE);
 		propertiesVariability.changeProperties(variabilityPropertiesPath, MESSAGING_FRONT, isMessagingFeature);
-		maven.modifyPom(CONFIG_FILE_NAME, VIAGGING_PATH, "viagging-api-message", isMessagingFeature);
+		mavenVariability.modifyPom(CONFIG_FILE_NAME, VIAGGING_PATH, "viagging-api-message", isMessagingFeature);
 		
 		boolean isCommentsFeature = processor.isFeature(COMMENTS_FEATURE);
 		propertiesVariability.changeProperties(variabilityPropertiesPath, COMMENTS_FRONT, isCommentsFeature);
-		component.modifyMvcConfig(CONFIG_FILE_NAME, VIAGGING_API_MVC_CONFIG_PATH, COMMENTS_CTRL_COMPONENT, isCommentsFeature);
+		componentVariability.modifyMvcConfig(CONFIG_FILE_NAME, VIAGGING_API_MVC_CONFIG_PATH, COMMENTS_CTRL_COMPONENT, isCommentsFeature);
 		
 		boolean isFacebookFeature = processor.isFeature(FACEBOOK_FEATURE);
 		propertiesVariability.changeProperties(variabilityPropertiesPath, FACEBOOK_FRONT, isFacebookFeature);
@@ -93,8 +96,8 @@ public class Main {
 		
 		boolean isWeatherFeature = processor.isFeature(WEATHER_FEATURE);
 		propertiesVariability.changeProperties(variabilityPropertiesPath, WEATHER_FRONT, isWeatherFeature);
-		maven.modifyPom(CONFIG_FILE_NAME, VIAGGING_PATH, "viagging-api-weather", isWeatherFeature);
+		mavenVariability.modifyPom(CONFIG_FILE_NAME, VIAGGING_PATH, "viagging-api-weather", isWeatherFeature);
 		
-		System.out.println("\n--> FIN PROCESO DE DERIVACIÓN DE PRODUCTO ");
+		System.out.println("\n--> FIN PROCESO DE DERIVACIï¿½N DE PRODUCTO ");
 	}
 }
