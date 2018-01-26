@@ -2,20 +2,15 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.viagging</groupId>
-    <artifactId>viagging-app</artifactId>
+    <groupId>com.cloud</groupId>
+    <artifactId>cloud-app</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
-    <name>Viagging App</name>
+    <name>cloud App</name>
 
     <modules>
-        <module>viagging-core-common</module>
-        <module>viagging-api</module>
-        <module>viagging-market-place-web</module>
-        <module>viagging-admin-web</module>
-		<module>viagging-providers-web</module>
-	    <module>viagging-api-report</module>
-	    <module>viagging-api-message</module>
+        <module>cloud-api</module>
+        <module>cloud-admin-web</module>
     </modules>
 
 	<properties>
